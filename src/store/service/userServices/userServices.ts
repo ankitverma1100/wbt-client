@@ -1,0 +1,357 @@
+import type {
+  BaseQueryFn,
+  FetchBaseQueryError
+} from "@reduxjs/toolkit/query/react";
+import {
+  createApi
+} from "@reduxjs/toolkit/query/react";
+import { dynamicBaseQuery } from "../dynamicBaseQuery";
+import type {
+  ActiveUserReq,
+  ActiveUserRes,
+  BetListLegdgerProps,
+  BetListLegdgerRes,
+  BetListReq,
+  BetListRes,
+  BetPlacedRes,
+  BetplacedReq,
+  CasinoBetPlacePaylod,
+  ChanelRes,
+  ChangePaaReq,
+  ChangePaaRes,
+  ChannelIdRes,
+  ChannelIdpayload,
+  FancyBookRes,
+  LedgerBody,
+  LedgerDataRes,
+  LedgerDetailsReq,
+  LedgerDetailsRes,
+  LedgerListData,
+  LedgerPaylod,
+  LedgerReq,
+  LogOutRes,
+  MatchBetCountReq,
+  MatchBetCountResponse,
+  OddsResponse,
+  SessionPlusMinusRes,
+  UserBalance,
+  UserCreateBody,
+  UserCreateRequestBody,
+  UserCreateResBody,
+  UserDetailsUpdateReq,
+  UserDetailsUpdateRes,
+  UserPassRequest,
+  UserPassResponse,
+  UserProfile,
+  UserRequestBody,
+  UserResponse,
+  activeMatchRes,
+  casinoResponse,
+  channelReq,
+  fancyBookreq,
+  healthRes,
+  matkaBetPlacePayload,
+  matkaListRes,
+  matkaListResponse,
+  matkaPayload,
+  mybetRequest,
+  mybetResponce,
+  rateDeffReq,
+  rateDeffRes,
+  useNameRequest,
+  useNameRes,
+  usedCoinReq,
+  usedCoinRes,
+} from "./user";
+
+export const userList = createApi({
+  reducerPath: "userList",
+  baseQuery: dynamicBaseQuery as BaseQueryFn<
+    string | { url: string; method: string; body?: any },
+    unknown,
+    FetchBaseQueryError
+  >,
+  endpoints: (build) => ({
+    userList: build.mutation<UserResponse, UserRequestBody>({
+      query: (body) => ({
+        url: "/user/list-user",
+        method: "POST",
+        body,
+      }),
+    }),
+    userName: build.mutation<useNameRes, useNameRequest>({
+      query: (body) => ({
+        url: "/user/username-id-search",
+        method: "POST",
+        body,
+      }),
+    }),
+    userDetailForEdit: build.mutation<useNameRes, UserCreateRequestBody>({
+      query: (body) => ({
+        url: "/user/get-detail-for-user-creation",
+        method: "POST",
+        body,
+      }),
+    }),
+    userCreate: build.mutation<UserCreateResBody, UserCreateBody>({
+      query: (body) => ({
+        url: "/user/create",
+        method: "POST",
+        body,
+      }),
+    }),
+    userProfile: build.mutation<UserProfile, void>({
+      query: () => ({
+        url: "/enduser/get-self-profile",
+        method: "POST",
+      }),
+    }),
+    ChangePassword: build.mutation<ChangePaaRes, ChangePaaReq>({
+      query: (body) => ({
+        url: "/user/changepassword-self",
+        method: "POST",
+        body,
+      }),
+    }),
+    userDetailEdit: build.mutation<UserDetailsUpdateRes, UserDetailsUpdateReq>({
+      query: (body) => ({
+        url: "/user/user-detail-for-edit",
+        method: "POST",
+        body,
+      }),
+    }),
+    userActive: build.mutation<ActiveUserRes, ActiveUserReq>({
+      query: (body) => ({
+        url: "/user/activate-deactivate-user",
+        method: "POST",
+        body,
+      }),
+    }),
+    LedgerDepositWidthdraw: build.mutation<LedgerBody, LedgerPaylod>({
+      query: (body) => ({
+        url: "/ledger/ledger-dep-wid",
+        method: "POST",
+        body,
+      }),
+    }),
+    LedgerDetails: build.mutation<LedgerDetailsRes, LedgerDetailsReq>({
+      query: (body) => ({
+        url: "/ledger/get-ledger-cash-trans-userid",
+        method: "POST",
+        body,
+      }),
+    }),
+    LogOut: build.mutation<LogOutRes, void>({
+      query: (body) => ({
+        url: "/login/logout",
+        method: "POST",
+        body,
+      }),
+    }),
+    userMessage: build.mutation<LogOutRes, void>({
+      query: (body) => ({
+        url: "/message/get-message",
+        method: "POST",
+        body,
+      }),
+    }),
+    betPlaced: build.mutation<BetPlacedRes, BetplacedReq>({
+      query: (body) => ({
+        url: "/bet/place",
+        method: "POST",
+        body,
+      }),
+    }),
+    UpdateRate: build.mutation<rateDeffRes, rateDeffReq>({
+      query: (body) => ({
+        url: "/enduser/update-rate-difference",
+        method: "POST",
+        body,
+      }),
+    }),
+    UserCahngePassword: build.mutation<UserPassResponse, UserPassRequest>({
+      query: (body) => ({
+        url: "/user/changepassword-self",
+        method: "POST",
+        body,
+      }),
+    }),
+    casinoList: build.query<casinoResponse, void>({
+      query: () => ({
+        url: "/casino/casino-list",
+        method: "POST",
+      }),
+    }),
+    getUserBalance: build.query<UserBalance, void>({
+      query: () => ({
+        url: "/enduser/get-balance",
+        method: "POST",
+      }),
+    }),
+    healthCheck: build.mutation<healthRes, void>({
+      query: () => ({
+        url: `/health-check`,
+        method: "GET",
+      }),
+    }),
+    getBetListBymatchId: build.query<BetListRes, BetListReq>({
+      query: (body) => ({
+        url: `/enduser/bet-list-by-matchid`,
+        method: "POST",
+        body
+      }),
+    }),
+    getOddsPnl: build.query<OddsResponse, BetListReq>({
+      query: (body) => ({
+        url: `/enduser/user-odds-pnl`,
+        method: "POST",
+        body
+      }),
+    }),
+    getSessionPlusMinus: build.query<SessionPlusMinusRes, BetListReq>({
+      query: (body) => ({
+        url: `/enduser/session-plus-minus-user-eventpage`,
+        method: "POST",
+        body
+      }),
+    }),
+    getLedgerDetails: build.mutation<LedgerDataRes, {}>({
+      query: (body) => ({
+        url: `/enduser/ledger`,
+        method: "POST",
+        body
+      }),
+    }),
+    getLedgerBetDetails: build.mutation<LedgerListData, LedgerReq>({
+      query: (body) => ({
+        url: `/enduser/get-enduser-bet-detail`,
+        method: "POST",
+        body
+      }),
+    }),
+    getFancyBook: build.mutation<FancyBookRes, fancyBookreq>({
+      query: (body) => ({
+        url: `/enduser/fancy-book`,
+        method: "POST",
+        body
+      }),
+    }),
+    getCasinoMyBet: build.query<mybetResponce, mybetRequest>({
+      query: (body) => ({
+        url: `/casino/casino-bet-list-user`,
+        method: "POST",
+        body
+      }),
+    }),
+    getCasinoBetPlaced: build.mutation<ChangePaaRes, CasinoBetPlacePaylod>({
+      query: (body) => ({
+        url: `/casino/bet-place`,
+        method: "POST",
+        body
+      }),
+    }),
+    getBetListLedger: build.mutation<BetListLegdgerRes, BetListLegdgerProps>({
+      query: (body) => ({
+        url: `/casino/bet-list-ledger`,
+        method: "POST",
+        body
+      }),
+    }),
+    matchSessionBetCount: build.mutation<MatchBetCountResponse, MatchBetCountReq>({
+      query: (body) => ({
+        url: `/report/match-session-bet-count`,
+        method: "POST",
+        body
+      }),
+    }),
+    getChanelId: build.mutation<ChanelRes, channelReq>({
+      query: (body) => ({
+        url: `/sports/channel-id-matchidwise`,
+        method: "POST",
+        body
+      }),
+    }),
+    activeEvent: build.mutation<activeMatchRes, void>({
+      query: (body) => ({
+        url: `/sports/active-event-list`,
+        method: "POST",
+        body
+      }),
+    }),
+    getUserCoin: build.mutation<usedCoinRes, usedCoinReq>({
+      query: (body) => ({
+        url: `/enduser/get-used-coin`,
+        method: "POST",
+        body
+      }),
+    }),
+    channelId: build.query<ChannelIdRes, ChannelIdpayload>({
+      query: (payload) => {
+        return {
+          body: payload,
+          method: 'POST',
+          url: '/sports/channel-id-matchidwise',
+        }
+      },
+    }),
+    matkaList: build.query<matkaListRes, void>({
+      query: (body) => ({
+        url: `/matka/list`,
+        method: "POST",
+        body
+      }),
+    }),
+    getMatkaMarket: build.mutation<matkaListResponse, matkaPayload>({
+      query: (body) => ({
+        url: `/matka/get-matka-market`,
+        method: "POST",
+        body
+      }),
+    }),
+    matkaPlacebet: build.mutation<any, matkaBetPlacePayload>({
+      query: (body) => ({
+        url: `/matka/matka-bet`,
+        method: "POST",
+        body
+      }),
+    }),
+  }),
+});
+
+export const {
+  useUserListMutation,
+  useUserNameMutation,
+  useUserDetailForEditMutation,
+  useUserCreateMutation,
+  useUserProfileMutation,
+  useChangePasswordMutation,
+  useUserDetailEditMutation,
+  useUserActiveMutation,
+  useLedgerDepositWidthdrawMutation,
+  useLedgerDetailsMutation,
+  useLogOutMutation,
+  useUserMessageMutation,
+  useBetPlacedMutation,
+  useUpdateRateMutation,
+  useUserCahngePasswordMutation,
+  useCasinoListQuery,
+  useGetUserBalanceQuery,
+  useHealthCheckMutation,
+  useGetBetListBymatchIdQuery,
+  useGetOddsPnlQuery,
+  useGetLedgerDetailsMutation,
+  useGetLedgerBetDetailsMutation,
+  useGetSessionPlusMinusQuery,
+  useGetFancyBookMutation,
+  useGetCasinoMyBetQuery,
+  useGetCasinoBetPlacedMutation,
+  useGetBetListLedgerMutation,
+  useMatchSessionBetCountMutation,
+  useGetChanelIdMutation,
+  useActiveEventMutation,
+  useGetUserCoinMutation,
+  useChannelIdQuery,
+  useMatkaListQuery,
+  useGetMatkaMarketMutation,
+  useMatkaPlacebetMutation
+} = userList;

@@ -1,0 +1,63 @@
+import type {
+    BaseQueryFn,
+    FetchBaseQueryError} from "@reduxjs/toolkit/query/react";
+  import {
+    createApi,
+    fetchBaseQuery
+  } from "@reduxjs/toolkit/query/react";
+import type { InplayRes, IpRes, matchedData, oddsResponse } from "./odds";
+  
+  export const oddsData = createApi({
+    reducerPath: "oddsData",
+    baseQuery: fetchBaseQuery({
+        baseUrl: import.meta.env.VITE_ODDS_API,
+        prepareHeaders: (headers) => {
+          const token = localStorage.getItem("client-token");
+          if (token) {
+            headers.set("Authorization", `Bearer ${token}`);
+          }
+          return headers;
+        },
+      }) as BaseQueryFn<
+      string | { url: string; method: string; body?: any },
+      unknown,
+      FetchBaseQueryError
+    >,
+    endpoints: (build) => ({
+      activeMatch: build.query<matchedData, void>({
+        query: () => ({
+          url: "/betfair_api/active_match/4",
+          method: "GET",
+          
+        }),
+      }),
+      inPlayMatch: build.query<InplayRes, void>({
+        query: () => ({
+          url: "/betfair_api/active_match",
+          method: "GET",
+          
+        }),
+      }),
+      oddsData: build.query<oddsResponse, string | undefined>({
+        query: (agrs) => ({
+          url: `/betfair_api/fancy/${agrs}`,
+          method: "GET",
+        }),
+      }),
+      getIpfy: build.query<IpRes, void>({
+        query: () => ({
+          url: '/betfair_api/my-ip',
+          method: "GET",
+        }),
+      }),
+      
+    }),
+  });
+  
+  export const {
+    useActiveMatchQuery,
+    useOddsDataQuery,
+    useGetIpfyQuery,
+    useInPlayMatchQuery
+  } = oddsData;
+  

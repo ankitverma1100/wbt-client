@@ -4,6 +4,7 @@ import Balance from "../Balance";
 import News from "../News";
 import AppSidebar from "../../Component/LeftSide/AppSidebar";
 import { useState } from "react";
+import Loder from "../Loder";
 
 const PageLayout = () => {
   const [visible, setVisible] = useState(false);
@@ -42,6 +43,7 @@ const PageLayout = () => {
         </section>
         <AppSidebar visible={visible} onClose={onClose} />
       </div>
+      
     </div>
   );
 };

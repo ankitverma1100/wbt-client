@@ -1,12 +1,50 @@
 import { Col, Row, Select } from "antd";
 import "./style.scss";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import {
+  useUpdateRateMutation,
+  useUserProfileMutation,
+} from "../../store/service/userServices/userServices";
+import Loder from "../../Common/Loder";
 
 const Profile = () => {
+  const [rateValue, setRateValue] = useState(0);
+  const [trigger, { data: userData }] = useUserProfileMutation();
+  const [updateRate, { data: updateRateInfo, isLoading }] =
+    useUpdateRateMutation();
+
+  useEffect(() => {
+    if (userData && userData?.data?.rateDifference) {
+      setRateValue(userData?.data?.rateDifference);
+    }
+  }, [userData]);
+
+  useEffect(() => {
+    trigger();
+  }, []);
+
+  const handleRateChange = (e: string) => {
+    setRateValue(parseInt(e));
+  };
+
+  const handleUpadetRate = () => {
+    updateRate({ rateDifference: rateValue });
+  };
+
+  useEffect(() => {
+    if (updateRateInfo) {
+      if (updateRateInfo?.status) {
+        trigger();
+      } else {
+      }
+    }
+  }, [updateRateInfo]);
   return (
     <div
       className="gx-main-content-wrapper profile_sec"
       style={{ marginBottom: 120 }}>
+      {isLoading && <Loder />}
       <Row justify="center">
         <Col className="gx-col-full " xs={24} sm={24} md={20} xl={14} xxl={14}>
           {" "}
@@ -34,7 +72,9 @@ const Profile = () => {
                               className="ant-table-cell"
                               style={{ textAlign: "center" }}>
                               <Select
+                                value={rateValue.toString()}
                                 showSearch
+                                onChange={handleRateChange}
                                 options={[
                                   { value: "1", label: "1" },
                                   { value: "2", label: "2" },
@@ -51,7 +91,8 @@ const Profile = () => {
                             </td>
                             <td
                               className="ant-table-cell"
-                              style={{ textAlign: "center" }}>
+                              style={{ textAlign: "center" }}
+                              onClick={handleUpadetRate}>
                               <div className="gx-text-white gx-w-100 gx-pointer gx-font-weight-semi-bold gx-bg-green-0 gx-py-2 gx-px-2">
                                 UPDATE
                               </div>
@@ -85,13 +126,17 @@ const Profile = () => {
                             data-row-key={1}
                             className="ant-table-row ant-table-row-level-0">
                             <td className="ant-table-cell">Client Name:</td>
-                            <td className="ant-table-cell">C67329</td>
+                            <td className="ant-table-cell">
+                              {userData?.data?.userId}
+                            </td>
                           </tr>
                           <tr
                             data-row-key={2}
                             className="ant-table-row ant-table-row-level-0">
                             <td className="ant-table-cell">Client Code:</td>
-                            <td className="ant-table-cell">clientdemo</td>
+                            <td className="ant-table-cell">
+                              {userData?.data?.username}
+                            </td>
                           </tr>
                           <tr
                             data-row-key={3}
@@ -103,19 +148,25 @@ const Profile = () => {
                             data-row-key={4}
                             className="ant-table-row ant-table-row-level-0">
                             <td className="ant-table-cell">Content No.</td>
-                            <td className="ant-table-cell">0</td>
+                            <td className="ant-table-cell">
+                              {userData?.data?.contact || 0}
+                            </td>
                           </tr>
                           <tr
                             data-row-key={5}
                             className="ant-table-row ant-table-row-level-0">
                             <td className="ant-table-cell">Date Of Joining</td>
-                            <td className="ant-table-cell">12-08-2023</td>
+                            <td className="ant-table-cell">
+                              {userData?.data?.dateOfJoining}
+                            </td>
                           </tr>
                           <tr
                             data-row-key={6}
                             className="ant-table-row ant-table-row-level-0">
                             <td className="ant-table-cell">Address</td>
-                            <td className="ant-table-cell">INDIA</td>
+                            <td className="ant-table-cell">
+                              {userData?.data?.address}
+                            </td>
                           </tr>
                         </tbody>
                       </table>
@@ -145,7 +196,9 @@ const Profile = () => {
                             data-row-key={1}
                             className="ant-table-row ant-table-row-level-0">
                             <td className="ant-table-cell">Help Line No:</td>
-                            <td className="ant-table-cell">+91 1234567890</td>
+                            <td className="ant-table-cell">
+                              {userData?.data?.helpline || 0}
+                            </td>
                           </tr>
                         </tbody>
                       </table>

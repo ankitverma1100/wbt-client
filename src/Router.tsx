@@ -1,24 +1,38 @@
+import React, { Suspense, lazy } from "react";
+import type { ReactElement } from "react";
 import { createBrowserRouter } from "react-router-dom";
-import Login from "./Pages/Login/Login";
 import PageLayout from "./Common/PageLayout/PageLayout";
-import Dashboard from "./Pages/Dashboard/Dashboard";
-import Inplay from "./Pages/Inplay/Inplay";
-import CasinoHome from "./Pages/Casino/CasinoHome";
-import Profile from "./Pages/Profile/Profile";
-import Statement from "./Pages/Statement/Statement";
-import Ledger from "./Pages/Ledger/Ledger";
-import Changepassword from "./Pages/Changepassword/Changepassword";
-import Rule from "./Pages/Rule/Rule";
-import GameDetails from "./Pages/GameDetails/GameDetails";
+import Loder from "./Common/Loder";
+
+// Lazy imports
+const Login_New = lazy(() => import("./Pages/Login/Login_New"));
+const Dashboard = lazy(() => import("./Pages/Dashboard/Dashboard"));
+const Inplay = lazy(() => import("./Pages/Inplay/Inplay"));
+const CasinoHome = lazy(() => import("./Pages/Casino/CasinoHome"));
+const Profile = lazy(() => import("./Pages/Profile/Profile"));
+const Statement = lazy(() => import("./Pages/Statement/Statement"));
+const Ledger = lazy(() => import("./Pages/Ledger/Ledger"));
+const Changepassword = lazy(() => import("./Pages/Changepassword/Changepassword"));
+const Rule = lazy(() => import("./Pages/Rule/Rule"));
+const GameDetails = lazy(() => import("./Pages/GameDetails/GameDetails"));
+
+/**
+ * Wraps a lazy-loaded component in Suspense with a Loder fallback
+ */
+const withLoader = (Component: React.LazyExoticComponent<() => JSX.Element>): ReactElement => (
+  <Suspense fallback={<Loder />}>
+    <Component />
+  </Suspense>
+);
 
 export const router = createBrowserRouter([
   {
     path: "/login",
-    element: <Login />,
+    element: withLoader(Login_New),
   },
   {
     path: "/",
-    element: <Login />,
+    element: withLoader(Login_New),
   },
   {
     path: "/main",
@@ -26,44 +40,44 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "matches",
-        element: <Inplay />,
+        element: withLoader(Inplay),
       },
       {
         path: "dashboard",
-        element: <Dashboard />,
+        element: withLoader(Dashboard),
       },
       {
         path: "casino",
-        element: <CasinoHome />,
+        element: withLoader(CasinoHome),
       },
       {
         path: "profile",
-        element: <Profile />,
+        element: withLoader(Profile),
       },
       {
         path: "statement",
-        element: <Statement />,
+        element: withLoader(Statement),
       },
       {
         path: "ledger",
-        element: <Ledger />,
+        element: withLoader(Ledger),
       },
       {
         path: "changepassword",
-        element: <Changepassword />,
+        element: withLoader(Changepassword),
       },
       {
         path: "rules",
-        element: <Rule />,
+        element: withLoader(Rule),
       },
       {
         path: "match-deatils/:id/:sportId?",
-        element: <GameDetails />,
+        element: withLoader(GameDetails),
       },
     ],
   },
   {
     path: "*",
-    element: <Login />, // Optional: use a proper 404 page here
+    element: withLoader(Login_New), // Optionally replace with a 404 component
   },
 ]);

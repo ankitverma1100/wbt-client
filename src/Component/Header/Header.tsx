@@ -1,25 +1,43 @@
 import { MenuOutlined } from "@ant-design/icons";
+import { Link, useLocation } from "react-router-dom";
 
 interface Props {
   onClose: () => void;
 }
 
 const Header = ({ onClose }: Props) => {
+  const { pathname } = useLocation();
+  const pathSegments = pathname.split("/").filter(Boolean);
+  const currentPath = pathSegments[pathSegments.length - 1];
+  const userId = localStorage.getItem("userId");
+  const userName = localStorage.getItem("username");
+
   return (
     <header className="ant-layout-header gx-bg-flex gx-w-100 gx-justify-content-between  gx-align-content-center ">
       <div>
-        <a className=" gx-pointer" href="/main/dashboard">
+        <Link className="gx-pointer" to="/main/dashboard">
           <img alt="" src="/img/logo.png" width={130} height={40} />
-        </a>
+        </Link>
       </div>
       <div className="gx-text-white">
-        <span>C67329 (clientdemo)</span>
+        <span>
+          {userId} ({userName})
+        </span>
         <br />
       </div>
       <div>
         <ul
           className="gx-header-notifications gx-ml-auto gx-text-white hide-mob"
           style={{ height: 53 }}>
+          {currentPath !== "dashboard" &&
+            currentPath !== "casino" &&
+            !pathname.includes("match-deatils") && (
+              <li className="gx-msg gx-px-5 gx-font-weight-semi-bold gx-bg-white gx-text-black gx-bg-flex   gx-align-items-center  gx-h-100">
+                {currentPath === "changepassword"
+                  ? "Change Password"
+                  : currentPath?.toUpperCase() || ""}
+              </li>
+            )}
           <a className="gx-text-white gx-fs-xl" href="/main/dashboard">
             <li className="gx-notify gx-px-5 gx-font-weight-semi-bold">
               <span
