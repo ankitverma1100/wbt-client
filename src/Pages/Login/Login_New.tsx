@@ -42,7 +42,7 @@ const Login_New = () => {
         localStorage.setItem("client-token", loginData.token);
         localStorage.setItem("userId", loginData.userId);
         localStorage.setItem("username", loginData.username);
-        nav("/main/dashboard");
+        nav("/main/rules");
       } else {
         const errorMessage =
           loginData.message || "Login failed. Please try again.";
@@ -52,7 +52,7 @@ const Login_New = () => {
   }, [loginData]);
 
   return (
-    <div className="limiter">
+    <div className="limiter login_page">
       <div className="container-login10 bg-area">
         <div className="row w-100 align-items-center">
           <div className="col-lg-6">

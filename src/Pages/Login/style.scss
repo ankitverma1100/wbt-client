@@ -18,37 +18,11 @@
     .w-100 {
       width: 100% !important;
     }
-    .row {
-      --bs-gutter-x: 1.5rem;
-      --bs-gutter-y: 0;
-      display: flex;
-      flex-wrap: wrap;
-      margin-right: calc(var(--bs-gutter-x) * -0.5);
-      margin-left: calc(var(--bs-gutter-x) * -0.5);
-      margin-top: 30px;
 
-      > * {
-        flex-shrink: 0;
-        width: 100%;
-        max-width: 100%;
-        padding-right: calc(var(--bs-gutter-x) * 0.5);
-        padding-left: calc(var(--bs-gutter-x) * 0.5);
-        margin-top: var(--bs-gutter-y);
-      }
-      .col-lg-6 {
-        @media (min-width: 992px) {
-          flex: 0 0 auto;
-          width: 50%;
-        }
-      }
-      .login-logo-img {
-        height: 200px;
-        @media screen and (max-width: 600px) {
-          height: 100px;
-        }
-        @media screen and (min-width: 600px) {
-          margin-top: -29px;
-        }
+    .login-logo-img {
+      height: 200px;
+      @media screen and (max-width: 600px) {
+        height: 100px;
       }
     }
   }

@@ -1,0 +1,89 @@
+.flexdiv {
+  display: flex;
+  justify-content: center;
+}
+.casino-game {
+  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%) !important;
+  border-radius: 5px;
+  width: 200px;
+  height: 200px;
+  position: relative;
+  margin: 0 5px;
+}
+.casino-game img {
+  min-height: 200px;
+  border-radius: 5px;
+  .margin-bottom: 16px;
+}
+.gamecard-body {
+  border-radius: 0px 0px 10px 10px;
+  background: #000000ad;
+  bottom: 0px;
+  height: 57px;
+  position: absolute;
+  z-index: 99999;
+  width: 100%;
+  padding: 10px;
+}
+.gamecard-body h4 {
+  color: white;
+  font-size: 18px;
+}
+/*button animatio*/
+
+.play-now-btn {
+  background: black;
+  color: white;
+  border: 2px solid black;
+  animation: blinkingBackground 2s infinite;
+  border-radius: 10px;
+  padding: 3px 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+@keyframes blinkingBackground {
+  0% {
+    background: black;
+    color: white;
+    border: 2px solid black;
+  }
+  25% {
+    background: white;
+    color: black;
+    border: 2px solid white;
+  }
+  50% {
+    background: black;
+    color: white;
+    border: 2px solid black;
+  }
+  75% {
+    background: white;
+    color: black;
+    border: 2px solid white;
+  }
+  100% {
+    background: black;
+    color: white;
+    border: 2px solid black;
+  }
+}
+/*button animatio*/
+
+@media (max-width: 600px) {
+  .flexdiv {
+    flex-wrap: wrap;
+  }
+  .flexdiv .casino-game {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 10px;
+  }
+  .flexdiv .casino-game div {
+    width: 150px;
+    height: 150px;
+  }
+  .flexdiv .casino-game div img {
+    min-height: 150px;
+  }
+}
