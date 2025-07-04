@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Col, Row, Form, Input, Button } from "antd";
 import "./changepassword.scss";
 
 const Changepassword = () => {
