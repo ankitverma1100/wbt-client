@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
 import Header from "../../Component/Header/Header";
 import Balance from "../Balance";
-import News from "../News";
+// import News from "../News";
 import AppSidebar from "../../Component/LeftSide/AppSidebar";
 import { useState } from "react";
-import Loder from "../Loder";
-import Rule from "../../Pages/Rule/Rule";
+// import Loder from "../Loder";
+// import Rule from "../../Pages/Rule/Rule";
 
 const PageLayout = () => {
   const [visible, setVisible] = useState(false);

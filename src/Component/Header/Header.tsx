@@ -16,7 +16,7 @@ const Header = ({ onClose }: Props) => {
       <div className="row" style={{ alignItems: "center" }}>
         <div className="col-md-6 col-6">
           <div className="d-flex">
-            <a href="https://antspro3.com/Client">
+            <a href="/main/dashboard">
               <img
                 src="https://antspro3.com/assets/img/logo/TBT Pro Logo-Transparent (1).png"
                 className="logo-img"
@@ -36,21 +36,21 @@ const Header = ({ onClose }: Props) => {
         <div className="col-md-6 col-6">
           <div className="row">
             <div className="col-md-3">
-              <a href="https://antspro3.com/Client">
+              <a href="/main/dashboard">
                 <div className="page_title">{currentPath?.toUpperCase()}</div>
               </a>
             </div>
             <div className="col-md-7">
               <ul className="header-listing">
                 <li>
-                  <a href="https://antspro3.com/Client">
-                    <img src="https://antspro3.com/clientAssets/img/home-icon.png" />{" "}
+                  <a href="/main/dashboard">
+                    <img src="/main/dashboardAssets/img/home-icon.png" />{" "}
                     <span className="menu-name">HOME</span>
                   </a>
                 </li>
                 <li>
                   <a href="https://antspro3.com/Login/logout?type=Client">
-                    <img src="https://antspro3.com/clientAssets/img/logout.png" />{" "}
+                    <img src="/main/dashboardAssets/img/logout.png" />{" "}
                     <span className="menu-name">LOGOUT</span>
                   </a>
                 </li>

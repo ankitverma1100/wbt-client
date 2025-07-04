@@ -87,7 +87,7 @@ interface UserProfile {
     rateDifference: number
   }
 }
-export interface ChangePaaReq {
+interface ChangePaaReq {
   currentPassword: string
   newPassword: string
 }
@@ -99,7 +99,7 @@ interface ChangePaaRes {
 interface UserDetailsUpdateReq {
   userId: string
 }
-export interface UserDetailsUpdateRes {
+interface UserDetailsUpdateRes {
   status: boolean
   message: null
   data: {
@@ -171,7 +171,7 @@ interface LogOutRes {
   message: string
   data: null
 }
-export interface BetplacedReq {
+interface BetplacedReq {
   isFancy: boolean
   isBack: boolean
   odds: number
@@ -187,7 +187,7 @@ export interface BetplacedReq {
   deviceInfo: DeviceInfo | null
 }
 
-export interface DeviceInfo {
+interface DeviceInfo {
   userAgent: string
   browser: string
   device: string
@@ -198,56 +198,56 @@ export interface DeviceInfo {
   orientation: string
 }
 
-export interface BetPlacedRes {
+interface BetPlacedRes {
   message: string
   status: boolean
 }
 
-export interface rateDeffReq {
+interface rateDeffReq {
   rateDifference: number
 }
-export interface rateDeffRes {
+interface rateDeffRes {
   status: boolean
   message: string
   data: null
 }
-export interface UserPassRequest {
+interface UserPassRequest {
   currentPassword: string
   newPassword: string
 }
-export interface UserPassResponse {
+interface UserPassResponse {
   status: boolean
   message: string
   data: null
 }
-export interface casinoResponse {
+interface casinoResponse {
   status: boolean
   message: string
   data: Casino[]
 }
-export interface Casino {
+interface Casino {
   tableId: string | number | readonly string[] | undefined
   name: string
   image: string
   id: string
 }
 
-export interface UserBalance {
+interface UserBalance {
   status: boolean
   message: string | null
   data: { balance: number }
 }
 
-export interface healthRes {
+interface healthRes {
   status: boolean
   message: string
 }
 
-export interface BetListReq {
+interface BetListReq {
   matchId: string
-  activeBet:boolean | null
+  activeBet?: boolean | null
 }
-export interface BetListRes {
+interface BetListRes {
   status: boolean
   message: null
   data: BetList
@@ -255,7 +255,7 @@ export interface BetListRes {
 
 type BetList = Record<string, Bet[]>;
 
-export interface Bet {
+interface Bet {
   declared: ReactNode
   sid: any
   nation: string
@@ -268,7 +268,7 @@ export interface Bet {
   back: boolean
 }
 
-export interface OddsResponse {
+interface OddsResponse {
   status: boolean
   message: null
   data: OdssPnl[]
@@ -282,7 +282,7 @@ interface SessionPlusMinusRes {
   }
 }
 
-export interface OdssPnl {
+interface OdssPnl {
   marketId: string
   pnl1: number
   pnl2: number

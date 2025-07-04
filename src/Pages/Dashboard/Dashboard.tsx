@@ -1,3 +1,4 @@
+import Marquee from "react-fast-marquee";
 import { Link } from "react-router-dom";
 
 const Dashboard = () => {
@@ -135,7 +136,7 @@ const Dashboard = () => {
     <>
       <div className="page-body">
         <div className="">
-          <marquee
+          {/* <marquee
             width="100%"
             direction="left"
             style={{
@@ -148,7 +149,22 @@ const Dashboard = () => {
             very good &nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             hello please place a bet quickly{" "}
-          </marquee>
+          </marquee> */}
+          <Marquee
+            style={{
+              background: "black",
+              color: "white",
+              textTransform: "uppercase",
+              padding: "0",
+              fontSize: "15px",
+              font: "inherit",
+            }}>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            very good &nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            hello please place a bet quickly{" "}
+          </Marquee>
         </div>
         <div className="container">
           <div className="row padding_space">

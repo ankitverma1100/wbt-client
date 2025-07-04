@@ -5,7 +5,6 @@ import type {
     createApi,
     fetchBaseQuery
   } from "@reduxjs/toolkit/query/react";
-import type { InplayRes, IpRes, matchedData, oddsResponse } from "./odds";
   
   export const oddsData = createApi({
     reducerPath: "oddsData",

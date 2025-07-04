@@ -1,4 +1,4 @@
-import './style.scss';
+import "./style.scss";
 
 const CasinoHome = () => {
   return (
@@ -183,7 +183,7 @@ const CasinoHome = () => {
         <div className="casino-game">
           <div className="">
             <img
-              src="https://antspro3.com/clientAssets/imgs/andar-bahar.png"
+              src="/main/dashboardAssets/imgs/andar-bahar.png"
               style={{ borderRadius: 5 }}
               className="w-100"
             />
@@ -202,7 +202,7 @@ const CasinoHome = () => {
         <div className="casino-game">
           <div className="">
             <img
-              src="https://antspro3.com/clientAssets/imgs/Dragon%20Tiger.png"
+              src="/main/dashboardAssets/imgs/Dragon%20Tiger.png"
               style={{ borderRadius: 5 }}
               className="w-100"
             />
@@ -221,7 +221,7 @@ const CasinoHome = () => {
         <div className="casino-game">
           <div className="">
             <img
-              src="https://antspro3.com/clientAssets/imgs/Teenpatti%20One-Day%20(Virtual).png"
+              src="/main/dashboardAssets/imgs/Teenpatti%20One-Day%20(Virtual).png"
               style={{ borderRadius: 5 }}
               className="w-100"
             />
@@ -240,7 +240,7 @@ const CasinoHome = () => {
         <div className="casino-game">
           <div className="">
             <img
-              src="https://antspro3.com/clientAssets/imgs/7.png"
+              src="/main/dashboardAssets/imgs/7.png"
               style={{ borderRadius: 5 }}
               className="w-100"
             />
@@ -259,7 +259,7 @@ const CasinoHome = () => {
         {/*<div class="col-6 event-row  text-center float-left mt-3">*/}
         {/*    <div class="card-body m-0 p-0">*/}
         {/*      <a href="#">*/}
-        {/*        <img class="img-fluid" src="https://antspro3.com/clientAssets/img/6.png">*/}
+        {/*        <img class="img-fluid" src="/main/dashboardAssets/img/6.png">*/}
         {/*      </a>*/}
         {/*    </div>*/}
         {/*</div>*/}
@@ -269,7 +269,7 @@ const CasinoHome = () => {
         <div className="casino-game">
           <div className="">
             <img
-              src="https://antspro3.com/clientAssets/img/andar-bahar.jpeg"
+              src="/main/dashboardAssets/img/andar-bahar.jpeg"
               className="w-100"
             />
             {/*<div class="gamecard-body">*/}
@@ -287,7 +287,7 @@ const CasinoHome = () => {
         <div className="casino-game">
           <div className="">
             <img
-              src="https://antspro3.com/clientAssets/img/amar-akhbar.jpeg"
+              src="/main/dashboardAssets/img/amar-akhbar.jpeg"
               className="w-100"
             />
             {/*<div class="gamecard-body">*/}
@@ -305,7 +305,7 @@ const CasinoHome = () => {
         <div className="casino-game">
           <div className="">
             <img
-              src="https://antspro3.com/clientAssets/img/lucky7.jpeg"
+              src="/main/dashboardAssets/img/lucky7.jpeg"
               className="w-100"
             />
             {/*<div class="gamecard-body">*/}
@@ -323,7 +323,7 @@ const CasinoHome = () => {
         <div className="casino-game">
           <div className="">
             <img
-              src="https://antspro3.com/clientAssets/img/teen-patti2.jpeg"
+              src="/main/dashboardAssets/img/teen-patti2.jpeg"
               className="w-100"
             />
             {/*<div class="gamecard-body">*/}
@@ -341,7 +341,7 @@ const CasinoHome = () => {
         <div className="casino-game">
           <div className="">
             <img
-              src="https://antspro3.com/clientAssets/img/live-dragon-tiger2.jpeg"
+              src="/main/dashboardAssets/img/live-dragon-tiger2.jpeg"
               className="w-100"
             />
             {/*<div class="gamecard-body">*/}
@@ -359,7 +359,7 @@ const CasinoHome = () => {
         <div className="casino-game">
           <div className="">
             <img
-              src="https://antspro3.com/clientAssets/img/live-dragon-tiger.jpeg"
+              src="/main/dashboardAssets/img/live-dragon-tiger.jpeg"
               className="w-100"
             />
           </div>

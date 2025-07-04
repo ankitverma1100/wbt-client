@@ -8,7 +8,6 @@ import type {
     createApi,
     fetchBaseQuery
   } from "@reduxjs/toolkit/query/react";
-import type { stackRes } from "../odds/odds";
   
   export const stackData = createApi({
     reducerPath: "stackData",

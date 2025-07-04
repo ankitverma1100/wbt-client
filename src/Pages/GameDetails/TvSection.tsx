@@ -1,23 +1,11 @@
-import { Row } from "antd";
-
 
 const TvSection = () => {
   return (
-    <Row
-      justify="space-between"
-      align="middle"
-      className="gx-bg-flex gx-bg-grey">
-      <div>
-        <span className="gx-bg-primary gx-px-3 gx-py-1 gx-font-weight-semi-bold gx-text-white">
-          TV
-        </span>
-      </div>
-      <div className="gx-py-1">
-        <span className="gx-bg-primary gx-px-3 gx-py-1 gx-font-weight-semi-bold gx-text-white">
-          FS
-        </span>
-      </div>
-    </Row>
+    <iframe
+      src="https://param.apigang.com/api/v3/scoreApi3.php?eventId=12558&market_id=1.231583429"
+      id="score_fs"
+      className="fs_match_size"
+    />
   );
 };
 

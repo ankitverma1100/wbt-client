@@ -1,5 +1,4 @@
 /* eslint-disable no-irregular-whitespace */
-import { Col, Row } from "antd";
 import { Link } from "react-router-dom";
 
 const Rule = () => {
@@ -10,10 +9,7 @@ const Rule = () => {
       <div
         className="main_menu_btn mt-2"
         style={{ textAlign: "center", marginBottom: 3 }}>
-        <Link
-          className="btn rules-btn"
-          id="create_bets"
-          to="/main/dashboard">
+        <Link className="btn rules-btn" id="create_bets" to="/main/dashboard">
           MAIN MENU
         </Link>
       </div>
@@ -4199,10 +4195,7 @@ const Rule = () => {
         </table>
       </div>
       <div className="main_menu_btn" style={{ textAlign: "center" }}>
-        <a
-          className="btn rules-btn"
-          id="create_bets"
-          href="https://antspro3.com/Client">
+        <a className="btn rules-btn" id="create_bets" href="/main/dashboard">
           MAIN MENU
         </a>
       </div>

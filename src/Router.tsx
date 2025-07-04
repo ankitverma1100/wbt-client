@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from "react";
-import type { ReactElement } from "react";
+import type { JSX, ReactElement } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import PageLayout from "./Common/PageLayout/PageLayout";
 import Loder from "./Common/Loder";

@@ -1,145 +1,201 @@
-import { Col } from "antd";
+interface Props {
+  oddsData: BookmakerData[] | undefined;
+  handleBetData: (
+    isFancy: boolean,
+    isBack: boolean,
+    odds: number,
+    marketName: string,
+    selectionId: string,
+    priceValue: number,
+    marketId: string,
+    name: string,
+    mode: string,
+    date: any
+  ) => void;
+  focusAmountInput: () => void;
+  oddsPnl: OdssPnl[] | undefined;
+}
 
-const Bookmaker = () => {
+const Bookmaker = ({
+  oddsData,
+  handleBetData,
+  focusAmountInput,
+  oddsPnl,
+}: Props) => {
   return (
-    <Col xs={24} sm={24} className="gx-px-0 gx-py-0 gx-mx-0 gx-my-0">
-      <div
-        className="ant-table-wrapper gx-w-100 custom-ant-table gx-mx-0 gx-my-0"
-        style={{ marginTop: 16 }}>
-        <div className="ant-spin-nested-loading">
-          <div className="ant-spin-container">
-            <div className="ant-table ant-table-small ant-table-bordered ant-table-scroll-horizontal">
-              <div className="ant-table-container">
-                <div
-                  className="ant-table-content"
-                  style={{ overflow: "auto hidden" }}>
-                  <table
+    <div className="overflow-responsive">
+      <table
+        width="100%"
+        cellSpacing={2}
+        cellPadding={2}
+        border={0}
+        className="table bg-white lagai_khai_tbl"
+        style={{ marginBottom: "0rem " }}>
+        <tbody>
+          <tr>
+            <td
+              className="FontTextWhite10px"
+              style={{ color: "#fff ", background: "#7d5c0e" }}
+              width="45%"
+              valign="middle"
+              height={25}
+              align="center">
+              Min : {oddsData?.[0]?.minBet} Max : {oddsData?.[0]?.maxBet}
+            </td>
+            <td
+              className="FontTextWhite10px"
+              style={{ color: "#fff ", background: "#7d5c0e" }}
+              width="15%"
+              valign="middle"
+              align="center">
+              LAGAI
+            </td>
+            <td
+              className="FontTextWhite10px"
+              style={{ color: "#fff ", background: "#7d5c0e" }}
+              width="15%"
+              valign="middle"
+              align="center">
+              KHAI
+            </td>
+            <td
+              className="FontTextWhite10px"
+              style={{ color: "#fff ", background: "#7d5c0e" }}
+              width="15%"
+              valign="middle"
+              align="center">
+              POS.
+            </td>
+          </tr>
+          {oddsData?.map((bookmaker, index: number) => {
+            const oddsData = oddsPnl?.filter(
+              (item) => item?.marketId === bookmaker?.mid
+            );
+            const oddsPnlData = oddsData?.[0]
+              ? {
+                  [oddsData?.[0].selection1]: oddsData?.[0].pnl1,
+                  [oddsData?.[0].selection2]: oddsData?.[0].pnl2,
+                  [oddsData?.[0].selection3]: oddsData?.[0].pnl3,
+                }
+              : {};
+            return (
+              <tr key={index}>
+                <td
+                  className="FontTextBlue dsk-visible"
+                  style={{ verticalAlign: "middle", background: "#fff" }}
+                  valign="middle"
+                  align="center">
+                  <span
+                    className="FontTextBlue"
                     style={{
-                      width: "auto",
-                      minWidth: "100%",
-                      tableLayout: "auto",
+                      verticalAlign: "middle",
+                      display: "flex",
+                      fontWeight: 400,
+                      paddingLeft: 10,
                     }}>
-                    <colgroup>
-                      <col style={{ width: "60%" }} />
-                      <col style={{ width: "20%" }} />
-                      <col style={{ width: "20%" }} />
-                    </colgroup>
-                    <thead className="ant-table-thead">
-                      <tr>
-                        <th className="ant-table-cell">
-                          <div
-                            className="gx-bg-flex gx-justify-content-between minMax"
-                            style={{ display: "flex" }}>
-                            <span className="gx-d-none gx-d-lg-block">
-                              Bookmaker
-                            </span>
-                            <span style={{ textWrap: "nowrap" }}>
-                              Min: 100 Max: 200000
-                            </span>
-                          </div>
-                        </th>
-                        <th
-                          className="ant-table-cell"
-                          style={{ textAlign: "center" }}>
-                          Lagai
-                        </th>
-                        <th
-                          className="ant-table-cell"
-                          style={{ textAlign: "center" }}>
-                          Khai
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="ant-table-tbody">
-                      <tr
-                        aria-hidden="true"
-                        className="ant-table-measure-row"
-                        style={{ height: 0, fontSize: 0 }}>
-                        <td style={{ padding: 0, border: 0, height: 0 }}>
-                          <div style={{ height: 0, overflow: "hidden" }}>
-                            &nbsp;
-                          </div>
-                        </td>
-                        <td style={{ padding: 0, border: 0, height: 0 }}>
-                          <div style={{ height: 0, overflow: "hidden" }}>
-                            &nbsp;
-                          </div>
-                        </td>
-                        <td style={{ padding: 0, border: 0, height: 0 }}>
-                          <div style={{ height: 0, overflow: "hidden" }}>
-                            &nbsp;
-                          </div>
-                        </td>
-                      </tr>
-                      <tr
-                        data-row-key={0}
-                        className="ant-table-row ant-table-row-level-0 no-hover">
-                        <td className="ant-table-cell">
-                          <div className="gx-bg-flex gx-">
-                            <div className=" gx-font-weight-semi-bold gx-text-uppercase">
-                              ENGLAND W
-                            </div>
-                            <div className="gx-font-weight-semi-bold gx-text-light-grey ">
-                              0
-                            </div>
-                          </div>
-                        </td>
-                        <td
-                          className="ant-table-cell"
-                          style={{ textAlign: "center" }}>
-                          <div className="gx-font-weight-semi-bold gx-text-blue gx-fs-lg gx-text-uppercase">
-                            0
-                          </div>
-                        </td>
-                        <td
-                          className="ant-table-cell"
-                          style={{ textAlign: "center" }}>
-                          <div
-                            className="gx-font-weight-semi-bold  gx-fs-lg gx-text-capitalize"
-                            style={{ color: "rgb(227, 68, 103)" }}>
-                            0
-                          </div>
-                        </td>
-                      </tr>
-                      <tr
-                        data-row-key={1}
-                        className="ant-table-row ant-table-row-level-0 no-hover">
-                        <td className="ant-table-cell">
-                          <div className="gx-bg-flex gx-">
-                            <div className=" gx-font-weight-semi-bold gx-text-uppercase">
-                              INDIA W
-                            </div>
-                            <div className="gx-font-weight-semi-bold gx-text-light-grey ">
-                              0
-                            </div>
-                          </div>
-                        </td>
-                        <td
-                          className="ant-table-cell"
-                          style={{ textAlign: "center" }}>
-                          <div className="gx-font-weight-semi-bold gx-text-blue gx-fs-lg gx-text-uppercase">
-                            0
-                          </div>
-                        </td>
-                        <td
-                          className="ant-table-cell"
-                          style={{ textAlign: "center" }}>
-                          <div
-                            className="gx-font-weight-semi-bold  gx-fs-lg gx-text-capitalize"
-                            style={{ color: "rgb(227, 68, 103)" }}>
-                            0
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </Col>
+                    {bookmaker.nation} <br /> <span style={{ color: "#f00" }} />
+                  </span>
+                </td>
+                <td
+                  className="FontTextBlue mobi-visible"
+                  style={{ verticalAlign: "middle", background: "#fff" }}
+                  valign="middle"
+                  align="left">
+                  <span
+                    className="FontTextBlue"
+                    style={{
+                      verticalAlign: "middle",
+                      display: "flex",
+                      fontWeight: 400,
+                      paddingLeft: 10,
+                    }}>
+                    {bookmaker.nation}
+                  </span>
+                </td>
+                <td
+                  style={{
+                    verticalAlign: "middle",
+                    backgroundColor: "#FFF",
+                    fontWeight: 600,
+                    color: "#3920ce ",
+                    fontSize: "16px",
+                    cursor: "pointer",
+                  }}
+                  valign="middle"
+                  color="green"
+                  align="center"
+                  onClick={() => {
+                    if (bookmaker?.gstatus.toLowerCase() !== "suspended") {
+                      handleBetData(
+                        false,
+                        true,
+                        bookmaker?.b1,
+                        "Bookmaker",
+                        bookmaker?.sid,
+                        bookmaker?.bs1,
+                        bookmaker?.mid,
+                        bookmaker?.nation,
+                        "LAGAI",
+                        new Date()
+                      );
+                      focusAmountInput();
+                    }
+                  }}>
+                  {bookmaker.b1}
+                </td>
+                <td
+                  className="textTeamHead"
+                  style={{
+                    verticalAlign: "middle",
+                    background: "#FFF",
+                    color: "#e02131 ",
+                    fontWeight: 600,
+                    fontSize: "16px",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+                    if (bookmaker?.gstatus.toLowerCase() !== "suspended") {
+                      handleBetData(
+                        false,
+                        false,
+                        bookmaker?.l1,
+                        "Bookmaker",
+                        bookmaker?.sid,
+                        bookmaker?.ls1,
+                        bookmaker?.mid,
+                        bookmaker?.nation,
+                        "KHAI",
+                        new Date()
+                      );
+                      focusAmountInput();
+                    }
+                  }}
+                  valign="middle"
+                  align="center">
+                  {bookmaker.l1}
+                </td>
+                <td
+                  className="FontTextWhite"
+                  id="Positiont562"
+                  style={{
+                    color:
+                      oddsPnlData[parseInt(bookmaker?.sid)] > 0
+                        ? "green"
+                        : "#f00",
+                    fontWeight: 400,
+                    verticalAlign: "middle",
+                    background: "#FFF",
+                  }}
+                  valign="middle"
+                  align="center">
+                  {oddsPnlData[parseInt(bookmaker?.sid)] || 0}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
