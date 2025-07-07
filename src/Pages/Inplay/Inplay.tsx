@@ -17,7 +17,7 @@ const Inplay = () => {
                     <p>
                       <span className="playbtn">
                         <img
-                          src="/main/dashboardAssets/imgs/cards/playbtn.svg"
+                          src="/img/playbtn.svg"
                           alt="play"
                         />
                       </span>

@@ -1,8 +1,10 @@
+import { useParams } from "react-router-dom";
 
 const TvSection = () => {
+  const { id } = useParams();
   return (
     <iframe
-      src="https://param.apigang.com/api/v3/scoreApi3.php?eventId=12558&market_id=1.231583429"
+      src={`https://score.trovetown.co/socket-iframe-1/crickexpo/${id}`}
       id="score_fs"
       className="fs_match_size"
     />

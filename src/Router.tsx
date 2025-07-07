@@ -15,6 +15,7 @@ const Ledger = lazy(() => import("./Pages/Ledger/Ledger"));
 const Changepassword = lazy(() => import("./Pages/Changepassword/Changepassword"));
 const Rule = lazy(() => import("./Pages/Rule/Rule"));
 const GameDetails = lazy(() => import("./Pages/GameDetails/GameDetails"));
+const Freegames = lazy(() => import("./Pages/Freegames/Freegames"));
 
 /**
  * Wraps a lazy-loaded component in Suspense with a Loder fallback
@@ -73,6 +74,10 @@ export const router = createBrowserRouter([
       {
         path: "match-deatils/:id/:sportId?",
         element: withLoader(GameDetails),
+      },
+      {
+        path: "freegames",
+        element: withLoader(Freegames),
       },
     ],
   },

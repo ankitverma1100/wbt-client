@@ -1,4 +1,18 @@
+import { useParams } from "react-router-dom";
+import { useGetBetListBymatchIdQuery } from "../../store/service/userServices/userServices";
+
 const MatchBets = () => {
+  const { id } = useParams();
+  const { data } = useGetBetListBymatchIdQuery({
+    matchId: id ?? "",
+    activeBet: true,
+  }, {pollingInterval: 1000});
+  // const { data: completed } = useGetBetListBymatchIdQuery({
+  //   matchId: id ?? "",
+  //   activeBet: false,
+  // });
+
+
   return (
     <>
       <div
@@ -55,10 +69,47 @@ const MatchBets = () => {
                 align="center">
                 MODE
               </td>
-              {/*<td class="FontTextWhite10px border" style="color: #fff ;"  align="center">P&L</td>*/}
             </tr>
           </thead>
-          <tbody id="MyTeamBets"></tbody>
+          <tbody id="MyTeamBets">
+            {data?.data?.Bookmaker?.map((items) => {
+              return (
+                <tr style={{ borderBottom: "1px solid #3d8282" }}>
+                  <td
+                    style={{
+                      borderRight: "1px solid #3d8282",
+                      borderBottom: "1px solid #3d8282",
+                    }}>
+                    {items?.nation}
+                  </td>
+                  <td
+                    style={{
+                      textAlign: "center",
+                      borderRight: "1px solid #3d8282",
+                      borderBottom: "1px solid #3d8282",
+                    }}>
+                    {items?.rate}
+                  </td>
+                  <td
+                    style={{
+                      textAlign: "center",
+                      borderRight: "1px solid #3d8282",
+                      borderBottom: "1px solid #3d8282",
+                    }}>
+                    {items?.amount}
+                  </td>
+                  <td
+                    style={{
+                      textAlign: "center",
+                      borderRight: "1px solid #3d8282",
+                      borderBottom: "1px solid #3d8282",
+                    }}>
+                    {items?.back ? "LAGAI" : "KHAI"}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
         </table>
       </div>
       <br />
@@ -93,7 +144,6 @@ const MatchBets = () => {
                 align="center">
                 SESSION{" "}
               </td>
-              {/*<td class="FontTextWhite10px border" style="color: #fff ;white-space:nowrap;"   align="center">DATE </td>*/}
               <td
                 className="FontTextWhite10px border"
                 style={{ color: "#fff ", background: "#7d5c0e" }}
@@ -121,10 +171,55 @@ const MatchBets = () => {
                 align="center">
                 MODE
               </td>
-              {/*<td class="FontTextWhite10px border" style="color: #fff ;"  align="center">P&L</td>*/}
             </tr>
           </thead>
-          <tbody id="MySessionBets"></tbody>
+          <tbody id="MySessionBets">
+            {data?.data?.Fancy2Market?.map((items) => {
+              return (
+                <tr style={{ borderBottom: "1px solid #3d8282" }}>
+                  <td
+                    style={{
+                      borderRight: "1px solid #3d8282",
+                      borderBottom: "1px solid #3d8282",
+                    }}>
+                    {items?.nation}
+                  </td>
+                  <td
+                    style={{
+                      textAlign: "center",
+                      borderRight: "1px solid #3d8282",
+                      borderBottom: "1px solid #3d8282",
+                    }}>
+                    {items?.priveValue}
+                  </td>
+                  <td
+                    style={{
+                      textAlign: "center",
+                      borderRight: "1px solid #3d8282",
+                      borderBottom: "1px solid #3d8282",
+                    }}>
+                    {items?.rate}
+                  </td>
+                  <td
+                    style={{
+                      textAlign: "center",
+                      borderRight: "1px solid #3d8282",
+                      borderBottom: "1px solid #3d8282",
+                    }}>
+                    {items?.amount}
+                  </td>
+                  <td
+                    style={{
+                      textAlign: "center",
+                      borderRight: "1px solid #3d8282",
+                      borderBottom: "1px solid #3d8282",
+                    }}>
+                    {items?.back ? "Yes" : "No"}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
         </table>
       </div>
       <br />

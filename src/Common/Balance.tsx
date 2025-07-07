@@ -1,18 +1,13 @@
-import { useGetUserBalanceQuery } from "../store/service/userServices/userServices";
 
-const Balance = () => {
-  const { data: userBalance } = useGetUserBalanceQuery(undefined, {
-    pollingInterval: 1000,
-    refetchOnMountOrArgChange: true,
-  });
+interface BalanceProps {
+  userBalance: number | undefined;
+}
+const Balance = ({ userBalance }: BalanceProps) => {
   return (
     <>
       <div className="chips_section">
         <span>
-          Chips:{" "}
-          <span className="user_wallet">
-            {userBalance?.data?.balance?.toFixed(2)}
-          </span>
+          Chips: <span className="user_wallet">{userBalance?.toFixed(2)}</span>
         </span>{" "}
         <span>
           Expo :{" "}

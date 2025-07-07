@@ -3,9 +3,10 @@ import { Link, useLocation } from "react-router-dom";
 
 interface Props {
   onClose: () => void;
+  userBalance: number | undefined;
 }
 
-const Header = ({ onClose }: Props) => {
+const Header = ({ onClose, userBalance }: Props) => {
   const { pathname } = useLocation();
   const pathSegments = pathname.split("/").filter(Boolean);
   const currentPath = pathSegments[pathSegments.length - 1];
@@ -16,18 +17,18 @@ const Header = ({ onClose }: Props) => {
       <div className="row" style={{ alignItems: "center" }}>
         <div className="col-md-6 col-6">
           <div className="d-flex">
-            <a href="/main/dashboard">
+            <Link to="/main/dashboard">
               <img
                 src="https://antspro3.com/assets/img/logo/TBT Pro Logo-Transparent (1).png"
                 className="logo-img"
               />
-              {/*<div class="logo-name"><span class="text-yellow">TBT</span> Pro</div>*/}
-            </a>
+            </Link>
             <Link to="/main/profile">
               <div className="profile-header-details">
                 <div className="user-name">{userId}</div>
                 <div className="chips_amount">
-                  Chips : <span className="user_wallet">7000</span>
+                  Chips :{" "}
+                  <span className="user_wallet">{userBalance?.toFixed(2)}</span>
                 </div>
               </div>
             </Link>
@@ -36,21 +37,23 @@ const Header = ({ onClose }: Props) => {
         <div className="col-md-6 col-6">
           <div className="row">
             <div className="col-md-3">
-              <a href="/main/dashboard">
-                <div className="page_title">{currentPath?.toUpperCase()}</div>
-              </a>
+              {currentPath !== "dashboard" && (
+                <Link to="/main/dashboard">
+                  <div className="page_title">{currentPath?.toUpperCase()}</div>
+                </Link>
+              )}
             </div>
             <div className="col-md-7">
               <ul className="header-listing">
                 <li>
-                  <a href="/main/dashboard">
-                    <img src="/main/dashboardAssets/img/home-icon.png" />{" "}
+                  <Link to="/main/dashboard">
+                    <img src="/img/home-icon.png" />{" "}
                     <span className="menu-name">HOME</span>
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="https://antspro3.com/Login/logout?type=Client">
-                    <img src="/main/dashboardAssets/img/logout.png" />{" "}
+                  <a href="#">
+                    <img src="/img/logout.png" />{" "}
                     <span className="menu-name">LOGOUT</span>
                   </a>
                 </li>

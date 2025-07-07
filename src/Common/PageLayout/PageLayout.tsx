@@ -4,6 +4,7 @@ import Balance from "../Balance";
 // import News from "../News";
 import AppSidebar from "../../Component/LeftSide/AppSidebar";
 import { useState } from "react";
+import { useGetUserBalanceQuery } from "../../store/service/userServices/userServices";
 // import Loder from "../Loder";
 // import Rule from "../../Pages/Rule/Rule";
 
@@ -13,10 +14,15 @@ const PageLayout = () => {
   const onClose = () => {
     setVisible(!visible);
   };
+
+  const { data: userBalance } = useGetUserBalanceQuery(undefined, {
+    pollingInterval: 1000,
+    refetchOnMountOrArgChange: true,
+  });
   return (
     <>
-      <Header onClose={onClose} />
-      <Balance />
+      <Header onClose={onClose} userBalance={userBalance?.data?.balance}/>
+      <Balance userBalance={userBalance?.data?.balance}/>
       {/* <Rule /> */}
       <Outlet />
       <AppSidebar visible={visible} onClose={onClose} />

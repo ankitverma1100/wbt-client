@@ -1,4 +1,13 @@
+import { useEffect } from "react";
+import { useGetLedgerDetailsMutation } from "../../store/service/userServices/userServices";
+
 const Ledger = () => {
+  const [trigger, { data: ledgerData }] =
+    useGetLedgerDetailsMutation();
+
+  useEffect(() => {
+    trigger({});
+  }, []);
   return (
     <div className="container">
       <form name="BetPlayer" method="post" action="" wfd-id={1}>
@@ -136,6 +145,35 @@ const Ledger = () => {
                                   HISAB
                                 </td>
                               </tr>
+                              {ledgerData?.data?.map((items) => {
+                                return (
+                                  <tr>
+                                    <td
+                                      align="center"
+                                      valign="bottom"
+                                      style={{ backgroundColor: "#FFFFFF" }}
+                                    >
+                                      {items?.remark}
+                                    </td>
+                                    <td
+                                      align="center"
+                                      valign="bottom"
+                                      style={{ backgroundColor: "#FFFFFF" }}>{items?.wonBy}</td>
+                                    <td
+                                      align="center"
+                                      valign="bottom"
+                                      style={{ backgroundColor: "#FFFFFF" }}>{items?.won}</td>
+                                    <td
+                                      align="center"
+                                      valign="bottom"
+                                      style={{ backgroundColor: "#FFFFFF" }}>{items?.lost}</td>
+                                    <td
+                                      align="center"
+                                      valign="bottom"
+                                      style={{ backgroundColor: "#FFFFFF" }}>{items?.balance?.toFixed(2)}</td>
+                                  </tr>
+                                );
+                              })}
                             </tbody>
                           </table>
                         </td>

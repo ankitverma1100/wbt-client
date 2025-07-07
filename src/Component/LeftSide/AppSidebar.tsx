@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./leftside.scss";
 
 interface Props {
@@ -31,7 +32,7 @@ const AppSidebar = ({ visible, onClose }: Props) => {
             <div className="side-menu-list">
               <ul data-menu="main" className="menu__level menu__level--current">
                 <li className="menu__item borderBottom">
-                  <a className="menu__link" href="/main/dashboard/index">
+                  <Link className="menu__link" to="/main/dashboard">
                     <svg
                       className="svg-inline--fa fa-home fa-w-18"
                       aria-hidden="true"
@@ -46,7 +47,7 @@ const AppSidebar = ({ visible, onClose }: Props) => {
                         d="M488 312.7V456c0 13.3-10.7 24-24 24H348c-6.6 0-12-5.4-12-12V356c0-6.6-5.4-12-12-12h-72c-6.6 0-12 5.4-12 12v112c0 6.6-5.4 12-12 12H112c-13.3 0-24-10.7-24-24V312.7c0-3.6 1.6-7 4.4-9.3l188-154.8c4.4-3.6 10.8-3.6 15.3 0l188 154.8c2.7 2.3 4.3 5.7 4.3 9.3zm83.6-60.9L488 182.9V44.4c0-6.6-5.4-12-12-12h-56c-6.6 0-12 5.4-12 12V117l-89.5-73.7c-17.7-14.6-43.3-14.6-61 0L4.4 251.8c-5.1 4.2-5.8 11.8-1.6 16.9l25.5 31c4.2 5.1 11.8 5.8 16.9 1.6l235.2-193.7c4.4-3.6 10.8-3.6 15.3 0l235.2 193.7c5.1 4.2 12.7 3.5 16.9-1.6l25.5-31c4.2-5.2 3.4-12.7-1.7-16.9z"
                       />
                     </svg>
-                    {/* <i class="fa fa-home"></i> */} HOME{" "}
+                    HOME{" "}
                     <svg
                       className="svg-inline--fa fa-arrow-right fa-w-14"
                       style={{ float: "right" }}
@@ -62,13 +63,12 @@ const AppSidebar = ({ visible, onClose }: Props) => {
                         d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"
                       />
                     </svg>
-                    {/* <i class="fa fa-arrow-right" style="float:right;"></i> */}
-                  </a>
+                  </Link>
                 </li>
                 <li className="menu__item borderBottom">
-                  <a
+                  <Link
                     className="menu__link"
-                    href="/main/dashboard/ClientProfile">
+                    to="/main/ClientProfile">
                     <svg
                       className="svg-inline--fa fa-user fa-w-14"
                       aria-hidden="true"
@@ -83,7 +83,7 @@ const AppSidebar = ({ visible, onClose }: Props) => {
                         d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"
                       />
                     </svg>
-                    {/* <i class="fa fa-user"></i> */} PROFILE{" "}
+                    PROFILE{" "}
                     <svg
                       className="svg-inline--fa fa-arrow-right fa-w-14"
                       style={{ float: "right" }}
@@ -99,11 +99,10 @@ const AppSidebar = ({ visible, onClose }: Props) => {
                         d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"
                       />
                     </svg>
-                    {/* <i class="fa fa-arrow-right" style="float:right;"></i> */}
-                  </a>
+                  </Link>
                 </li>
                 <li className="menu__item borderBottom">
-                  <a className="menu__link" href="/main/dashboard/InPlay">
+                  <Link className="menu__link" to="/main/InPlay">
                     <svg
                       className="svg-inline--fa fa-play fa-w-14"
                       aria-hidden="true"
@@ -118,7 +117,7 @@ const AppSidebar = ({ visible, onClose }: Props) => {
                         d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"
                       />
                     </svg>
-                    {/* <i class="fa fa-play"></i> */} IN PLAY{" "}
+                    IN PLAY{" "}
                     <svg
                       className="svg-inline--fa fa-arrow-right fa-w-14"
                       style={{ float: "right" }}
@@ -134,12 +133,10 @@ const AppSidebar = ({ visible, onClose }: Props) => {
                         d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"
                       />
                     </svg>
-                    {/* <i class="fa fa-arrow-right" style="float:right;"></i> */}
-                  </a>
+                  </Link>
                 </li>
-                {/*<li class="menu__item borderBottom"><a class="menu__link" href="/main/dashboard/freegames_detail"><i class="fa fa-trophy"></i> FREE GAMES <i class="fa fa-arrow-right" style="float:right;"></i></a></li>*/}
                 <li className="menu__item borderBottom">
-                  <a className="menu__link" href="/main/dashboard/rules">
+                  <Link className="menu__link" to="/main/rules">
                     <svg
                       className="svg-inline--fa fa-info fa-w-6"
                       aria-hidden="true"
@@ -154,7 +151,7 @@ const AppSidebar = ({ visible, onClose }: Props) => {
                         d="M20 424.229h20V279.771H20c-11.046 0-20-8.954-20-20V212c0-11.046 8.954-20 20-20h112c11.046 0 20 8.954 20 20v212.229h20c11.046 0 20 8.954 20 20V492c0 11.046-8.954 20-20 20H20c-11.046 0-20-8.954-20-20v-47.771c0-11.046 8.954-20 20-20zM96 0C56.235 0 24 32.235 24 72s32.235 72 72 72 72-32.235 72-72S135.764 0 96 0z"
                       />
                     </svg>
-                    {/* <i class="fa fa-info"></i> */} RULES{" "}
+                    RULES{" "}
                     <svg
                       className="svg-inline--fa fa-arrow-right fa-w-14"
                       style={{ float: "right" }}
@@ -171,15 +168,15 @@ const AppSidebar = ({ visible, onClose }: Props) => {
                       />
                     </svg>
                     {/* <i class="fa fa-arrow-right" style="float:right;"></i> */}
-                  </a>
+                  </Link>
                 </li>
                 <li className="menu__item borderBottom">
-                  <a className="menu__link" href="/main/dashboard/ledger">
+                  <Link className="menu__link" to="/main/ledger">
                     <svg
-                      className="svg-inline--fa fa-money fa-w-16"
+                      className="svg-inline--fa fa-sign-out fa-w-16"
                       aria-hidden="true"
                       data-prefix="fa"
-                      data-icon="money"
+                      data-icon="sign-out"
                       role="img"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 512 512"
@@ -231,29 +228,12 @@ const AppSidebar = ({ visible, onClose }: Props) => {
                         </path>
                       </g>
                     </svg>
-                    {/* <i class="fa fa-money"></i> */} LEDGER{" "}
-                    <svg
-                      className="svg-inline--fa fa-arrow-right fa-w-14"
-                      style={{ float: "right" }}
-                      aria-hidden="true"
-                      data-prefix="fa"
-                      data-icon="arrow-right"
-                      role="img"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 448 512"
-                      data-fa-i2svg="">
-                      <path
-                        fill="currentColor"
-                        d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"
-                      />
-                    </svg>
-                    {/* <i class="fa fa-arrow-right" style="float:right;"></i> */}
-                  </a>
+                  </Link>
                 </li>
                 <li className="menu__item borderBottom">
-                  <a
+                  <Link
                     className="menu__link"
-                    href="/main/dashboard/change_password">
+                    to="/main/change_password">
                     <svg
                       className="svg-inline--fa fa-key fa-w-16"
                       aria-hidden="true"
@@ -285,10 +265,10 @@ const AppSidebar = ({ visible, onClose }: Props) => {
                       />
                     </svg>
                     {/* <i class="fa fa-arrow-right" style="float:right;"></i> */}
-                  </a>
+                  </Link>
                 </li>
                 <li className="menu__item borderBottom">
-                  <a className="menu__link" href="/main/dashboard/casino">
+                  <Link className="menu__link" to="/main/casino">
                     <svg
                       className="svg-inline--fa fa-play fa-w-14"
                       aria-hidden="true"
@@ -320,13 +300,11 @@ const AppSidebar = ({ visible, onClose }: Props) => {
                       />
                     </svg>
                     {/* <i class="fa fa-arrow-right" style="float:right;"></i> */}
-                  </a>
+                  </Link>
                 </li>
-                {/*<li class="menu__item borderBottom"><a class="menu__link" href="#"><i class="fa fa-gear"></i> SETTINGS <i class="fa fa-arrow-right" style="float:right;"></i></a></li>*/}
+                {/*<li class="menu__item borderBottom"><Link class="menu__link" to="#"><i class="fa fa-gear"></i> SETTINGS <i class="fa fa-arrow-right" style="float:right;"></i></Link></li>*/}
                 <li className="menu__item borderBottom">
-                  <a
-                    className="menu__link"
-                    href="https://antspro3.com/Login/logout?type=Client">
+                  <Link className="menu__link" to="#">
                     <svg
                       className="svg-inline--fa fa-sign-out fa-w-16"
                       aria-hidden="true"
@@ -400,7 +378,7 @@ const AppSidebar = ({ visible, onClose }: Props) => {
                       />
                     </svg>
                     {/* <i class="fa fa-arrow-right" style="float:right;"></i> */}
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>

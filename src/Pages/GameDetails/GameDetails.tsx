@@ -192,7 +192,10 @@ const GameDetails = () => {
               {showMsg}
             </h3>
             <a
-              href="#"
+              onClick={() => {
+                setShow(false);
+                setTimer(0);
+              }}
               className="btn btn-light text-danger"
               data-dismiss="modal"
               style={{ borderRadius: 20, fontSize: 14 }}>
