@@ -12,15 +12,22 @@ const CasinoHome = lazy(() => import("./Pages/Casino/CasinoHome"));
 const Profile = lazy(() => import("./Pages/Profile/Profile"));
 const Statement = lazy(() => import("./Pages/Statement/Statement"));
 const Ledger = lazy(() => import("./Pages/Ledger/Ledger"));
-const Changepassword = lazy(() => import("./Pages/Changepassword/Changepassword"));
+const Changepassword = lazy(
+  () => import("./Pages/Changepassword/Changepassword")
+);
 const Rule = lazy(() => import("./Pages/Rule/Rule"));
 const GameDetails = lazy(() => import("./Pages/GameDetails/GameDetails"));
 const Freegames = lazy(() => import("./Pages/Freegames/Freegames"));
+const CasinoMainPage = lazy(
+  () => import("./Pages/CasinoDetails/CasinoMainPage")
+);
 
 /**
  * Wraps a lazy-loaded component in Suspense with a Loder fallback
  */
-const withLoader = (Component: React.LazyExoticComponent<() => JSX.Element>): ReactElement => (
+const withLoader = (
+  Component: React.LazyExoticComponent<() => JSX.Element>
+): ReactElement => (
   <Suspense fallback={<Loder />}>
     <Component />
   </Suspense>
@@ -78,6 +85,10 @@ export const router = createBrowserRouter([
       {
         path: "freegames",
         element: withLoader(Freegames),
+      },
+      {
+        path: "casino/:id",
+        element: <CasinoMainPage />,
       },
     ],
   },

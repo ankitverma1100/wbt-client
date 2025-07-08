@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import "./style.scss";
 
 const CasinoHome = () => {
+  const nav = useNavigate();
   return (
     <div className="container-fluid p-2">
       <div className="new-heading mt-2">Virtual Casino</div>
@@ -44,27 +46,43 @@ const CasinoHome = () => {
       </div>
       <div className="new-heading mt-2">Live Casino</div>
       <div className="flexdiv" style={{ justifyContent: "center" }}>
-        <div className="casino-game">
+        <div
+          className="casino-game"
+          onClick={() => {
+            nav("/main/casino/54");
+          }}>
           <div className="">
             <img src="/img/andar-bahar.jpeg" className="w-100" />
           </div>
         </div>
-        <div className="casino-game">
+        <div
+          className="casino-game"
+          onClick={() => {
+            nav("/main/casino/56");
+          }}>
           <div className="">
             <img src="/img/amar-akhbar.jpeg" className="w-100" />
           </div>
         </div>
-        <div className="casino-game">
+        <div className="casino-game" onClick={() => {
+            nav("/main/casino/53");
+          }}>
           <div className="">
             <img src="/img/lucky7.jpeg" className="w-100" />
           </div>
         </div>
-        <div className="casino-game">
+        <div
+          className="casino-game"
+          onClick={() => {
+            nav("/main/casino/51");
+          }}>
           <div className="">
             <img src="/img/teen-patti2.jpeg" className="w-100" />
           </div>
         </div>
-        <div className="casino-game">
+        <div className="casino-game" onClick={() => {
+            nav("/main/casino/52");
+          }}>
           <div className="">
             <img src="/img/live-dragon-tiger2.jpeg" className="w-100" />
           </div>
