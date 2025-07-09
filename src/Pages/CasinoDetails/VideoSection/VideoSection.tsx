@@ -1,5 +1,9 @@
 import { Card } from "antd";
 import { useParams } from "react-router-dom";
+import AAACard from "./AAACard";
+import TeenCard from "./TeenCard";
+import DT20Card from "./DT20Card";
+import AndarBaharCardOnVideo from "./AndarBaharCardOnVideo";
 
 const VideoSection = ({ t1, t3 }: any) => {
   const { id } = useParams();
@@ -24,29 +28,10 @@ const VideoSection = ({ t1, t3 }: any) => {
         style={{ height: 350 }}
       />
       <div className="gx-w-100 gx-p-3 gx-position-absolute gx-top-0 gx-left-0">
-        <div
-          className="ant-row gx-pt-2"
-          style={{
-            marginLeft: "-8px",
-            marginRight: "-8px",
-            rowGap: 8,
-          }}>
-          <div
-            className="ant-col ant-col-24"
-            style={{ paddingLeft: 8, paddingRight: 8 }}>
-            <span className="ant-typography gx-text-white">
-              <strong>Card</strong>
-            </span>
-          </div>
-          <div className="ant-col" style={{ paddingLeft: 8, paddingRight: 8 }}>
-            <img
-              src="/card/1.png"
-              alt="card"
-              className=" gx-rounded-sm"
-              style={{ height: "3rem" }}
-            />
-          </div>
-        </div>
+        {(id === "53" || id === "56") && <AAACard t1={t1} />}
+        {id === "51" && <TeenCard t1={t1} />}
+        {id === "52" && <DT20Card t1={t1} />}
+        {id === "54" && <AndarBaharCardOnVideo t3={t3} />}
       </div>
       <div
         className=" gx-position-absolute"

@@ -1,0 +1,71 @@
+#welcomeModal .modal-dialog {
+  width: 500px;
+  border-radius: 0;
+}
+#welcomeModal .modal-content {
+  border: unset !important;
+}
+#welcomeModal .modal-header {
+  padding: 10px 10px;
+  border-radius: 0;
+}
+#welcomeModal .modal-title {
+  font-size: 12.5px !important;
+  font-weight: 700;
+}
+#welcomeModal .custom-modal-text {
+  padding: 10px;
+}
+#welcomeModal .custom-modal-text h2 {
+  font-size: 20px;
+  color: #212529 !important;
+  font-family: "Roboto" !important;
+}
+#welcomeModal .custom-modal-text p {
+  color: #212529 !important;
+  font-size: 13px;
+  font-family: "Roboto" !important;
+  line-height: 20px;
+  margin-bottom: 5px;
+}
+#welcomeModal .custom-modal-text button {
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+.cancelbtn {
+  background: #6c757d;
+  color: #fff;
+  padding: 2px 6px;
+  font-size: 10px;
+}
+#welcomeModal .close {
+  padding: 8px 20px;
+}
+#welcomeModal .close span {
+  font-size: 15px;
+}
+#welcomeModal .cancelbtn {
+  font-weight: 600;
+}
+
+.lang-switch-btn h1 {
+  font-size: 22px;
+}
+h1 {
+  font-size: 22px;
+}
+h3 {
+  font-size: 24px;
+}
+
+@media (max-width: 600px) {
+  #welcomeModal .modal-dialog {
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+.fade {
+  transition: opacity 0.15s linear;
+}

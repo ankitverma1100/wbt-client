@@ -5,19 +5,26 @@ import moment from "moment";
 import "./casino.scss";
 import { useOdds } from "./UseOdds";
 import CasinoHead from "./CasinoHead/CasinoHead";
-import { Card, Col, Row } from "antd";
-import VideoSection from "./VideoSection";
+import { Card, Col, Modal, Row } from "antd";
+import VideoSection from "./VideoSection/VideoSection";
 import Lucky7 from "./Lucky7/Lucky7";
 import LastResult from "./LastResult/LastResult";
 import AAA from "./AAA/AAA";
 import Teen from "./Teen/Teen";
 import CasinoBet from "./CasinoBet/CasinoBet";
+import DT20 from "./DT20/DT20";
+import MybetCasino from "./MybetCasino/MybetCasino";
+import AndarBhar from "./AndarBhar/AndarBhar";
+import AllBets from "./AllBets";
 
 const CasinoMainPage = () => {
   const betSectionRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const [timer, setTimer] = useState<number>(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const { id } = useParams();
+  if (!id) return null;
   var curr = new Date();
   curr.setDate(curr.getDate() + 3);
   const pTime = moment(curr).format("YYYY-MM-DD HH:mm:ss.SSS");
@@ -59,14 +66,26 @@ const CasinoMainPage = () => {
     return;
   }
 
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <>
       <Row justify={"center"} className="gx-mt-2 gx-mb-2 main_casino_row">
         <Col xs={24} sm={24} md={24} lg={10} xl={10} xxl={10}>
           <CasinoHead t1={t1} />
           <VideoSection
-            t3={odds && odds?.length !== 0 && odds.t3}
-            t1={odds && odds?.length !== 0 && odds?.t1?.[0]}
+            t3={odds && (odds as any)?.t3}
+            t1={odds && (odds as any)?.t1?.[0]}
           />
           {id === "53" && (
             <Lucky7
@@ -95,6 +114,27 @@ const CasinoMainPage = () => {
               setBetState={setBetState}
               setOpen={setOpen}
               scrollToBet={betSectionRef}
+              setTimer={setTimer}
+            />
+          )}
+          {id === "52" && (
+            <DT20
+              t1={t1}
+              odds={odds}
+              setBetState={setBetState}
+              setOpen={setOpen}
+              scrollToBet={betSectionRef}
+              setTimer={setTimer}
+            />
+          )}
+          {id === "54" && (
+            <AndarBhar
+              t1={t1}
+              odds={odds}
+              setBetState={setBetState}
+              setOpen={setOpen}
+              scrollToBet={betSectionRef}
+              setTimer={setTimer}
             />
           )}
 
@@ -118,15 +158,26 @@ const CasinoMainPage = () => {
                 fontWeight: "600",
                 marginTop: "10px",
               }}
+              onClick={showModal}
               type="button"
               className="ant-btn ant-btn-default gx-bg-grey gx-text-white gx-font-weight-semi-bold">
               <span>Completed Casino Bets</span>
             </button>
           </Row>
 
-          <LastResult />
+          <LastResult matchId={t1?.mid[1]} casinoName={tableIdtoUrl[id]} />
+          <MybetCasino />
         </Col>
       </Row>
+      <Modal
+        title="Completed Casino Bet List"
+        closable={{ "aria-label": "Custom Close Button" }}
+        open={isModalOpen}
+        onOk={handleOk}
+        footer={null}
+        onCancel={handleCancel}>
+        <AllBets />
+      </Modal>
     </>
   );
 };

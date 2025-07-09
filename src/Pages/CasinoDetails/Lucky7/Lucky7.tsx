@@ -356,47 +356,6 @@ const Lucky7 = ({
           </Row>
         </Col>
       </Row>
-      {/* <Row className="gx-mt-1 gx-mx-1 gx-border-2 gx-border-dark">
-        <Col span={24} style={{ paddingLeft: 8, paddingRight: 8 }}>
-          <Typography.Text className="ant-typography gx-d-flex gx-justify-content-center ant-space-align-center gx-py-2 gx-text-black gx-fs-lg gx-font-weight-bold">
-            12
-          </Typography.Text>
-          <Row
-            className="ant-row w-full text-center"
-            style={{
-              marginLeft: "-4px",
-              marginRight: "-4px",
-              rowGap: 8,
-            }}>
-            {images.map((src, index) => (
-              <Col
-                key={index}
-                xs={6}
-                sm={6}
-                md={4}
-                lg={4}
-                xl={2}
-                style={{ paddingLeft: 4, paddingRight: 4 }}>
-                <div className="gx-d-flax gx-justify-content-center">
-                  <div className="gx-position-relative gx-d-flex gx-justify-content-center">
-                    <div className="gx-position-relative gx-d-flex gx-justify-content-center">
-                      <img
-                        src={src}
-                        alt="aaaaaa"
-                        className="gx-rounded-sm"
-                        style={{ height: "4rem", width: "3rem" }}
-                      />
-                    </div>
-                  </div>
-                  <Typography.Text className="ant-typography gx-flex gx-justify-content-center gx-items-center gx-text-center gx-font-weight-semi-bold gx-text-green-0">
-                    0
-                  </Typography.Text>
-                </div>
-              </Col>
-            ))}
-          </Row>
-        </Col>
-      </Row> */}
     </>
   );
 };

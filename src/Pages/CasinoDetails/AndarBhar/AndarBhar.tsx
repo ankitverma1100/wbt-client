@@ -10,7 +10,7 @@ interface TeenProps {
   setTimer: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const Teen = ({
+const AndarBhar = ({
   t1,
   odds,
   setBetState,
@@ -75,11 +75,15 @@ const Teen = ({
                 span={24}
                 className="gx-text-capitalize gx-d-flex gx-text-black gx-font-semibold gx-py-2">
                 <div className=" text-18 gx-w-100 gx-fs-lg gx-font-weight-semi-bold gx-text-left">
-                  {t2[0]?.nation}
+                  Ander
                 </div>
                 <div
                   className="gx-text-green-0 gx-w-100"
-                  style={{ color: t2[0]?.pnl > 0 ? "green" : "red" }}>
+                  style={{
+                    color: t2[0]?.pnl > 0 ? "green" : "red",
+                    textAlign: "right",
+                    paddingRight: "3px",
+                  }}>
                   {t2[0]?.pnl}
                 </div>
               </Col>
@@ -119,19 +123,23 @@ const Teen = ({
                 span={24}
                 className="gx-text-capitalize gx-d-flex gx-text-black gx-font-semibold gx-py-2">
                 <div className="text-18 gx-w-100 gx-fs-lg gx-font-weight-semi-bold gx-text-left">
-                  {t2[2]?.nation}
+                  Bahar
                 </div>
                 <div
                   className="gx-text-green-0 gx-w-100"
-                  style={{ color: t2[0]?.pnl > 0 ? "green" : "red" }}>
-                  {t2[2]?.pnl}
+                  style={{
+                    color: t2[0]?.pnl > 0 ? "green" : "red",
+                    textAlign: "right",
+                    paddingRight: "3px",
+                  }}>
+                  {t2[13]?.pnl}
                 </div>
               </Col>
             </Row>
           </Col>
           <Col span={8} className="gx-bg-grey gx-position-relative">
             <div className="gx-flex-column gx-bg-grey gx-justify-center gx-align-items-center gx-cursor-pointer gx-py-2">
-              {!t2[0]?.gstatus ? (
+              {!t2[13]?.gstatus ? (
                 <div
                   className="gx-position-absolute gx-left-0 gx-w-100 gx-h-100 gx-top-0 gx-bg-flex gx-justify-content-center gx-align-items-center"
                   style={{
@@ -143,8 +151,8 @@ const Teen = ({
               ) : (
                 <div
                   className="gx-text-center gx-position-relative gx-w-100"
-                  onClick={() => t2[2]?.gstatus && handleClick(t2[2])}>
-                  <div className="text-18 font-semibold">{t2[2]?.rate}</div>
+                  onClick={() => t2[13]?.gstatus && handleClick(t2[13])}>
+                  <div className="text-18 font-semibold">{t2[13]?.rate}</div>
                 </div>
               )}
             </div>
@@ -155,4 +163,4 @@ const Teen = ({
   );
 };
 
-export default Teen;
+export default AndarBhar;
