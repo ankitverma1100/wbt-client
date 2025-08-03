@@ -29,16 +29,14 @@ const Login_New = () => {
       password: formData.password,
       userId: formData.username,
       url: "fastbet365.in",
+      // url: window.location.hostname,
     });
-
-    console.log("Username:", formData.username);
-    console.log("Password:", formData.password);
   };
 
   useEffect(() => {
     if (loginData) {
-      console.log("Login Data:", loginData);
       if (loginData.token) {
+        localStorage.setItem("isLogin", "1");
         localStorage.setItem("client-token", loginData.token);
         localStorage.setItem("userId", loginData.userId);
         localStorage.setItem("username", loginData.username);

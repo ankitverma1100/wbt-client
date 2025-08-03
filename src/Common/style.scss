@@ -1,6 +1,7 @@
 #welcomeModal .modal-dialog {
   width: 500px;
   border-radius: 0;
+  z-index: 999;
 }
 #welcomeModal .modal-content {
   border: unset !important;
@@ -68,4 +69,13 @@ h3 {
 
 .fade {
   transition: opacity 0.15s linear;
+}
+
+.overlay {
+  position: absolute;
+  background: #00000070;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  overflow: hidden;
 }

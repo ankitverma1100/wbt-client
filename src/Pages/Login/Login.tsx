@@ -64,7 +64,7 @@ const Login = () => {
                   position: "relative",
                 }}>
                 <span> </span>
-                <span className="gx-pr-2">Login </span>
+                <span className="gx-pr-2">Login</span>
               </Button>
             </Form>
           </div>

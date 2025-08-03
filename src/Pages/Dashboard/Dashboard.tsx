@@ -13,7 +13,7 @@ const Dashboard = () => {
               color: "white",
               textTransform: "uppercase",
               padding: "0",
-              fontSize: "15px",
+              fontSize: "14px",
               font: "inherit",
             }}>
             &nbsp;&nbsp;&nbsp;&nbsp;

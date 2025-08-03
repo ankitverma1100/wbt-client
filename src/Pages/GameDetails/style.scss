@@ -722,3 +722,27 @@ iframe {
     padding: 0px;
   }
 }
+
+.suspen::after {
+  content: "SUSPENDED";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  background: #ddddddd1;
+  line-height: 50px;
+  border-bottom: 1px solid #fff;
+  height: 100%;
+}
+
+.ballr::after {
+  content: "Ball Running" !important;
+  position: absolute ;
+  top: 0;
+  right: 0;
+  width: 50%;
+  background: #ddddddd1 !important;
+  line-height: 50px !important;
+  border-bottom: 1px solid #fff !important;
+  height: 100% !important;
+}

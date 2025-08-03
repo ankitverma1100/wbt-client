@@ -13,9 +13,12 @@ import {
 import { useParams } from "react-router-dom";
 import BetplaceMob from "./BetplaceMob";
 import MatchBets from "./MatchBets";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import moment from "moment";
-import { useGetOddsPnlQuery } from "../../store/service/userServices/userServices";
+import {
+  useBetPlacedMutation,
+  useGetOddsPnlQuery,
+} from "../../store/service/userServices/userServices";
 import { Modal } from "antd";
 import MoreEvent from "./MoreEvent";
 
@@ -40,11 +43,12 @@ const GameDetails = () => {
   });
   const [timer, setTimer] = useState<number>(0);
   const { id } = useParams() as { id: string };
-  const { data: oddsData } = useOddsDataQuery(id);
+  const { data: oddsData } = useOddsDataQuery(id, { pollingInterval: 1000 });
   const { data: oddsPnl } = useGetOddsPnlQuery(
     { matchId: id ?? "" },
-    { pollingInterval: 1000, refetchOnMountOrArgChange: true }
+    { pollingInterval: 1000 }
   );
+  const [trigger, { data: betplaceData, isLoading }] = useBetPlacedMutation();
   const { data: userIp } = useGetIpfyQuery();
 
   const amountInputRef = useRef<HTMLInputElement>(null);
@@ -98,6 +102,35 @@ const GameDetails = () => {
     if (odds === 0) {
     }
   };
+
+  useEffect(() => {
+    if (betplaceData) {
+      if (betplaceData.status) {
+        setShowMsg("Bet Successful");
+        // toast.success("Bet Successful");
+        setShow(true);
+        setTimeout(() => {
+          setShow(false);
+        }, 3000);
+        setTimer(0);
+        setPlaceBetData({} as any);
+        if (amountInputRef.current) {
+          amountInputRef.current.value = "";
+        }
+      } else {
+        setShowMsg(betplaceData.message || "Bet Failed");
+        setShow(true);
+        // toast.success(betplaceData.message);
+        setTimeout(() => {
+          setShow(false);
+        }, 3000);
+        setPlaceBetData({} as any);
+        if (amountInputRef.current) {
+          amountInputRef.current.value = "";
+        }
+      }
+    }
+  }, [betplaceData]);
 
   return (
     <div className="page-body">
@@ -164,8 +197,8 @@ const GameDetails = () => {
               setPlaceBetData={setPlaceBetData}
               timer={timer}
               setTimer={setTimer}
-              setShow={setShow}
-              setShowMsg={setShowMsg}
+              trigger={trigger}
+              isLoading={isLoading}
             />
             <MatchBets />
             <MoreEvent />

@@ -341,6 +341,9 @@ interface SessionBet12 {
 }
 
 interface MatchBet12 {
+  pnl3: number
+  pnl2: number
+  pnl1: number
   selectionName: string
   rate: number
   amount: number

@@ -38,6 +38,54 @@
   transition: background 0.3s, width 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
 }
 
-.ant-menu-item{
+.ant-menu-item {
   padding: 10px 0px;
+}
+
+.sidebar_modal {
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s ease-in-out;
+
+  &.show {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+.sidebar_modal {
+  animation-duration: 0.4s;
+  animation-fill-mode: forwards;
+
+  &.show {
+    animation-name: slideDown;
+  }
+
+  &.hide {
+    animation-name: slideUp;
+  }
 }

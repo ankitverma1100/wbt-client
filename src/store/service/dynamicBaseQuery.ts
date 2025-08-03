@@ -1,5 +1,6 @@
-import {fetchBaseQuery, type FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import {type BaseQueryFn, type FetchArgs,type FetchBaseQueryMeta } from "@reduxjs/toolkit/query/react";
+import { fetchBaseQuery, type FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import { type BaseQueryFn, type FetchArgs, type FetchBaseQueryMeta } from "@reduxjs/toolkit/query/react";
+import { toast } from "react-toastify";
 
 interface ErrorResponse {
   message: string;
@@ -35,7 +36,7 @@ export const dynamicBaseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBas
     if (status === 400) {
       const errorData = result.error.data;
       if (isErrorResponse(errorData)) {
-        // snackbarUtil.error(errorData.message);
+        toast.error(errorData.message)
       } else {
         // snackbarUtil.error('An unexpected error occurred.');
       }

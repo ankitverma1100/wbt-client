@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useGetLedgerDetailsMutation } from "../../store/service/userServices/userServices";
+import { Link } from "react-router-dom";
 
 const Ledger = () => {
-  const [trigger, { data: ledgerData }] =
-    useGetLedgerDetailsMutation();
+  const [trigger, { data: ledgerData }] = useGetLedgerDetailsMutation();
 
   useEffect(() => {
     trigger({});
@@ -151,26 +151,37 @@ const Ledger = () => {
                                     <td
                                       align="center"
                                       valign="bottom"
-                                      style={{ backgroundColor: "#FFFFFF" }}
-                                    >
-                                      {items?.remark}
+                                      style={{ backgroundColor: "#FFFFFF" }}>
+                                      <Link
+                                        to={`/main/ledgerDetails/${items?.matchId}`}>
+                                        {" "}
+                                        {items?.remark}
+                                      </Link>
                                     </td>
                                     <td
                                       align="center"
                                       valign="bottom"
-                                      style={{ backgroundColor: "#FFFFFF" }}>{items?.wonBy}</td>
+                                      style={{ backgroundColor: "#FFFFFF" }}>
+                                      {items?.wonBy}
+                                    </td>
                                     <td
                                       align="center"
                                       valign="bottom"
-                                      style={{ backgroundColor: "#FFFFFF" }}>{items?.won}</td>
+                                      style={{ backgroundColor: "#FFFFFF" }}>
+                                      {items?.won}
+                                    </td>
                                     <td
                                       align="center"
                                       valign="bottom"
-                                      style={{ backgroundColor: "#FFFFFF" }}>{items?.lost}</td>
+                                      style={{ backgroundColor: "#FFFFFF" }}>
+                                      {items?.lost}
+                                    </td>
                                     <td
                                       align="center"
                                       valign="bottom"
-                                      style={{ backgroundColor: "#FFFFFF" }}>{items?.balance?.toFixed(2)}</td>
+                                      style={{ backgroundColor: "#FFFFFF" }}>
+                                      {items?.balance?.toFixed(2)}
+                                    </td>
                                   </tr>
                                 );
                               })}
@@ -203,7 +214,7 @@ const Ledger = () => {
         <div className="menu mt-4 w-100" id="menu">
           <ul className="nav" style={{ display: "block" }}>
             <li className="back-main-menu">
-              <a href="/main/dashboard/menu">BACK TO MAIN MENU</a>
+              <Link to="/main/dashboard">BACK TO MAIN MENU</Link>
             </li>
           </ul>
         </div>

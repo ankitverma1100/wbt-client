@@ -1,5 +1,6 @@
+import { useLogOutMutation } from "../../store/service/userServices/userServices";
 import "./style.scss";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 interface Props {
   onClose: () => void;
@@ -11,6 +12,18 @@ const Header = ({ onClose, userBalance }: Props) => {
   const pathSegments = pathname.split("/").filter(Boolean);
   const currentPath = pathSegments[pathSegments.length - 1];
   const userId = localStorage.getItem("userId");
+
+  const nav = useNavigate();
+  const [trigger] = useLogOutMutation();
+
+  const handleLogOut = async () => {
+    const res: any = await trigger().unwrap();
+    if (res) {
+      localStorage.clear();
+      nav("/login");
+      onClose();
+    }
+  };
 
   return (
     <div className="body-top-bar header_wrapper">
@@ -39,7 +52,21 @@ const Header = ({ onClose, userBalance }: Props) => {
             <div className="col-md-3">
               {currentPath !== "dashboard" && (
                 <Link to="/main/dashboard">
-                  <div className="page_title">{currentPath?.toUpperCase()}</div>
+                  <div className="page_title">
+                    {pathSegments?.[1]?.includes("match-deatils")
+                      ? "MATCHES"
+                      : currentPath?.includes("changepassword")
+                      ? "PASSWORD"
+                      : currentPath?.includes("freegames")
+                      ? "Free Games"
+                      : currentPath?.includes("casino")
+                      ? "GAMES"
+                      : pathSegments?.[1]?.includes("casino")
+                      ? "GAMES"
+                      : pathSegments?.[1]?.includes("ledgerDetails")
+                      ? "LEDGER"
+                      : currentPath?.toUpperCase()}
+                  </div>
                 </Link>
               )}
             </div>
@@ -52,10 +79,10 @@ const Header = ({ onClose, userBalance }: Props) => {
                   </Link>
                 </li>
                 <li>
-                  <a href="#">
+                  <Link to="#" onClick={handleLogOut}>
                     <img src="/img/logout.png" />{" "}
                     <span className="menu-name">LOGOUT</span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
               <a

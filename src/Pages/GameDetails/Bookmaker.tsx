@@ -141,7 +141,9 @@ const Bookmaker = ({
                       focusAmountInput();
                     }
                   }}>
-                  {bookmaker.b1}
+                  {bookmaker?.gstatus.toLowerCase() !== "suspended"
+                    ? bookmaker.b1
+                    : "0.0"}
                 </td>
                 <td
                   className="textTeamHead"
@@ -172,7 +174,7 @@ const Bookmaker = ({
                   }}
                   valign="middle"
                   align="center">
-                  {bookmaker.l1}
+                  {bookmaker?.gstatus.toLowerCase() !== "suspended"?bookmaker.l1:"0.0"}
                 </td>
                 <td
                   className="FontTextWhite"

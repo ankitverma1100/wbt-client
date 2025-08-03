@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useBetPlacedMutation } from "../../store/service/userServices/userServices";
 
 interface Props {
   amountInputRef: React.RefObject<HTMLInputElement | null>;
@@ -9,8 +8,8 @@ interface Props {
   setPlaceBetData: React.Dispatch<any>;
   timer: number;
   setTimer: React.Dispatch<React.SetStateAction<number>>;
-  setShow: React.Dispatch<React.SetStateAction<boolean>>;
-  setShowMsg: React.Dispatch<React.SetStateAction<string>>;
+  trigger: any;
+  isLoading: boolean;
 }
 
 const BetplaceMob = ({
@@ -19,13 +18,9 @@ const BetplaceMob = ({
   setPlaceBetData,
   timer,
   setTimer,
-  setShow,
-  setShowMsg,
+  trigger,
+  isLoading,
 }: Props) => {
-  const { id } = useParams<{ id: string }>();
-  const [trigger, { data: betplaceData}] =
-    useBetPlacedMutation();
-
   useEffect(() => {
     const timers = setTimeout(() => {
       if (timer > 0) {
@@ -57,33 +52,6 @@ const BetplaceMob = ({
   const handleBetPlaced = () => {
     trigger(placeBetData);
   };
-
-  useEffect(() => {
-    if (betplaceData) {
-      if (betplaceData.status) {
-        setShowMsg("Bet Successful");
-        setShow(true);
-        setTimeout(() => {
-          setShow(false);
-        }, 3000);
-        setTimer(0);
-        setPlaceBetData({} as any);
-        if (amountInputRef.current) {
-          amountInputRef.current.value = "";
-        }
-      } else {
-        setShowMsg(betplaceData.message || "Bet Failed");
-        setShow(true);
-        setTimeout(() => {
-          setShow(false);
-        }, 3000);
-        setPlaceBetData({} as any);
-        if (amountInputRef.current) {
-          amountInputRef.current.value = "";
-        }
-      }
-    }
-  }, [betplaceData, id]);
 
   return (
     <>
@@ -149,9 +117,15 @@ const BetplaceMob = ({
                   className="donebtn"
                   style={{
                     background: "rgb(89, 87, 255)",
+                    cursor: isLoading ? "not-allowed" : "pointer",
                   }}
-                  onClick={handleBetPlaced}
+                  onClick={() => {
+                    if (!isLoading) {
+                      handleBetPlaced();
+                    }
+                  }}
                   type="button"
+                  aria-disabled={isLoading}
                   id="cmdDone">
                   DONE
                 </a>

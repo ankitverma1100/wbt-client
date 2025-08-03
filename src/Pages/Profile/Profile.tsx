@@ -4,6 +4,7 @@ import {
   useUpdateRateMutation,
   useUserProfileMutation,
 } from "../../store/service/userServices/userServices";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   const [rateValue, setRateValue] = useState(0);
@@ -458,7 +459,7 @@ const Profile = () => {
       <div className="menu mt-4 w-100" id="menu">
         <ul className="nav" style={{ display: "block" }}>
           <li className="back-main-menu">
-            <a href="/main/dashboard/menu">BACK TO MAIN MENU</a>
+            <Link to="/main/dashboard">BACK TO MAIN MENU</Link>
           </li>
         </ul>
       </div>

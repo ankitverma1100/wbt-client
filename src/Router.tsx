@@ -3,6 +3,7 @@ import type { JSX, ReactElement } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import PageLayout from "./Common/PageLayout/PageLayout";
 import Loder from "./Common/Loder";
+import LedgerDetails from "./Pages/LedgerDetails/LedgerDetails";
 
 // Lazy imports
 const Login_New = lazy(() => import("./Pages/Login/Login_New"));
@@ -85,6 +86,10 @@ export const router = createBrowserRouter([
       {
         path: "freegames",
         element: withLoader(Freegames),
+      },
+      {
+        path: "ledgerDetails/:id",
+        element: <LedgerDetails />,
       },
       {
         path: "casino/:id",
