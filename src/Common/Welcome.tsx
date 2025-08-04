@@ -5,6 +5,7 @@ interface Props {
 }
 
 const Welcome = ({ handleClose }: Props) => {
+  const host = window.location.hostname;
   return (
     <>
       <div
@@ -38,14 +39,14 @@ const Welcome = ({ handleClose }: Props) => {
               <h2>प्रिय ग्राहक,</h2>
               <p>
                 आपसे अनुरोध है हमारी कोई डुप्लीकेट साइट नही है हमारी आधिकारिक
-                साइट 'Antpro.in' से लॉगिन करें। लॉगइन करने से पहले साइट का नाम
-                जरूर देख लें। आपके समर्थन के लिए धन्यवाद। टीम antpro
+                साइट '{host?.toUpperCase()}' से लॉगिन करें। लॉगइन करने से पहले साइट का नाम जरूर
+                देख लें। आपके समर्थन के लिए धन्यवाद। टीम {host?.toUpperCase()}
               </p>
               <h2>Dear Client,</h2>
               <p>
                 We don't have any duplicate site , You are requested to login
-                with our official site Antpro.in. I only. Please check the site
-                name before you login. Thanks for your support. Team antpro
+                with our official site {host?.toUpperCase()}. I only. Please check the site
+                name before you login. Thanks for your support. Team {host?.toUpperCase()}
               </p>
             </div>
             <div className="modal-footer">
