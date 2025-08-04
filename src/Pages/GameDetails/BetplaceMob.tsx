@@ -118,6 +118,8 @@ const BetplaceMob = ({
                   style={{
                     background: "rgb(89, 87, 255)",
                     cursor: isLoading ? "not-allowed" : "pointer",
+                    opacity: isLoading ? 0.7 : 1,
+                    width: "100px",
                   }}
                   onClick={() => {
                     if (!isLoading) {
@@ -128,6 +130,9 @@ const BetplaceMob = ({
                   aria-disabled={isLoading}
                   id="cmdDone">
                   DONE
+                  {isLoading && (
+                    <div className="spinner-border" role="status"></div>
+                  )}
                 </a>
                 <div className="amount-btndiv mb-1 pl-2 d-none d-md-flex">
                   <a onClick={() => handleStackChange(100)}>1H</a>

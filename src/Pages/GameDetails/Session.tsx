@@ -37,7 +37,7 @@ const Session = ({ oddsData, handleBetData, focusAmountInput }: OddsData) => {
               height={25}
               align="center">
               SESSION{" "}
-              <a href="/main/dashboard/rules">
+              <a href="#">
                 <svg
                   className="svg-inline--fa fa-info-circle fa-w-16 text-white"
                   style={{ float: "right" }}

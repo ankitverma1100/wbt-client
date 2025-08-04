@@ -6948,14 +6948,21 @@ a.close.disabled {
 
 .spinner-border {
   display: inline-block;
-  width: 2rem;
-  height: 2rem;
+  width: 20px;
+  height: 20px;
   vertical-align: text-bottom;
   border: .25em solid currentColor;
   border-right-color: transparent;
   border-radius: 50%;
-  -webkit-animation: spinner-border .75s linear infinite;
+  margin-left: 5px;
   animation: spinner-border .75s linear infinite
+}
+
+@media (max-width:800px) {
+  .spinner-border {
+    width: 15px;
+    height: 15px;
+  }
 }
 
 .spinner-border-sm {
