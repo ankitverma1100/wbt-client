@@ -22,7 +22,7 @@ const PageLayout = () => {
   return (
     <>
       <Header onClose={onClose} userBalance={userBalance?.data?.balance}/>
-      <Balance userBalance={userBalance?.data?.balance}/>
+      <Balance userBalance={userBalance?.data}/>
       {/* <Rule /> */}
       <Outlet />
       <AppSidebar visible={visible} onClose={onClose} />

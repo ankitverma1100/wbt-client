@@ -3,15 +3,13 @@ import { useGetBetListBymatchIdQuery } from "../../store/service/userServices/us
 
 const MatchBets = () => {
   const { id } = useParams();
-  const { data } = useGetBetListBymatchIdQuery({
-    matchId: id ?? "",
-    activeBet: true,
-  }, {pollingInterval: 1000});
-  // const { data: completed } = useGetBetListBymatchIdQuery({
-  //   matchId: id ?? "",
-  //   activeBet: false,
-  // });
-
+  const { data } = useGetBetListBymatchIdQuery(
+    {
+      matchId: id ?? "",
+      activeBet: true,
+    },
+    { pollingInterval: 1000 }
+  );
 
   return (
     <>
@@ -74,7 +72,12 @@ const MatchBets = () => {
           <tbody id="MyTeamBets">
             {data?.data?.Bookmaker?.map((items) => {
               return (
-                <tr style={{ borderBottom: "1px solid #3d8282" }}>
+                // #a7d8fd
+                <tr
+                  style={{
+                    borderBottom: "1px solid #3d8282",
+                    background: items?.back ? "#a7d8fd" : "#f9c9d4",
+                  }}>
                   <td
                     style={{
                       borderRight: "1px solid #3d8282",
@@ -176,7 +179,11 @@ const MatchBets = () => {
           <tbody id="MySessionBets">
             {data?.data?.Fancy2Market?.map((items) => {
               return (
-                <tr style={{ borderBottom: "1px solid #3d8282" }}>
+                <tr
+                  style={{
+                    borderBottom: "1px solid #3d8282",
+                    background: items?.back ? "#a7d8fd" : "#f9c9d4",
+                  }}>
                   <td
                     style={{
                       borderRight: "1px solid #3d8282",
