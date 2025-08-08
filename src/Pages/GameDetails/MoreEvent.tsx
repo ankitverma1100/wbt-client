@@ -1,6 +1,6 @@
 import moment from "moment";
 import { useActiveMatchQuery } from "../../store/service/odds/oddsServices";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const MoreEvent = () => {
   const { data } = useActiveMatchQuery();
@@ -17,12 +17,12 @@ const MoreEvent = () => {
                 <span className="green-circle" />
               </div>
               <div className="col-11 px-2">
-                <a href="/main/dashboard/game/239">
+                <Link to={`/main/match-deatils/${match?.matchId}`}>
                   <h6>{match?.matchName}</h6>
                   <span className="date">
                     {moment(match?.openDate).format("MMM DD YYYY HH:mm A")}{" "}
                   </span>
-                </a>
+                </Link>
               </div>
             </>
           );

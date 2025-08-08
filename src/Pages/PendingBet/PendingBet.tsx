@@ -1,14 +1,15 @@
 import { useEffect } from "react";
-import { useGetLedgerDetailsMutation } from "../../store/service/userServices/userServices";
+import { useGetUserLiabilityMutation } from "../../store/service/userServices/userServices";
 import { Link } from "react-router-dom";
 import moment from "moment";
 
-const Ledger = () => {
-  const [trigger, { data: ledgerData }] = useGetLedgerDetailsMutation();
+const PendingBet = () => {
+  const [trigger, { data: ledgerData }] = useGetUserLiabilityMutation();
 
   useEffect(() => {
-    trigger({});
+    trigger();
   }, []);
+
   return (
     <div className="container">
       <form name="BetPlayer" method="post" action="" wfd-id={1}>
@@ -51,7 +52,7 @@ const Ledger = () => {
                                       marginBottom: 0,
                                     }}>
                                     {" "}
-                                    MY LEDGER
+                                    Pending BETS
                                   </p>
                                 </td>
                               </tr>
@@ -90,7 +91,7 @@ const Ledger = () => {
                                     color: "#fff",
                                     backgroundColor: "#2A363B",
                                   }}>
-                                  DESCRIPTION
+                                  Team
                                 </td>
                                 <td
                                   width="15%"
@@ -104,7 +105,7 @@ const Ledger = () => {
                                     color: "#fff",
                                     backgroundColor: "#2A363B",
                                   }}>
-                                  WON BY
+                                  Date
                                 </td>
                                 <td
                                   width="15%"
@@ -117,7 +118,7 @@ const Ledger = () => {
                                     color: "#fff",
                                     backgroundColor: "#2A363B",
                                   }}>
-                                  WON
+                                  Rate
                                 </td>
                                 <td
                                   width="15%"
@@ -130,7 +131,7 @@ const Ledger = () => {
                                     color: "#fff",
                                     backgroundColor: "#2A363B",
                                   }}>
-                                  LOST
+                                  AMT
                                 </td>
                                 <td
                                   width="15%"
@@ -143,50 +144,49 @@ const Ledger = () => {
                                     color: "#fff",
                                     backgroundColor: "#2A363B",
                                   }}>
-                                  HISAB
+                                  MODE
                                 </td>
                               </tr>
-                              {ledgerData?.data?.map((items) => {
+                              {ledgerData?.data?.map((items:any) => {
                                 return (
                                   <tr>
                                     <td
                                       align="center"
                                       valign="bottom"
                                       style={{ backgroundColor: "#FFFFFF" }}>
-                                      <Link
-                                        to={`/main/ledgerDetails/${items?.matchId}`}>
-                                        {" "}
-                                        {items?.remark}(
-                                        {moment(items?.date, [
-                                          "DD.MM.YYYY",
-                                          "YYYY-MM-DD",
-                                        ]).format("DD-MM-YYYY")}
-                                        )
-                                      </Link>
+                                      {items?.matchName}
                                     </td>
                                     <td
                                       align="center"
                                       valign="bottom"
                                       style={{ backgroundColor: "#FFFFFF" }}>
-                                      {items?.wonBy}
+                                      {moment(items?.date).format(
+                                        "DD-MM-YYYY HH:mm:ss"
+                                      )}
                                     </td>
                                     <td
                                       align="center"
                                       valign="bottom"
                                       style={{ backgroundColor: "#FFFFFF" }}>
-                                      {items?.won}
+                                      {items?.odds}
                                     </td>
                                     <td
                                       align="center"
                                       valign="bottom"
                                       style={{ backgroundColor: "#FFFFFF" }}>
-                                      {items?.lost}
+                                      {items?.stake}
                                     </td>
                                     <td
                                       align="center"
                                       valign="bottom"
                                       style={{ backgroundColor: "#FFFFFF" }}>
-                                      {items?.balance?.toFixed(2)}
+                                      {items?.marketType === "Fancy"
+                                        ? items?.back
+                                          ? "YES"
+                                          : "NO"
+                                        : items?.back
+                                        ? "L"
+                                        : "K"}
                                     </td>
                                   </tr>
                                 );
@@ -237,4 +237,4 @@ const Ledger = () => {
   );
 };
 
-export default Ledger;
+export default PendingBet;

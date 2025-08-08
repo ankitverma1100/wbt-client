@@ -91,7 +91,7 @@ const MatchBets = () => {
                       borderRight: "1px solid #3d8282",
                       borderBottom: "1px solid #3d8282",
                     }}>
-                    {items?.rate}
+                    {Number(items?.rate)?.toFixed(2)}
                   </td>
                   <td
                     style={{
@@ -160,7 +160,6 @@ const MatchBets = () => {
                 align="center">
                 RATE
               </td>
-              {/*<td class="FontTextWhite10px border" style="color: #fff ;"   align="center">RESULT</td>*/}
               <td
                 className="FontTextWhite10px border"
                 style={{ color: "#fff ", background: "#7d5c0e" }}
@@ -178,6 +177,8 @@ const MatchBets = () => {
           </thead>
           <tbody id="MySessionBets">
             {data?.data?.Fancy2Market?.map((items) => {
+              if (items?.declared !== "null" || items?.declared?.length < 1)
+                return null;
               return (
                 <tr
                   style={{
@@ -313,7 +314,82 @@ const MatchBets = () => {
               </td>
             </tr>
           </thead>
-          <tbody id="MySessionCompletedBets"></tbody>
+          <tbody id="MySessionCompletedBets">
+            {data?.data?.Fancy2Market?.map((items) => {
+              if (items?.declared === "null") return null;
+              return (
+                <tr
+                  style={{
+                    borderBottom: "1px solid #3d8282",
+                    background: items?.back ? "#a7d8fd" : "#f9c9d4",
+                  }}>
+                  <td
+                    style={{
+                      borderRight: "1px solid #3d8282",
+                      borderBottom: "1px solid #3d8282",
+                    }}>
+                    {items?.nation}
+                  </td>
+                  <td
+                    style={{
+                      textAlign: "center",
+                      borderRight: "1px solid #3d8282",
+                      borderBottom: "1px solid #3d8282",
+                    }}>
+                    {items?.date}
+                  </td>
+                  <td
+                    style={{
+                      textAlign: "center",
+                      borderRight: "1px solid #3d8282",
+                      borderBottom: "1px solid #3d8282",
+                    }}>
+                    {items?.priveValue}
+                  </td>
+                  <td
+                    style={{
+                      textAlign: "center",
+                      borderRight: "1px solid #3d8282",
+                      borderBottom: "1px solid #3d8282",
+                    }}>
+                    {items?.rate}
+                  </td>
+                  <td
+                    style={{
+                      textAlign: "center",
+                      borderRight: "1px solid #3d8282",
+                      borderBottom: "1px solid #3d8282",
+                    }}>
+                    {items?.declared}
+                  </td>
+                  <td
+                    style={{
+                      textAlign: "center",
+                      borderRight: "1px solid #3d8282",
+                      borderBottom: "1px solid #3d8282",
+                    }}>
+                    {items?.amount}
+                  </td>
+                  <td
+                    style={{
+                      textAlign: "center",
+                      borderRight: "1px solid #3d8282",
+                      borderBottom: "1px solid #3d8282",
+                    }}>
+                    {items?.back ? "Yes" : "No"}
+                  </td>
+                  <td
+                    style={{
+                      textAlign: "center",
+                      borderRight: "1px solid #3d8282",
+                      borderBottom: "1px solid #3d8282",
+                    }}>
+                    {items?.pnl}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
         </table>
       </div>
     </>

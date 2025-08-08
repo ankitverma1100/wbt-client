@@ -1,10 +1,8 @@
 import type {
   BaseQueryFn,
-  FetchBaseQueryError
+  FetchBaseQueryError,
 } from "@reduxjs/toolkit/query/react";
-import {
-  createApi
-} from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
 import { dynamicBaseQuery } from "../dynamicBaseQuery";
 
 export const userList = createApi({
@@ -141,119 +139,135 @@ export const userList = createApi({
       query: (body) => ({
         url: `/enduser/bet-list-by-matchid`,
         method: "POST",
-        body
+        body,
       }),
     }),
     getOddsPnl: build.query<OddsResponse, BetListReq>({
       query: (body) => ({
         url: `/enduser/user-odds-pnl`,
         method: "POST",
-        body
+        body,
       }),
     }),
     getSessionPlusMinus: build.query<SessionPlusMinusRes, BetListReq>({
       query: (body) => ({
         url: `/enduser/session-plus-minus-user-eventpage`,
         method: "POST",
-        body
+        body,
       }),
     }),
     getLedgerDetails: build.mutation<LedgerDataRes, {}>({
       query: (body) => ({
         url: `/enduser/ledger`,
         method: "POST",
-        body
+        body,
       }),
     }),
     getLedgerBetDetails: build.mutation<LedgerListData, LedgerReq>({
       query: (body) => ({
         url: `/enduser/get-enduser-bet-detail`,
         method: "POST",
-        body
+        body,
       }),
     }),
     getFancyBook: build.mutation<FancyBookRes, fancyBookreq>({
       query: (body) => ({
         url: `/enduser/fancy-book`,
         method: "POST",
-        body
+        body,
       }),
     }),
     getCasinoMyBet: build.query<mybetResponce, mybetRequest>({
       query: (body) => ({
         url: `/casino/casino-bet-list-user`,
         method: "POST",
-        body
+        body,
       }),
     }),
     getCasinoBetPlaced: build.mutation<ChangePaaRes, CasinoBetPlacePaylod>({
       query: (body) => ({
         url: `/casino/bet-place`,
         method: "POST",
-        body
+        body,
       }),
     }),
     getBetListLedger: build.mutation<BetListLegdgerRes, BetListLegdgerProps>({
       query: (body) => ({
         url: `/casino/bet-list-ledger`,
         method: "POST",
-        body
+        body,
       }),
     }),
-    matchSessionBetCount: build.mutation<MatchBetCountResponse, MatchBetCountReq>({
+    matchSessionBetCount: build.mutation<
+      MatchBetCountResponse,
+      MatchBetCountReq
+    >({
       query: (body) => ({
         url: `/report/match-session-bet-count`,
         method: "POST",
-        body
+        body,
       }),
     }),
     getChanelId: build.mutation<ChanelRes, channelReq>({
       query: (body) => ({
         url: `/sports/channel-id-matchidwise`,
         method: "POST",
-        body
+        body,
       }),
     }),
     activeEvent: build.mutation<activeMatchRes, void>({
       query: (body) => ({
         url: `/sports/active-event-list`,
         method: "POST",
-        body
+        body,
       }),
     }),
     getUserCoin: build.mutation<usedCoinRes, usedCoinReq>({
       query: (body) => ({
         url: `/enduser/get-used-coin`,
         method: "POST",
-        body
+        body,
       }),
     }),
     channelId: build.query<ChannelIdRes, ChannelIdpayload>({
       query: (payload) => {
         return {
           body: payload,
-          method: 'POST',
-          url: '/sports/channel-id-matchidwise',
-        }
+          method: "POST",
+          url: "/sports/channel-id-matchidwise",
+        };
       },
     }),
     matkaList: build.query<matkaListRes, void>({
       query: (body) => ({
         url: `/matka/list`,
         method: "POST",
-        body
+        body,
       }),
     }),
     getMatkaMarket: build.mutation<matkaListResponse, matkaPayload>({
       query: (body) => ({
         url: `/matka/get-matka-market`,
         method: "POST",
-        body
+        body,
       }),
     }),
     matkaPlacebet: build.mutation<any, matkaBetPlacePayload>({
       query: (body) => ({
         url: `/matka/matka-bet`,
+        method: "POST",
+        body,
+      }),
+    }),
+    getUserLiability: build.mutation<any, void>({
+      query: () => ({
+        url: `/ant-pro/get-user-liability`,
+        method: "POST",
+      }),
+    }),
+    getUserchpdtl: build.mutation<any, any>({
+      query: (body) => ({
+        url: `/ant-pro/get-accstt-chpdtl`,
         method: "POST",
         body
       }),
@@ -296,5 +310,7 @@ export const {
   useChannelIdQuery,
   useMatkaListQuery,
   useGetMatkaMarketMutation,
-  useMatkaPlacebetMutation
+  useMatkaPlacebetMutation,
+  useGetUserLiabilityMutation,
+  useGetUserchpdtlMutation
 } = userList;

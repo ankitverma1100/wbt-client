@@ -23,6 +23,7 @@ import { Modal } from "antd";
 import MoreEvent from "./MoreEvent";
 
 const GameDetails = () => {
+  const [showFull, setShowFull] = useState(false);
   const [show, setShow] = useState<boolean>(false);
   const [showMsg, setShowMsg] = useState<string>("");
   const [placeBetData, setPlaceBetData] = useState<any>({
@@ -156,19 +157,9 @@ const GameDetails = () => {
                   TV
                 </a>
               </li>
-              <li className="text-white d-inline-block">
-                <span className="fs-link blinking" style={{}}>
-                  FS
-                </span>
+              <li className="text-white d-inline-block" onClick={()=>setShowFull(!showFull)}>
+                <span className="fs-link blinking">FS</span>
               </li>
-              <div className="w-100" id="tvFrame" style={{ display: "none" }}>
-                <iframe
-                  src=""
-                  title="Live Match"
-                  className="match-tv"
-                  id="match_iframe"
-                />
-              </div>
             </ul>
           </div>
         </div>
@@ -176,7 +167,7 @@ const GameDetails = () => {
       <div className="container">
         <form name="BetPlayer" method="post" action="">
           <div className="d-none1 d-sm-none1 d-md-block1 d-lg-block1">
-            <TvSection />
+            <TvSection showFull={showFull}/>
             <Bookmaker
               oddsData={oddsData?.Bookmaker?.filter(
                 (item: { t: string }) => item?.t?.toLowerCase() === "bookmaker"

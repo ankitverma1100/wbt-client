@@ -1,241 +1,189 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useNavigate } from "react-router-dom";
 import "./style.scss";
+import { useGetUserchpdtlMutation } from "../../store/service/userServices/userServices";
+import { useEffect, useState } from "react";
+import { DatePicker } from "antd";
+import dayjs from "dayjs";
+import moment from "moment";
+
+const { RangePicker } = DatePicker;
 
 const Statement = () => {
+  const nav = useNavigate();
+  const [dateRange, setDateRange] = useState<[string, string]>([
+    dayjs().subtract(7, "day").format("YYYY-MM-DD"),
+    dayjs().format("YYYY-MM-DD"),
+  ]);
+  const [filterType, setFilterType] = useState("ALL");
+  const [trigger, { data }] = useGetUserchpdtlMutation();
+
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  useEffect(() => {
+    trigger({
+      detailType: filterType,
+      fromDate: dateRange[0],
+      toDate: dateRange[1],
+      userId: "",
+    });
+    setCurrentPage(1); // Reset to first page when filter or date changes
+  }, [filterType, dateRange]);
+
+  const handleDateChange = (dates: any) => {
+    if (dates && dates.length === 2) {
+      setDateRange([
+        dates[0].format("YYYY-MM-DD"),
+        dates[1].format("YYYY-MM-DD"),
+      ]);
+    }
+  };
+
+  // Pagination logic
+  const totalEntries = data?.data?.length || 0;
+  const totalPages = Math.ceil(totalEntries / rowsPerPage);
+  const paginatedData =
+    data?.data?.slice(
+      (currentPage - 1) * rowsPerPage,
+      currentPage * rowsPerPage
+    ) || [];
+
   return (
     <div className="container mobile-padding-0 statement-page">
       <div className="menu mt-0 mt-md-2 w-100" id="menu">
         <ul className="nav" style={{ display: "block" }}>
           <li className="back-main-menu">
-            <a href="/main/dashboard/index">BACK TO MAIN MENU</a>
+            <a onClick={() => nav(-1)}>BACK TO MAIN MENU</a>
           </li>
         </ul>
       </div>
+
       <div className="page_head">
-        <h6>MY ACCOUNT STATEMENT (3)</h6>
+        <h6>MY ACCOUNT STATEMENT ({totalEntries})</h6>
       </div>
+
       <div className="row calenderdiv">
         <div className="col-md-6">
           <div className="calender">
-            <input
-              type="text"
-              name="daterange1"
-              defaultValue="07/03/2025 - 07/03/2025"
-              placeholder="Start End Date"
-              autoComplete="off"
-              className="form-control"
+            <RangePicker
+              value={[dayjs(dateRange[0]), dayjs(dateRange[1])]}
+              onChange={handleDateChange}
             />
           </div>
         </div>
         <div className="col-md-6">
           <div className="btn-group" role="group" aria-label="buttonFilter">
-            <button type="button" className="btn btn-sm btn-primary btn_filter">
+            <button
+              type="button"
+              className="btn btn-sm btn-primary btn_filter"
+              onClick={() => setFilterType("ALL")}>
               All
             </button>
-            <button type="button" className="btn btn-sm btn-primary btn_filter">
+            <button
+              type="button"
+              className="btn btn-sm btn-primary btn_filter"
+              onClick={() => setFilterType("PNL")}>
               P&amp;L
             </button>
-            {/* <button type="button" class="btn btn-sm btn-primary btn_filter">PDC</button> */}
-            <button type="button" className="btn btn-sm btn-primary btn_filter">
+            <button
+              type="button"
+              className="btn btn-sm btn-primary btn_filter"
+              onClick={() => setFilterType("ACCOUNT")}>
               Account
             </button>
           </div>
         </div>
       </div>
+
       <div className="statement-table">
-        <div
-          id="DataTables_Table_0_wrapper"
-          className="dataTables_wrapper no-footer">
-          <div className="dataTables_length" id="DataTables_Table_0_length">
+        <div className="dataTables_wrapper no-footer">
+          <div className="dataTables_length">
             <label>
               Show{" "}
               <select
-                name="DataTables_Table_0_length"
-                aria-controls="DataTables_Table_0"
-                className="">
-                <option value={10}>10</option>
-                <option value={25}>25</option>
-                <option value={50}>50</option>
-                <option value={100}>100</option>
+                value={rowsPerPage}
+                onChange={(e) => {
+                  setRowsPerPage(Number(e.target.value));
+                  setCurrentPage(1);
+                }}>
+                {[10, 25, 50, 100].map((size) => (
+                  <option key={size} value={size}>
+                    {size}
+                  </option>
+                ))}
               </select>{" "}
               entries
             </label>
           </div>
-          <div id="DataTables_Table_0_filter" className="dataTables_filter">
-            <label>
-              Search:
-              <input
-                type="search"
-                className=""
-                placeholder=""
-                aria-controls="DataTables_Table_0"
-              />
-            </label>
-          </div>
-          <table
-            width="100%"
-            cellPadding={0}
-            className="table statement-datatable dataTable no-footer"
-            id="DataTables_Table_0"
-            role="grid"
-            aria-describedby="DataTables_Table_0_info"
-            style={{ width: "100%" }}>
+
+          <table className="table statement-datatable dataTable no-footer">
             <thead>
-              <tr role="row">
-                <th
-                  className="sorting_desc"
-                  tabIndex={0}
-                  aria-controls="DataTables_Table_0"
-                  rowSpan={1}
-                  colSpan={1}
-                  aria-sort="descending"
-                  aria-label="DATE: activate to sort column ascending"
-                  style={{ width: 123 }}>
-                  DATE
-                </th>
-                <th
-                  className="sorting"
-                  tabIndex={0}
-                  aria-controls="DataTables_Table_0"
-                  rowSpan={1}
-                  colSpan={1}
-                  aria-label="DESCRIPTION: activate to sort column ascending"
-                  style={{ width: 196 }}>
-                  DESCRIPTION
-                </th>
-                <th
-                  className="sorting"
-                  tabIndex={0}
-                  aria-controls="DataTables_Table_0"
-                  rowSpan={1}
-                  colSpan={1}
-                  aria-label="Prev. Bal.: activate to sort column ascending"
-                  style={{ width: 118 }}>
-                  Prev. Bal.
-                </th>
-                <th
-                  className="sorting"
-                  tabIndex={0}
-                  aria-controls="DataTables_Table_0"
-                  rowSpan={1}
-                  colSpan={1}
-                  aria-label="CREDIT : activate to sort column ascending"
-                  style={{ width: 97 }}>
-                  CREDIT{" "}
-                </th>
-                <th
-                  className="sorting"
-                  tabIndex={0}
-                  aria-controls="DataTables_Table_0"
-                  rowSpan={1}
-                  colSpan={1}
-                  aria-label="DEBIT: activate to sort column ascending"
-                  style={{ width: 82 }}>
-                  DEBIT
-                </th>
-                <th
-                  className="sorting"
-                  tabIndex={0}
-                  aria-controls="DataTables_Table_0"
-                  rowSpan={1}
-                  colSpan={1}
-                  aria-label="Comm+: activate to sort column ascending"
-                  style={{ width: 99 }}>
-                  Comm+
-                </th>
-                <th
-                  className="sorting"
-                  tabIndex={0}
-                  aria-controls="DataTables_Table_0"
-                  rowSpan={1}
-                  colSpan={1}
-                  aria-label="BALANCE: activate to sort column ascending"
-                  style={{ width: 119 }}>
-                  BALANCE
-                </th>
+              <tr>
+                <th style={{ width: 123 }}>DATE</th>
+                <th style={{ width: 196 }}>DESCRIPTION</th>
+                <th style={{ width: 97 }}>CREDIT</th>
+                <th style={{ width: 82 }}>DEBIT</th>
+                <th style={{ width: 99 }}>Comm+</th>
+                <th style={{ width: 119 }}>BALANCE</th>
               </tr>
             </thead>
             <tbody>
-              {/*<tr>*/}
-              {/*   <td>30 Jan 2024</td>*/}
-              {/*   <td>Title Here</td>*/}
-              {/*   <td class="text-center">500</td>*/}
-              {/*   <td class="text-primary text-center">0</td>*/}
-              {/*   <td class="text-danger text-center">0</td>*/}
-              {/*   <td class="text-primary text-center">0</td>*/}
-              {/*   <td class="text-center">500</td>*/}
-              {/*</tr>*/}
-              <tr role="row" className="odd">
-                <td className="sorting_1">03 Sep 24</td>
-                <td>Balance credited</td>
-                <td className="text-center">6900</td>
-                <td className="text-primary text-center">100</td>
-                <td className="text-danger text-center">0</td>
-                <td className="text-primary text-center">0</td>
-                <td className="text-center">7000</td>
-              </tr>
-              <tr role="row" className="even">
-                <td className="sorting_1">03 Sep 24</td>
-                <td>Balance debited</td>
-                <td className="text-center">7000</td>
-                <td className="text-primary text-center">0</td>
-                <td className="text-danger text-center">100</td>
-                <td className="text-primary text-center">0</td>
-                <td className="text-center">6900</td>
-              </tr>
-              <tr role="row" className="odd">
-                <td className="sorting_1">03 Sep 24</td>
-                <td>Balance credited</td>
-                <td className="text-center">0</td>
-                <td className="text-primary text-center">7000</td>
-                <td className="text-danger text-center">0</td>
-                <td className="text-primary text-center">0</td>
-                <td className="text-center">7000</td>
-              </tr>
+              {paginatedData.map((item, index) => (
+                <tr key={index}>
+                  <td style={{ whiteSpace: "nowrap" }}>
+                    {moment(item?.date).format("DD MMM YY")}
+                  </td>
+                  <td>{item?.description}</td>
+                  <td className="text-primary text-center">{item?.credit}</td>
+                  <td className="text-danger text-center">{item?.debit}</td>
+                  <td className="text-primary text-center">0</td>
+                  <td className="text-center">{item?.closing}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
-          <div
-            className="dataTables_info"
-            id="DataTables_Table_0_info"
-            role="status"
-            aria-live="polite">
-            Showing 1 to 3 of 3 entries
-          </div>
-          <div
-            className="dataTables_paginate paging_simple_numbers"
-            id="DataTables_Table_0_paginate">
-            <a
-              className="paginate_button previous disabled"
-              aria-controls="DataTables_Table_0"
-              data-dt-idx={0}
-              tabIndex={0}
-              id="DataTables_Table_0_previous">
-              Previous
-            </a>
-            <span>
-              <a
-                className="paginate_button current"
-                aria-controls="DataTables_Table_0"
-                data-dt-idx={1}
-                tabIndex={0}>
-                1
-              </a>
-            </span>
-            <a
-              className="paginate_button next disabled"
-              aria-controls="DataTables_Table_0"
-              data-dt-idx={2}
-              tabIndex={0}
-              id="DataTables_Table_0_next">
-              Next
-            </a>
+
+          {/* Pagination Controls */}
+          <div className="pagination_main">
+            <div className="dataTables_info">
+              Showing{" "}
+              {Math.min((currentPage - 1) * rowsPerPage + 1, totalEntries)} to{" "}
+              {Math.min(currentPage * rowsPerPage, totalEntries)} of{" "}
+              {totalEntries} entries
+            </div>
+            <div className="pagination-controls">
+              <button
+                onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+                disabled={currentPage === 1}>
+                Prev
+              </button>
+
+              {Array.from({ length: totalPages }, (_, i) => (
+                <button
+                  key={i}
+                  className={currentPage === i + 1 ? "active" : ""}
+                  onClick={() => setCurrentPage(i + 1)}>
+                  {i + 1}
+                </button>
+              ))}
+
+              <button
+                onClick={() =>
+                  setCurrentPage((p) => Math.min(p + 1, totalPages))
+                }
+                disabled={currentPage === totalPages}>
+                Next
+              </button>
+            </div>
           </div>
         </div>
       </div>
+
       <div className="menu mt-2 w-100" id="menu">
         <ul className="nav" style={{ display: "block" }}>
           <li className="back-main-menu">
-            <a href="/main/dashboard/index">BACK TO MAIN MENU</a>
+            <a onClick={() => nav(-1)}>BACK TO MAIN MENU</a>
           </li>
         </ul>
       </div>

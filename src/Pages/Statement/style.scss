@@ -234,7 +234,7 @@ td p {
   }
   .statement-table .table tr td {
     font-size: 13px;
-    white-space: nowrap;
+    // white-space: nowrap;
   }
   .statement-table .table {
     overflow-x: scroll;
@@ -244,5 +244,30 @@ td p {
 
   .pagination li a {
     font-size: 13px;
+  }
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  button {
+    background-color: #fff;
+    border: 1px solid #fff;
+    padding: 3px 10px;
+    font-size: 14px;
+  }
+  button.active {
+    border-color: #007bff;
+  }
+}
+
+.pagination_main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @media (max-width: 800px) {
+    flex-direction: column;
+    gap: 10px;
   }
 }

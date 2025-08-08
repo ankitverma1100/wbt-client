@@ -1,10 +1,12 @@
 import "./style.scss";
 import { useEffect, useState } from "react";
 import {
+  useGetUserBalanceQuery,
   useUpdateRateMutation,
   useUserProfileMutation,
 } from "../../store/service/userServices/userServices";
 import { Link } from "react-router-dom";
+import moment from "moment";
 
 const Profile = () => {
   const [rateValue, setRateValue] = useState(0);
@@ -37,6 +39,11 @@ const Profile = () => {
       }
     }
   }, [updateRateInfo]);
+
+  const { data: userBalance } = useGetUserBalanceQuery(undefined, {
+    pollingInterval: 5000,
+    refetchOnMountOrArgChange: true,
+  });
   return (
     <div className="profile-data-table profile_dddd container">
       <table
@@ -274,7 +281,7 @@ const Profile = () => {
                                 padding: 6,
                                 backgroundColor: "#FFFFFF",
                               }}>
-                              7000
+                              {userBalance?.data?.balance?.toFixed(2)}
                             </td>
                           </tr>
                           <tr>
@@ -324,7 +331,9 @@ const Profile = () => {
                                 padding: 6,
                                 backgroundColor: "#FFFFFF",
                               }}>
-                              {userData?.data?.dateOfJoining}
+                              {moment(userData?.data?.dateOfJoining).format(
+                                "DD-MM-YYYY"
+                              )}
                             </td>
                           </tr>
                           <tr>

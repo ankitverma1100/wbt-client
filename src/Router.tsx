@@ -7,6 +7,7 @@ import LedgerDetails from "./Pages/LedgerDetails/LedgerDetails";
 
 // Lazy imports
 const Login_New = lazy(() => import("./Pages/Login/Login_New"));
+const PendingBet = lazy(() => import("./Pages/PendingBet/PendingBet"));
 const Dashboard = lazy(() => import("./Pages/Dashboard/Dashboard"));
 const Inplay = lazy(() => import("./Pages/Inplay/Inplay"));
 const CasinoHome = lazy(() => import("./Pages/Casino/CasinoHome"));
@@ -54,6 +55,10 @@ export const router = createBrowserRouter([
       {
         path: "dashboard",
         element: withLoader(Dashboard),
+      },
+      {
+        path: "pending",
+        element: withLoader(PendingBet),
       },
       {
         path: "casino",
