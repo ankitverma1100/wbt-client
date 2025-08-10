@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Select } from "antd";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
@@ -21,6 +22,7 @@ const BetplaceMob = ({
   trigger,
   isLoading,
 }: Props) => {
+  const { Option } = Select;
   useEffect(() => {
     const timers = setTimeout(() => {
       if (timer > 0) {
@@ -42,6 +44,12 @@ const BetplaceMob = ({
       stake: value,
     }));
   };
+  const handleChange = (value: any) => {
+    setPlaceBetData((prev: any) => ({
+      ...prev,
+      stake: value,
+    }));
+  };
   const handleStackChange = (event: number) => {
     setPlaceBetData((prev: any) => ({
       ...prev,
@@ -53,6 +61,7 @@ const BetplaceMob = ({
     trigger(placeBetData);
   };
 
+
   return (
     <>
       {placeBetData.odds && (
@@ -63,7 +72,26 @@ const BetplaceMob = ({
           border={0}
           className="table mb-0 bg-white res-table"
           id="placeBetTable">
-          <thead>
+          <tbody>
+            <tr style={{ marginInline: "12px" }} className="hide-desk">
+              <td
+                style={{
+                  // textAlign: "center",
+                  background: "#7d5c0e",
+                  color: "#fff",
+                  fontSize: "14px",
+                }}
+                colSpan={5}>
+                <div style={{ padding: "0px 14px" }}>
+                  Type:{" "}
+                  <span style={{ color: "#f4ad08" }}>{placeBetData?.mode}</span>{" "}
+                  {placeBetData?.odds} [{placeBetData?.priceValue}]
+                </div>
+                <div style={{ padding: "0px 14px" }}>
+                  Fancy: {placeBetData?.name}
+                </div>
+              </td>
+            </tr>
             <tr>
               <td
                 className="FontTextWhite10px  mob-hide"
@@ -95,6 +123,7 @@ const BetplaceMob = ({
                 Rate: {placeBetData?.odds} ({placeBetData.mode})
               </td>
               <td
+                colSpan={3}
                 className="FontTextWhite10px  amounttab"
                 style={{ background: "#E9E9E9", verticalAlign: "middle" }}>
                 <b style={{ fontSize: 18, paddingLeft: 10 }}>Amount: </b>{" "}
@@ -104,10 +133,62 @@ const BetplaceMob = ({
                   name="amount"
                   value={placeBetData?.stake || ""}
                   onChange={handleAmountChange}
-                  className="form-control mobile-width mb-2 mb-md-2 mr-3"
+                  className="form-control mobile-width mb-2 mb-md-2 mr-3 mob-hide"
                   style={{ width: "50%", display: "inline-block" }}
                   id="stack_box"
                 />
+                <div
+                  className="mr-3 desk-hide"
+                  style={{
+                    width: "160px",
+                    marginInline: "12px",
+                  }}>
+                  <Select
+                    showSearch
+                    ref={amountInputRef}
+                    value={placeBetData?.stake}
+                    style={{ width: "100%", height: "35.5px" }}
+                    placeholder="Enter a number or select a value"
+                    optionLabelProp="label"
+                    onChange={handleChange}>
+                    <Option value={100} label="100">
+                      100
+                    </Option>
+                    <Option value={500} label="500">
+                      500
+                    </Option>
+                    <Option value={1000} label="1000">
+                      1000
+                    </Option>
+                    <Option value={2000} label="2000">
+                      2000
+                    </Option>
+                    <Option value={5000} label="5000">
+                      5000
+                    </Option>
+                    <Option value={10000} label="10000">
+                      10000
+                    </Option>
+                    <Option value={25000} label="25000">
+                      25000
+                    </Option>
+                    <Option value={50000} label="50000">
+                      50000
+                    </Option>
+                    <Option value={100000} label="100000">
+                      100000
+                    </Option>
+                    <Option value={200000} label="200000">
+                      200000
+                    </Option>
+                    <Option value={300000} label="300000">
+                      300000
+                    </Option>
+                    <Option value={500000} label="500000">
+                      500000
+                    </Option>
+                  </Select>
+                </div>
                 <span
                   className="amount-span d-md-none d-inline-block"
                   id="counterMob">
@@ -154,15 +235,19 @@ const BetplaceMob = ({
                 </div>
               </td>
               <td
-                width="25%"
-                className="d-none d-md-table-cell"
+                className="FontTextWhite10px "
+                width="15%"
                 style={{
-                  background: "#E9E9E9",
+                  verticalAlign: "baseline",
+                  color: "#212529 ",
+                  border: "none ",
+                  fontSize: "18px ",
+                  backgroundColor: "#e9e9e9",
                 }}
-              />
+                height={25}
+                align="center"></td>
             </tr>
-          </thead>
-          <tbody></tbody>
+          </tbody>
         </table>
       )}
     </>

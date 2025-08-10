@@ -459,6 +459,12 @@ body.modal-open {
   display: block;
   white-space: nowrap;
   overflow-x: scroll;
+  @media (max-width: 800px) {
+    width: 94%;
+    margin-top: 18px;
+    margin-bottom: 18px !important;
+    margin-inline: 3%;
+  }
 }
 .amounttab .amount-span {
   padding: 2px 6px;
@@ -526,7 +532,10 @@ body.modal-open {
     line-height: 20px;
   }
   .mob-hide {
-    display: none;
+    display: none !important;
+  }
+  .desk-hide {
+    display: inline-block !important;
   }
   .amounttab a {
     width: 40px;
@@ -535,11 +544,11 @@ body.modal-open {
   }
   a.donebtn {
     border-radius: 2px !important;
-    width: 60px !important;
-    font-size: 12px !important;
-    height: 26px;
+    width: 70px !important;
+    font-size: 13px !important;
+    height: 31px;
     background: #5957ff !important;
-    line-height: 13px;
+    line-height: 21px;
   }
   .amounttab b {
     font-weight: 400;
@@ -768,5 +777,14 @@ iframe {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+.desk-hide {
+  display: none;
+}
+.hide-desk {
+  @media (min-width: 800px) {
+    display: none !important;
   }
 }
