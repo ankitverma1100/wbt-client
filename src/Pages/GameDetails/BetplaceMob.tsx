@@ -61,7 +61,6 @@ const BetplaceMob = ({
     trigger(placeBetData);
   };
 
-
   return (
     <>
       {placeBetData.odds && (
@@ -150,43 +149,21 @@ const BetplaceMob = ({
                     style={{ width: "100%", height: "35.5px" }}
                     placeholder="Enter a number or select a value"
                     optionLabelProp="label"
-                    onChange={handleChange}>
-                    <Option value={100} label="100">
-                      100
-                    </Option>
-                    <Option value={500} label="500">
-                      500
-                    </Option>
-                    <Option value={1000} label="1000">
-                      1000
-                    </Option>
-                    <Option value={2000} label="2000">
-                      2000
-                    </Option>
-                    <Option value={5000} label="5000">
-                      5000
-                    </Option>
-                    <Option value={10000} label="10000">
-                      10000
-                    </Option>
-                    <Option value={25000} label="25000">
-                      25000
-                    </Option>
-                    <Option value={50000} label="50000">
-                      50000
-                    </Option>
-                    <Option value={100000} label="100000">
-                      100000
-                    </Option>
-                    <Option value={200000} label="200000">
-                      200000
-                    </Option>
-                    <Option value={300000} label="300000">
-                      300000
-                    </Option>
-                    <Option value={500000} label="500000">
-                      500000
-                    </Option>
+                    onChange={handleChange}
+                    notFoundContent={null}
+                    onSearch={(val) => {
+                      if (val && !isNaN(Number(val))) {
+                        handleChange(Number(val)); // Update stake while typing
+                      }
+                    }}>
+                    {[
+                      100, 500, 1000, 2000, 5000, 10000, 25000, 50000, 100000,
+                      200000, 300000, 500000,
+                    ].map((num) => (
+                      <Option key={num} value={num} label={String(num)}>
+                        {num}
+                      </Option>
+                    ))}
                   </Select>
                 </div>
                 <span
