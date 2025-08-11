@@ -10,7 +10,7 @@ const CasinoHome = () => {
         <div className="casino-game">
           <div className="">
             <img
-              src="/img/andar-bahar.png"
+              src="/img/dus-ka-dam.jpeg"
               style={{ borderRadius: 5 }}
               className="w-100"
             />
@@ -19,25 +19,17 @@ const CasinoHome = () => {
         <div className="casino-game">
           <div className="">
             <img
-              src="/img/Dragon%20Tiger.png"
+              src="/img/roultee.jpeg"
               style={{ borderRadius: 5 }}
               className="w-100"
             />
           </div>
         </div>
+
         <div className="casino-game">
           <div className="">
             <img
-              src="/img/Teenpatti%20One-Day%20(Virtual).png"
-              style={{ borderRadius: 5 }}
-              className="w-100"
-            />
-          </div>
-        </div>
-        <div className="casino-game">
-          <div className="">
-            <img
-              src="/img/7_1.png"
+              src="/img/andar-bahar (1).jpeg"
               style={{ borderRadius: 5 }}
               className="w-100"
             />
@@ -46,7 +38,7 @@ const CasinoHome = () => {
       </div>
       <div className="new-heading mt-2">Live Casino</div>
       <div className="flexdiv" style={{ justifyContent: "center" }}>
-        <div
+        {/* <div
           className="casino-game"
           onClick={() => {
             nav("/main/casino/54");
@@ -54,23 +46,7 @@ const CasinoHome = () => {
           <div className="">
             <img src="/img/andar-bahar.jpeg" className="w-100" />
           </div>
-        </div>
-        <div
-          className="casino-game"
-          onClick={() => {
-            nav("/main/casino/56");
-          }}>
-          <div className="">
-            <img src="/img/amar-akhbar.jpeg" className="w-100" />
-          </div>
-        </div>
-        <div className="casino-game" onClick={() => {
-            nav("/main/casino/53");
-          }}>
-          <div className="">
-            <img src="/img/lucky7.jpeg" className="w-100" />
-          </div>
-        </div>
+        </div> */}
         <div
           className="casino-game"
           onClick={() => {
@@ -80,16 +56,52 @@ const CasinoHome = () => {
             <img src="/img/teen-patti2.jpeg" className="w-100" />
           </div>
         </div>
-        <div className="casino-game" onClick={() => {
-            nav("/main/casino/52");
+
+        <div
+          className="casino-game"
+          onClick={() => {
+            nav("/main/casino/53");
           }}>
           <div className="">
-            <img src="/img/live-dragon-tiger2.jpeg" className="w-100" />
+            <img src="/img/lucky7.jpeg" className="w-100" />
           </div>
         </div>
         <div className="casino-game">
           <div className="">
-            <img src="/img/live-dragon-tiger.jpeg" className="w-100" />
+            <img src="/img/Dragon Tiger.jpg" className="w-100" />
+          </div>
+        </div>
+        <div
+          className="casino-game"
+          onClick={() => {
+            nav("/main/casino/56");
+          }}>
+          <div className="">
+            <img src="/img/amar-akhbar.jpg" className="w-100" />
+          </div>
+        </div>
+        <div
+          className="casino-game"
+          // onClick={() => {
+          //   nav("/main/casino/56");
+          // }}
+        >
+          <div className="">
+            <img src="/img/worli-matka-tvs.jpeg" className="w-100" />
+          </div>
+        </div>
+        <div
+          className="casino-game"
+          onClick={() => {
+            nav("/main/casino/52");
+          }}>
+          <div className="">
+            <img src="/img/rg_dragon_tiger.jpg" className="w-100" />
+          </div>
+        </div>
+        <div className="casino-game">
+          <div className="">
+            <img src="/img/1-Day-Teen-Patti.jpg" className="w-100" />
           </div>
         </div>
       </div>
