@@ -21,7 +21,7 @@ const CasinoBet = ({
 }: Props) => {
   var curr = new Date();
   const pTime = moment(curr).format("YYYY-MM-DD HH:mm:ss.SSS");
-  const [trigger, { data }] = useGetCasinoBetPlacedMutation();
+  const [trigger, { data, isLoading }] = useGetCasinoBetPlacedMutation();
   const { data: userIp } = useGetIpfyQuery();
 
   const handleStakeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +39,15 @@ const CasinoBet = ({
     }));
   };
 
+  console.log(betState, "betStatebetStatebetState");
+
   const handleCasinoBetPlaced = () => {
+    if (!betState?.stake || betState?.stake < 100) {
+      toast.error(
+        "Amount can not be less than casino Min Amount 100 in casino"
+      );
+      return;
+    }
     trigger({
       ...betState,
       userIp: userIp?.ip,
@@ -56,10 +64,6 @@ const CasinoBet = ({
         orientation: "landscape",
       },
     });
-    setBetState((prev: any) => ({
-      ...prev,
-      stake: 0,
-    }));
   };
 
   useEffect(() => {
@@ -73,14 +77,12 @@ const CasinoBet = ({
     }
   }, [data]);
 
-
-
   useEffect(() => {
     const timers = setTimeout(() => {
       if (timer > 0) {
         setTimer((o) => o - 1);
       } else {
-        setBetState(null);
+        // setBetState(null);
         setOpen(false);
       }
     }, 1000);
@@ -148,9 +150,15 @@ const CasinoBet = ({
           <button
             type="button"
             className="ant-btn ant-btn-default gx-bg-grey gx-text-white  gx-justify-content-center gx-rounded-xxl gx-mb-0 gx-px-3"
-            onClick={handleCasinoBetPlaced}>
+            onClick={isLoading ? undefined : handleCasinoBetPlaced}
+            disabled={isLoading}>
             <div className=" gx-bg-flex gx-align-items-center  gx-justify-content-center">
-              <div className="gx-px-2">Done</div>
+              <div className="gx-px-2">
+                Done{" "}
+                {isLoading && (
+                  <div className="spinner-border" role="status"></div>
+                )}
+              </div>
             </div>
           </button>
         </div>
@@ -203,9 +211,15 @@ const CasinoBet = ({
               <button
                 type="button"
                 className="ant-btn ant-btn-default gx-bg-grey gx-text-white gx-rounded-xxl gx-mb-0 gx-px-5"
-                onClick={handleCasinoBetPlaced}>
+                onClick={isLoading ? undefined : handleCasinoBetPlaced}
+                disabled={isLoading}>
                 <div className=" gx-bg-flex gx-align-items-center  gx-justify-content-center">
-                  <div className="gx-px-2">Done</div>
+                  <div className="gx-px-2">
+                    Done{" "}
+                    {isLoading && (
+                      <div className="spinner-border" role="status"></div>
+                    )}
+                  </div>
                 </div>
               </button>
             </div>

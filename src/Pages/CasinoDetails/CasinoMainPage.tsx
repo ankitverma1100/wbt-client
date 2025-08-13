@@ -16,6 +16,7 @@ import DT20 from "./DT20/DT20";
 import MybetCasino from "./MybetCasino/MybetCasino";
 import AndarBhar from "./AndarBhar/AndarBhar";
 import AllBets from "./AllBets";
+import { useGetCasinoMyBetQuery } from "../../store/service/userServices/userServices";
 
 const CasinoMainPage = () => {
   const betSectionRef = useRef<HTMLDivElement>(null);
@@ -52,6 +53,11 @@ const CasinoMainPage = () => {
     },
   });
 
+  const { data: betList, refetch } = useGetCasinoMyBetQuery(
+    { tableId: id ?? "", isGameCompleted: true, sportId: 5015 },
+    { refetchOnMountOrArgChange: true }
+  );
+
   const { odds } = useOdds(tableIdtoUrl[id as keyof typeof tableIdtoUrl]);
   const t1 = odds?.t1?.[0];
 
@@ -68,6 +74,7 @@ const CasinoMainPage = () => {
 
   const showModal = () => {
     setIsModalOpen(true);
+    refetch();
   };
 
   const handleOk = () => {
@@ -176,7 +183,7 @@ const CasinoMainPage = () => {
         onOk={handleOk}
         footer={null}
         onCancel={handleCancel}>
-        <AllBets />
+        <AllBets  betList={betList}/>
       </Modal>
     </>
   );

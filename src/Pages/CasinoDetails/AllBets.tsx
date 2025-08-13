@@ -1,23 +1,21 @@
-import { useParams } from "react-router-dom";
-import { useGetCasinoMyBetQuery } from "../../store/service/userServices/userServices";
+import { useEffect } from "react";
 
-const AllBets = () => {
-  const { id } = useParams();
-
-  const { data: betList } = useGetCasinoMyBetQuery(
-    { tableId: id ?? "", isGameCompleted: true, sportId: 5015 },
-    { refetchOnMountOrArgChange: true }
-  );
-
+const AllBets = ({ betList }) => {
+  const totalAmount =
+    betList?.data?.reduce((sum, item) => sum + (Number(item?.pnl) || 0), 0) ??
+    0;
 
   return (
     <>
       <div className="gx-bg-grey gx-text-center gx-py-2 gx-px-3 gx-text-white gx-fs-sm gx-font-weight-semi-bold gx-d-flex gx-justify-content-between gx-align-items-center gx-text-uppercase gx-border-bottom">
         <span></span>
         <span>Casino Bet List </span>
-        <span>
+        <span style={{ marginRight: "3px" }}>
           {" "}
-          P/L <span className="gx-text-red">0.00</span>{" "}
+          P/L :{" "}
+          <span className={totalAmount > 0 ? "gx-text-green" : "gx-text-red"}>
+            {totalAmount?.toFixed(2)}
+          </span>{" "}
         </span>
       </div>
       <div
