@@ -21,7 +21,7 @@
 
     .login-logo-img {
       height: 200px;
-      @media screen and (max-width: 600px) {
+      @media screen and (max-width: 800px) {
         height: 100px;
       }
     }
@@ -31,7 +31,7 @@
     border-radius: 10px;
     overflow: hidden;
     background: transparent;
-    @media only screen and (max-width: 600px) {
+    @media only screen and (max-width: 800px) {
       width: 345px !important;
     }
   }
@@ -140,7 +140,7 @@
     color: #111;
     font-weight: 600;
     padding: 0 60px;
-    @media only screen and (max-width: 600px) {
+    @media only screen and (max-width: 800px) {
       padding: 0 24px !important;
     }
     a {
