@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Select } from "antd";
+import { Button, Col, Input, Modal, Row, Select } from "antd";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
@@ -11,6 +11,8 @@ interface Props {
   setTimer: React.Dispatch<React.SetStateAction<number>>;
   trigger: any;
   isLoading: boolean;
+  setisModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isModalOpen: boolean;
 }
 
 const BetplaceMob = ({
@@ -21,17 +23,20 @@ const BetplaceMob = ({
   setTimer,
   trigger,
   isLoading,
+  setisModalOpen,
+  isModalOpen,
 }: Props) => {
-  const { Option } = Select;
+  // const { Option } = Select;
   useEffect(() => {
     const timers = setTimeout(() => {
       if (timer > 0) {
         setTimer((o) => o - 1);
       } else {
         setPlaceBetData({} as any);
-        if (amountInputRef.current) {
-          amountInputRef.current.value = "";
-        }
+        setisModalOpen(false);
+        // if (amountInputRef.current) {
+        //   amountInputRef.current.value = "";
+        // }
       }
     }, 1000);
     return () => clearInterval(timers);
@@ -44,18 +49,18 @@ const BetplaceMob = ({
       stake: value,
     }));
   };
-  const handleChange = (value: any) => {
+  const handleChange = (value: number) => {
     setPlaceBetData((prev: any) => ({
       ...prev,
       stake: value,
     }));
   };
-  const handleStackChange = (event: number) => {
-    setPlaceBetData((prev: any) => ({
-      ...prev,
-      stake: event,
-    }));
-  };
+  // const handleStackChange = (event: number) => {
+  //   setPlaceBetData((prev: any) => ({
+  //     ...prev,
+  //     stake: event,
+  //   }));
+  // };
 
   const handleBetPlaced = () => {
     trigger(placeBetData);
@@ -63,7 +68,7 @@ const BetplaceMob = ({
 
   return (
     <>
-      {placeBetData.odds && (
+      {/* {placeBetData.odds && (
         <table
           width="100%"
           cellSpacing={2}
@@ -226,7 +231,167 @@ const BetplaceMob = ({
             </tr>
           </tbody>
         </table>
-      )}
+      )} */}
+
+      <Modal
+        width={450}
+        title=""
+        closable={{ "aria-label": "Custom Close Button" }}
+        open={isModalOpen}
+        closeIcon={false}
+        className="betModals "
+        footer={false}>
+        <div>
+          <div
+            className={`${
+              placeBetData?.isBack ? "back" : "lay"
+            }-color-lignt p-10`}>
+            <Row>
+              <Col xs={8}>
+                <div className="main_header_bet">
+                  <p className="heade_team">Team</p>
+                  <p className="heade_rate">{placeBetData?.name}</p>
+                </div>
+              </Col>
+              <Col xs={8}>
+                <div className="main_header_bet">
+                  <p className="heade_team">Rate</p>
+                  <p className="heade_rate">{placeBetData?.odds}</p>
+                </div>
+              </Col>
+              <Col xs={8}>
+                <div className="main_header_bet">
+                  <p className="heade_team">Mode</p>
+                  <p className="heade_rate">{placeBetData?.mode}</p>
+                </div>
+              </Col>
+            </Row>
+          </div>
+
+          <div
+            className={`${placeBetData?.isBack ? "back" : "lay"}-color  p-10`}>
+            <Row gutter={[24, 8]}>
+              <Col xs={8}>
+                <Button
+                  className="stack_button_pl"
+                  onClick={() => handleChange(100)}>
+                  100
+                </Button>
+              </Col>
+              <Col xs={8}>
+                <Button
+                  className="stack_button_pl"
+                  onClick={() => handleChange(1000)}>
+                  1000
+                </Button>
+              </Col>
+              <Col xs={8}>
+                <Button
+                  className="stack_button_pl"
+                  onClick={() => handleChange(1000)}>
+                  1000
+                </Button>
+              </Col>
+              <Col xs={8}>
+                <Button
+                  className="stack_button_pl"
+                  onClick={() => handleChange(3000)}>
+                  3000
+                </Button>
+              </Col>
+              <Col xs={8}>
+                <Button
+                  className="stack_button_pl"
+                  onClick={() => handleChange(5000)}>
+                  5000
+                </Button>
+              </Col>
+              <Col xs={8}>
+                <Button
+                  className="stack_button_pl"
+                  onClick={() => handleChange(10000)}>
+                  10000
+                </Button>
+              </Col>
+              <Col xs={8}>
+                <Button
+                  className="stack_button_pl"
+                  onClick={() => handleChange(20000)}>
+                  20000
+                </Button>
+              </Col>
+              <Col xs={8}>
+                <Button
+                  className="stack_button_pl"
+                  onClick={() => handleChange(25000)}>
+                  25000
+                </Button>
+              </Col>
+              <Col xs={8}>
+                <Button
+                  className="stack_button_pl"
+                  onClick={() => handleChange(50000)}>
+                  50000
+                </Button>
+              </Col>
+              <Col xs={8}>
+                <Button
+                  className="stack_button_pl"
+                  onClick={() => handleChange(100000)}>
+                  100000
+                </Button>
+              </Col>
+              <Col xs={8}>
+                <Button
+                  className="stack_button_pl"
+                  onClick={() => handleChange(200000)}>
+                  200000
+                </Button>
+              </Col>
+              <Col xs={8}>
+                <Button
+                  className="stack_button_pl"
+                  onClick={() => handleChange(200000)}>
+                  200000
+                </Button>
+              </Col>
+            </Row>
+            <Row className="mt-10">
+              <Col xs={21}>
+                <Input
+                  placeholder="Enter Amount"
+                  onChange={handleAmountChange}
+                  value={placeBetData?.stake}
+                />
+              </Col>
+              <Col xs={3}>
+                <div className="timmer_dev">{timer}</div>
+              </Col>
+            </Row>
+          </div>
+          <Row className="back-color">
+            <Col xs={12}>
+              <Button
+                onClick={() => setisModalOpen(false)}
+                className="close_button">
+                Cancel
+              </Button>
+            </Col>
+            <Col xs={12}>
+              {" "}
+              <Button
+                className="submit_button"
+                onClick={() => {
+                  if (!isLoading) {
+                    handleBetPlaced();
+                  }
+                }}>
+                Submit
+              </Button>
+            </Col>
+          </Row>
+        </div>
+      </Modal>
     </>
   );
 };

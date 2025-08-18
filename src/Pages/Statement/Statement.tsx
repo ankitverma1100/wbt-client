@@ -135,10 +135,14 @@ const Statement = () => {
                     {moment(item?.date).format("DD MMM YY")}
                   </td>
                   <td>{item?.description}</td>
-                  <td className="text-primary text-center">{item?.credit}</td>
-                  <td className="text-danger text-center">{item?.debit}</td>
-                  <td className="text-primary text-center">0</td>
-                  <td className="text-center">{item?.closing}</td>
+                  <td className="text-primary text-center">
+                    {item?.credit?.toFixed(2)}
+                  </td>
+                  <td className="text-danger text-center">
+                    {item?.debit?.toFixed(2)}
+                  </td>
+                  <td className="text-primary text-center">0.00</td>
+                  <td className="text-center">{item?.closing?.toFixed(2)}</td>
                 </tr>
               ))}
             </tbody>

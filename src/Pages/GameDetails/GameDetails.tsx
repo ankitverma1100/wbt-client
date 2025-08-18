@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import "./style.scss";
-// import BetplaceDesk from "./BetplaceDesk";
-// import BetplaceMob from "./BetplaceMob";
 import TvSection from "./TvSection";
 import Bookmaker from "./Bookmaker";
 import Session from "./Session";
@@ -11,7 +9,6 @@ import {
   useOddsDataQuery,
 } from "../../store/service/odds/oddsServices";
 import { useParams } from "react-router-dom";
-import BetplaceMob from "./BetplaceMob";
 import MatchBets from "./MatchBets";
 import { useEffect, useRef, useState } from "react";
 import moment from "moment";
@@ -21,11 +18,13 @@ import {
 } from "../../store/service/userServices/userServices";
 import { Modal } from "antd";
 import MoreEvent from "./MoreEvent";
+import BetplaceMobNew from "./BetplaceMobNew";
 
 const GameDetails = () => {
   const [showFull, setShowFull] = useState(false);
   const [show, setShow] = useState<boolean>(false);
   const [showMsg, setShowMsg] = useState<string>("");
+  const [isModalOpen, setisModalOpen] = useState(false);
   const [placeBetData, setPlaceBetData] = useState<any>({
     isFancy: false,
     isBack: false,
@@ -73,6 +72,10 @@ const GameDetails = () => {
     date: any
   ) => {
     if (!id || !userIp) return;
+    if (odds === 0) {
+      return;
+    }
+    setisModalOpen(true);
     setPlaceBetData((prev: any) => ({
       ...prev,
       isFancy,
@@ -100,15 +103,13 @@ const GameDetails = () => {
       },
     }));
     setTimer(8);
-    if (odds === 0) {
-    }
   };
 
   useEffect(() => {
     if (betplaceData) {
       if (betplaceData.status) {
         setShowMsg("Bet Successful");
-        // toast.success("Bet Successful");
+        setisModalOpen(false);
         setShow(true);
         setTimeout(() => {
           setShow(false);
@@ -121,7 +122,6 @@ const GameDetails = () => {
       } else {
         setShowMsg(betplaceData.message || "Bet Failed");
         setShow(true);
-        // toast.success(betplaceData.message);
         setTimeout(() => {
           setShow(false);
         }, 3000);
@@ -157,7 +157,9 @@ const GameDetails = () => {
                   TV
                 </a>
               </li>
-              <li className="text-white d-inline-block" onClick={()=>setShowFull(!showFull)}>
+              <li
+                className="text-white d-inline-block"
+                onClick={() => setShowFull(!showFull)}>
                 <span className="fs-link blinking">FS</span>
               </li>
             </ul>
@@ -167,7 +169,7 @@ const GameDetails = () => {
       <div className="container">
         <form name="BetPlayer" method="post" action="">
           <div className="d-none1 d-sm-none1 d-md-block1 d-lg-block1">
-            <TvSection showFull={showFull}/>
+            <TvSection showFull={showFull} />
             <Bookmaker
               oddsData={oddsData?.Bookmaker?.filter(
                 (item: { t: string }) => item?.t?.toLowerCase() === "bookmaker"
@@ -181,7 +183,7 @@ const GameDetails = () => {
               handleBetData={handleBetData}
               focusAmountInput={focusAmountInput}
             />
-
+            {/* 
             <BetplaceMob
               amountInputRef={amountInputRef}
               placeBetData={placeBetData}
@@ -190,6 +192,18 @@ const GameDetails = () => {
               setTimer={setTimer}
               trigger={trigger}
               isLoading={isLoading}
+              setisModalOpen={setisModalOpen}
+              isModalOpen={isModalOpen}
+            /> */}
+            <BetplaceMobNew
+              placeBetData={placeBetData}
+              setPlaceBetData={setPlaceBetData}
+              timer={timer}
+              setTimer={setTimer}
+              trigger={trigger}
+              isLoading={isLoading}
+              setisModalOpen={setisModalOpen}
+              isModalOpen={isModalOpen}
             />
             <MatchBets />
             <MoreEvent />

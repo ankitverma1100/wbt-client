@@ -22,6 +22,63 @@ const Bookmaker = ({
   focusAmountInput,
   oddsPnl,
 }: Props) => {
+  const filteredBookData = (oddsData || []).filter(Boolean);
+  const processedBookData = [...filteredBookData];
+
+  if (processedBookData.length >= 2) {
+    // Check if all b1 are the same
+    const allB1Same = processedBookData.every(
+      (item) => item.b1 === processedBookData[0].b1
+    );
+
+    if (allB1Same) {
+      // ✅ New condition: check if all l1 are also the same
+      const allL1Same = processedBookData.every(
+        (item) => item.l1 === processedBookData[0].l1
+      );
+
+      if (!allL1Same) {
+        // If same b1 but different l1, keep the one with higher l1
+        const maxL1Index = processedBookData.reduce(
+          (maxIdx, curr, idx, arr) => (curr.l1 > arr[maxIdx].l1 ? idx : maxIdx),
+          0
+        );
+
+        processedBookData.forEach((item, index) => {
+          if (index !== maxL1Index) {
+            processedBookData[index] = {
+              ...item,
+              b1: 0,
+              l1: 0,
+            };
+          }
+        });
+      }
+      // else → if both b1 and l1 are same, keep both as is
+    } else {
+      // Old logic if b1 are different
+      const minB1Index = processedBookData.reduce((minIdx, curr, idx, arr) => {
+        const currStatus = curr?.gstatus?.toLowerCase();
+        const minStatus = arr[minIdx]?.gstatus?.toLowerCase();
+
+        if (currStatus === "suspended") return minIdx;
+        if (minStatus === "suspended") return idx;
+
+        return curr.b1 < arr[minIdx].b1 ? idx : minIdx;
+      }, 0);
+
+      processedBookData.forEach((item, index) => {
+        if (index !== minB1Index) {
+          processedBookData[index] = {
+            ...item,
+            b1: 0,
+            l1: 0,
+          };
+        }
+      });
+    }
+  }
+
   return (
     <div className="overflow-responsive">
       <table
@@ -67,7 +124,7 @@ const Bookmaker = ({
               POS.
             </td>
           </tr>
-          {oddsData?.map((bookmaker, index: number) => {
+          {processedBookData?.map((bookmaker, index: number) => {
             const oddsData = oddsPnl?.filter(
               (item) => item?.marketId === bookmaker?.mid
             );
@@ -174,7 +231,9 @@ const Bookmaker = ({
                   }}
                   valign="middle"
                   align="center">
-                  {bookmaker?.gstatus.toLowerCase() !== "suspended"?bookmaker.l1:"0.0"}
+                  {bookmaker?.gstatus.toLowerCase() !== "suspended"
+                    ? bookmaker.l1
+                    : "0.0"}
                 </td>
                 <td
                   className="FontTextWhite"

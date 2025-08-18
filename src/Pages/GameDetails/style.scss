@@ -788,3 +788,135 @@ iframe {
     display: none !important;
   }
 }
+
+.betModals {
+  .ant-modal-content {
+    padding: 0px;
+  }
+  .main_header_bet {
+    text-align: center;
+  }
+  .heade_team {
+    font-size: 13px;
+    @media (max-width: 800px) {
+      font-size: 12px;
+    }
+  }
+  .heade_rate {
+    font-size: 14px;
+    font-weight: 600;
+    @media (max-width: 800px) {
+      font-size: 13px;
+    }
+  }
+  .heade_team,
+  .heade_rate {
+    margin: 0px;
+    color: #000;
+    font-weight: 500;
+  }
+  .stack_button_pl {
+    background-color: rgb(125 92 14);
+    width: 100%;
+    border-radius: 20px;
+    color: #fff;
+    outline: unset !important;
+    &:hover {
+      background-color: rgb(125 92 14) !important;
+      border-color: rgb(125 92 14) !important;
+      color: #fff !important;
+    }
+  }
+  .ant-modal-close {
+    display: none;
+  }
+  .back-color {
+    background: rgb(114, 187, 239);
+  }
+  .back-color-lignt {
+    background: rgba(114, 187, 239, 0.75);
+  }
+
+  .lay-color {
+    background: rgb(250, 169, 186);
+  }
+  .lay-color-lignt {
+    background: rgba(250, 169, 186, 0.75);
+  }
+  .p-10 {
+    padding: 10px;
+  }
+  .mt-10 {
+    margin-top: 10px;
+  }
+  input {
+    border-radius: 0px;
+    height: 35px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+  }
+  .timmer_dev {
+    background-color: rgb(42, 54, 59);
+    height: 35px;
+    text-align: center;
+    line-height: 35px;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 0px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+  }
+
+  .close_button,
+  .submit_button {
+    height: 40px !important;
+    width: 100% !important;
+    display: block !important;
+    outline: unset !important;
+  }
+  .close_button {
+    background-color: red;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 0px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-color: red;
+    &:hover {
+      background-color: red !important;
+      border-color: red !important;
+      color: #fff !important;
+    }
+  }
+  .submit_button {
+    background-color: green;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 0px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-color: green;
+    &:hover {
+      background-color: green !important;
+      border-color: green !important;
+      color: #fff !important;
+    }
+  }
+}
+
+.place_spinner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #dddddd63;
+  z-index: 99;
+  display: flex; /* enable flexbox */
+  align-items: center; /* vertical center */
+  justify-content: center;
+  .spinner-border {
+    width: 50px;
+    height: 50px;
+    border: 6px solid currentColor;
+    border-right-color: transparent;
+  }
+}
