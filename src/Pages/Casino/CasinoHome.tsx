@@ -1,109 +1,69 @@
 import { useNavigate } from "react-router-dom";
 import "./style.scss";
+import { useCasinoListQuery } from "../../store/service/userServices/userServices";
 
 const CasinoHome = () => {
   const nav = useNavigate();
+  const { data } = useCasinoListQuery();
+
+  // API से सिर्फ tableIds collect कर लो
+  const activeTableIds = data?.data?.map((item) => item.tableId) || [];
+
+  // Hardcoded games list (image + tableId + name)
+  const liveCasinos = [
+    { id: "54", img: "/img/andar-bahar.jpeg", name: "Andar Bahar" },
+    { id: "51", img: "/img/teen-patti2.jpeg", name: "Teen Patti" },
+    { id: "53", img: "/img/lucky7.jpeg", name: "Lucky7" },
+    { id: "52", img: "/img/rg_dragon_tiger.jpg", name: "Dragon Tiger" },
+    { id: "56", img: "/img/amar-akhbar.jpg", name: "Amar Akbar Anthony" },
+    { id: "100", img: "/img/worli-matka-tvs.jpeg", name: "Worli Matka" },
+    { id: "101", img: "/img/1-Day-Teen-Patti.jpg", name: "1 Day Teen Patti" },
+    { id: "103", img: "/img/Dragon Tiger.jpg", name: "Dragon Tiger Line" },
+  ];
+
   return (
     <div className="container-fluid p-2">
       <div className="new-heading mt-2">Virtual Casino</div>
       <div className="flexdiv">
         <div className="casino-game">
-          <div className="">
-            <img
-              src="/img/dus-ka-dam.jpeg"
-              style={{ borderRadius: 5 }}
-              className="w-100"
-            />
-          </div>
+          <img
+            src="/img/dus-ka-dam.jpeg"
+            style={{ borderRadius: 5 }}
+            className="w-100"
+          />
         </div>
         <div className="casino-game">
-          <div className="">
-            <img
-              src="/img/roultee.jpeg"
-              style={{ borderRadius: 5 }}
-              className="w-100"
-            />
-          </div>
+          <img
+            src="/img/roultee.jpeg"
+            style={{ borderRadius: 5 }}
+            className="w-100"
+          />
         </div>
-
         <div className="casino-game">
-          <div className="">
-            <img
-              src="/img/andar-bahar (1).jpeg"
-              style={{ borderRadius: 5 }}
-              className="w-100"
-            />
-          </div>
+          <img
+            src="/img/andar-bahar (1).jpeg"
+            style={{ borderRadius: 5 }}
+            className="w-100"
+          />
         </div>
       </div>
+
       <div className="new-heading mt-2">Live Casino</div>
       <div className="flexdiv" style={{ justifyContent: "center" }}>
-        {/* <div
-          className="casino-game"
-          onClick={() => {
-            nav("/main/casino/54");
-          }}>
-          <div className="">
-            <img src="/img/andar-bahar.jpeg" className="w-100" />
-          </div>
-        </div> */}
-        <div
-          className="casino-game"
-          onClick={() => {
-            nav("/main/casino/51");
-          }}>
-          <div className="">
-            <img src="/img/teen-patti2.jpeg" className="w-100" />
-          </div>
-        </div>
-
-        <div
-          className="casino-game"
-          onClick={() => {
-            nav("/main/casino/53");
-          }}>
-          <div className="">
-            <img src="/img/lucky7.jpeg" className="w-100" />
-          </div>
-        </div>
-        <div className="casino-game">
-          <div className="">
-            <img src="/img/Dragon Tiger.jpg" className="w-100" />
-          </div>
-        </div>
-        <div
-          className="casino-game"
-          onClick={() => {
-            nav("/main/casino/56");
-          }}>
-          <div className="">
-            <img src="/img/amar-akhbar.jpg" className="w-100" />
-          </div>
-        </div>
-        <div
-          className="casino-game"
-          // onClick={() => {
-          //   nav("/main/casino/56");
-          // }}
-        >
-          <div className="">
-            <img src="/img/worli-matka-tvs.jpeg" className="w-100" />
-          </div>
-        </div>
-        <div
-          className="casino-game"
-          onClick={() => {
-            nav("/main/casino/52");
-          }}>
-          <div className="">
-            <img src="/img/rg_dragon_tiger.jpg" className="w-100" />
-          </div>
-        </div>
-        <div className="casino-game">
-          <div className="">
-            <img src="/img/1-Day-Teen-Patti.jpg" className="w-100" />
-          </div>
-        </div>
+        {liveCasinos.map((casino) => {
+          const isActive = activeTableIds.includes(casino.id);
+          return (
+            <div
+              key={casino.id}
+              className={`casino-game ${isActive ? "active" : "inactive"}`}
+              onClick={() => isActive && nav(`/main/casino/${casino.id}`)}
+              style={{
+                cursor: isActive ? "pointer" : "not-allowed",
+              }}>
+              <img src={casino.img} alt={casino.name} className="w-100" />
+            </div>
+          );
+        })}
       </div>
     </div>
   );

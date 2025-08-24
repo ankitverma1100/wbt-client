@@ -1,392 +1,391 @@
 interface UserRequestBody {
-  userType: number
-  noOfRecords: number
-  index: number
+  userType: number;
+  noOfRecords: number;
+  index: number;
 }
 
 interface UserList {
-  userId: string
-  userName: string
-  mobile: string
-  password: string
-  balance: number
-  matchCommission: number
-  sessionCommission: number
-  share: number
-  userStatus: boolean
-  parentId: string
+  userId: string;
+  userName: string;
+  mobile: string;
+  password: string;
+  balance: number;
+  matchCommission: number;
+  sessionCommission: number;
+  share: number;
+  userStatus: boolean;
+  parentId: string;
 }
 interface UserResponse {
-  data: UserList[]
+  data: UserList[];
 }
 
 interface useNameRequest {
-  userType: number
+  userType: number;
 }
 interface useName {
-  useriId: string
-  username: string
+  useriId: string;
+  username: string;
 }
 interface useNameRes {
-  data: useName[]
+  data: useName[];
 }
 
 interface UserCreateRequestBody {
-  userId: string
+  userId: string;
 }
 interface UserCreateList {
   data: {
-    commissionType: string
-    mobileAppCharge: number
-    myCasinoCommission: number
-    myCasinoPartnership: number
-    myIntlCasinoPartnership: number
-    myMatchCommission: number
-    myPartnership: number
-    mySessionCommision: number
-  }
+    commissionType: string;
+    mobileAppCharge: number;
+    myCasinoCommission: number;
+    myCasinoPartnership: number;
+    myIntlCasinoPartnership: number;
+    myMatchCommission: number;
+    myPartnership: number;
+    mySessionCommision: number;
+  };
 }
 
 interface UserCreateResponseBody {
-  data: UserCreateList
+  data: UserCreateList;
 }
 
 interface UserCreateBody {
-  username: string
-  reference: string
-  password: string
-  contact: string
-  mobileAppCharge: string
-  partnership: null | number
-  casinoPartnership: null | number
-  internationalCasinoPartnership: null | number
-  commissionType: null | number
-  matchCommission: null | number
-  sessionCommission: null | number
-  casinoCommission: null | number
+  username: string;
+  reference: string;
+  password: string;
+  contact: string;
+  mobileAppCharge: string;
+  partnership: null | number;
+  casinoPartnership: null | number;
+  internationalCasinoPartnership: null | number;
+  commissionType: null | number;
+  matchCommission: null | number;
+  sessionCommission: null | number;
+  casinoCommission: null | number;
 }
 interface UserCreateResBody {
-  message(message: any): unknown
-  status: any
+  message(message: any): unknown;
+  status: any;
   data: {
-    userId: string
-    password: string
-  }
+    userId: string;
+    password: string;
+  };
 }
 
 interface UserProfile {
-  status: boolean
-  message: null | string
+  status: boolean;
+  message: null | string;
   data: {
-    userId: string
-    username: string
-    contact: string
-    dateOfJoining: string
-    address: string
-    helpline: string
-    rateDifference: number
-  }
+    userId: string;
+    username: string;
+    contact: string;
+    dateOfJoining: string;
+    address: string;
+    helpline: string;
+    rateDifference: number;
+  };
 }
 interface ChangePaaReq {
-  currentPassword: string
-  newPassword: string
+  currentPassword: string;
+  newPassword: string;
 }
 interface ChangePaaRes {
-  status: boolean
-  message: string
-  data: null
+  status: boolean;
+  message: string;
+  data: null;
 }
 interface UserDetailsUpdateReq {
-  userId: string
+  userId: string;
 }
 interface UserDetailsUpdateRes {
-  status: boolean
-  message: null
+  status: boolean;
+  message: null;
   data: {
-    userId: string
-    userName: string
-    reference: string
-    password: string
-    contact: string
-    flatShare: boolean
-    casinoPlay: boolean
-    mobileAppCharge: number
-    adminPartnership: number
-    adminCasinoPartnership: number
-    adminIntlCasinoPartnership: number
-    adminMatchCommission: number
-    adminSessionCommision: number
-    adminCasinoCommission: number
-    myPartnership: number
-    myCasinoPartnership: number
-    myIntlCasinoPartnership: number
-    myMatchCommission: number
-    mySessionCommision: number
-    myCasinoCommission: number
-  }
+    userId: string;
+    userName: string;
+    reference: string;
+    password: string;
+    contact: string;
+    flatShare: boolean;
+    casinoPlay: boolean;
+    mobileAppCharge: number;
+    adminPartnership: number;
+    adminCasinoPartnership: number;
+    adminIntlCasinoPartnership: number;
+    adminMatchCommission: number;
+    adminSessionCommision: number;
+    adminCasinoCommission: number;
+    myPartnership: number;
+    myCasinoPartnership: number;
+    myIntlCasinoPartnership: number;
+    myMatchCommission: number;
+    mySessionCommision: number;
+    myCasinoCommission: number;
+  };
 }
 
 interface ActiveUserReq {
-  userId: string
-  activate: boolean
+  userId: string;
+  activate: boolean;
 }
 interface ActiveUserRes {
-  status: boolean
-  message: string
-  data: null
+  status: boolean;
+  message: string;
+  data: null;
 }
 
 interface LedgerPaylod {
-  userId: string
-  amount: number
-  collection: string
-  paymentType: string
-  remark: string
+  userId: string;
+  amount: number;
+  collection: string;
+  paymentType: string;
+  remark: string;
 }
 interface LedgerBody {
-  status: boolean
-  message: string
-  data: null
+  status: boolean;
+  message: string;
+  data: null;
 }
 interface LedgerDetailsReq {
-  userId: string
+  userId: string;
 }
 interface LedgerDetail {
-  date: string | null
-  collectionName: string
-  paymentType: string
-  remark: string
-  credit: number
-  debit: number
-  balance: number
+  date: string | null;
+  collectionName: string;
+  paymentType: string;
+  remark: string;
+  credit: number;
+  debit: number;
+  balance: number;
 }
 
 interface LedgerDetailsRes {
-  status: boolean
-  message: string | null
-  data: LedgerDetail[]
+  status: boolean;
+  message: string | null;
+  data: LedgerDetail[];
 }
 interface LogOutRes {
-  status: boolean
-  message: string
-  data: null
+  status: boolean;
+  message: string;
+  data: null;
 }
 interface BetplacedReq {
-  isFancy: boolean
-  isBack: boolean
-  odds: number
-  stake: number
-  marketName: string
-  selectionId: number | string
-  priceValue: number
-  placeTime: string
-  marketId: string
-  matchId: string
-  name: string
-  userIp: string
-  deviceInfo: DeviceInfo | null
+  isFancy: boolean;
+  isBack: boolean;
+  odds: number;
+  stake: number;
+  marketName: string;
+  selectionId: number | string;
+  priceValue: number;
+  placeTime: string;
+  marketId: string;
+  matchId: string;
+  name: string;
+  userIp: string;
+  deviceInfo: DeviceInfo | null;
 }
 
 interface DeviceInfo {
-  userAgent: string
-  browser: string
-  device: string
-  deviceType: string
-  os: string
-  os_version: string
-  browser_version: string
-  orientation: string
+  userAgent: string;
+  browser: string;
+  device: string;
+  deviceType: string;
+  os: string;
+  os_version: string;
+  browser_version: string;
+  orientation: string;
 }
 
 interface BetPlacedRes {
-  message: string
-  status: boolean
+  message: string;
+  status: boolean;
 }
 
 interface rateDeffReq {
-  rateDifference: number
+  rateDifference: number;
 }
 interface rateDeffRes {
-  status: boolean
-  message: string
-  data: null
+  status: boolean;
+  message: string;
+  data: null;
 }
 interface UserPassRequest {
-  currentPassword: string
-  newPassword: string
+  currentPassword: string;
+  newPassword: string;
 }
 interface UserPassResponse {
-  status: boolean
-  message: string
-  data: null
+  status: boolean;
+  message: string;
+  data: null;
 }
 interface casinoResponse {
-  status: boolean
-  message: string
-  data: Casino[]
+  status: boolean;
+  message: string;
+  data: Casino[];
 }
 interface Casino {
-  tableId: string | number | readonly string[] | undefined
-  name: string
-  image: string
-  id: string
+  tableId: string | number | readonly string[] | undefined;
+  name: string;
+  image: string;
+  id: string;
 }
 
 interface UserBalance {
-  status: boolean
-  message: string | null
-  data: { balance: number }
+  status: boolean;
+  message: string | null;
+  data: { balance: number };
 }
 
 interface healthRes {
-  status: boolean
-  message: string
+  status: boolean;
+  message: string;
 }
 
 interface BetListReq {
-  matchId: string
-  activeBet?: boolean | null
+  matchId: string;
+  activeBet?: boolean | null;
 }
 interface BetListRes {
-  status: boolean
-  message: null
-  data: BetList
+  status: boolean;
+  message: null;
+  data: BetList;
 }
 
 type BetList = Record<string, Bet[]>;
 
 interface Bet {
-  date: ReactNode
-  declared: ReactNode
-  sid: any
-  nation: string
-  rate: number
-  amount: number
-  priveValue: number
-  marketName: string
-  betTime: string
-  pnl: number
-  back: boolean
+  date: ReactNode;
+  declared: ReactNode;
+  sid: any;
+  nation: string;
+  rate: number;
+  amount: number;
+  priveValue: number;
+  marketName: string;
+  betTime: string;
+  pnl: number;
+  back: boolean;
 }
 
 interface OddsResponse {
-  status: boolean
-  message: null
-  data: OdssPnl[]
+  status: boolean;
+  message: null;
+  data: OdssPnl[];
 }
 
 interface SessionPlusMinusRes {
-  status: boolean
-  message: null
+  status: boolean;
+  message: null;
   data: {
-    sessionPlusMinus: number
-  }
+    sessionPlusMinus: number;
+  };
 }
 
 interface OdssPnl {
-  marketId: string
-  pnl1: number
-  pnl2: number
-  pnl3: number
-  selection1: number
-  selection2: number
-  selection3: number
+  marketId: string;
+  pnl1: number;
+  pnl2: number;
+  pnl3: number;
+  selection1: number;
+  selection2: number;
+  selection3: number;
 }
 
 interface LedgerDataRes {
-  status: boolean
-  message: null
-  data: DataLedger[]
+  status: boolean;
+  message: null;
+  data: DataLedger[];
 }
 interface LedgerReq {
-  matchId: number
+  matchId: number;
 }
 
 interface DataLedger {
-  date: string
-  time: string
-  remark: string
-  wonBy: string
-  won: string
-  lost: string
-  balance: number
-  matchId: number
+  date: string;
+  time: string;
+  remark: string;
+  wonBy: string;
+  won: string;
+  lost: string;
+  balance: number;
+  matchId: number;
 }
 
 interface LedgerListData {
-  status: boolean
-  message: null
-  data: Data123
+  status: boolean;
+  message: null;
+  data: Data123;
 }
 
 interface Data123 {
-  totalCommission: ReactNode
-  date: string
-  wonBy: null
-  matchBet: number
-  sessionBet: number
-  matchWon: number
-  sessionWon: number
-  totalWon: number
-  matchBets: MatchBet12[]
-  sessionBets: SessionBet12[]
+  totalCommission: ReactNode;
+  date: string;
+  wonBy: null;
+  matchBet: number;
+  sessionBet: number;
+  matchWon: number;
+  sessionWon: number;
+  totalWon: number;
+  matchBets: MatchBet12[];
+  sessionBets: SessionBet12[];
 }
 
 interface SessionBet12 {
-  selectionName: string
-  rate: number
-  amount: number
-  run: number
-  mode: string
-  declared?: number
+  selectionName: string;
+  rate: number;
+  amount: number;
+  run: number;
+  mode: string;
+  declared?: number;
 }
 
 interface MatchBet12 {
-  pnl3: number
-  pnl2: number
-  pnl1: number
-  selectionName: string
-  rate: number
-  amount: number
-  mode: string
+  pnl3: number;
+  pnl2: number;
+  pnl1: number;
+  selectionName: string;
+  rate: number;
+  amount: number;
+  mode: string;
 }
 
 interface fancyBookreq {
-  matchId: string
-  fancyId: string
+  matchId: string;
+  fancyId: string;
 }
 
 interface FancyBookRes {
-  status: boolean
-  message: null
-  data: FancyData[]
+  status: boolean;
+  message: null;
+  data: FancyData[];
 }
 
 interface FancyData {
-  odds: number
-  pnl: number
+  odds: number;
+  pnl: number;
 }
 
 interface mybetRequest {
-  tableId: number | string
-  isGameCompleted: boolean
-  sportId: number
+  tableId: number | string;
+  isGameCompleted: boolean;
+  sportId: number;
 }
 
 interface CasinoBetPlacePaylod {
-  casinoName: number
-  colorName: string
-  isBack: boolean
-  marketId: string
-  nation: string
-  odds: number
-  placeTime: string
-  selectionId: string
-  stake: number
-  userIp: string
-  diviceInfo: DeviceInfo
+  casinoName: number;
+  colorName: string;
+  isBack: boolean;
+  marketId: string;
+  nation: string;
+  odds: number;
+  placeTime: string;
+  selectionId: string;
+  stake: number;
+  userIp: string;
+  diviceInfo: DeviceInfo;
 }
-
 
 interface mybetResponce {
   status: boolean;
@@ -395,7 +394,7 @@ interface mybetResponce {
 }
 
 interface mybet {
-  back: boolean
+  back: boolean;
   id: number;
   gameName: string;
   roundId: string;
@@ -407,9 +406,8 @@ interface mybet {
   selectionName: string;
 }
 
-
 interface BetListLegdgerProps {
-  date: string
+  date: string;
 }
 
 interface BetListLegdgerRes {
@@ -418,7 +416,7 @@ interface BetListLegdgerRes {
   data: DataBetLedger;
 }
 interface DataBetLedger {
-  totalCommission: ReactNode
+  totalCommission: ReactNode;
   date: string;
   totalWon: number;
   dataAndBets: DataAndBet[];
@@ -439,10 +437,12 @@ interface BetListLedger {
   mode: string;
 }
 
-interface MatchBetCountReq { matchIdList: number[] }
-interface channelReq { matchId: number }
-
-
+interface MatchBetCountReq {
+  matchIdList: number[];
+}
+interface channelReq {
+  matchId: number;
+}
 
 interface MatchBetCountResponse {
   status: boolean;
@@ -456,7 +456,6 @@ interface MatchBetCount {
   sessionBet: number;
 }
 
-
 interface ChanelRes {
   status: boolean;
   message: null;
@@ -467,7 +466,6 @@ interface ChanelData {
   matchId: number;
   channelId: string;
 }
-
 
 interface activeMatchRes {
   status: boolean;
@@ -483,7 +481,7 @@ interface activeMatch {
 }
 
 interface usedCoinReq {
-  matchId: string
+  matchId: string;
 }
 interface usedCoinRes {
   status: boolean;
@@ -496,22 +494,20 @@ interface usedCoin {
   sessionPlusMinus: number;
 }
 
-
 interface ChannelIdpayload {
-  matchId: number | any
+  matchId: number | any;
 }
 interface ChannelIdRes {
-  status: boolean
-  message: null
-  data: ChannelIdData
+  status: boolean;
+  message: null;
+  data: ChannelIdData;
 }
 
 interface ChannelIdData {
-  matchId: number
-  channelId: string
-  scoreId: string
+  matchId: number;
+  channelId: string;
+  scoreId: string;
 }
-
 
 interface matkaBetPlacePayload {
   stake: number;
@@ -534,14 +530,9 @@ interface DeviceInfo {
   orientation: string;
 }
 
-
 interface matkaPayload {
-  matkaId: number
+  matkaId: number;
 }
-
-
-
-
 
 interface matkaListRes {
   status: boolean;
@@ -554,7 +545,6 @@ interface matkaList {
   name: string;
   time: string;
 }
-
 
 interface matkaListResponse {
   status: boolean;
@@ -578,4 +568,16 @@ interface Datum {
   selectionId: number;
   selectionName: string;
   odds: number;
+}
+
+interface casinoResponse {
+  status: boolean;
+  message: string;
+  data: Casino[];
+}
+interface Casino {
+  tableId: string | number | readonly string[] | undefined;
+  name: string;
+  image: string;
+  id: string;
 }

@@ -269,9 +269,10 @@ export const userList = createApi({
       query: (body) => ({
         url: `/ant-pro/get-accstt-chpdtl`,
         method: "POST",
-        body
+        body,
       }),
     }),
+   
   }),
 });
 
@@ -312,5 +313,5 @@ export const {
   useGetMatkaMarketMutation,
   useMatkaPlacebetMutation,
   useGetUserLiabilityMutation,
-  useGetUserchpdtlMutation
+  useGetUserchpdtlMutation,
 } = userList;
