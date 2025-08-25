@@ -9,7 +9,6 @@ const CasinoHome = () => {
   // API से सिर्फ tableIds collect कर लो
   const activeTableIds = data?.data?.map((item) => item.tableId) || [];
 
-  // Hardcoded games list (image + tableId + name)
   const liveCasinos = [
     { id: "54", img: "/img/andar-bahar.jpeg", name: "Andar Bahar" },
     { id: "51", img: "/img/teen-patti2.jpeg", name: "Teen Patti" },
@@ -17,8 +16,8 @@ const CasinoHome = () => {
     { id: "52", img: "/img/rg_dragon_tiger.jpg", name: "Dragon Tiger" },
     { id: "56", img: "/img/amar-akhbar.jpg", name: "Amar Akbar Anthony" },
     { id: "100", img: "/img/worli-matka-tvs.jpeg", name: "Worli Matka" },
-    { id: "101", img: "/img/1-Day-Teen-Patti.jpg", name: "1 Day Teen Patti" },
-    { id: "103", img: "/img/Dragon Tiger.jpg", name: "Dragon Tiger Line" },
+    { id: "61", img: "/img/1-Day-Teen-Patti.jpg", name: "1 Day Teen Patti" },
+    { id: "62", img: "/img/Dragon Tiger.jpg", name: "Dragon Tiger Line" },
   ];
 
   return (

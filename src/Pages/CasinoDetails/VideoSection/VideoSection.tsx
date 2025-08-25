@@ -29,8 +29,9 @@ const VideoSection = ({ t1, t3 }: any) => {
       />
       <div className="gx-w-100 gx-p-3 gx-position-absolute gx-top-0 gx-left-0">
         {(id === "53" || id === "56") && <AAACard t1={t1} />}
-        {id === "51" && <TeenCard t1={t1} />}
+        {id === "51" || id === "61" && <TeenCard t1={t1} />}
         {id === "52" && <DT20Card t1={t1} />}
+        {id === "62" && <DT20Card t1={t1} />}
         {id === "54" && <AndarBaharCardOnVideo t3={t3} />}
       </div>
       <div

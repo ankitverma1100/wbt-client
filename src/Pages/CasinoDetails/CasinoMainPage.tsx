@@ -17,6 +17,8 @@ import MybetCasino from "./MybetCasino/MybetCasino";
 import AndarBhar from "./AndarBhar/AndarBhar";
 import AllBets from "./AllBets";
 import { useGetCasinoMyBetQuery } from "../../store/service/userServices/userServices";
+import TeenOneDay from "./TeenOneDay/TeenOneDay";
+import DT2 from "./DT2/DT2";
 
 const CasinoMainPage = () => {
   const betSectionRef = useRef<HTMLDivElement>(null);
@@ -136,6 +138,26 @@ const CasinoMainPage = () => {
           )}
           {id === "54" && (
             <AndarBhar
+              t1={t1}
+              odds={odds}
+              setBetState={setBetState}
+              setOpen={setOpen}
+              scrollToBet={betSectionRef}
+              setTimer={setTimer}
+            />
+          )}
+          {id === "61" && (
+            <TeenOneDay
+              t1={t1}
+              odds={odds}
+              setBetState={setBetState}
+              setOpen={setOpen}
+              scrollToBet={betSectionRef}
+              setTimer={setTimer}
+            />
+          )}
+          {id === "62" && (
+            <DT2
               t1={t1}
               odds={odds}
               setBetState={setBetState}

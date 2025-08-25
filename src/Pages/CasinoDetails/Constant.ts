@@ -6,7 +6,9 @@ export const titleById = {
   "55": "BOLLYWOOD TABLE",
   "57": "1 DAY TEENPATTI",
   "54": "ANDAR BAHAR",
-  "61": "20-20 D T L",
+  // "61": "20-20 D T L",
+  "61": "Teenpatti onday",
+  "62": "20-20 Dragon Tiger 2",
 };
 
 export const CardTypeByAbrv = {
@@ -44,7 +46,7 @@ export const videoIdById = {
 };
 
 export const tableIdtoUrl: any = {
-  "51": "teen20",
+  "61": "teen20",
   "52": "dt20",
   "53": "lucky7",
   "56": "aaa",
@@ -54,7 +56,8 @@ export const tableIdtoUrl: any = {
   "58": "poker",
   "59": "poker20",
   "54": "ab20",
-  "61": "dtl20",
+  "62": "dt202",
+  // "61": "dtl20",
 };
 export const idFromGtype = {
   "51": "teen20",
@@ -63,13 +66,11 @@ export const idFromGtype = {
   "55": "btable",
 };
 
-
 const redColorForLabel = "#e8ff22";
 const yellowColorForLabel = "#004e92";
 const blueColorForLabel = "black";
 const whiteColorForLabel = "#fff";
 const greenColorForLabel = "#002d5b";
-
 
 export const LetterAndColorById: any = {
   "51": {
@@ -210,16 +211,48 @@ export const LetterAndColorById: any = {
   },
   "61": {
     "1": {
+      color: greenColorForLabel,
+      label: "A",
+    },
+    "2": {
+      color: greenColorForLabel,
+      label: "A",
+    },
+    "3": {
+      color: redColorForLabel,
+      label: "B",
+    },
+    "4": {
+      color: redColorForLabel,
+      label: "B",
+    },
+  },
+  "62": {
+    "1": {
       color: redColorForLabel,
       label: "D",
     },
-    "21": {
+    "2": {
       color: yellowColorForLabel,
       label: "T",
     },
-    "41": {
-      color: blueColorForLabel,
-      label: "L",
+    "3": {
+      color: yellowColorForLabel,
+      label: "Tie",
     },
   },
+  // "61": {
+  //   "1": {
+  //     color: redColorForLabel,
+  //     label: "D",
+  //   },
+  //   "21": {
+  //     color: yellowColorForLabel,
+  //     label: "T",
+  //   },
+  //   "41": {
+  //     color: blueColorForLabel,
+  //     label: "L",
+  //   },
+  // },
 };

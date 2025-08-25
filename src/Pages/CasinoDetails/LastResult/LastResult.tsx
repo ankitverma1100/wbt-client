@@ -90,6 +90,23 @@ const LastResult = ({ matchId, casinoName }: Props) => {
               </div>
             );
           })}
+          {id === "62" &&
+          resultList?.map((item) => {
+            return (
+              <div
+                className="gx-rounded-circle gx-p-1 gx-ml-1 cursor-pointer gx-fs-md gx-bg-flex gx-justify-content-center gx-align-content-center gx-text-white gx-font-weight-semi-bold"
+                style={{
+                  backgroundColor: "rgb(54, 128, 17)",
+                  width: 24,
+                  height: 24,
+                }}>
+                <p className="text-[#FFFF2E] font-normal text-sm">
+                  {" "}
+                  {LetterAndColorById[id]?.[item.result]?.label}
+                </p>
+              </div>
+            );
+          })}
         {id === "54" &&
           resultList?.map((item) => {
             return (
