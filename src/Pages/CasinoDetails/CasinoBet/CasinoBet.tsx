@@ -39,8 +39,6 @@ const CasinoBet = ({
     }));
   };
 
-  console.log(betState, "betStatebetStatebetState");
-
   const handleCasinoBetPlaced = () => {
     if (!betState?.stake || betState?.stake < 100) {
       toast.error(
@@ -70,7 +68,16 @@ const CasinoBet = ({
     if (data) {
       if (!data?.status) {
         toast.error(data?.message);
+        setBetState((prev: any) => ({
+          ...prev,
+          stake: "",
+        }));
       } else {
+        setBetState((prev: any) => ({
+          ...prev,
+          stake: "",
+        }));
+
         toast.success(data?.message);
         setOpen(false);
       }
@@ -82,7 +89,6 @@ const CasinoBet = ({
       if (timer > 0) {
         setTimer((o) => o - 1);
       } else {
-        // setBetState(null);
         setOpen(false);
       }
     }, 1000);
@@ -90,6 +96,21 @@ const CasinoBet = ({
       clearTimeout(timers);
     };
   }, [timer]);
+
+  const handleClearInput = () => {
+    setBetState((prev: any) => ({
+      ...prev,
+      stake: "",
+    }));
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setBetState((prev: any) => ({
+      ...prev,
+      stake: "",
+    }));
+  };
 
   return (
     <>
@@ -258,10 +279,16 @@ const CasinoBet = ({
               gridTemplateColumns: "repeat(2, 1fr)",
               gap: 5,
             }}>
-            <button type="button" className="ant-btn ant-btn-danger gx-mb-0">
+            <button
+              onClick={handleClearInput}
+              type="button"
+              className="ant-btn ant-btn-danger gx-mb-0">
               <span>Clear Input</span>
             </button>
-            <button type="button" className="ant-btn ant-btn-danger gx-mb-0">
+            <button
+              onClick={handleClose}
+              type="button"
+              className="ant-btn ant-btn-danger gx-mb-0">
               <span>Clear Close</span>
             </button>
           </div>

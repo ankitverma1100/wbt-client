@@ -737,16 +737,18 @@ iframe {
   }
 }
 
-.suspen::after {
-  content: "SUSPENDED";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 50%;
+.suspen {
+  // content: "SUSPENDED";
+  // position: absolute;
+  // top: 0;
+  // right: 0;
+  // width: 200%;
   background: #ddddddd1;
   line-height: 50px;
   border-bottom: 1px solid #fff;
   height: 100%;
+  text-align: center;
+  color: red;
 }
 
 .ballr::after {
