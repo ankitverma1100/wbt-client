@@ -46,7 +46,8 @@ export const videoIdById = {
 };
 
 export const tableIdtoUrl: any = {
-  "61": "teen20",
+  "51": "teen20",
+  "61": "Teen",
   "52": "dt20",
   "53": "lucky7",
   "56": "aaa",

@@ -70,6 +70,7 @@ const CasinoMainPage = () => {
     }));
   }, [t1?.mid]);
 
+
   if (odds === null) {
     return;
   }
