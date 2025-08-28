@@ -70,7 +70,6 @@ const CasinoMainPage = () => {
     }));
   }, [t1?.mid]);
 
-
   if (odds === null) {
     return;
   }
@@ -96,6 +95,7 @@ const CasinoMainPage = () => {
           <VideoSection
             t3={odds && (odds as any)?.t3}
             t1={odds && (odds as any)?.t1?.[0]}
+            t2={odds && (odds as any)?.t1}
           />
           {id === "53" && (
             <Lucky7
@@ -206,7 +206,7 @@ const CasinoMainPage = () => {
         onOk={handleOk}
         footer={null}
         onCancel={handleCancel}>
-        <AllBets  betList={betList}/>
+        <AllBets betList={betList} />
       </Modal>
     </>
   );

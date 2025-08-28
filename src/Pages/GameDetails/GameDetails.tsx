@@ -122,6 +122,7 @@ const GameDetails = () => {
       } else {
         setShowMsg(betplaceData.message || "Bet Failed");
         setShow(true);
+        setisModalOpen(false);
         setTimeout(() => {
           setShow(false);
         }, 3000);
