@@ -1,6 +1,7 @@
 import { Card, Col, Row } from "antd";
 import { LockFilled } from "@ant-design/icons";
 import React from "react";
+import { useGetCasinoLabilityQuery } from "../../../store/service/userServices/userServices";
 
 // Type definitions
 interface TeenItem {
@@ -17,7 +18,7 @@ interface TeenItem {
 }
 
 interface TeenProps {
-  t1: TeenItem[];
+  t1: any;
   odds: { t1: TeenItem[] };
   setBetState: React.Dispatch<React.SetStateAction<any>>;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -31,8 +32,14 @@ const TeenOneDay: React.FC<TeenProps> = ({
   setOpen,
   scrollToBet,
   setTimer,
+  t1,
 }) => {
   const t2: TeenItem[] = odds?.t1 || [];
+
+  const { data } = useGetCasinoLabilityQuery(
+    { roundId: t1?.mid || "" },
+    { pollingInterval: 1000 }
+  );
 
   const handleClick = (item: TeenItem, odds: any, color: string) => {
     setBetState?.((prev: any) => ({
@@ -55,6 +62,10 @@ const TeenOneDay: React.FC<TeenProps> = ({
 
   const renderRow = (item: TeenItem, idx: number) => {
     const isSuspended = item?.gstatus === "SUSPENDED";
+    console.log("item", item);
+    const pnl = data?.data?.find(
+      (pnlData) => Number(pnlData?.sid) === Number(item?.sectionId)
+    )?.liability;
 
     return (
       <Row key={idx} className="gx-text-center gx-border-bottom">
@@ -71,8 +82,14 @@ const TeenOneDay: React.FC<TeenProps> = ({
               </div>
               <div
                 className="gx-w-100"
-                style={{ color: (item?.pnl ?? 0) > 0 ? "green" : "red" }}>
-                {item?.pnl}
+                style={{
+                  color: (pnl ?? 0) > 0 ? "green" : "red",
+                  fontSize: 14,
+                  textAlign: "right",
+                  marginRight: 10,
+                  fontWeight: "600",
+                }}>
+                {pnl?.toFixed(2)}
               </div>
             </Col>
           </Row>

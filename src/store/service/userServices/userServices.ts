@@ -272,7 +272,13 @@ export const userList = createApi({
         body,
       }),
     }),
-   
+    getCasinoLability: build.query<any, any>({
+      query: (body) => ({
+        url: `/casino/liability`,
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -314,4 +320,5 @@ export const {
   useMatkaPlacebetMutation,
   useGetUserLiabilityMutation,
   useGetUserchpdtlMutation,
+  useGetCasinoLabilityQuery,
 } = userList;

@@ -87,15 +87,19 @@ const CasinoMainPage = () => {
     setIsModalOpen(false);
   };
 
+  console.log(odds, "oddsoddsodds")
+
+
   return (
     <>
       <Row justify={"center"} className="gx-mt-2 gx-mb-2 main_casino_row">
         <Col xs={24} sm={24} md={24} lg={10} xl={10} xxl={10}>
-          <CasinoHead t1={t1} />
+          <CasinoHead t1={t1}  />
           <VideoSection
             t3={odds && (odds as any)?.t3}
             t1={odds && (odds as any)?.t1?.[0]}
             t2={odds && (odds as any)?.t1}
+            time={odds?.time}
           />
           {id === "53" && (
             <Lucky7

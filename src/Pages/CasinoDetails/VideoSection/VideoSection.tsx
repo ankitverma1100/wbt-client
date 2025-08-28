@@ -7,7 +7,7 @@ import AndarBaharCardOnVideo from "./AndarBaharCardOnVideo";
 import CardComp from "./CardComp";
 import OneDayCard from "./OneDayCard";
 
-const VideoSection = ({ t1, t3, t2 }: any) => {
+const VideoSection = ({ t1, t3, t2, time }: any) => {
   const { id } = useParams();
 
   const videoData: Record<string, string> = {
@@ -19,7 +19,6 @@ const VideoSection = ({ t1, t3, t2 }: any) => {
     "61": "3047",
     "60": "3053",
   };
-
 
   return (
     <Card
@@ -49,7 +48,7 @@ const VideoSection = ({ t1, t3, t2 }: any) => {
                 <span
                   className="card__top"
                   style={{ color: "#000", fontSize: "18px" }}>
-                  {t1.autotime}
+                  {t1.autotime || time}
                 </span>
               </span>
             </span>
