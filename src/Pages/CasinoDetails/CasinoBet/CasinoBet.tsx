@@ -195,7 +195,7 @@ const CasinoBet = ({
                 {betState?.nation} :
               </div>
               <span className="gx-w-100 gx-text-left">
-                RATE : {betState?.odds}
+                RATE : {betState?.odds?.toFixed(2)}
               </span>
               <div className="gx-bg-dark gx-rounded-circle gx-text-white gx-p-2">
                 <div style={{ position: "relative", width: 20, height: 20 }}>
