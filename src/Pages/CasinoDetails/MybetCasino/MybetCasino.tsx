@@ -131,29 +131,25 @@ const MybetCasino = () => {
                           </tr>
                           {betList?.data?.map((items) => {
                             return (
-                              <tr>
-                                <td
-                                  align="center"
-                                  valign="bottom"
-                                  style={{ backgroundColor: "#FFFFFF" }}>
+                              <tr
+                                style={{
+                                  backgroundColor:
+                                    id === "61" || id === "56"
+                                      ? items?.back
+                                        ? "#72bbef"
+                                        : "#faa9ba"
+                                      : "#ffffff",
+                                }}>
+                                <td align="center" valign="bottom">
                                   {items?.selectionName}
                                 </td>
-                                <td
-                                  align="center"
-                                  valign="bottom"
-                                  style={{ backgroundColor: "#FFFFFF" }}>
-                                  {items?.odds}
+                                <td align="center" valign="bottom">
+                                  {items?.odds?.toFixed(2)}
                                 </td>
-                                <td
-                                  align="center"
-                                  valign="bottom"
-                                  style={{ backgroundColor: "#FFFFFF" }}>
+                                <td align="center" valign="bottom">
                                   {items?.stake}
                                 </td>
-                                <td
-                                  align="center"
-                                  valign="bottom"
-                                  style={{ backgroundColor: "#FFFFFF" }}>
+                                <td align="center" valign="bottom">
                                   {items?.pnl}
                                 </td>
                               </tr>
