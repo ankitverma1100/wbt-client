@@ -20,7 +20,7 @@ const MatchBets = () => {
     ) ?? [];
   return (
     <>
-      <div
+      {/* <div
         className="fancybetdiv tabChnage"
         style={{ background: "#2a363b", }}>
         <div
@@ -49,9 +49,9 @@ const MatchBets = () => {
           }}>
           Session Bets ({sessionBets?.length || 0})
         </div>
-      </div>
+      </div> */}
 
-      {/* <div
+      <div
         className="fancybetdiv text-center"
         style={{ background: "#2a363b", padding: 2, letterSpacing: 1 }}>
         <h6
@@ -64,199 +64,98 @@ const MatchBets = () => {
           }}>
           MATCH BETS
         </h6>
-      </div> */}
+      </div>
 
-      {activeTab === "match" ? (
-        <div className="overflow-responsive">
-          <table
-            width="100%"
-            cellSpacing={2}
-            cellPadding={2}
-            border={0}
-            className="table compete-game-"
-            style={{ whiteSpace: "nowrap" }}>
-            <thead>
-              <tr>
-                <td
-                  className="FontTextWhite10px border"
+      <div className="overflow-responsive">
+        <table
+          width="100%"
+          cellSpacing={2}
+          cellPadding={2}
+          border={0}
+          className="table compete-game-"
+          style={{ whiteSpace: "nowrap" }}>
+          <thead>
+            <tr>
+              <td
+                className="FontTextWhite10px border"
+                style={{
+                  color: "#fff ",
+                  background: "#7d5c0e",
+                }}
+                height={25}
+                align="center">
+                TEAM{" "}
+              </td>
+              <td
+                className="FontTextWhite10px border"
+                style={{ color: "#fff ", background: "#7d5c0e" }}
+                valign="middle"
+                align="center">
+                RATE
+              </td>
+              <td
+                className="FontTextWhite10px border"
+                style={{ color: "#fff ", background: "#7d5c0e" }}
+                valign="middle"
+                align="center">
+                AMOUNT
+              </td>
+              <td
+                className="FontTextWhite10px border"
+                style={{ color: "#fff ", background: "#7d5c0e" }}
+                align="center">
+                MODE
+              </td>
+            </tr>
+          </thead>
+          <tbody id="MyTeamBets">
+            {data?.data?.Bookmaker?.map((items) => {
+              return (
+                // #a7d8fd
+                <tr
                   style={{
-                    color: "#fff ",
-                    background: "#7d5c0e",
-                  }}
-                  height={25}
-                  align="center">
-                  TEAM{" "}
-                </td>
-                <td
-                  className="FontTextWhite10px border"
-                  style={{ color: "#fff ", background: "#7d5c0e" }}
-                  valign="middle"
-                  align="center">
-                  RATE
-                </td>
-                <td
-                  className="FontTextWhite10px border"
-                  style={{ color: "#fff ", background: "#7d5c0e" }}
-                  valign="middle"
-                  align="center">
-                  AMOUNT
-                </td>
-                <td
-                  className="FontTextWhite10px border"
-                  style={{ color: "#fff ", background: "#7d5c0e" }}
-                  align="center">
-                  MODE
-                </td>
-              </tr>
-            </thead>
-            <tbody id="MyTeamBets">
-              {data?.data?.Bookmaker?.map((items) => {
-                return (
-                  // #a7d8fd
-                  <tr
+                    borderBottom: "1px solid #3d8282",
+                    background: items?.back ? "#a7d8fd" : "#f9c9d4",
+                  }}>
+                  <td
                     style={{
+                      borderRight: "1px solid #3d8282",
                       borderBottom: "1px solid #3d8282",
-                      background: items?.back ? "#a7d8fd" : "#f9c9d4",
                     }}>
-                    <td
-                      style={{
-                        borderRight: "1px solid #3d8282",
-                        borderBottom: "1px solid #3d8282",
-                      }}>
-                      {items?.nation}
-                    </td>
-                    <td
-                      style={{
-                        textAlign: "center",
-                        borderRight: "1px solid #3d8282",
-                        borderBottom: "1px solid #3d8282",
-                      }}>
-                      {Number(items?.rate)?.toFixed(2)}
-                    </td>
-                    <td
-                      style={{
-                        textAlign: "center",
-                        borderRight: "1px solid #3d8282",
-                        borderBottom: "1px solid #3d8282",
-                      }}>
-                      {items?.amount}
-                    </td>
-                    <td
-                      style={{
-                        textAlign: "center",
-                        borderRight: "1px solid #3d8282",
-                        borderBottom: "1px solid #3d8282",
-                      }}>
-                      {items?.back ? "LAGAI" : "KHAI"}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      ) : (
-        <div className="overflow-responsive">
-          <table
-            width="100%"
-            cellSpacing={2}
-            cellPadding={2}
-            border={0}
-            className="table compete-game-"
-            style={{ whiteSpace: "nowrap" }}>
-            <thead>
-              <tr>
-                <td
-                  className="FontTextWhite10px border"
-                  style={{ color: "#fff ", background: "#7d5c0e" }}
-                  height={25}
-                  align="center">
-                  SESSION{" "}
-                </td>
-                <td
-                  className="FontTextWhite10px border"
-                  style={{ color: "#fff ", background: "#7d5c0e" }}
-                  align="center">
-                  RUN
-                </td>
-                <td
-                  className="FontTextWhite10px border"
-                  style={{ color: "#fff ", background: "#7d5c0e" }}
-                  valign="middle"
-                  align="center">
-                  RATE
-                </td>
-                <td
-                  className="FontTextWhite10px border"
-                  style={{ color: "#fff ", background: "#7d5c0e" }}
-                  valign="middle"
-                  align="center">
-                  AMOUNT
-                </td>
-                <td
-                  className="FontTextWhite10px border"
-                  style={{ color: "#fff ", background: "#7d5c0e" }}
-                  align="center">
-                  MODE
-                </td>
-              </tr>
-            </thead>
-            <tbody id="MySessionBets">
-              {sessionBets?.map((items) => {
-                return (
-                  <tr
+                    {items?.nation}
+                  </td>
+                  <td
                     style={{
+                      textAlign: "center",
+                      borderRight: "1px solid #3d8282",
                       borderBottom: "1px solid #3d8282",
-                      background: items?.back ? "#a7d8fd" : "#f9c9d4",
                     }}>
-                    <td
-                      style={{
-                        borderRight: "1px solid #3d8282",
-                        borderBottom: "1px solid #3d8282",
-                      }}>
-                      {items?.nation}
-                    </td>
-                    <td
-                      style={{
-                        textAlign: "center",
-                        borderRight: "1px solid #3d8282",
-                        borderBottom: "1px solid #3d8282",
-                      }}>
-                      {items?.priveValue}
-                    </td>
-                    <td
-                      style={{
-                        textAlign: "center",
-                        borderRight: "1px solid #3d8282",
-                        borderBottom: "1px solid #3d8282",
-                      }}>
-                      {items?.rate}
-                    </td>
-                    <td
-                      style={{
-                        textAlign: "center",
-                        borderRight: "1px solid #3d8282",
-                        borderBottom: "1px solid #3d8282",
-                      }}>
-                      {items?.amount}
-                    </td>
-                    <td
-                      style={{
-                        textAlign: "center",
-                        borderRight: "1px solid #3d8282",
-                        borderBottom: "1px solid #3d8282",
-                      }}>
-                      {items?.back ? "Yes" : "No"}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      )}
-
-      {/* <div
+                    {Number(items?.rate)?.toFixed(2)}
+                  </td>
+                  <td
+                    style={{
+                      textAlign: "center",
+                      borderRight: "1px solid #3d8282",
+                      borderBottom: "1px solid #3d8282",
+                    }}>
+                    {items?.amount}
+                  </td>
+                  <td
+                    style={{
+                      textAlign: "center",
+                      borderRight: "1px solid #3d8282",
+                      borderBottom: "1px solid #3d8282",
+                    }}>
+                    {items?.back ? "LAGAI" : "KHAI"}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      <br />
+      <div
         className="fancybetdiv text-center"
         style={{ background: "#2a363b", padding: 2, letterSpacing: 1 }}>
         <h6
@@ -269,7 +168,105 @@ const MatchBets = () => {
           }}>
           FANCY BETS
         </h6>
-      </div> */}
+      </div>
+      <div className="overflow-responsive">
+        <table
+          width="100%"
+          cellSpacing={2}
+          cellPadding={2}
+          border={0}
+          className="table compete-game-"
+          style={{ whiteSpace: "nowrap" }}>
+          <thead>
+            <tr>
+              <td
+                className="FontTextWhite10px border"
+                style={{ color: "#fff ", background: "#7d5c0e" }}
+                height={25}
+                align="center">
+                SESSION{" "}
+              </td>
+              <td
+                className="FontTextWhite10px border"
+                style={{ color: "#fff ", background: "#7d5c0e" }}
+                align="center">
+                RUN
+              </td>
+              <td
+                className="FontTextWhite10px border"
+                style={{ color: "#fff ", background: "#7d5c0e" }}
+                valign="middle"
+                align="center">
+                RATE
+              </td>
+              <td
+                className="FontTextWhite10px border"
+                style={{ color: "#fff ", background: "#7d5c0e" }}
+                valign="middle"
+                align="center">
+                AMOUNT
+              </td>
+              <td
+                className="FontTextWhite10px border"
+                style={{ color: "#fff ", background: "#7d5c0e" }}
+                align="center">
+                MODE
+              </td>
+            </tr>
+          </thead>
+          <tbody id="MySessionBets">
+            {sessionBets?.map((items) => {
+              return (
+                <tr
+                  style={{
+                    borderBottom: "1px solid #3d8282",
+                    background: items?.back ? "#a7d8fd" : "#f9c9d4",
+                  }}>
+                  <td
+                    style={{
+                      borderRight: "1px solid #3d8282",
+                      borderBottom: "1px solid #3d8282",
+                    }}>
+                    {items?.nation}
+                  </td>
+                  <td
+                    style={{
+                      textAlign: "center",
+                      borderRight: "1px solid #3d8282",
+                      borderBottom: "1px solid #3d8282",
+                    }}>
+                    {items?.priveValue}
+                  </td>
+                  <td
+                    style={{
+                      textAlign: "center",
+                      borderRight: "1px solid #3d8282",
+                      borderBottom: "1px solid #3d8282",
+                    }}>
+                    {items?.rate}
+                  </td>
+                  <td
+                    style={{
+                      textAlign: "center",
+                      borderRight: "1px solid #3d8282",
+                      borderBottom: "1px solid #3d8282",
+                    }}>
+                    {items?.amount}
+                  </td>
+                  <td
+                    style={{
+                      textAlign: "center",
+                      borderRight: "1px solid #3d8282",
+                      borderBottom: "1px solid #3d8282",
+                    }}>
+                    {items?.back ? "Yes" : "No"}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
 
       <br />
       <div
