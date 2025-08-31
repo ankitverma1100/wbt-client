@@ -19,6 +19,7 @@ import {
 import { Modal } from "antd";
 import MoreEvent from "./MoreEvent";
 import BetplaceMobNew from "./BetplaceMobNew";
+import Marquee from "react-fast-marquee";
 
 const GameDetails = () => {
   const [showFull, setShowFull] = useState(false);
@@ -136,6 +137,19 @@ const GameDetails = () => {
 
   return (
     <div className="page-body">
+      <Marquee
+        style={{
+          minHeight: 30,
+          fontSize: "14px",
+          color: "red",
+          fontWeight: 900,
+          textTransform: "uppercase",
+        }}
+        speed={50}>
+        {oddsData?.Bookmaker[0]?.display_message !== "null" &&
+          oddsData?.Bookmaker[0]?.display_message}
+      </Marquee>
+
       <div className="position-relative userTheme bg-light">
         <div className="position-relative">
           <div className="menu" id="menu">

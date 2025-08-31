@@ -12,6 +12,7 @@ const Header = ({ onClose, userBalance }: Props) => {
   const pathSegments = pathname.split("/").filter(Boolean);
   const currentPath = pathSegments[pathSegments.length - 1];
   const userId = localStorage.getItem("userId");
+  const username = localStorage.getItem("username");
 
   const nav = useNavigate();
   const [trigger] = useLogOutMutation();
@@ -28,7 +29,7 @@ const Header = ({ onClose, userBalance }: Props) => {
   return (
     <div className="body-top-bar header_wrapper">
       <div className="row" style={{ alignItems: "center" }}>
-        <div className="col-md-6 col-6">
+        <div className="col-md-6 col-8">
           <div className="d-flex">
             <Link to="/main/dashboard">
               <img
@@ -38,7 +39,7 @@ const Header = ({ onClose, userBalance }: Props) => {
             </Link>
             <Link to="/main/profile">
               <div className="profile-header-details">
-                <div className="user-name">{userId}</div>
+                <div className="user-name">{userId} ({username})</div>
                 <div className="chips_amount">
                   Chips :{" "}
                   <span className="user_wallet">{userBalance?.toFixed(2)}</span>
@@ -47,7 +48,7 @@ const Header = ({ onClose, userBalance }: Props) => {
             </Link>
           </div>
         </div>
-        <div className="col-md-6 col-6">
+        <div className="col-md-6 col-4">
           <div className="row">
             <div className="col-md-3">
               {currentPath !== "dashboard" && (
