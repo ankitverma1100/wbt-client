@@ -15,7 +15,7 @@ const CasinoHome = () => {
     { id: "53", img: "/img/lucky7.jpeg", name: "Lucky7" },
     { id: "52", img: "/img/rg_dragon_tiger.jpg", name: "Dragon Tiger" },
     { id: "56", img: "/img/amar-akhbar.jpg", name: "Amar Akbar Anthony" },
-    { id: "100", img: "/img/worli-matka-tvs.jpeg", name: "Worli Matka" },
+    // { id: "100", img: "/img/worli-matka-tvs.jpeg", name: "Worli Matka" },
     { id: "61", img: "/img/1-Day-Teen-Patti.jpg", name: "1 Day Teen Patti" },
     { id: "62", img: "/img/Dragon Tiger.jpg", name: "Dragon Tiger Line" },
   ];

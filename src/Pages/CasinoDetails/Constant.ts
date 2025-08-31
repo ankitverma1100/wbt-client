@@ -67,11 +67,11 @@ export const idFromGtype = {
   "55": "btable",
 };
 
-const redColorForLabel = "#e8ff22";
+const redColorForLabel = "#e91100";
 const yellowColorForLabel = "#004e92";
 const blueColorForLabel = "black";
 const whiteColorForLabel = "#fff";
-const greenColorForLabel = "#002d5b";
+const greenColorForLabel = "#368011";
 
 export const LetterAndColorById: any = {
   "51": {
