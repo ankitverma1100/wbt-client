@@ -24,6 +24,7 @@ interface TeenProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   scrollToBet: React.RefObject<HTMLDivElement | null>;
   setTimer: React.Dispatch<React.SetStateAction<number>>;
+  setIsBetModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const TeenOneDay: React.FC<TeenProps> = ({
@@ -33,6 +34,7 @@ const TeenOneDay: React.FC<TeenProps> = ({
   scrollToBet,
   setTimer,
   t1,
+  setIsBetModal,
 }) => {
   const t2: TeenItem[] = odds?.t1 || [];
 
@@ -56,8 +58,9 @@ const TeenOneDay: React.FC<TeenProps> = ({
       behavior: "smooth",
       block: "center",
     });
+    setIsBetModal(true);
     setOpen(true);
-    setTimer(8);
+    setTimer(10);
   };
 
   const renderRow = (item: TeenItem, idx: number) => {

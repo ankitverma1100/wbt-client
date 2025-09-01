@@ -384,7 +384,8 @@ interface CasinoBetPlacePaylod {
   selectionId: string;
   stake: number;
   userIp: string;
-  diviceInfo: DeviceInfo;
+  matchId: string;
+  diviceInfo: any;
 }
 
 interface mybetResponce {

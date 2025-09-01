@@ -9,6 +9,7 @@ interface AAAProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   scrollToBet: React.RefObject<HTMLDivElement | null>;
   setTimer: React.Dispatch<React.SetStateAction<number>>;
+  setIsBetModal: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const Lucky7 = ({
@@ -18,6 +19,7 @@ const Lucky7 = ({
   setOpen,
   scrollToBet,
   setTimer,
+  setIsBetModal
 }: AAAProps) => {
   const t2 = odds?.t2 || [];
 
@@ -39,7 +41,8 @@ const Lucky7 = ({
       behavior: "smooth",
       block: "center",
     });
-    setTimer(7);
+    setIsBetModal(true);
+    setTimer(10);
   };
 
   return (

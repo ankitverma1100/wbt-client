@@ -216,7 +216,7 @@ export const LetterAndColorById: any = {
       label: "A",
     },
     "2": {
-      color: greenColorForLabel,
+      color: redColorForLabel,
       label: "B",
     },
   },

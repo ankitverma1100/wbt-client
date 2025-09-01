@@ -43,6 +43,7 @@ const GameDetails = () => {
     deviceInfo: null,
   });
   const [timer, setTimer] = useState<number>(0);
+  const [showTv, setShowTv] = useState(false);
   const { id } = useParams() as { id: string };
   const { data: oddsData } = useOddsDataQuery(id, { pollingInterval: 1000 });
   const { data: oddsPnl } = useGetOddsPnlQuery(
@@ -160,7 +161,7 @@ const GameDetails = () => {
                 alignItems: "center",
                 background: "#7d5c0e",
               }}>
-              <li className="active abc d-line-block">
+              <li className="active abc d-line-block" onClick={() => setShowTv(!showTv)}>
                 <a
                   className="active text-center"
                   style={{ background: "none", border: "none" }}>
@@ -184,7 +185,7 @@ const GameDetails = () => {
       <div className="container">
         <form name="BetPlayer" method="post" action="">
           <div className="d-none1 d-sm-none1 d-md-block1 d-lg-block1">
-            <TvSection showFull={showFull} />
+            <TvSection showTv={showTv} showFull={showFull} />
             <Bookmaker
               oddsData={oddsData?.Bookmaker?.filter(
                 (item: { t: string }) => item?.t?.toLowerCase() === "bookmaker"
@@ -219,6 +220,7 @@ const GameDetails = () => {
               isLoading={isLoading}
               setisModalOpen={setisModalOpen}
               isModalOpen={isModalOpen}
+              betplaceData={betplaceData}
             />
             <MatchBets />
             <MoreEvent />

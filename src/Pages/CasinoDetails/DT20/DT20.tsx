@@ -9,6 +9,7 @@ interface TeenProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   scrollToBet: React.RefObject<HTMLDivElement | null>;
   setTimer: React.Dispatch<React.SetStateAction<number>>;
+  setIsBetModal: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const DT20 = ({
@@ -18,6 +19,7 @@ const DT20 = ({
   setOpen,
   scrollToBet,
   setTimer,
+  setIsBetModal
 }: TeenProps) => {
   const t2 = odds?.t2 || [];
 
@@ -37,7 +39,8 @@ const DT20 = ({
       behavior: "smooth",
       block: "center",
     });
-    setTimer(8);
+    setIsBetModal(true);
+    setTimer(10);
   };
   return (
     <Row

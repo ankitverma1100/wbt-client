@@ -8,6 +8,7 @@ interface TeenProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   scrollToBet: React.RefObject<HTMLDivElement | null>;
   setTimer: React.Dispatch<React.SetStateAction<number>>;
+  setIsBetModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Teen = ({
@@ -17,6 +18,7 @@ const Teen = ({
   setOpen,
   scrollToBet,
   setTimer,
+  setIsBetModal,
 }: TeenProps) => {
   const t2 = odds?.t2 || [];
 
@@ -42,7 +44,8 @@ const Teen = ({
       block: "center",
     });
     setOpen(true);
-    setTimer(8);
+    setIsBetModal(true);
+    setTimer(10);
   };
 
   return (

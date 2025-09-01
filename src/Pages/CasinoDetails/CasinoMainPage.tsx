@@ -19,12 +19,14 @@ import AllBets from "./AllBets";
 import { useGetCasinoMyBetQuery } from "../../store/service/userServices/userServices";
 import TeenOneDay from "./TeenOneDay/TeenOneDay";
 import DT2 from "./DT2/DT2";
+import CasinoBetModal from "./CasinoBetModal";
 
 const CasinoMainPage = () => {
   const betSectionRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const [timer, setTimer] = useState<number>(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isBetModal, setIsBetModal] = useState(false);
 
   const { id } = useParams();
   if (!id) return null;
@@ -87,19 +89,16 @@ const CasinoMainPage = () => {
     setIsModalOpen(false);
   };
 
-  console.log(odds, "oddsoddsodds")
-
-
   return (
     <>
       <Row justify={"center"} className="gx-mt-2 gx-mb-2 main_casino_row">
         <Col xs={24} sm={24} md={24} lg={10} xl={10} xxl={10}>
-          <CasinoHead t1={t1}  />
+          <CasinoHead t1={t1} />
           <VideoSection
             t3={odds && (odds as any)?.t3}
             t1={odds && (odds as any)?.t1?.[0]}
             t2={odds && (odds as any)?.t1}
-            time={odds?.time}
+            time={odds && odds?.time}
           />
           {id === "53" && (
             <Lucky7
@@ -109,6 +108,7 @@ const CasinoMainPage = () => {
               setOpen={setOpen}
               scrollToBet={betSectionRef}
               setTimer={setTimer}
+              setIsBetModal={setIsBetModal}
             />
           )}
           {id === "56" && (
@@ -119,6 +119,7 @@ const CasinoMainPage = () => {
               setOpen={setOpen}
               scrollToBet={betSectionRef}
               setTimer={setTimer}
+              setIsBetModal={setIsBetModal}
             />
           )}
           {id === "51" && (
@@ -129,6 +130,7 @@ const CasinoMainPage = () => {
               setOpen={setOpen}
               scrollToBet={betSectionRef}
               setTimer={setTimer}
+              setIsBetModal={setIsBetModal}
             />
           )}
           {id === "52" && (
@@ -139,6 +141,7 @@ const CasinoMainPage = () => {
               setOpen={setOpen}
               scrollToBet={betSectionRef}
               setTimer={setTimer}
+              setIsBetModal={setIsBetModal}
             />
           )}
           {id === "54" && (
@@ -149,30 +152,33 @@ const CasinoMainPage = () => {
               setOpen={setOpen}
               scrollToBet={betSectionRef}
               setTimer={setTimer}
+              setIsBetModal={setIsBetModal}
             />
           )}
           {id === "61" && (
             <TeenOneDay
               t1={t1}
-              odds={odds}
+              odds={odds && odds}
               setBetState={setBetState}
               setOpen={setOpen}
               scrollToBet={betSectionRef}
               setTimer={setTimer}
+              setIsBetModal={setIsBetModal}
             />
           )}
           {id === "62" && (
             <DT2
               t1={t1}
-              odds={odds}
+              odds={odds && odds}
               setBetState={setBetState}
               setOpen={setOpen}
               scrollToBet={betSectionRef}
               setTimer={setTimer}
+              setIsBetModal={setIsBetModal}
             />
           )}
 
-          <div ref={betSectionRef}>
+          {/* <div ref={betSectionRef}>
             {open && (
               <CasinoBet
                 setBetState={setBetState}
@@ -182,7 +188,7 @@ const CasinoMainPage = () => {
                 timer={timer}
               />
             )}
-          </div>
+          </div> */}
           <Row justify={"center"} className="gx-mt-2 gx-mb-2">
             <button
               style={{
@@ -212,6 +218,15 @@ const CasinoMainPage = () => {
         onCancel={handleCancel}>
         <AllBets betList={betList} />
       </Modal>
+      <CasinoBetModal
+        betState={betState}
+        setTimer={setTimer}
+        timer={timer}
+        setBetState={setBetState}
+        setIsBetModal={setIsBetModal}
+        isBetModal={isBetModal}
+        t1={t1}
+      />
     </>
   );
 };
