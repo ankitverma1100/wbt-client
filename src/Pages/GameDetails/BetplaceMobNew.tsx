@@ -169,7 +169,13 @@ const BetplaceMobNew = ({
         <Row className="back-color">
           <Col xs={12}>
             <Button
-              onClick={() => setisModalOpen(false)}
+              onClick={() => {
+                setisModalOpen(false);
+                setPlaceBetData((prev) => ({
+                  ...prev,
+                  stake: "",
+                }));
+              }}
               className="close_button">
               Cancel
             </Button>

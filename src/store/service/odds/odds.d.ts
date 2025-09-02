@@ -180,3 +180,19 @@ interface MatchList {
   SM?: boolean;
   channelId?: number;
 }
+
+interface resultRoundWise {
+  success: boolean;
+  data: resultRoundWiseDatum[];
+}
+
+interface resultRoundWiseDatum {
+  mid: string;
+  sid: string;
+  win: string;
+  cards: string;
+  desc: string;
+  newdesc: string;
+  mtime: string;
+  gtype: string;
+}

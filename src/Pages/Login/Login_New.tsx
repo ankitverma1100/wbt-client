@@ -57,7 +57,7 @@ const Login_New = () => {
           <div className="col-lg-6">
             <div className="imgdiv text-center">
               <img
-                src="https://antspro3.com/assets/img/logo/TBT Pro Logo-Transparent (1).png"
+                src="/img/logo.png"
                 alt="logo"
                 className="login-logo-img"
               />

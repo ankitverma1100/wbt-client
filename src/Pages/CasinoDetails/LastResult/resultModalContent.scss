@@ -1,0 +1,102 @@
+.single-card-result-container {
+  display: flex;
+  padding: 15px;
+  justify-content: center;
+  transform: scale(1.4);
+}
+.three-card-result-container {
+  font-size: 1.5rem;
+  font-weight: 500;
+  position: relative;
+}
+
+.three-card-result {
+  display: flex;
+  gap: 1.3rem;
+  padding: 23px 0px 0px 15px;
+  justify-content: center;
+  position: relative;
+}
+.three-card-result > * {
+  transform: scale(1.4);
+}
+.trophyIcon {
+  position: absolute;
+  left: 27%;
+  top: 50%;
+  background-color: transparent;
+}
+
+@keyframes trophyAni {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba(29, 127, 30, 0.6);
+  }
+  70% {
+    -webkit-box-shadow: 0 0 0 10px rgba(29, 127, 30, 0);
+  }
+  100% {
+    -webkit-box-shadow: 0 0 0 0 rgba(29, 127, 30, 0);
+  }
+}
+
+.tropth_win {
+  font-size: 26px;
+  box-shadow: 0 0 0 #7e685a;
+  animation: trophyAni 1.5s infinite;
+  border-radius: 50%;
+  color: #169733;
+}
+
+.casino-result-modal {
+  padding: 5px;
+  .casino-result-round-id {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .casino-result-desc {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 6px;
+    box-shadow: 0 0 4px -1px;
+    margin: 15px 0px;
+
+    .casino-result-desc-item {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+    }
+  }
+  .text-center {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 12px;
+  }
+}
+
+.trophyIcon1 {
+  top: 10%;
+}
+.font_bold {
+  font-weight: 600;
+}
+
+.result_slick {
+  .slick-slider {
+    width: 60%;
+    @media screen and (max-width: "800px") {
+      width: 55%;
+    }
+  }
+  .slick-prev:before,
+  .slick-next:before {
+    color: #ddd !important;
+  }
+  .slick-next,
+  .slick-prev {
+    top: 40%;
+  }
+}

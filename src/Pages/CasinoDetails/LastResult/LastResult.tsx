@@ -1,6 +1,9 @@
 import { useParams } from "react-router-dom";
 import { useCasinoResultQuery } from "../../../store/service/casino/casinoServices";
-import { LetterAndColorById } from "../Constant";
+import { LetterAndColorById, titleById } from "../Constant";
+import { useState } from "react";
+import ResultModalContainer from "./ResultModalContainer";
+import { Modal } from "antd";
 
 interface Props {
   matchId: any;
@@ -8,15 +11,39 @@ interface Props {
 }
 
 const LastResult = ({ matchId, casinoName }: Props) => {
+  const [first, setFirst] = useState("");
+  const [openMod, setOpenMod] = useState(false);
   const { id } = useParams();
   const { data: resultList } = useCasinoResultQuery(casinoName, {
     refetchOnMountOrArgChange: true,
     pollingInterval: 5000,
   });
+
+  const handleClick = (val: string) => {
+    setFirst(val);
+    if (val) {
+      setOpenMod(true);
+    }
+  };
   return (
     <div
       className="gx-my-1 gx-mx-1 "
       style={{ backgroundColor: "rgba(0, 0, 0, 0.3)" }}>
+      <Modal
+        title={`${titleById[id]} Result`}
+        onCancel={() => setOpenMod(false)}
+        open={openMod}
+        className="betModals"
+        footer={false}>
+        {" "}
+        <ResultModalContainer
+          setOpen={setOpenMod}
+          open={openMod}
+          tableId={id}
+          mid={first}
+        />
+      </Modal>
+
       <div className="gx-text-white gx-fs-md gx-font-weight-medium gx-bg-grey gx-p-2 gx-bg-flex gx-justify-content-between gx-align-items-center">
         <span className="">Last Result</span>
         <span className=" gx-pointer ">View All</span>
@@ -32,7 +59,9 @@ const LastResult = ({ matchId, casinoName }: Props) => {
                   width: 24,
                   height: 24,
                 }}>
-                <p className="text-[#FFFF2E] font-normal text-sm">
+                <p
+                  className="text-[#FFFF2E] font-normal text-sm"
+                  onClick={() => handleClick(item.mid)}>
                   {" "}
                   {LetterAndColorById[id]?.[item.result]?.label}
                 </p>
@@ -49,7 +78,9 @@ const LastResult = ({ matchId, casinoName }: Props) => {
                   width: 24,
                   height: 24,
                 }}>
-                <p className="text-[#FFFF2E] font-normal text-sm">
+                <p
+                  className="text-[#FFFF2E] font-normal text-sm"
+                  onClick={() => handleClick(item.mid)}>
                   {" "}
                   {LetterAndColorById[id]?.[item.result]?.label}
                 </p>
@@ -66,7 +97,9 @@ const LastResult = ({ matchId, casinoName }: Props) => {
                   width: 24,
                   height: 24,
                 }}>
-                <p className="text-[#FFFF2E] font-normal text-sm">
+                <p
+                  className="text-[#FFFF2E] font-normal text-sm"
+                  onClick={() => handleClick(item.mid)}>
                   {" "}
                   {LetterAndColorById[id]?.[item.result]?.label}
                 </p>
@@ -83,7 +116,9 @@ const LastResult = ({ matchId, casinoName }: Props) => {
                   width: 24,
                   height: 24,
                 }}>
-                <p className="text-[#FFFF2E] font-normal text-sm">
+                <p
+                  className="text-[#FFFF2E] font-normal text-sm"
+                  onClick={() => handleClick(item.mid)}>
                   {" "}
                   {LetterAndColorById[id]?.[item.result]?.label}
                 </p>
@@ -100,14 +135,16 @@ const LastResult = ({ matchId, casinoName }: Props) => {
                   width: 24,
                   height: 24,
                 }}>
-                <p className="text-[#FFFF2E] font-normal text-sm">
+                <p
+                  className="text-[#FFFF2E] font-normal text-sm"
+                  onClick={() => handleClick(item.mid)}>
                   {" "}
                   {LetterAndColorById[id]?.[item.result]?.label}
                 </p>
               </div>
             );
           })}
-          {id === "62" &&
+        {id === "62" &&
           resultList?.map((item) => {
             return (
               <div
@@ -117,7 +154,9 @@ const LastResult = ({ matchId, casinoName }: Props) => {
                   width: 24,
                   height: 24,
                 }}>
-                <p className="text-[#FFFF2E] font-normal text-sm">
+                <p
+                  className="text-[#FFFF2E] font-normal text-sm"
+                  onClick={() => handleClick(item.mid)}>
                   {" "}
                   {LetterAndColorById[id]?.[item.result]?.label}
                 </p>
@@ -134,7 +173,9 @@ const LastResult = ({ matchId, casinoName }: Props) => {
                   width: 24,
                   height: 24,
                 }}>
-                <p className="text-[#FFFF2E] font-normal text-sm">
+                <p
+                  className="text-[#FFFF2E] font-normal text-sm"
+                  onClick={() => handleClick(item.mid)}>
                   {" "}
                   {LetterAndColorById[id]?.[item.result]?.label}
                 </p>
