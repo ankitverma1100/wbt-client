@@ -6,7 +6,6 @@ const Dashboard = () => {
     <>
       <div className="page-body">
         <div className="">
-         
           <Marquee
             style={{
               background: "black",
@@ -16,11 +15,12 @@ const Dashboard = () => {
               fontSize: "14px",
               font: "inherit",
             }}>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            very good &nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            hello please place a bet quickly{" "}
+            {window.location.hostname} &nbsp; में आपका स्वागत है
+            हमारी कोई डुप्लीकेट वेबसाइट नहीं है कृपा हमारी आधिकारिक लिंक{" "}
+            <span style={{ padding: "0px 3px" }}>
+              {window.location.hostname}
+            </span>{" "}
+            से ही लॉगिन करें"
           </Marquee>
         </div>
         <div className="container">

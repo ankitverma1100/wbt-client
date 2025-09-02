@@ -78,89 +78,91 @@ const Session = ({ oddsData, handleBetData, focusAmountInput }: OddsData) => {
               YES{" "}
             </td>
           </tr>
-          {oddsData?.map((session, index) => (
-            <tr key={index} style={{ position: "relative" }}>
-              <td
-                className="FontTextWhite10px border"
-                style={{ color: "#000", fontSize: "13px" }}
-                align="left">
-                {session.nation}
-              </td>
-              {session?.gstatus.toLowerCase() === "suspended" ||
-              session?.gstatus.includes("Ball") ? (
-                <td className="FontTextWhite10px border suspen" colSpan={2}>
-                  {session?.gstatus?.toLocaleUpperCase()}
+          {[...(oddsData || [])]
+            .sort((a, b) => Number(a.srno) - Number(b.srno))
+            ?.map((session, index) => (
+              <tr key={index} style={{ position: "relative" }}>
+                <td
+                  className="FontTextWhite10px border"
+                  style={{ color: "#000", fontSize: "13px" }}
+                  align="left">
+                  {session.nation}
                 </td>
-              ) : (
-                <>
-                  <td
-                    className={`FontTextWhite10px border`}
-                    align="center"
-                    style={{
-                      verticalAlign: "middle",
-                      background: "#FFF",
-                      color: "#e02131 ",
-                      fontWeight: 600,
-                      fontSize: "16px",
-                      cursor: "pointer",
-                      position: "relative",
-                    }}
-                    onClick={() => {
-                      if (session?.gstatus.toLowerCase() !== "suspended") {
-                        handleBetData(
-                          true,
-                          false,
-                          session?.l1,
-                          "Fancy2",
-                          session?.sid,
-                          session?.ls1,
-                          session?.mid,
-                          session?.nation,
-                          "No",
-                          new Date()
-                        );
-                        focusAmountInput();
-                      }
-                    }}>
-                    <div>{session.l1}</div>
-                    <div style={{ fontSize: "10px" }}>{session.ls1}</div>
+                {session?.gstatus.toLowerCase() === "suspended" ||
+                session?.gstatus.includes("Ball") ? (
+                  <td className="FontTextWhite10px border suspen" colSpan={2}>
+                    {session?.gstatus?.toLocaleUpperCase()}
                   </td>
-                  <td
-                    className="FontTextWhite10px border"
-                    style={{
-                      verticalAlign: "middle",
-                      backgroundColor: "#FFF",
-                      fontWeight: 600,
-                      color: "#3920ce ",
-                      fontSize: "16px",
-                      cursor: "pointer",
-                      position: "relative",
-                    }}
-                    onClick={() => {
-                      if (session?.gstatus.toLowerCase() !== "suspended") {
-                        handleBetData(
-                          true,
-                          true,
-                          session?.b1,
-                          "Fancy2",
-                          session?.sid,
-                          session?.bs1,
-                          session?.mid,
-                          session?.nation,
-                          "Yes",
-                          new Date()
-                        );
-                        focusAmountInput();
-                      }
-                    }}
-                    align="center">
-                    <div>{session.b1}</div>
-                    <div style={{ fontSize: "10px" }}>{session.bs1}</div>
-                  </td>
-                </>
-              )}
-            </tr>
-          ))}
+                ) : (
+                  <>
+                    <td
+                      className={`FontTextWhite10px border`}
+                      align="center"
+                      style={{
+                        verticalAlign: "middle",
+                        background: "#FFF",
+                        color: "#e02131 ",
+                        fontWeight: 600,
+                        fontSize: "16px",
+                        cursor: "pointer",
+                        position: "relative",
+                      }}
+                      onClick={() => {
+                        if (session?.gstatus.toLowerCase() !== "suspended") {
+                          handleBetData(
+                            true,
+                            false,
+                            session?.l1,
+                            "Fancy2",
+                            session?.sid,
+                            session?.ls1,
+                            session?.mid,
+                            session?.nation,
+                            "No",
+                            new Date()
+                          );
+                          focusAmountInput();
+                        }
+                      }}>
+                      <div>{session.l1}</div>
+                      <div style={{ fontSize: "10px" }}>{session.ls1}</div>
+                    </td>
+                    <td
+                      className="FontTextWhite10px border"
+                      style={{
+                        verticalAlign: "middle",
+                        backgroundColor: "#FFF",
+                        fontWeight: 600,
+                        color: "#3920ce ",
+                        fontSize: "16px",
+                        cursor: "pointer",
+                        position: "relative",
+                      }}
+                      onClick={() => {
+                        if (session?.gstatus.toLowerCase() !== "suspended") {
+                          handleBetData(
+                            true,
+                            true,
+                            session?.b1,
+                            "Fancy2",
+                            session?.sid,
+                            session?.bs1,
+                            session?.mid,
+                            session?.nation,
+                            "Yes",
+                            new Date()
+                          );
+                          focusAmountInput();
+                        }
+                      }}
+                      align="center">
+                      <div>{session.b1}</div>
+                      <div style={{ fontSize: "10px" }}>{session.bs1}</div>
+                    </td>
+                  </>
+                )}
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>
