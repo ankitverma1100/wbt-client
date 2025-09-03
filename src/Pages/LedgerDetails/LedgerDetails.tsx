@@ -192,7 +192,7 @@ const LedgerDetails = () => {
                                           style={{
                                             backgroundColor: "#FFFFFF",
                                           }}>
-                                          {items?.rate}
+                                          {Number(items?.rate)?.toFixed(2)}
                                         </td>
                                         <td
                                           align="center"
@@ -223,6 +223,8 @@ const LedgerDetails = () => {
                                           valign="middle"
                                           style={{
                                             backgroundColor: "#FFFFFF",
+                                            color:
+                                              totalPnl >= 0 ? "green" : "red",
                                           }}>
                                           {totalPnl && totalPnl?.toFixed(2)}
                                         </td>
@@ -257,7 +259,7 @@ const LedgerDetails = () => {
             </table>
           </div>
 
-          <div className="my-ledger-data-table">
+          <div className="my-ledger-data-table" style={{overflow:"scroll"}}>
             <table width="100%" border={0} cellSpacing={0} cellPadding={0}>
               <tbody>
                 <tr>
@@ -308,12 +310,6 @@ const LedgerDetails = () => {
                             align="left"
                             valign="top"
                             style={{ border: 0, padding: 0 }}>
-                            <table
-                              width="100%"
-                              border={0}
-                              cellPadding={2}
-                              cellSpacing={2}
-                              className="ledger-data"></table>
                             <table
                               width="100%"
                               border={0}
@@ -374,8 +370,9 @@ const LedgerDetails = () => {
                                       color: "#fff",
                                       backgroundColor: "#2A363B",
                                     }}>
-                                    Res
+                                    Run
                                   </td>
+
                                   <td
                                     width="15%"
                                     align="center"
@@ -401,6 +398,19 @@ const LedgerDetails = () => {
                                       backgroundColor: "#2A363B",
                                     }}>
                                     Mode
+                                  </td>
+                                  <td
+                                    width="15%"
+                                    align="center"
+                                    valign="middle"
+                                    className="font_text_white10px"
+                                    style={{
+                                      verticalAlign: "middle",
+                                      textAlign: "center",
+                                      color: "#fff",
+                                      backgroundColor: "#2A363B",
+                                    }}>
+                                    Res
                                   </td>
                                   <td
                                     width="15%"
@@ -451,8 +461,9 @@ const LedgerDetails = () => {
                                           style={{
                                             backgroundColor: "#FFFFFF",
                                           }}>
-                                          {items?.declared}
+                                          {items?.run}
                                         </td>
+
                                         <td
                                           align="center"
                                           valign="middle"
@@ -469,13 +480,26 @@ const LedgerDetails = () => {
                                           }}>
                                           {items?.mode}
                                         </td>
-
                                         <td
                                           align="center"
                                           valign="middle"
                                           style={{
                                             backgroundColor: "#FFFFFF",
-                                          }}>{items?.netPnl}</td>
+                                          }}>
+                                          {items?.declared}
+                                        </td>
+                                        <td
+                                          align="center"
+                                          valign="middle"
+                                          style={{
+                                            backgroundColor: "#FFFFFF",
+                                            color:
+                                              items?.netPnl >= 0
+                                                ? "green"
+                                                : "red",
+                                          }}>
+                                          {items?.netPnl}
+                                        </td>
                                       </tr>
                                     );
                                   }

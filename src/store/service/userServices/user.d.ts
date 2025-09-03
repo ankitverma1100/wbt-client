@@ -333,6 +333,7 @@ interface Data123 {
 }
 
 interface SessionBet12 {
+  netPnl: ReactNode;
   selectionName: string;
   rate: number;
   amount: number;
