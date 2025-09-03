@@ -790,7 +790,7 @@ em {
 .betModals {
   .ant-modal-content {
     padding: 0px;
-    .ant-modal-body{
+    .ant-modal-body {
       padding: 0px !important;
     }
   }
@@ -901,6 +901,15 @@ em {
       background-color: green !important;
       border-color: green !important;
       color: #fff !important;
+    }
+  }
+}
+
+.betModals123 {
+  .ant-modal-content {
+    padding: 0px;
+    .ant-modal-body {
+      padding: 0px !important;
     }
   }
 }

@@ -12,14 +12,15 @@ const Inplay = () => {
             return (
               <div className="card single-match mt-3 carddiv">
                 <Link to={`/main/match-deatils/${match.matchId}`}>
-                  <span className="green-circle" />
+                  {match?.inPlay ? (
+                    <span className="green-circle" />
+                  ) : (
+                    <span style={{ margin: "10px 20px" }}></span>
+                  )}
                   <div className="card-content">
                     <p>
                       <span className="playbtn">
-                        <img
-                          src="/img/playbtn.svg"
-                          alt="play"
-                        />
+                        <img src="/img/playbtn.svg" alt="play" />
                       </span>
                       <span className="rectbox">
                         <span className="green-span" />

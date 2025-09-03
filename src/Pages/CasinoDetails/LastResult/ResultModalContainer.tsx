@@ -3,9 +3,7 @@ import { useParams } from "react-router-dom";
 import { useGetCasinoResyltByRoundIdMutation } from "../../../store/service/casino/casinoServices";
 import "./resultModalContent.scss";
 import ResulTModalContent3Card from "./ResulTModalContent3Card";
-import { titleById } from "../Constant";
 import AndarBharResult from "./AndarBharResult";
-import DTLResult from "./DTLResult";
 import AAAResult from "./AAAResult";
 import DRAGONRules from "./DRAGONRules";
 

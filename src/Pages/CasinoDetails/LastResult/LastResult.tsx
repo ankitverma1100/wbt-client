@@ -33,7 +33,7 @@ const LastResult = ({ matchId, casinoName }: Props) => {
         title={`${titleById[id]} Result`}
         onCancel={() => setOpenMod(false)}
         open={openMod}
-        className="betModals"
+        className="betModals123"
         footer={false}>
         {" "}
         <ResultModalContainer

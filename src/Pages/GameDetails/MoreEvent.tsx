@@ -14,7 +14,7 @@ const MoreEvent = () => {
           return (
             <>
               <div className="col-1">
-                <span className="green-circle" />
+                {match?.inPlay ? <span className="green-circle" /> : ""}
               </div>
               <div className="col-11 px-2">
                 <Link to={`/main/match-deatils/${match?.matchId}`}>

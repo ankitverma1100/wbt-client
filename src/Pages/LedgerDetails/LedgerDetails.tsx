@@ -475,7 +475,7 @@ const LedgerDetails = () => {
                                           valign="middle"
                                           style={{
                                             backgroundColor: "#FFFFFF",
-                                          }}></td>
+                                          }}>{items?.netPnl}</td>
                                       </tr>
                                     );
                                   }

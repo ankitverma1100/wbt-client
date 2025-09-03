@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useGetBetListBymatchIdQuery } from "../../store/service/userServices/userServices";
 import { useState } from "react";
+import moment from "moment";
 
 const MatchBets = () => {
   const { id } = useParams();
@@ -374,7 +375,7 @@ const MatchBets = () => {
                       borderRight: "1px solid #3d8282",
                       borderBottom: "1px solid #3d8282",
                     }}>
-                    {items?.date}
+                    {moment(items?.date).format("D/M/YYYY hh:mm:ss A")}
                   </td>
                   <td
                     style={{
