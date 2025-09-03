@@ -97,7 +97,11 @@ const Bookmaker = ({
               valign="middle"
               height={25}
               align="center">
-              Min : {oddsData?.[0]?.minBet} Max : {oddsData?.[0]?.maxBet}
+              Min :{" "}
+              {Number(oddsData?.[0]?.minBet) < 100
+                ? 100
+                : oddsData?.[0]?.minBet}{" "}
+              Max : {oddsData?.[0]?.maxBet}
             </td>
             <td
               className="FontTextWhite10px"

@@ -161,7 +161,9 @@ const GameDetails = () => {
                 alignItems: "center",
                 background: "#7d5c0e",
               }}>
-              <li className="active abc d-line-block" onClick={() => setShowTv(!showTv)}>
+              <li
+                className="active abc d-line-block"
+                onClick={() => setShowTv(!showTv)}>
                 <a
                   className="active text-center"
                   style={{ background: "none", border: "none" }}>
@@ -243,7 +245,9 @@ const GameDetails = () => {
             boxShadow: "0px 0px 5px #4c4c4c",
           }}>
           <div className="modal-body text-center ">
-            <h3 className="text-white text-bold mb-4" style={{ fontSize: 18 }}>
+            <h3
+              className="text-bold mb-4"
+              style={{ fontSize: 18, color: "green" }}>
               {showMsg}
             </h3>
             <a

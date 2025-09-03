@@ -1,14 +1,46 @@
-import { useEffect } from "react";
-import { useGetLedgerDetailsMutation } from "../../store/service/userServices/userServices";
+import { useEffect, useState } from "react";
+import {
+  useGetBetListLedgerMutation,
+  useGetLedgerDetailsMutation,
+} from "../../store/service/userServices/userServices";
 import { Link } from "react-router-dom";
 import moment from "moment";
 
+import ModalsContent from "./ModalsContent";
+import { Modal } from "antd";
+
 const Ledger = () => {
+  const [casinoDate, setCasinoDate] = useState("");
+  const [sportName, setSportName] = useState("");
+  const [open, setOpen] = useState(false);
+  const [showMatchBet, setShowMatchBet] = useState(false);
+  const [casinoDataShow, setCasinoDataShow] = useState(false);
   const [trigger, { data: ledgerData }] = useGetLedgerDetailsMutation();
+  const [getCasinoLedger, { data: casinoLedger }] =
+    useGetBetListLedgerMutation();
 
   useEffect(() => {
     trigger({});
   }, []);
+
+  const handleClose = () => setOpen(false);
+  const handleOpen = (
+    matchId: number | undefined,
+    name: string,
+    date: string,
+    wonBy: string
+  ) => {
+    setSportName(name);
+    setCasinoDate(date);
+    if (matchId !== 0) {
+      setOpen(true);
+
+      setCasinoDataShow(true);
+      getCasinoLedger({
+        date: moment(date, "DD.MM.YYYY").format("YYYY-MM-DD"),
+      });
+    }
+  };
   return (
     <div className="container">
       <form name="BetPlayer" method="post" action="" wfd-id={1}>
@@ -154,7 +186,20 @@ const Ledger = () => {
                                       valign="bottom"
                                       style={{ backgroundColor: "#FFFFFF" }}>
                                       <Link
-                                        to={`/main/ledgerDetails/${items?.matchId}`}>
+                                        onClick={() =>
+                                          items?.wonBy === "Ledger" &&
+                                          handleOpen(
+                                            items?.matchId,
+                                            items?.remark,
+                                            items?.date,
+                                            items?.wonBy
+                                          )
+                                        }
+                                        to={
+                                          items?.wonBy === "Ledger"
+                                            ? "#"
+                                            : `/main/ledgerDetails/${items?.matchId}`
+                                        }>
                                         {" "}
                                         {items?.remark}(
                                         {moment(items?.date, [
@@ -185,7 +230,11 @@ const Ledger = () => {
                                     <td
                                       align="center"
                                       valign="bottom"
-                                      style={{ backgroundColor: "#FFFFFF" }}>
+                                      style={{
+                                        backgroundColor: "#FFFFFF",
+                                        color:
+                                          items?.balance >= 0 ? "green" : "red",
+                                      }}>
                                       {items?.balance?.toFixed(2)}
                                     </td>
                                   </tr>
@@ -225,13 +274,35 @@ const Ledger = () => {
           </ul>
         </div>
 
-        <table width="100%" border={0} cellSpacing={2} cellPadding={0}>
-          <tbody>
-            <tr>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
+        <Modal
+          className="casino_leder_modal"
+          title={
+            <h5 id="exampleModalLabel" className="popupTitle">
+              {`Casino Bets Records ${moment(casinoDate, "DD.MM.YYYY").format(
+                "YYYY-MM-DD"
+              )}`}
+            </h5>
+          }
+          closable={{ "aria-label": "Custom Close Button" }}
+          open={open}
+          footer={null}
+          onCancel={() => {
+            if (showMatchBet) {
+              setShowMatchBet(false);
+            } else {
+              setOpen(false);
+            }
+          }}>
+          <ModalsContent
+            sportName={sportName}
+            handleClose={handleClose}
+            casinoData={casinoLedger?.data}
+            casinoDataShow={casinoDataShow}
+            casinoDate={casinoDate}
+            setShowMatchBet={setShowMatchBet}
+            showMatchBet={showMatchBet}
+          />
+        </Modal>
       </form>
     </div>
   );

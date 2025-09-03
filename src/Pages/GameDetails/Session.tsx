@@ -81,16 +81,27 @@ const Session = ({ oddsData, handleBetData, focusAmountInput }: OddsData) => {
           {[...(oddsData || [])]
             .sort((a, b) => Number(a.srno) - Number(b.srno))
             ?.map((session, index) => (
-              <tr key={index} style={{ position: "relative" }}>
+              <tr key={index} style={{ position: "relative", height: "45px" }}>
                 <td
                   className="FontTextWhite10px border"
                   style={{ color: "#000", fontSize: "13px" }}
                   align="left">
-                  {session.nation}
+                  <span style={{ fontSize: "14px" }}>{session.nation}</span>
+                  <p
+                    style={{
+                      marginBottom: "0px",
+                      fontSize: "12px",
+                      color: "#000",
+                    }}>
+                    Session Limit:{session?.maxBet}
+                  </p>
                 </td>
                 {session?.gstatus.toLowerCase() === "suspended" ||
                 session?.gstatus.includes("Ball") ? (
-                  <td className="FontTextWhite10px border suspen" colSpan={2}>
+                  <td
+                    style={{ height: 45 }}
+                    className="FontTextWhite10px border suspen"
+                    colSpan={2}>
                     {session?.gstatus?.toLocaleUpperCase()}
                   </td>
                 ) : (
