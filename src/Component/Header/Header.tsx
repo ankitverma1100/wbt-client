@@ -1,3 +1,4 @@
+import { isAntPro } from "../../Pages/CasinoDetails/Constant";
 import { useLogOutMutation } from "../../store/service/userServices/userServices";
 import "./style.scss";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -33,7 +34,7 @@ const Header = ({ onClose, userBalance }: Props) => {
           <div className="d-flex">
             <Link to="/main/dashboard">
               <img
-                src="https://antspro3.com/assets/img/logo/TBT Pro Logo-Transparent (1).png"
+                 src={isAntPro ? "/img/logo12.png" : "/img/logo-nsg.png"}
                 className="logo-img"
               />
             </Link>

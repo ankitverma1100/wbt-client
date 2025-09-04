@@ -1,5 +1,6 @@
 import { Button, Form, Input } from "antd";
 import { useNavigate } from "react-router-dom";
+import { isAntPro } from "../CasinoDetails/Constant";
 
 const Login = () => {
   const nav = useNavigate();
@@ -12,7 +13,11 @@ const Login = () => {
           <div className=" gx-w-100">
             <div className="gx-px-5">
               <img
-                src="https://antpro99.pro/assets/images/logo.png"
+                src={
+                  isAntPro
+                    ? "https://antpro99.pro/assets/images/logo.png"
+                    : "/img/logo-nsg.png"
+                }
                 alt="Neature"
                 width={400}
                 height={200}

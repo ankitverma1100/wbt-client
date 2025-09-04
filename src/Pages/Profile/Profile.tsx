@@ -73,7 +73,7 @@ const Profile = () => {
                               style={{
                                 paddingLeft: 5,
                                 border: "none ",
-                                backgroundColor: "#7d5c0e",
+                                backgroundColor: "var(--bg-color)",
                               }}>
                               <p
                                 style={{
@@ -189,7 +189,7 @@ const Profile = () => {
                                   fontFamily: "Roboto",
                                   fontSize: 13,
                                   fontWeight: "bold",
-                                  backgroundColor: "#7d5c0e",
+                                  backgroundColor: "var(--bg-color)",
                                 }}>
                                 PERSONAL INFORMATION{" "}
                               </p>
@@ -403,7 +403,7 @@ const Profile = () => {
                                   fontFamily: "Roboto",
                                   fontSize: 13,
                                   fontWeight: "bold",
-                                  backgroundColor: "#7d5c0e",
+                                  backgroundColor: "var(--bg-color)",
                                 }}>
                                 COMPANY INFORMATION{" "}
                               </p>

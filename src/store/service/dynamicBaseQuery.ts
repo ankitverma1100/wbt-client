@@ -1,6 +1,7 @@
 import { fetchBaseQuery, type FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { type BaseQueryFn, type FetchArgs, type FetchBaseQueryMeta } from "@reduxjs/toolkit/query/react";
 import { toast } from "react-toastify";
+import { baseUrl, baseUrlkho, isAntPro } from "../../Pages/CasinoDetails/Constant";
 
 interface ErrorResponse {
   message: string;
@@ -16,7 +17,7 @@ export const dynamicBaseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBas
   extraOptions
 ) => {
   const rawBaseQuery = fetchBaseQuery({
-    baseUrl: import.meta.env.VITE_API_BASE_URL,
+    baseUrl: isAntPro ? baseUrl : baseUrlkho,
     prepareHeaders: (headers) => {
       const token = localStorage.getItem("client-token");
       if (token) {

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { baseUrl, baseUrlkho, isAntPro } from "./Constant";
 
 export const useOdds = (value: string) => {
   const [odds, setOdds] = useState<any>(null);
@@ -8,7 +9,10 @@ export const useOdds = (value: string) => {
   useEffect(() => {
     const timer = setInterval(() => {
       value &&
-        fetch(`${import.meta.env.VITE_ODDS_API}/betfair_api/casino/data/meta-` + value)
+        fetch(
+          `${import.meta.env.VITE_ODDS_API}/betfair_api/casino/data/meta-` +
+            value
+        )
           .then((res) => res.json())
           .then((res) => {
             if (Array.isArray(res?.bf)) {
@@ -27,8 +31,8 @@ export const useOdds = (value: string) => {
                   Number(item.gstatus) === 1
                     ? true
                     : Number(item.gstatus) === 0
-                      ? false
-                      : item.gstatus;
+                    ? false
+                    : item.gstatus;
                 item.pnl = pnl[item.sid] || 0;
                 res.t2BySid[item.sid] = item;
               });
@@ -43,24 +47,21 @@ export const useOdds = (value: string) => {
 
   useEffect(() => {
     return () => setOdds(null);
-  }, [value])
+  }, [value]);
 
   useEffect(() => {
     const timer = setInterval(() => {
       Number(odds?.t1?.[0]?.mid) &&
-        fetch(
-          `${import.meta.env.VITE_API_BASE_URL}/casino/liability`,
-          {
-            body: JSON.stringify({
-              roundId: odds?.t1?.[0].mid,
-            }),
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-            method: "POST",
-          }
-        )
+        fetch(`${isAntPro ? baseUrl : baseUrlkho}/casino/liability`, {
+          body: JSON.stringify({
+            roundId: odds?.t1?.[0].mid,
+          }),
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          method: "POST",
+        })
           .then((res) => res.json())
           .then((res) => {
             if (res.data) {
@@ -74,8 +75,7 @@ export const useOdds = (value: string) => {
               setPnl({});
             }
           });
-
-    }, 2000)
+    }, 2000);
     return () => {
       clearInterval(timer);
     };
@@ -83,56 +83,77 @@ export const useOdds = (value: string) => {
   return { odds, setBetPlace, pnl };
 };
 
-
 const convertBfToT2 = (oddData: any) => {
   if (oddData?.data?.bf && oddData?.data?.bf?.length > 0) {
-    oddData.data.bf.forEach((bfElement: { marketId: any; sectionId: any; max: string | number; min: string | number; gstatus: any; gameType: any; nation: any; b1: any; l1: any; bs1: any; ls1: any; UpdateTime: any; remark: any; C1: any; C2: any; C3: any; }, index: number) => {
-      const t2Obj = {
-        mid: bfElement.marketId,
-        sid: bfElement.sectionId,
-        max: +bfElement.max,
-        min: +bfElement.min,
-        gstatus: bfElement.gstatus,
-        gtype: bfElement.gameType,
-        nation: bfElement.nation,
-        nat: bfElement.nation,
-        rate: "",
-        b1: `${bfElement.b1}`,
-        l1: `${bfElement.l1}`,
-        bs1: `${bfElement.bs1}`,
-        ls1: `${bfElement.ls1}`,
-      };
-      const t1Obj: any = {
-        mid: bfElement.marketId,
-        autotime: bfElement.UpdateTime,
-        gtype: bfElement.gameType,
-        remark: bfElement.remark,
-        max: +bfElement.max,
-        min: +bfElement.min,
-      };
+    oddData.data.bf.forEach(
+      (
+        bfElement: {
+          marketId: any;
+          sectionId: any;
+          max: string | number;
+          min: string | number;
+          gstatus: any;
+          gameType: any;
+          nation: any;
+          b1: any;
+          l1: any;
+          bs1: any;
+          ls1: any;
+          UpdateTime: any;
+          remark: any;
+          C1: any;
+          C2: any;
+          C3: any;
+        },
+        index: number
+      ) => {
+        const t2Obj = {
+          mid: bfElement.marketId,
+          sid: bfElement.sectionId,
+          max: +bfElement.max,
+          min: +bfElement.min,
+          gstatus: bfElement.gstatus,
+          gtype: bfElement.gameType,
+          nation: bfElement.nation,
+          nat: bfElement.nation,
+          rate: "",
+          b1: `${bfElement.b1}`,
+          l1: `${bfElement.l1}`,
+          bs1: `${bfElement.bs1}`,
+          ls1: `${bfElement.ls1}`,
+        };
+        const t1Obj: any = {
+          mid: bfElement.marketId,
+          autotime: bfElement.UpdateTime,
+          gtype: bfElement.gameType,
+          remark: bfElement.remark,
+          max: +bfElement.max,
+          min: +bfElement.min,
+        };
 
-      if (index === 0) {
-        t1Obj.C1 = bfElement.C1;
-        t1Obj.C3 = bfElement.C2;
-        t1Obj.C5 = bfElement.C3;
-      }
-      if (index === 1) {
-        t1Obj.C2 = bfElement.C1;
-        t1Obj.C4 = bfElement.C2;
-        t1Obj.C6 = bfElement.C3;
-      }
-      if (Array.isArray(oddData.data.t1)) {
-        const newt1Obj = [{ ...oddData.data.t1?.[0], ...t1Obj }];
-        oddData.data.t1 = newt1Obj;
-      } else {
-        oddData.data.t1 = [t1Obj];
-      }
+        if (index === 0) {
+          t1Obj.C1 = bfElement.C1;
+          t1Obj.C3 = bfElement.C2;
+          t1Obj.C5 = bfElement.C3;
+        }
+        if (index === 1) {
+          t1Obj.C2 = bfElement.C1;
+          t1Obj.C4 = bfElement.C2;
+          t1Obj.C6 = bfElement.C3;
+        }
+        if (Array.isArray(oddData.data.t1)) {
+          const newt1Obj = [{ ...oddData.data.t1?.[0], ...t1Obj }];
+          oddData.data.t1 = newt1Obj;
+        } else {
+          oddData.data.t1 = [t1Obj];
+        }
 
-      if (Array.isArray(oddData.data.t2)) {
-        oddData.data.t2.push(t2Obj);
-      } else {
-        oddData.data.t2 = [t2Obj];
+        if (Array.isArray(oddData.data.t2)) {
+          oddData.data.t2.push(t2Obj);
+        } else {
+          oddData.data.t2 = [t2Obj];
+        }
       }
-    });
+    );
   }
-}
+};

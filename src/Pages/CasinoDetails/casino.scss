@@ -9,7 +9,7 @@
     margin-right: 0.5rem !important;
   }
   .gx-bg-grey {
-    background: #7d5c0e !important;
+    background: var(--bg-color) !important;
   }
   .gx-fs-sm {
     font-size: 12px;
@@ -247,7 +247,7 @@
 .ant-modal-content {
   padding: 0px !important;
   .ant-modal-header {
-    background: #7d5c0e !important;
+    background: var(--bg-color) !important;
     padding: 12px;
     .ant-modal-title {
       color: #fff !important;
@@ -266,7 +266,7 @@
 }
 
 .gx-bg-grey {
-  background: #7d5c0e !important;
+  background: var(--bg-color) !important;
 }
 
 .gx-text-white {
@@ -321,7 +321,7 @@
     unicode-bidi: isolate;
     border-color: inherit;
     tr > th {
-      background: #7d5c0e;
+      background: var(--bg-color);
       color: #fff;
       border-radius: 0 !important;
     }

@@ -81,7 +81,7 @@ const MatchBets = () => {
                 className="FontTextWhite10px border"
                 style={{
                   color: "#fff ",
-                  background: "#7d5c0e",
+                  background: "var(--bg-color)",
                 }}
                 height={25}
                 align="center">
@@ -89,21 +89,21 @@ const MatchBets = () => {
               </td>
               <td
                 className="FontTextWhite10px border"
-                style={{ color: "#fff ", background: "#7d5c0e" }}
+                style={{ color: "#fff ", background: "var(--bg-color)" }}
                 valign="middle"
                 align="center">
                 RATE
               </td>
               <td
                 className="FontTextWhite10px border"
-                style={{ color: "#fff ", background: "#7d5c0e" }}
+                style={{ color: "#fff ", background: "var(--bg-color)" }}
                 valign="middle"
                 align="center">
                 AMOUNT
               </td>
               <td
                 className="FontTextWhite10px border"
-                style={{ color: "#fff ", background: "#7d5c0e" }}
+                style={{ color: "#fff ", background: "var(--bg-color)" }}
                 align="center">
                 MODE
               </td>
@@ -182,34 +182,34 @@ const MatchBets = () => {
             <tr>
               <td
                 className="FontTextWhite10px border"
-                style={{ color: "#fff ", background: "#7d5c0e" }}
+                style={{ color: "#fff ", background: "var(--bg-color)" }}
                 height={25}
                 align="center">
                 SESSION{" "}
               </td>
               <td
                 className="FontTextWhite10px border"
-                style={{ color: "#fff ", background: "#7d5c0e" }}
+                style={{ color: "#fff ", background: "var(--bg-color)" }}
                 align="center">
                 RUN
               </td>
               <td
                 className="FontTextWhite10px border"
-                style={{ color: "#fff ", background: "#7d5c0e" }}
+                style={{ color: "#fff ", background: "var(--bg-color)" }}
                 valign="middle"
                 align="center">
                 RATE
               </td>
               <td
                 className="FontTextWhite10px border"
-                style={{ color: "#fff ", background: "#7d5c0e" }}
+                style={{ color: "#fff ", background: "var(--bg-color)" }}
                 valign="middle"
                 align="center">
                 AMOUNT
               </td>
               <td
                 className="FontTextWhite10px border"
-                style={{ color: "#fff ", background: "#7d5c0e" }}
+                style={{ color: "#fff ", background: "var(--bg-color)" }}
                 align="center">
                 MODE
               </td>
@@ -298,7 +298,7 @@ const MatchBets = () => {
             <tr>
               <td
                 className="FontTextWhite10px border"
-                style={{ color: "#fff ", background: "#7d5c0e" }}
+                style={{ color: "#fff ", background: "var(--bg-color)" }}
                 height={25}
                 align="center">
                 RUNNER{" "}
@@ -308,46 +308,46 @@ const MatchBets = () => {
                 style={{
                   color: "#fff ",
                   whiteSpace: "nowrap",
-                  background: "#7d5c0e",
+                  background: "var(--bg-color)",
                 }}
                 align="center">
                 DATE{" "}
               </td>
               <td
                 className="FontTextWhite10px border"
-                style={{ color: "#fff ", background: "#7d5c0e" }}
+                style={{ color: "#fff ", background: "var(--bg-color)" }}
                 align="center">
                 RUN
               </td>
               <td
                 className="FontTextWhite10px border"
-                style={{ color: "#fff ", background: "#7d5c0e" }}
+                style={{ color: "#fff ", background: "var(--bg-color)" }}
                 valign="middle"
                 align="center">
                 RATE
               </td>
               <td
                 className="FontTextWhite10px border"
-                style={{ color: "#fff ", background: "#7d5c0e" }}
+                style={{ color: "#fff ", background: "var(--bg-color)" }}
                 align="center">
                 RESULT
               </td>
               <td
                 className="FontTextWhite10px border"
-                style={{ color: "#fff ", background: "#7d5c0e" }}
+                style={{ color: "#fff ", background: "var(--bg-color)" }}
                 valign="middle"
                 align="center">
                 AMOUNT
               </td>
               <td
                 className="FontTextWhite10px border"
-                style={{ color: "#fff ", background: "#7d5c0e" }}
+                style={{ color: "#fff ", background: "var(--bg-color)" }}
                 align="center">
                 MODE
               </td>
               <td
                 className="FontTextWhite10px border"
-                style={{ color: "#fff ", background: "#7d5c0e" }}
+                style={{ color: "#fff ", background: "var(--bg-color)" }}
                 align="center">
                 P&amp;L
               </td>

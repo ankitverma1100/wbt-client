@@ -159,7 +159,7 @@ const GameDetails = () => {
               style={{
                 justifyContent: "space-between",
                 alignItems: "center",
-                background: "#7d5c0e",
+                background: "var(--bg-color)",
               }}>
               <li
                 className="active abc d-line-block"

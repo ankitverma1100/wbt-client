@@ -42,7 +42,7 @@ const MybetCasino = () => {
                               height={30}
                               align="center"
                               className="TeamCombo"
-                              style={{ backgroundColor: "#7d5c0e" }}>
+                              style={{ backgroundColor: "var(--bg-color)" }}>
                               <p
                                 style={{
                                   color: "#FFF",

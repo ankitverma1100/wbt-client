@@ -1,3 +1,24 @@
+:root {
+  --login-bg: linear-gradient(#1f1f22 0, #fbb81e 100%);
+  --bg-color: #7d5c0e;
+  --btn-bg-color: #7d5c0e;
+  --header-bg: #7d5c0e;
+  --loginbtn: rgb(42, 40, 39);
+  --loginbtn-color: rgb(255, 255, 255);
+  --footer-text-color: #000;
+}
+
+[data-theme="nsgpro"] {
+  --login-bg: rgb(11, 27, 22);
+  --bg-color: #094507;
+  --btn-bg-color: #094507;
+  --header-bg: #094507;
+  --loginbtn: #29f942;
+  --loginbtn-color: #000;
+  --footer-text-color: #fff;
+  // --loginbtn: #094507;
+}
+
 table ul .dropdown-toggle::after {
   position: absolute;
   top: 5px;
@@ -430,17 +451,17 @@ ul.card-col li a {
 }
 .back-main-menu a {
   text-decoration: none;
-  border: 1px solid #7d5c0e;
+  border: 1px solid var(--bg-color);
   font-size: 13px;
   color: #fff !important;
   font-weight: 700;
-  background: #7d5c0e;
+  background: var(--bg-color);
   padding: 6px 10px;
   display: block;
   text-align: center;
 }
 .back-main-menu a:hover {
-  background: #7d5c0e;
+  background: var(--bg-color);
   color: #fff;
 }
 .single-match {

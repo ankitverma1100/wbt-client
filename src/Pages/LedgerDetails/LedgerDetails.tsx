@@ -52,7 +52,9 @@ const LedgerDetails = () => {
                                     height={30}
                                     align="center"
                                     className="TeamCombo"
-                                    style={{ backgroundColor: "#7d5c0e" }}>
+                                    style={{
+                                      backgroundColor: "var(--bg-color)",
+                                    }}>
                                     <p
                                       style={{
                                         color: "#FFF",
@@ -259,7 +261,7 @@ const LedgerDetails = () => {
             </table>
           </div>
 
-          <div className="my-ledger-data-table" style={{overflow:"scroll"}}>
+          <div className="my-ledger-data-table" style={{ overflow: "scroll" }}>
             <table width="100%" border={0} cellSpacing={0} cellPadding={0}>
               <tbody>
                 <tr>
@@ -541,7 +543,7 @@ const LedgerDetails = () => {
                       align="center"
                       className="TeamCombo"
                       style={{
-                        backgroundColor: "#7d5c0e",
+                        backgroundColor: "var(--bg-color)",
                       }}>
                       <p
                         style={{
@@ -587,7 +589,7 @@ const LedgerDetails = () => {
                       align="center"
                       className="TeamCombo"
                       style={{
-                        backgroundColor: "#7d5c0e",
+                        backgroundColor: "var(--bg-color)",
                       }}>
                       <p
                         style={{
@@ -640,7 +642,7 @@ const LedgerDetails = () => {
                       align="center"
                       className="TeamCombo"
                       style={{
-                        backgroundColor: "#7d5c0e",
+                        backgroundColor: "var(--bg-color)",
                       }}>
                       <p
                         style={{
@@ -692,7 +694,7 @@ const LedgerDetails = () => {
                       align="center"
                       className="TeamCombo"
                       style={{
-                        backgroundColor: "#7d5c0e",
+                        backgroundColor: "var(--bg-color)",
                       }}>
                       <p
                         style={{

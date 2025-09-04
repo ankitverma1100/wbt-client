@@ -3,7 +3,7 @@ import Header from "../../Component/Header/Header";
 import Balance from "../Balance";
 // import News from "../News";
 import AppSidebar from "../../Component/LeftSide/AppSidebar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetUserBalanceQuery } from "../../store/service/userServices/userServices";
 // import Loder from "../Loder";
 // import Rule from "../../Pages/Rule/Rule";
@@ -19,10 +19,12 @@ const PageLayout = () => {
     pollingInterval: 1000,
     refetchOnMountOrArgChange: true,
   });
+
+ 
   return (
     <>
-      <Header onClose={onClose} userBalance={userBalance?.data?.balance}/>
-      <Balance userBalance={userBalance?.data}/>
+      <Header onClose={onClose} userBalance={userBalance?.data?.balance} />
+      <Balance userBalance={userBalance?.data} />
       {/* <Rule /> */}
       <Outlet />
       <AppSidebar visible={visible} onClose={onClose} />

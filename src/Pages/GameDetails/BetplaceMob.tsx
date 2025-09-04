@@ -81,7 +81,7 @@ const BetplaceMob = ({
               <td
                 style={{
                   // textAlign: "center",
-                  background: "#7d5c0e",
+                  background: "var(--bg-color)",
                   color: "#fff",
                   fontSize: "14px",
                 }}

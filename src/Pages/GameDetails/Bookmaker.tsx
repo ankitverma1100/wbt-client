@@ -92,7 +92,7 @@ const Bookmaker = ({
           <tr>
             <td
               className="FontTextWhite10px"
-              style={{ color: "#fff ", background: "#7d5c0e" }}
+              style={{ color: "#fff ", background: "var(--bg-color)" }}
               width="45%"
               valign="middle"
               height={25}
@@ -105,7 +105,7 @@ const Bookmaker = ({
             </td>
             <td
               className="FontTextWhite10px"
-              style={{ color: "#fff ", background: "#7d5c0e" }}
+              style={{ color: "#fff ", background: "var(--bg-color)" }}
               width="15%"
               valign="middle"
               align="center">
@@ -113,7 +113,7 @@ const Bookmaker = ({
             </td>
             <td
               className="FontTextWhite10px"
-              style={{ color: "#fff ", background: "#7d5c0e" }}
+              style={{ color: "#fff ", background: "var(--bg-color)" }}
               width="15%"
               valign="middle"
               align="center">
@@ -121,7 +121,7 @@ const Bookmaker = ({
             </td>
             <td
               className="FontTextWhite10px"
-              style={{ color: "#fff ", background: "#7d5c0e" }}
+              style={{ color: "#fff ", background: "var(--bg-color)" }}
               width="15%"
               valign="middle"
               align="center">

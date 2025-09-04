@@ -32,7 +32,7 @@ const Session = ({ oddsData, handleBetData, focusAmountInput }: OddsData) => {
               style={{
                 color: "#fff ",
                 fontSize: "13px ",
-                background: "#7d5c0e",
+                background: "var(--bg-color)",
               }}
               height={25}
               align="center">
@@ -61,7 +61,7 @@ const Session = ({ oddsData, handleBetData, focusAmountInput }: OddsData) => {
               style={{
                 color: "#fff ",
                 fontSize: "13px ",
-                background: "#7d5c0e",
+                background: "var(--bg-color)",
               }}
               align="center">
               NOT
@@ -72,7 +72,7 @@ const Session = ({ oddsData, handleBetData, focusAmountInput }: OddsData) => {
               style={{
                 color: "#fff ",
                 fontSize: "13px ",
-                background: "#7d5c0e",
+                background: "var(--bg-color)",
               }}
               align="center">
               YES{" "}

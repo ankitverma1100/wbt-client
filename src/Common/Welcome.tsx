@@ -22,8 +22,8 @@ const Welcome = ({ handleClose }: Props) => {
             className="modal-content"
             style={{ border: "none ", borderRadius: 0 }}>
             <div
-              className="custom-modal-header modal-header"
-              style={{ background: "#7d5c0e", color: "#fff" }}>
+              className="custom-modal-header modal-header modal-header-welcome"
+              style={{ background: "var(--bg-color)", color: "#fff" }}>
               <h5 className="modal-title text-bold">Welcome to Ant</h5>
               <button
                 type="button"

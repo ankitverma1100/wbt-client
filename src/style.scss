@@ -808,15 +808,6 @@ svg:not(:root).svg-inline--fa {
   transform: scale(-1, -1);
 }
 
-:root .fa-flip-horizontal,
-:root .fa-flip-vertical,
-:root .fa-rotate-180,
-:root .fa-rotate-270,
-:root .fa-rotate-90 {
-  -webkit-filter: none;
-  filter: none;
-}
-
 .fa-stack {
   display: inline-block;
   height: 2em;
@@ -1141,7 +1132,11 @@ tbody td {
 // }
 
 .modal-header {
-  padding: 24px !important; 
+  padding: 24px !important;
+}
+
+.modal-header-welcome {
+  padding: 12px !important;
 }
 
 .modal-header .close {
@@ -1267,7 +1262,7 @@ button.close:focus {
   .ant-modal-content {
     min-height: 400px;
   }
-  .modal-body{
+  .modal-body {
     position: relative;
   }
 }

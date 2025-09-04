@@ -7,7 +7,7 @@
 }
 
 .ant-drawer-content {
-  background: #7d5c0e !important;
+  background: var(--bg-color) !important;
   color: #fff;
 }
 
@@ -15,7 +15,7 @@
 .ant-menu.ant-menu-dark,
 .ant-menu.ant-menu-dark .ant-menu-sub {
   color: #fff !important;
-  background: #7d5c0e !important;
+  background: var(--bg-color) !important;
 }
 
 .ant-menu {

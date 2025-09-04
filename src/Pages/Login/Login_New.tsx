@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./style.scss";
 import { useLoginMutation } from "../../store/service/authService";
+import { isAntPro } from "../CasinoDetails/Constant";
 
 const Login_New = () => {
   const nav = useNavigate();
@@ -57,9 +58,12 @@ const Login_New = () => {
           <div className="col-lg-6">
             <div className="imgdiv text-center">
               <img
-                src="/img/logo.png"
+                src={isAntPro ? "/img/logo12.png" : "/img/logo-nsg.png"}
                 alt="logo"
                 className="login-logo-img"
+                style={{
+                  height: isAntPro ? "" : "60px",
+                }}
               />
             </div>
           </div>

@@ -249,3 +249,11 @@ export const LetterAndColorById: any = {
   //   },
   // },
 };
+
+
+
+
+export const baseUrl = import.meta.env.VITE_API_BASE_URL;
+export const baseUrlkho = import.meta.env.VITE_BASE_URL_NSG;
+export const isAntPro = import.meta.env.VITE_IS_ANTPRO === "true";
+export const themeName = import.meta.env.VITE_GET_THEME_NAME;

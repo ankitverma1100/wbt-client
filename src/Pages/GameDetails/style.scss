@@ -816,7 +816,7 @@ iframe {
     cursor: pointer;
   }
   .active {
-    background: #7d5c0e;
+    background: var(--bg-color);
   }
 }
 

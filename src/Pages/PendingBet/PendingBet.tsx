@@ -43,7 +43,9 @@ const PendingBet = () => {
                                   height={30}
                                   align="center"
                                   className="TeamCombo"
-                                  style={{ backgroundColor: "#7d5c0e" }}>
+                                  style={{
+                                    backgroundColor: "var(--bg-color)",
+                                  }}>
                                   <p
                                     style={{
                                       color: "#FFF",
@@ -147,7 +149,7 @@ const PendingBet = () => {
                                   MODE
                                 </td>
                               </tr>
-                              {ledgerData?.data?.map((items:any) => {
+                              {ledgerData?.data?.map((items: any) => {
                                 return (
                                   <tr>
                                     <td
