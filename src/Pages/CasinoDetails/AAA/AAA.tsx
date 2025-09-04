@@ -118,7 +118,7 @@ const AAA = ({
               {t2?.[1]?.nation}
             </div>
             <div className="gx-fs-md gx-font-weight-semi-bold gx-w-100 gx-bg-flex">
-              {["rgb(114, 187, 239)"].map((bgColor, index) => (
+              {["rgb(114, 187, 239)"]?.map((bgColor, index) => (
                 <div
                   key={index}
                   className="gx-w-100 gx-mx-1 gx-py-2 gx-position-relative"
@@ -142,7 +142,7 @@ const AAA = ({
                   )}
                 </div>
               ))}
-              {["rgb(250, 169, 186)"].map((bgColor, index) => (
+              {["rgb(250, 169, 186)"]?.map((bgColor, index) => (
                 <div
                   key={index}
                   className="gx-w-100 gx-mx-1 gx-py-2 gx-position-relative"
@@ -180,7 +180,7 @@ const AAA = ({
               <span>C.</span> {t2?.[2]?.nation}
             </div>
             <div className="gx-fs-md gx-font-weight-semi-bold gx-w-100 gx-bg-flex">
-              {["rgb(114, 187, 239)"].map((bgColor, index) => (
+              {["rgb(114, 187, 239)"]?.map((bgColor, index) => (
                 <div
                   key={index}
                   className="gx-w-100 gx-mx-1 gx-py-2 gx-position-relative"
@@ -204,7 +204,7 @@ const AAA = ({
                   )}
                 </div>
               ))}
-              {["rgb(250, 169, 186)"].map((bgColor, index) => (
+              {["rgb(250, 169, 186)"]?.map((bgColor, index) => (
                 <div
                   key={index}
                   className="gx-w-100 gx-mx-1 gx-py-2 gx-position-relative"
@@ -241,8 +241,8 @@ const AAA = ({
         justify="center"
         className="gx-w-100 gx-text-center gx-border-dark gx-border-2 gx-mt-1 gx-mx-1"
         style={{ marginLeft: "-4px", marginRight: "-4px", rowGap: 8 }}>
-        {[["Even"], ["Odd"]].map(([label], index) => {
-          const data = t2.find((item: any) => item.nation === label);
+        {[["Even"], ["Odd"]]?.map(([label], index) => {
+          const data = t2?.find((item: any) => item.nation === label);
           return (
             <Col xs={6} key={label} style={{ paddingLeft: 4, paddingRight: 4 }}>
               <div className="gx-py-2 gx-w-100">

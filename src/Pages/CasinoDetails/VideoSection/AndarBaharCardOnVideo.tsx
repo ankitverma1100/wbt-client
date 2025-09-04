@@ -9,23 +9,23 @@ const AndarBaharCardOnVideo = ({ t3 }: any) => {
   const [ballSwiper, setBallSwiper] = useState<any>(null);
 
   const ball = useMemo(
-    () => (t3 && t3[0]?.ball ? t3[0]?.ball.split(",") : []),
+    () => (t3 && t3[0]?.ball ? t3[0]?.ball?.split(",") : []),
     [t3]
   );
   const aall = useMemo(
-    () => (t3 && t3[0]?.aall ? t3[0]?.aall.split(",") : []),
+    () => (t3 && t3[0]?.aall ? t3[0]?.aall?.split(",") : []),
     [t3]
   );
 
   useEffect(() => {
-    if (aallSwiper && aall.length >= 1) {
-      aallSwiper.slideTo(aall.length - 1);
+    if (aallSwiper && aall?.length >= 1) {
+      aallSwiper?.slideTo(aall?.length - 1);
     }
   }, [aall, aallSwiper]);
 
   useEffect(() => {
-    if (ballSwiper && ball.length >= 1) {
-      ballSwiper.slideTo(ball.length - 1);
+    if (ballSwiper && ball?.length >= 1) {
+      ballSwiper?.slideTo(ball?.length - 1);
     }
   }, [ball, ballSwiper]);
 

@@ -10,7 +10,7 @@ const AAACard = ({ t1 }: any) => {
           marginRight: "-8px",
           rowGap: 8,
         }}>
-        <CardComp shown={t1.C1 != "1"} card={t1.C1 || "1"} />
+        <CardComp shown={t1?.C1 != "1"} card={t1?.C1 || "1"} />
       </div>
     
   );

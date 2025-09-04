@@ -10,6 +10,11 @@ import OneDayCard from "./OneDayCard";
 const VideoSection = ({ t1, t3, t2, time }: any) => {
   const { id } = useParams();
 
+  // Safe fallbacks to avoid "cannot destructure of undefined" in children
+  const safeT1 = (t1 ?? {}) as any;
+  const safeT2 = (t2 ?? {}) as any;
+  const safeT3 = (t3 ?? {}) as any;
+
   const videoData: Record<string, string> = {
     "52": "3035",
     "55": "3041",
@@ -27,16 +32,16 @@ const VideoSection = ({ t1, t3, t2, time }: any) => {
       <iframe
         title=" "
         className="gx-w-100"
-        src={`https://casino.loki7exch.com/route/?id=${videoData[id]}`}
+        src={`https://casino.loki7exch.com/route/?id=${videoData?.[id as string]}`}
         style={{ height: 350 }}
       />
       <div className="gx-w-100 gx-p-3 gx-position-absolute gx-top-0 gx-left-0">
-        {(id === "53" || id === "56") && <AAACard t1={t1} />}
-        {id === "51" && <TeenCard t1={t1} />}
-        {id === "52" && <DT20Card t1={t1} />}
-        {id === "62" && <DT20Card t1={t1} />}
-        {id === "54" && <AndarBaharCardOnVideo t3={t3} />}
-        {id === "61" && <OneDayCard t2={t2} />}
+        {(id === "53" || id === "56") && <AAACard t1={safeT1} />}
+        {id === "51" && <TeenCard t1={safeT1} />}
+        {id === "52" && <DT20Card t1={safeT1} />}
+        {id === "62" && <DT20Card t1={safeT1} />}
+        {id === "54" && <AndarBaharCardOnVideo t3={safeT3} />}
+        {id === "61" && <OneDayCard t2={safeT2} />}
       </div>
       <div
         className=" gx-position-absolute"
