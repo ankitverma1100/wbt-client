@@ -48,7 +48,7 @@ const VideoSection = ({ t1, t3, t2, time }: any) => {
                 <span
                   className="card__top"
                   style={{ color: "#000", fontSize: "18px" }}>
-                  {t1.autotime || time}
+                  {t1?.autotime ?? time}
                 </span>
               </span>
             </span>
