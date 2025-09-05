@@ -86,14 +86,19 @@ const Session = ({ oddsData, handleBetData, focusAmountInput }: OddsData) => {
                   className="FontTextWhite10px border"
                   style={{ color: "#000", fontSize: "13px" }}
                   align="left">
-                  <span style={{ fontSize: "14px" }}>{session.nation}</span>
+                  <span
+                    style={{ fontSize: "14px", textTransform: "uppercase" }}>
+                    {session.nation}
+                  </span>
                   <p
                     style={{
                       marginBottom: "0px",
                       fontSize: "12px",
                       color: "#000",
+                      fontWeight: 800,
+                      marginTop: "2px",
                     }}>
-                    Session Limit:{session?.maxBet}
+                    Session Limit:{" "}{session?.maxBet}
                   </p>
                 </td>
                 {session?.gstatus.toLowerCase() === "suspended" ||

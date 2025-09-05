@@ -76,7 +76,7 @@ const Login_New = () => {
               <div className="col-lg-6">
                 <div className="imgdiv text-center">
                   <img
-                    src={isAntPro ? "/img/logo12.png" : "/img/logo-nsg.png"}
+                    src={isAntPro ? "/img/logo.png" : "/img/logo12.png"}
                     alt="logo"
                     className="login-logo-img"
                     style={{

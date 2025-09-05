@@ -34,7 +34,7 @@ const Header = ({ onClose, userBalance }: Props) => {
           <div className="d-flex">
             <Link to="/main/dashboard">
               <img
-                 src={isAntPro ? "/img/logo12.png" : "/img/logo-nsg.png"}
+                 src={isAntPro ? "/img/logo.png" : "/img/logo12.png"}
                 className="logo-img"
               />
             </Link>
