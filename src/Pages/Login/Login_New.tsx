@@ -4,6 +4,9 @@ import "./style.scss";
 import { useLoginMutation } from "../../store/service/authService";
 import { isAntPro } from "../CasinoDetails/Constant";
 import { toast } from "react-toastify";
+import { FaLock, FaUser } from "react-icons/fa";
+import { AiOutlineUser } from "react-icons/ai";
+import { CiLock } from "react-icons/ci";
 
 const Login_New = () => {
   const nav = useNavigate();
@@ -173,7 +176,7 @@ const Login_New = () => {
           <div className="login-container-main">
             <div className="logo">
               <img
-                src={"/img/logo-nsg.png"}
+                src={"/img/logo12.png"}
                 alt="logo"
                 className="login-logo-img"
                 height={50}
@@ -185,6 +188,7 @@ const Login_New = () => {
 
             <div className="login-box">
               <div className="input-group">
+                <AiOutlineUser className="input-icon" />
                 <input
                   type="text"
                   name="username"
@@ -195,6 +199,7 @@ const Login_New = () => {
                 />
               </div>
               <div className="input-group">
+                <CiLock className="input-icon" />
                 <input
                   type="password"
                   name="password"
@@ -207,7 +212,7 @@ const Login_New = () => {
                 Login Now
               </button>
               <div className="footer-note">
-                ©️ 2025 AntPro | Not for restricted territories
+                ©️ 2025 nsgpro99 | Not for restricted territories
               </div>
             </div>
           </div>

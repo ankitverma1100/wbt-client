@@ -222,6 +222,14 @@
     position: relative;
   }
 
+  .input-icon {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    color: #00ff66;
+    font-size: 18px;
+  }
   .input-group input {
     width: 100%;
     padding: 12px 15px;
@@ -231,6 +239,7 @@
     color: #fff;
     font-size: 15px;
     outline: none;
+    padding: 12px 15px 12px 40px;
   }
 
   .input-group input::placeholder {
