@@ -343,6 +343,7 @@ interface SessionBet12 {
 }
 
 interface MatchBet12 {
+  netPnl: ReactNode;
   pnl3: number;
   pnl2: number;
   pnl1: number;

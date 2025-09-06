@@ -226,9 +226,9 @@ const LedgerDetails = () => {
                                           style={{
                                             backgroundColor: "#FFFFFF",
                                             color:
-                                              totalPnl >= 0 ? "green" : "red",
+                                              items?.netPnl >= 0 ? "green" : "red",
                                           }}>
-                                          {totalPnl && totalPnl?.toFixed(2)}
+                                          {items?.netPnl?.toFixed(2)}
                                         </td>
                                       </tr>
                                     );
