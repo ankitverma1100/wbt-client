@@ -83,36 +83,31 @@ const CasinoBetModal = ({
 
     stopTimer();
 
-    try {
-      const res = await trigger({
-        ...betState,
-        userIp: userIp?.ip ?? "",
-        placeTime: pTime,
-        marketId: t1?.mid,
-        matchId: id ?? "",
-        deviceInfo: {
-          userAgent:
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
-          browser: "Chrome",
-          device: "Macintosh",
-          deviceType: "desktop",
-          os: "Windows",
-          os_version: "windows-10",
-          browser_version: "108.0.0.0",
-          orientation: "landscape",
-        },
-      }).unwrap();
+    const res = await trigger({
+      ...betState,
+      userIp: userIp?.ip ?? "",
+      placeTime: pTime,
+      marketId: t1?.mid,
+      matchId: id ?? "",
+      deviceInfo: {
+        userAgent:
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+        browser: "Chrome",
+        device: "Macintosh",
+        deviceType: "desktop",
+        os: "Windows",
+        os_version: "windows-10",
+        browser_version: "108.0.0.0",
+        orientation: "landscape",
+      },
+    }).unwrap();
 
-      if (res?.status) {
-        toast.success("Bet placed successfully");
-        setBetState({});
-        setIsBetModal(false);
-      } else {
-        toast.error(res?.message || "Bet placing failed, try again!");
-        startTimer();
-      }
-    } catch (error) {
-      toast.error("Bet placing failed, try again!");
+    if (res?.status) {
+      toast.success("Bet placed successfully");
+      setBetState({});
+      setIsBetModal(false);
+    } else {
+      toast.error(res?.message || "Bet placing failed, try again!");
       startTimer();
     }
   };
