@@ -10,6 +10,7 @@ export default defineConfig({
     open: true,
   },
   build: {
+    // outDir: "ant-client"
     outDir: "build",
     sourcemap: true,
   },

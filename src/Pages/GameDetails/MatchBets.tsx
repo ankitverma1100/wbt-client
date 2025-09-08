@@ -131,7 +131,7 @@ const MatchBets = () => {
                       borderRight: "1px solid #3d8282",
                       borderBottom: "1px solid #3d8282",
                     }}>
-                    {Number(items?.priveValue)?.toFixed(2)}
+                    {items?.priveValue}
                   </td>
                   <td
                     style={{
@@ -303,16 +303,7 @@ const MatchBets = () => {
                 align="center">
                 RUNNER{" "}
               </td>
-              <td
-                className="FontTextWhite10px border"
-                style={{
-                  color: "#fff ",
-                  whiteSpace: "nowrap",
-                  background: "var(--bg-color)",
-                }}
-                align="center">
-                DATE{" "}
-              </td>
+
               <td
                 className="FontTextWhite10px border"
                 style={{ color: "#fff ", background: "var(--bg-color)" }}
@@ -351,6 +342,16 @@ const MatchBets = () => {
                 align="center">
                 P&amp;L
               </td>
+              <td
+                className="FontTextWhite10px border"
+                style={{
+                  color: "#fff ",
+                  whiteSpace: "nowrap",
+                  background: "var(--bg-color)",
+                }}
+                align="center">
+                DATE{" "}
+              </td>
             </tr>
           </thead>
           <tbody id="MySessionCompletedBets">
@@ -369,14 +370,7 @@ const MatchBets = () => {
                     }}>
                     {items?.nation}
                   </td>
-                  <td
-                    style={{
-                      textAlign: "center",
-                      borderRight: "1px solid #3d8282",
-                      borderBottom: "1px solid #3d8282",
-                    }}>
-                    {moment(items?.date).format("D/M/YYYY hh:mm:ss A")}
-                  </td>
+
                   <td
                     style={{
                       textAlign: "center",
@@ -424,6 +418,14 @@ const MatchBets = () => {
                       borderBottom: "1px solid #3d8282",
                     }}>
                     {items?.pnl}
+                  </td>
+                  <td
+                    style={{
+                      textAlign: "center",
+                      borderRight: "1px solid #3d8282",
+                      borderBottom: "1px solid #3d8282",
+                    }}>
+                    {moment(items?.date).format("D/M/YYYY hh:mm:ss A")}
                   </td>
                 </tr>
               );

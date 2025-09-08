@@ -412,7 +412,7 @@ const LedgerDetails = () => {
                                       color: "#fff",
                                       backgroundColor: "#2A363B",
                                     }}>
-                                    Res
+                                    Result
                                   </td>
                                   <td
                                     width="15%"
