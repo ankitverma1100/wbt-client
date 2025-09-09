@@ -279,6 +279,15 @@ export const userList = createApi({
         body,
       }),
     }),
+    getActiveSessionData: build.query<any, any>({
+      query: (body) => {
+        return {
+          url: `/sports/get-active-fancylist-disp`,
+          method: "POST",
+          body,
+        };
+      },
+    }),
   }),
 });
 
@@ -321,4 +330,5 @@ export const {
   useGetUserLiabilityMutation,
   useGetUserchpdtlMutation,
   useGetCasinoLabilityQuery,
+  useGetActiveSessionDataQuery
 } = userList;

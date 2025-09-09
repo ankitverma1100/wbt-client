@@ -41,8 +41,8 @@ const Login_New = () => {
     trigger({
       password: formData.password,
       userId: formData.username,
-      url: window.location.hostname,
-      // url: "fastbet365.in",
+      // url: window.location.hostname,
+      url: "fastbet365.in",
       // url: "antpro.co",
     });
   };

@@ -27,6 +27,7 @@ export const oddsData = createApi({
         method: "GET",
       }),
     }),
+   
     inPlayMatch: build.query<InplayRes, void>({
       query: () => ({
         url: "/betfair_api/active_match",
@@ -59,5 +60,5 @@ export const {
   useOddsDataQuery,
   useGetIpfyQuery,
   useInPlayMatchQuery,
-  useGetResultRoundWiseMutation
+  useGetResultRoundWiseMutation,
 } = oddsData;

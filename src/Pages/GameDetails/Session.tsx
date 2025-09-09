@@ -1,3 +1,19 @@
+import { useParams } from "react-router-dom";
+import { useGetActiveSessionDataQuery } from "../../store/service/userServices/userServices";
+
+interface Fancy2 {
+  sid: string;
+  srno: number;
+  nation: string;
+  gstatus: string;
+  l1: number;
+  ls1: number;
+  b1: number;
+  bs1: number;
+  mid: string;
+  maxBet: number;
+}
+
 interface OddsData {
   oddsData: Fancy2[] | undefined;
   handleBetData: (
@@ -16,6 +32,20 @@ interface OddsData {
 }
 
 const Session = ({ oddsData, handleBetData, focusAmountInput }: OddsData) => {
+  const { id } = useParams() as { id: string };
+  const { data: activeSession } = useGetActiveSessionDataQuery({
+    matchId: id ?? "",
+  });
+
+  // ✅ get all active fancy ids
+  const activeFancyIds = new Set(
+    activeSession?.data?.map((item: { fancyId: string }) => item.fancyId) ?? []
+  );
+
+  const filteredOddsData = (oddsData || []).filter((session) =>
+    activeFancyIds.has(session.sid)
+  );
+
   return (
     <div className="overflow-responsive">
       <table
@@ -78,7 +108,8 @@ const Session = ({ oddsData, handleBetData, focusAmountInput }: OddsData) => {
               YES{" "}
             </td>
           </tr>
-          {[...(oddsData || [])]
+
+          {[...filteredOddsData]
             .sort((a, b) => Number(a.srno) - Number(b.srno))
             ?.map((session, index) => (
               <tr key={index} style={{ position: "relative", height: "45px" }}>
@@ -98,7 +129,7 @@ const Session = ({ oddsData, handleBetData, focusAmountInput }: OddsData) => {
                       fontWeight: 800,
                       marginTop: "2px",
                     }}>
-                    Session Limit:{" "}{session?.maxBet}
+                    Session Limit: {session?.maxBet}
                   </p>
                 </td>
                 {session?.gstatus.toLowerCase() === "suspended" ||

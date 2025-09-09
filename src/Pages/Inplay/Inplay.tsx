@@ -1,14 +1,43 @@
 import { Link } from "react-router-dom";
 import { useActiveMatchQuery } from "../../store/service/odds/oddsServices";
 import moment from "moment";
+import { useActiveEventMutation } from "../../store/service/userServices/userServices";
+import { useEffect, useState } from "react";
 
 const Inplay = () => {
+  const [activeMatches, setActiveMatches] = useState<any[]>([]);
   const { data } = useActiveMatchQuery();
+  const [getActiveEvent, { data: activeEvent }] = useActiveEventMutation();
+
+  const token = localStorage.getItem("client-token");
+
+  useEffect(() => {
+    if (token) {
+      getActiveEvent();
+    }
+  }, [token]);
+
+  useEffect(() => {
+    if (!data || !activeEvent) return;
+
+    const dataActive = data?.data?.flatMap((item) =>
+      activeEvent.data
+        .filter((activeMathes) => activeMathes?.eventId === item?.matchId)
+        .map((activeMathes) => ({
+          ...item,
+          active: activeMathes.active,
+        }))
+    );
+
+    setActiveMatches(dataActive);
+  }, [activeEvent, data]);
+
   return (
     <section>
       <div className="container-fluid">
         <div className="row">
-          {data?.data.map((match) => {
+          {activeMatches?.map((match) => {
+            if (!match?.active) return null;
             return (
               <div className="card single-match mt-3 carddiv">
                 <Link to={`/main/match-deatils/${match.matchId}`}>
