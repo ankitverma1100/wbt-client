@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import { isAntPro } from "../CasinoDetails/Constant";
 
 interface Props {
   showFull: boolean;
@@ -23,7 +24,11 @@ const TvSection = ({ showFull, showTv }: Props) => {
         />
       )}
       <iframe
-        src={`https://score.trovetown.co/socket-iframe-1/crickexpo/${id}`}
+        src={
+          isAntPro
+            ? `https://score.trovetown.co/socket-iframe-1/crickexpo/${id}`
+            : `https://score.trovetown.co/socket-iframe-10/crickexpo/${id}`
+        }
         id="score_fs"
         className={showFull ? "fs_match_size_full" : "fs_match_size"}
       />
