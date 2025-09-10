@@ -33,9 +33,12 @@ interface OddsData {
 
 const Session = ({ oddsData, handleBetData, focusAmountInput }: OddsData) => {
   const { id } = useParams() as { id: string };
-  const { data: activeSession } = useGetActiveSessionDataQuery({
-    matchId: id ?? "",
-  });
+  const { data: activeSession } = useGetActiveSessionDataQuery(
+    {
+      matchId: id ?? "",
+    },
+    { pollingInterval: 20000 }
+  );
 
   // ✅ get all active fancy ids
   const activeFancyIds = new Set(
