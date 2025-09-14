@@ -831,3 +831,22 @@ iframe {
     height: 221px;
   }
 }
+
+.fancy_book_btn {
+  border: unset;
+  background-color: var(--bg-color);
+  color: #fff;
+  padding: 5px 13px;
+  border-radius: 4px;
+}
+
+.main_session_name{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mian_fancy_book_ui{
+  height: 70vh;
+  overflow: scroll;
+}

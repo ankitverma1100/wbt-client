@@ -288,6 +288,15 @@ export const userList = createApi({
         };
       },
     }),
+    getFancyLability: build.query<any, any>({
+      query: (body) => {
+        return {
+          url: `/get-user-liability`,
+          method: "POST",
+          body,
+        };
+      },
+    }),
   }),
 });
 
@@ -330,5 +339,6 @@ export const {
   useGetUserLiabilityMutation,
   useGetUserchpdtlMutation,
   useGetCasinoLabilityQuery,
-  useGetActiveSessionDataQuery
+  useGetActiveSessionDataQuery,
+  useGetFancyLabilityQuery,
 } = userList;

@@ -67,6 +67,8 @@ const Login_New = () => {
     }
   }, [loginData]);
 
+  const hostname = window.location.hostname;
+
   return (
     <>
       <div className="limiter login_page">
@@ -176,7 +178,12 @@ const Login_New = () => {
           <div className="login-container-main">
             <div className="logo">
               <img
-                src={"/img/logo12.png"}
+                // src={"/img/logo12.png"}
+                src={
+                  hostname.includes("mumbaiexchange9")
+                    ? "/img/mum-img.png"
+                    : "/img/logo12.png"
+                }
                 alt="logo"
                 className="login-logo-img"
                 height={50}

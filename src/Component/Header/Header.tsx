@@ -27,6 +27,8 @@ const Header = ({ onClose, userBalance }: Props) => {
     }
   };
 
+  const hostname = window.location.hostname;
+
   return (
     <div className="body-top-bar header_wrapper">
       <div className="row" style={{ alignItems: "center" }}>
@@ -34,13 +36,21 @@ const Header = ({ onClose, userBalance }: Props) => {
           <div className="d-flex">
             <Link to="/main/dashboard">
               <img
-                 src={isAntPro ? "/img/logo.png" : "/img/logo12.png"}
+                src={
+                  isAntPro
+                    ? "/img/logo.png"
+                    : hostname.includes("mumbaiexchange9")
+                    ? "/img/mum-img.png"
+                    : "/img/logo12.png"
+                }
                 className="logo-img"
               />
             </Link>
             <Link to="/main/profile">
               <div className="profile-header-details">
-                <div className="user-name">{userId} ({username})</div>
+                <div className="user-name">
+                  {userId} ({username})
+                </div>
                 <div className="chips_amount">
                   Chips :{" "}
                   <span className="user_wallet">{userBalance?.toFixed(2)}</span>

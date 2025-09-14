@@ -11,11 +11,13 @@ import { isAntPro, themeName } from "./Pages/CasinoDetails/Constant";
 function App() {
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", themeName);
-    if (isAntPro) {
-      document.title = `ANTPPRO`;
-    } else {
-      document.title = "NSGPRO99"; // fallback
-    }
+    // if (isAntPro) {
+    //   document.title = `ANTPPRO`;
+    // } else {
+    //   document.title = "NSGPRO99"; // fallback
+    // }
+    const hostname = window.location.hostname.split(".")[0];
+    document.title = hostname.toUpperCase();
   }, []);
   return <RouterProvider router={router} />;
 }

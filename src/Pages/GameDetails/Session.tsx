@@ -1,5 +1,10 @@
 import { useParams } from "react-router-dom";
-import { useGetActiveSessionDataQuery } from "../../store/service/userServices/userServices";
+import {
+  useGetActiveSessionDataQuery,
+  useGetFancyBookMutation,
+} from "../../store/service/userServices/userServices";
+import { Modal } from "antd";
+import { useState } from "react";
 
 interface Fancy2 {
   sid: string;
@@ -32,6 +37,8 @@ interface OddsData {
 }
 
 const Session = ({ oddsData, handleBetData, focusAmountInput }: OddsData) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const { id } = useParams() as { id: string };
   const { data: activeSession } = useGetActiveSessionDataQuery(
     {
@@ -40,14 +47,26 @@ const Session = ({ oddsData, handleBetData, focusAmountInput }: OddsData) => {
     { pollingInterval: 20000 }
   );
 
-  // ✅ get all active fancy ids
-  const activeFancyIds = new Set(
-    activeSession?.data?.map((item: { fancyId: string }) => item.fancyId) ?? []
-  );
+  const [trigger, { data }] = useGetFancyBookMutation();
 
-  const filteredOddsData = (oddsData || []).filter((session) =>
-    activeFancyIds.has(session.sid)
-  );
+  // ✅ get all active fancy ids
+  // const activeFancyIds = new Set(
+  //   activeSession?.data?.map((item: { fancyId: string }) => item.fancyId) ?? []
+  // );
+
+  // const filteredOddsData = (oddsData || []).filter((session) =>
+  //   activeFancyIds.has(session.sid)
+  // );
+
+  const handleOk = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
+  const handleShowFancyBook = (fancyId: string) => {
+    trigger({ matchId: id ?? "", fancyId: fancyId });
+    setIsModalOpen(!isModalOpen);
+  };
+
 
   return (
     <div className="overflow-responsive">
@@ -112,28 +131,47 @@ const Session = ({ oddsData, handleBetData, focusAmountInput }: OddsData) => {
             </td>
           </tr>
 
-          {[...filteredOddsData]
-            .sort((a, b) => Number(a.srno) - Number(b.srno))
+          {[...(oddsData || [])]
+            ?.sort((a, b) => Number(a.srno) - Number(b.srno))
             ?.map((session, index) => (
-              <tr key={index} style={{ position: "relative", height: "45px" }}>
+              <tr
+                key={index}
+                style={{
+                  position: "relative",
+                  height: "45px",
+                  padding: "0px 12px",
+                }}>
                 <td
                   className="FontTextWhite10px border"
                   style={{ color: "#000", fontSize: "13px" }}
                   align="left">
-                  <span
-                    style={{ fontSize: "14px", textTransform: "uppercase" }}>
-                    {session.nation}
-                  </span>
-                  <p
-                    style={{
-                      marginBottom: "0px",
-                      fontSize: "12px",
-                      color: "#000",
-                      fontWeight: 800,
-                      marginTop: "2px",
-                    }}>
-                    Session Limit: {session?.maxBet}
-                  </p>
+                  <div className="main_session_name">
+                    <span>
+                      <span
+                        style={{
+                          fontSize: "14px",
+                          textTransform: "uppercase",
+                        }}>
+                        {session.nation}
+                      </span>
+                      <p
+                        style={{
+                          marginBottom: "0px",
+                          fontSize: "12px",
+                          color: "#000",
+                          fontWeight: 800,
+                          marginTop: "2px",
+                        }}>
+                        Session Limit: {session?.maxBet}
+                      </p>
+                    </span>
+                    <button
+                      type="button"
+                      className="fancy_book_btn"
+                      onClick={() => handleShowFancyBook(session?.sid)}>
+                      Book
+                    </button>
+                  </div>
                 </td>
                 {session?.gstatus.toLowerCase() === "suspended" ||
                 session?.gstatus.includes("Ball") ? (
@@ -215,6 +253,88 @@ const Session = ({ oddsData, handleBetData, focusAmountInput }: OddsData) => {
             ))}
         </tbody>
       </table>
+      <Modal
+        title="Fancy Book"
+        closable={{ "aria-label": "Custom Close Button" }}
+        open={isModalOpen}
+        onOk={handleOk}
+        footer={null}
+        onCancel={handleOk}>
+        <div className="mian_fancy_book_ui">
+          <table
+            width="100%"
+            cellSpacing={2}
+            cellPadding={2}
+            border={0}
+            className="table bg-white mb-0">
+            <thead>
+              {" "}
+              <tr>
+                <td
+                  className="FontTextWhite10px border"
+                  style={{
+                    color: "#fff ",
+                    fontSize: "13px ",
+                    background: "var(--bg-color)",
+                  }}
+                  align="center">
+                  Run
+                </td>
+                <td
+                  className="FontTextWhite10px border"
+                  style={{
+                    color: "#fff ",
+                    fontSize: "13px ",
+                    background: "var(--bg-color)",
+                  }}
+                  align="center">
+                  PNL
+                </td>
+              </tr>
+            </thead>
+            <tbody className="session_data">
+              {data && data?.data?.length > 0 ? (
+                data?.data?.map((item) => {
+                  return (
+                    <tr style={{ position: "relative" }}>
+                      <td
+                        className="FontTextWhite10px border"
+                        style={{ color: "#000", fontSize: "13px" }}
+                        align="center">
+                        {item?.odds}
+                      </td>
+
+                      <td
+                        className={`FontTextWhite10px border`}
+                        align="center"
+                        style={{
+                          verticalAlign: "middle",
+                          background: "#FFF",
+                          color: item?.pnl > 0 ? "#007bff" : "#e02131 ",
+                          fontWeight: 600,
+                          fontSize: "16px",
+                          cursor: "pointer",
+                          position: "relative",
+                        }}>
+                        {item?.pnl}
+                      </td>
+                    </tr>
+                  );
+                })
+              ) : (
+                <tr>
+                  <td
+                    align="center"
+                    style={{ color: "#000", fontSize: "13px" }}
+                    colSpan={2}>
+                    No Data Found!
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </Modal>
     </div>
   );
 };
