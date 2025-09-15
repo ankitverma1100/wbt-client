@@ -20,6 +20,7 @@ import { Modal } from "antd";
 import MoreEvent from "./MoreEvent";
 import BetplaceMobNew from "./BetplaceMobNew";
 import Marquee from "react-fast-marquee";
+import Score from "../../Component/Score/Score";
 
 const GameDetails = () => {
   const [showFull, setShowFull] = useState(false);
@@ -188,6 +189,7 @@ const GameDetails = () => {
         <form name="BetPlayer" method="post" action="">
           <div className="d-none1 d-sm-none1 d-md-block1 d-lg-block1">
             <TvSection showTv={showTv} showFull={showFull} />
+            
             <Bookmaker
               oddsData={oddsData?.Bookmaker?.filter(
                 (item: { t: string }) => item?.t?.toLowerCase() === "bookmaker"
