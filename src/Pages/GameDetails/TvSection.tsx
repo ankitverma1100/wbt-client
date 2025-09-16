@@ -21,11 +21,15 @@ const TvSection = ({ showFull, showTv }: Props) => {
           style={{
             marginBottom: "-9px",
           }}
-          src={`https://tv.tresting.com/?eventid=${id}`}
+          src={
+            isAntPro
+              ? `https://mis2.sqmr.xyz/stv.php?eventId=${id}`
+              : `https://tv.tresting.com/?eventid=${id}`
+          }
         />
       )}
       {isAntPro ? (
-        <Score showFull={showFull}/>
+        <Score showFull={showFull} />
       ) : (
         <iframe
           src={
