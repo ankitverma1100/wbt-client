@@ -297,6 +297,15 @@ export const userList = createApi({
         };
       },
     }),
+    getMessage: build.query<any, any>({
+      query: (body) => {
+        return {
+          url: `/message/get-message`,
+          method: "POST",
+          body,
+        };
+      },
+    }),
   }),
 });
 
@@ -341,4 +350,5 @@ export const {
   useGetCasinoLabilityQuery,
   useGetActiveSessionDataQuery,
   useGetFancyLabilityQuery,
+  useGetMessageQuery
 } = userList;

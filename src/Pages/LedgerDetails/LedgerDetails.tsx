@@ -194,7 +194,7 @@ const LedgerDetails = () => {
                                           style={{
                                             backgroundColor: "#FFFFFF",
                                           }}>
-                                          {items?.rate}
+                                          {Number(items?.rate * 100)?.toFixed(2)}
                                         </td>
                                         <td
                                           align="center"

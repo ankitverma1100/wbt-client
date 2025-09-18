@@ -2,6 +2,7 @@ import Marquee from "react-fast-marquee";
 
 const News = () => {
   const host = window.location.hostname;
+  
   return (
     <Marquee
       style={{ minHeight: 28, fontSize: "14px" }}

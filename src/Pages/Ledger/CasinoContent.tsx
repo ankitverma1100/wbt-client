@@ -62,7 +62,8 @@ const CasinoContent: FC<Props> = ({
           <div
             className="popup-row"
             style={{ color: casinoData?.totalWon >= 0 ? "green" : "red" }}>
-            WON Coins : {casinoData?.totalWon}
+            {casinoData?.totalWon >= 0 ? "WON Coins" : "LOST Coins"} :{" "}
+            {casinoData?.totalWon}
           </div>
         </div>
 

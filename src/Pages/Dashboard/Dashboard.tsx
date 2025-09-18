@@ -1,7 +1,11 @@
 import Marquee from "react-fast-marquee";
 import { Link } from "react-router-dom";
+import { useGetMessageQuery } from "../../store/service/userServices/userServices";
 
 const Dashboard = () => {
+  const { data } = useGetMessageQuery(undefined, {});
+
+  // console.log(data, "datadatadata")
   return (
     <>
       <div className="page-body">
@@ -15,12 +19,7 @@ const Dashboard = () => {
               fontSize: "14px",
               font: "inherit",
             }}>
-            {window.location.hostname} &nbsp; में आपका स्वागत है
-            हमारी कोई डुप्लीकेट वेबसाइट नहीं है कृपा हमारी आधिकारिक लिंक{" "}
-            <span style={{ padding: "0px 3px" }}>
-              {window.location.hostname}
-            </span>{" "}
-            से ही लॉगिन करें"
+            {data?.data}
           </Marquee>
         </div>
         <div className="container">
