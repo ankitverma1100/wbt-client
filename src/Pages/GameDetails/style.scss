@@ -752,18 +752,30 @@ iframe {
   }
 }
 
-.suspen {
+.suspen::after {
   // content: "SUSPENDED";
   // position: absolute;
   // top: 0;
   // right: 0;
   // width: 200%;
-  background: #ddddddd1;
-  line-height: 50px;
-  border-bottom: 1px solid #fff;
-  height: 100%;
-  text-align: center;
+  // background: #ddddddd1;
+  // line-height: 50px;
+  // border-bottom: 1px solid #fff;
+  // height: 100%;
+  // text-align: center;
+  // color: red;
+
+  content: "SUSPENDED" !important;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40%;
+  background: #ddddddd1 !important;
+  line-height: 50px !important;
+  border-bottom: 1px solid #fff !important;
+  height: 100% !important;
   color: red;
+  text-align: center;
 }
 
 .ballr::after {
@@ -771,11 +783,13 @@ iframe {
   position: absolute;
   top: 0;
   right: 0;
-  width: 50%;
+  width: 40%;
   background: #ddddddd1 !important;
   line-height: 50px !important;
   border-bottom: 1px solid #fff !important;
   height: 100% !important;
+  color: red;
+  text-align: center;
 }
 
 .loader {
@@ -838,15 +852,140 @@ iframe {
   color: #fff;
   padding: 5px 13px;
   border-radius: 4px;
+  @media (max-width: 800px) {
+    padding: 3px 8px;
+    font-size: 12px;
+  }
 }
 
-.main_session_name{
+.main_session_name {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.mian_fancy_book_ui{
+.mian_fancy_book_ui {
   height: 70vh;
   overflow: scroll;
+}
+
+.text_chnages {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-transform: uppercase;
+  // width: 217px;
+  width: calc(100% - 100px);
+  display: inline-block;
+}
+
+.text_font_changes {
+  font-size: 14px;
+  text-transform: "uppercase";
+}
+
+.size_class {
+  margin-bottom: 0px;
+  font-size: 12px;
+  color: #000;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* ensures fixed column widths */
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 6px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 13px;
+  word-wrap: break-word;
+}
+
+/* Header styling */
+.table th {
+  background-color: var(--bg-color);
+  color: #fff;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+/* Column widths */
+#session_data th:first-child,
+#session_data td:first-child {
+  width: 60%; /* SESSION column wider */
+  text-align: left;
+  padding-left: 8px;
+}
+
+#session_data th:nth-child(2),
+#session_data td:nth-child(2),
+#session_data th:nth-child(3),
+#session_data td:nth-child(3) {
+  width: 20%; /* NOT / YES evenly split */
+}
+
+/* Fix row height */
+#session_data tr {
+  height: 50px; /* consistent row height */
+}
+
+/* Session text styling */
+.text_font_changes {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 95%;
+  @media (max-width: 800px) {
+    font-size: 12.5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 90%;
+    display: inline-block;
+  }
+}
+
+.size_class {
+  margin: 2px 0 0 0;
+  font-size: 12px;
+  color: #000;
+  font-weight: 600;
+  @media (max-width: 800px) {
+    font-size: 11px;
+  }
+}
+
+.main_session_name {
+  display: flex;
+  justify-content: space-between; /* pushes Book button to the right */
+  align-items: center;
+  width: 100%;
+}
+
+.main_session_name span {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fancy_book_btn {
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  font-size: 12px;
+  padding: 2px 6px;
+  cursor: pointer;
+  margin-left: 6px;
+  flex-shrink: 0; /* Prevent button from shrinking */
 }
