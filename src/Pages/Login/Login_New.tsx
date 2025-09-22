@@ -42,7 +42,7 @@ const Login_New = () => {
       password: formData.password,
       userId: formData.username,
       url: window.location.hostname,
-      // url: "fastbet365.in",
+      // url: "nsgpro99.com",
       // url: "antpro.co",
     });
   };

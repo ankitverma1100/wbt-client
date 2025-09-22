@@ -122,6 +122,7 @@ const MatchBets = () => {
                     style={{
                       borderRight: "1px solid #3d8282",
                       borderBottom: "1px solid #3d8282",
+                      whiteSpace: "wrap",
                     }}>
                     {items?.nation}
                   </td>
@@ -227,6 +228,7 @@ const MatchBets = () => {
                     style={{
                       borderRight: "1px solid #3d8282",
                       borderBottom: "1px solid #3d8282",
+                      whiteSpace: "wrap",
                     }}>
                     {items?.nation}
                   </td>

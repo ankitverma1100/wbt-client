@@ -767,29 +767,27 @@ iframe {
 
   content: "SUSPENDED" !important;
   position: absolute;
-  top: 0;
   right: 0;
   width: 40%;
   background: #ddddddd1 !important;
   line-height: 50px !important;
   border-bottom: 1px solid #fff !important;
-  height: 100% !important;
   color: red;
   text-align: center;
+  min-height: 55px !important;
 }
 
 .ballr::after {
   content: "Ball Running" !important;
   position: absolute;
-  top: 0;
   right: 0;
   width: 40%;
   background: #ddddddd1 !important;
   line-height: 50px !important;
   border-bottom: 1px solid #fff !important;
-  height: 100% !important;
   color: red;
   text-align: center;
+  min-height: 55px !important;
 }
 
 .loader {

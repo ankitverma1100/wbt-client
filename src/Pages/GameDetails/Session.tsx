@@ -49,15 +49,6 @@ const Session = ({ oddsData, handleBetData, focusAmountInput }: OddsData) => {
 
   const [trigger, { data }] = useGetFancyBookMutation();
 
-  // ✅ get all active fancy ids
-  // const activeFancyIds = new Set(
-  //   activeSession?.data?.map((item: { fancyId: string }) => item.fancyId) ?? []
-  // );
-
-  // const filteredOddsData = (oddsData || []).filter((session) =>
-  //   activeFancyIds.has(session.sid)
-  // );
-
   const handleOk = () => {
     setIsModalOpen(!isModalOpen);
   };
@@ -75,8 +66,8 @@ const Session = ({ oddsData, handleBetData, focusAmountInput }: OddsData) => {
         cellPadding={2}
         border={0}
         className="table bg-white mb-0">
-        <tbody id="session_data">
-          <tr style={{position:"relative"}}>
+        <tbody id="session_data" style={{ position: "relative" }}>
+          <tr s>
             <th
               className="FontTextWhite10px border"
               width="50%"
@@ -166,16 +157,7 @@ const Session = ({ oddsData, handleBetData, focusAmountInput }: OddsData) => {
                     </button>
                   </div>
                 </td>
-                {/* {session?.gstatus.toLowerCase() === "suspended" ||
-                session?.gstatus.includes("Ball") ? (
-                  <td
-                    style={{ height: 45 }}
-                    className="FontTextWhite10px border suspen"
-                    colSpan={2}>
-                    {session?.gstatus?.toLocaleUpperCase()}
-                  </td>
-                ) : (
-                  <> */}
+
                 <td
                   className={`FontTextWhite10px border `}
                   align="center"
