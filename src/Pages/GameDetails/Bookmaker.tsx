@@ -14,6 +14,7 @@ interface Props {
   ) => void;
   focusAmountInput: () => void;
   oddsPnl: OdssPnl[] | undefined;
+  minMax: any;
 }
 
 const Bookmaker = ({
@@ -21,6 +22,7 @@ const Bookmaker = ({
   handleBetData,
   focusAmountInput,
   oddsPnl,
+  minMax,
 }: Props) => {
   const filteredBookData = (oddsData || []).filter(Boolean);
   const processedBookData = [...filteredBookData];
@@ -79,6 +81,10 @@ const Bookmaker = ({
     }
   }
 
+  const minMaxData = minMax?.find(
+    (item: any) => item?.marketid === oddsData?.[0]?.mid
+  );
+
   return (
     <div className="overflow-responsive">
       <table
@@ -97,11 +103,7 @@ const Bookmaker = ({
               valign="middle"
               height={25}
               align="center">
-              Min :{" "}
-              {Number(oddsData?.[0]?.minBet) < 100
-                ? 100
-                : oddsData?.[0]?.minBet}{" "}
-              Max : {oddsData?.[0]?.maxBet}
+              Min : {Number(minMaxData?.minbet)} Max : {minMaxData?.maxbet}
             </td>
             <td
               className="FontTextWhite10px"

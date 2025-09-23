@@ -34,9 +34,15 @@ interface OddsData {
     date: any
   ) => void;
   focusAmountInput: () => void;
+  minMax: any;
 }
 
-const Session = ({ oddsData, handleBetData, focusAmountInput }: OddsData) => {
+const Session = ({
+  oddsData,
+  handleBetData,
+  focusAmountInput,
+  minMax,
+}: OddsData) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { id } = useParams() as { id: string };
@@ -121,111 +127,116 @@ const Session = ({ oddsData, handleBetData, focusAmountInput }: OddsData) => {
 
           {[...(oddsData || [])]
             ?.sort((a, b) => Number(a.srno) - Number(b.srno))
-            ?.map((session, index) => (
-              <tr
-                className={
-                  session?.gstatus.toLowerCase() === "suspended"
-                    ? "suspen"
-                    : session?.gstatus.includes("Ball")
-                    ? "ballr"
-                    : ""
-                }
-                key={index}
-                style={{
-                  position: "relative",
-                  height: "45px",
-                  padding: "0px 12px",
-                }}>
-                <td
-                  className="FontTextWhite10px border"
-                  style={{ color: "#000", fontSize: "13px" }}
-                  align="left">
-                  <div className="main_session_name">
-                    <span className="">
-                      <span className="text_font_changes">
-                        {session.nation}
-                      </span>
-                      <p className="size_class">
-                        Session Limit: {session?.maxBet}
-                      </p>
-                    </span>
-                    <button
-                      type="button"
-                      className="fancy_book_btn"
-                      onClick={() => handleShowFancyBook(session?.sid)}>
-                      Book
-                    </button>
-                  </div>
-                </td>
-
-                <td
-                  className={`FontTextWhite10px border `}
-                  align="center"
+            ?.map((session, index) => {
+              const minMaxData = minMax?.find(
+                (item: any) => item?.fancyid === session?.sid
+              );
+              return (
+                <tr
+                  className={
+                    session?.gstatus.toLowerCase() === "suspended"
+                      ? "suspen"
+                      : session?.gstatus.includes("Ball")
+                      ? "ballr"
+                      : ""
+                  }
+                  key={index}
                   style={{
-                    verticalAlign: "middle",
-                    background: "#FFF",
-                    color: "#e02131 ",
-                    fontWeight: 600,
-                    fontSize: "16px",
-                    cursor: "pointer",
                     position: "relative",
-                  }}
-                  onClick={() => {
-                    if (session?.gstatus.toLowerCase() !== "suspended") {
-                      handleBetData(
-                        true,
-                        false,
-                        session?.l1,
-                        "Fancy2",
-                        session?.sid,
-                        session?.ls1,
-                        session?.mid,
-                        session?.nation,
-                        "No",
-                        new Date()
-                      );
-                      focusAmountInput();
-                    }
+                    height: "45px",
+                    padding: "0px 12px",
                   }}>
-                  <div>{session.l1}</div>
-                  <div style={{ fontSize: "10px" }}>{session.ls1}</div>
-                </td>
-                <td
-                  className="FontTextWhite10px border"
-                  style={{
-                    verticalAlign: "middle",
-                    backgroundColor: "#FFF",
-                    fontWeight: 600,
-                    color: "#3920ce ",
-                    fontSize: "16px",
-                    cursor: "pointer",
-                    position: "relative",
-                  }}
-                  onClick={() => {
-                    if (session?.gstatus.toLowerCase() !== "suspended") {
-                      handleBetData(
-                        true,
-                        true,
-                        session?.b1,
-                        "Fancy2",
-                        session?.sid,
-                        session?.bs1,
-                        session?.mid,
-                        session?.nation,
-                        "Yes",
-                        new Date()
-                      );
-                      focusAmountInput();
-                    }
-                  }}
-                  align="center">
-                  <div>{session.b1}</div>
-                  <div style={{ fontSize: "10px" }}>{session.bs1}</div>
-                </td>
-                {/* </>
+                  <td
+                    className="FontTextWhite10px border"
+                    style={{ color: "#000", fontSize: "13px" }}
+                    align="left">
+                    <div className="main_session_name">
+                      <span className="">
+                        <span className="text_font_changes">
+                          {session.nation}
+                        </span>
+                        <p className="size_class">
+                          Session Limit: {minMaxData?.maxbet}
+                        </p>
+                      </span>
+                      <button
+                        type="button"
+                        className="fancy_book_btn"
+                        onClick={() => handleShowFancyBook(session?.sid)}>
+                        Book
+                      </button>
+                    </div>
+                  </td>
+
+                  <td
+                    className={`FontTextWhite10px border `}
+                    align="center"
+                    style={{
+                      verticalAlign: "middle",
+                      background: "#FFF",
+                      color: "#e02131 ",
+                      fontWeight: 600,
+                      fontSize: "16px",
+                      cursor: "pointer",
+                      position: "relative",
+                    }}
+                    onClick={() => {
+                      if (session?.gstatus.toLowerCase() !== "suspended") {
+                        handleBetData(
+                          true,
+                          false,
+                          session?.l1,
+                          "Fancy2",
+                          session?.sid,
+                          session?.ls1,
+                          session?.mid,
+                          session?.nation,
+                          "No",
+                          new Date()
+                        );
+                        focusAmountInput();
+                      }
+                    }}>
+                    <div>{session.l1}</div>
+                    <div style={{ fontSize: "10px" }}>{session.ls1}</div>
+                  </td>
+                  <td
+                    className="FontTextWhite10px border"
+                    style={{
+                      verticalAlign: "middle",
+                      backgroundColor: "#FFF",
+                      fontWeight: 600,
+                      color: "#3920ce ",
+                      fontSize: "16px",
+                      cursor: "pointer",
+                      position: "relative",
+                    }}
+                    onClick={() => {
+                      if (session?.gstatus.toLowerCase() !== "suspended") {
+                        handleBetData(
+                          true,
+                          true,
+                          session?.b1,
+                          "Fancy2",
+                          session?.sid,
+                          session?.bs1,
+                          session?.mid,
+                          session?.nation,
+                          "Yes",
+                          new Date()
+                        );
+                        focusAmountInput();
+                      }
+                    }}
+                    align="center">
+                    <div>{session.b1}</div>
+                    <div style={{ fontSize: "10px" }}>{session.bs1}</div>
+                  </td>
+                  {/* </>
                 )} */}
-              </tr>
-            ))}
+                </tr>
+              );
+            })}
         </tbody>
       </table>
       <Modal

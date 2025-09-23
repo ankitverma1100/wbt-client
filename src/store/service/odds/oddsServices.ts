@@ -23,7 +23,7 @@ export const oddsData = createApi({
   endpoints: (build) => ({
     activeMatch: build.query<matchedData, void>({
       query: () => ({
-        url: "/betfair_api/active_match/4",
+        url: "/betfair_api/active_match/v5/4",
         method: "GET",
       }),
     }),
@@ -36,7 +36,8 @@ export const oddsData = createApi({
     }),
     oddsData: build.query<oddsResponse, string | undefined>({
       query: (agrs) => ({
-        url: `/betfair_api/fancy/${agrs}`,
+        // url: `/betfair_api/fancy/${agrs}`,
+        url: `/betfair_api/fancy/sap/${agrs}`,
         method: "GET",
       }),
     }),

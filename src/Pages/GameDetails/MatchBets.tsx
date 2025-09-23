@@ -74,7 +74,7 @@ const MatchBets = () => {
           cellPadding={2}
           border={0}
           className="table compete-game-"
-          style={{ whiteSpace: "nowrap" }}>
+          style={{ whiteSpace: "nowrap", tableLayout: "auto" }}>
           <thead>
             <tr>
               <td
@@ -178,7 +178,7 @@ const MatchBets = () => {
           cellPadding={2}
           border={0}
           className="table compete-game-"
-          style={{ whiteSpace: "nowrap" }}>
+          style={{ whiteSpace: "nowrap", tableLayout: "auto" }}>
           <thead>
             <tr>
               <td
@@ -295,7 +295,7 @@ const MatchBets = () => {
           cellPadding={2}
           border={0}
           className="table compete-game-"
-          style={{ whiteSpace: "nowrap" }}>
+          style={{ whiteSpace: "nowrap", tableLayout: "auto" }}>
           <thead>
             <tr>
               <td

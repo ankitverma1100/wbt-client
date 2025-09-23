@@ -20,7 +20,10 @@ import { Modal } from "antd";
 import MoreEvent from "./MoreEvent";
 import BetplaceMobNew from "./BetplaceMobNew";
 import Marquee from "react-fast-marquee";
-import Score from "../../Component/Score/Score";
+import {
+  useFancyMinMaxQuery,
+  useMarketMinMaxQuery,
+} from "../../store/service/helperServices";
 
 const GameDetails = () => {
   const [showFull, setShowFull] = useState(false);
@@ -53,6 +56,14 @@ const GameDetails = () => {
   );
   const [trigger, { data: betplaceData, isLoading }] = useBetPlacedMutation();
   const { data: userIp } = useGetIpfyQuery();
+
+  const { data: marketMinMax } = useMarketMinMaxQuery(id, {
+    pollingInterval: 5000,
+  });
+
+  const { data: fancyMinMax } = useFancyMinMaxQuery(id, {
+    pollingInterval: 5000,
+  });
 
   const amountInputRef = useRef<HTMLInputElement>(null);
 
@@ -189,7 +200,7 @@ const GameDetails = () => {
         <form name="BetPlayer" method="post" action="">
           <div className="d-none1 d-sm-none1 d-md-block1 d-lg-block1">
             <TvSection showTv={showTv} showFull={showFull} />
-            
+
             <Bookmaker
               oddsData={oddsData?.Bookmaker?.filter(
                 (item: { t: string }) => item?.t?.toLowerCase() === "bookmaker"
@@ -197,11 +208,13 @@ const GameDetails = () => {
               handleBetData={handleBetData}
               focusAmountInput={focusAmountInput}
               oddsPnl={oddsPnl?.data}
+              minMax={marketMinMax?.data}
             />
             <Session
               oddsData={oddsData?.Fancy2}
               handleBetData={handleBetData}
               focusAmountInput={focusAmountInput}
+              minMax={fancyMinMax?.data}
             />
             {/* 
             <BetplaceMob

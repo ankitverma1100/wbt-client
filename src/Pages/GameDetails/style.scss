@@ -903,7 +903,7 @@ iframe {
   text-align: center;
   vertical-align: middle;
   font-size: 13px;
-  word-wrap: break-word;
+  white-space: wrap !important;
 }
 
 /* Header styling */
