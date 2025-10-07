@@ -1,11 +1,9 @@
 import { useParams } from "react-router-dom";
 import { useGetBetListBymatchIdQuery } from "../../store/service/userServices/userServices";
-import { useState } from "react";
 import moment from "moment";
 
 const MatchBets = () => {
   const { id } = useParams();
-  const [activeTab, setActiveTab] = useState("match");
   const { data } = useGetBetListBymatchIdQuery(
     {
       matchId: id ?? "",
@@ -419,7 +417,7 @@ const MatchBets = () => {
                       borderRight: "1px solid #3d8282",
                       borderBottom: "1px solid #3d8282",
                     }}>
-                    {items?.pnl}
+                    {items?.netPnl?.toFixed(2)}
                   </td>
                   <td
                     style={{

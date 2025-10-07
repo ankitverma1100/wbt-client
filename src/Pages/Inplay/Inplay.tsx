@@ -27,6 +27,10 @@ const Inplay = () => {
           ...item,
           active: activeMathes.active,
         }))
+        .sort(
+          (a, b) =>
+            new Date(a.openDate).getTime() - new Date(b.openDate).getTime()
+        )
     );
 
     setActiveMatches(dataActive);

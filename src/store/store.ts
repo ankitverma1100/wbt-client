@@ -7,6 +7,7 @@ import global from "./global/slice";
 import { casinoData } from "./service/casino/casinoServices";
 import userReducer from "./userSlice/userSlice";
 import { helperApi } from "./service/helperServices";
+import { tvApi } from "./service/tvServices";
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
     [oddsData.reducerPath]: oddsData.reducer,
     [stackData.reducerPath]: stackData.reducer,
     [casinoData.reducerPath]: casinoData.reducer,
+    [tvApi.reducerPath]: tvApi.reducer,
     [helperApi.reducerPath]: helperApi.reducer,
   },
   middleware: (defaultMiddleware) =>
@@ -26,5 +28,6 @@ export const store = configureStore({
       .concat(oddsData.middleware)
       .concat(stackData.middleware)
       .concat(helperApi.middleware)
+      .concat(tvApi.middleware)
       .concat(casinoData.middleware),
 });

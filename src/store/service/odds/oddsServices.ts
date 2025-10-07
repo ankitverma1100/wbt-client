@@ -27,7 +27,7 @@ export const oddsData = createApi({
         method: "GET",
       }),
     }),
-   
+
     inPlayMatch: build.query<InplayRes, void>({
       query: () => ({
         url: "/betfair_api/active_match",
@@ -53,6 +53,14 @@ export const oddsData = createApi({
         method: "GET",
       }),
     }),
+    getMyIp: build.query({
+      query: () => {
+        return {
+          url: `/betfair_api/my-ip`,
+          method: "GET",
+        };
+      },
+    }),
   }),
 });
 
@@ -62,4 +70,5 @@ export const {
   useGetIpfyQuery,
   useInPlayMatchQuery,
   useGetResultRoundWiseMutation,
+  useGetMyIpQuery,
 } = oddsData;

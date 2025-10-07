@@ -306,6 +306,13 @@ export const userList = createApi({
         };
       },
     }),
+    getTvScoreData: build.query({
+      query: (body) => ({
+        url: `ant-pro/get-tv-url`,
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -350,5 +357,6 @@ export const {
   useGetCasinoLabilityQuery,
   useGetActiveSessionDataQuery,
   useGetFancyLabilityQuery,
-  useGetMessageQuery
+  useGetMessageQuery,
+  useGetTvScoreDataQuery,
 } = userList;

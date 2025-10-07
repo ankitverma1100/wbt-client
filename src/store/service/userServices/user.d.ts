@@ -256,6 +256,7 @@ interface BetListRes {
 type BetList = Record<string, Bet[]>;
 
 interface Bet {
+  netPnl: ReactNode;
   date: ReactNode;
   declared: ReactNode;
   sid: any;

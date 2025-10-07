@@ -1,6 +1,10 @@
 import { useParams } from "react-router-dom";
 import { isAntPro } from "../CasinoDetails/Constant";
 import Score from "../../Component/Score/Score";
+import { useGetChIdsQuery } from "../../store/service/tvServices";
+import { useGetTvScoreDataQuery } from "../../store/service/userServices/userServices";
+import { useGetMyIpQuery } from "../../store/service/odds/oddsServices";
+import { useEffect, useState } from "react";
 
 interface Props {
   showFull: boolean;
@@ -8,7 +12,56 @@ interface Props {
 }
 
 const TvSection = ({ showFull, showTv }: Props) => {
+  const [loadingTv, setLoadingTv] = useState(false);
+  const [tvUrl, setTvUrl] = useState<string | null>(null);
   const { id } = useParams();
+
+  const { data: tvScoreData } = useGetTvScoreDataQuery({
+    matchId: id ?? "",
+  });
+  const { data: chids } = useGetChIdsQuery({
+    matchId: id ?? "",
+  });
+
+  const { data: userIp } = useGetMyIpQuery({});
+
+  const channelId = chids?.data?.channelId;
+
+  const fetchTvStream = async () => {
+    if (!channelId) return;
+    setLoadingTv(true);
+
+    try {
+      const response = await fetch("https://api2.dbm9.com/api/tv-stream", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          channel: channelId,
+          ipv4: userIp?.ip ?? "",
+        }),
+      });
+
+      const result = await response.json();
+      console.log("TV Stream API:", result);
+
+      if (result.status === 1) {
+        setTvUrl(result.data);
+      } else {
+        console.error("Stream not found");
+      }
+    } catch (error) {
+      console.error("TV Stream Error:", error);
+    } finally {
+      setLoadingTv(false);
+    }
+  };
+
+  useEffect(() => {
+    if (showTv) fetchTvStream();
+  }, [showTv, channelId, userIp]);
+
   return (
     <>
       {showTv && (
@@ -22,25 +75,50 @@ const TvSection = ({ showFull, showTv }: Props) => {
             marginBottom: "-9px",
           }}
           src={
-            isAntPro
-              ? `https://mis2.sqmr.xyz/stv.php?eventId=${id}`
-              : `https://tv.tresting.com/?eventid=${id}`
+            `https://e765432.xyz/static/6e8d6d724eb0ffe4f4f3887693cbf8bc8842070d/getdata.php?chid=${channelId}`
           }
         />
+        // <>
+        //   {loadingTv ? (
+        //     <p style={{ color: "#fff", textAlign: "center" }}>
+        //       Loading stream...
+        //     </p>
+        //   ) : tvUrl ? (
+        //     typeof tvUrl === "string" && tvUrl.includes("<iframe") ? (
+        //       // Response is iframe HTML
+        //       <div
+        //         dangerouslySetInnerHTML={{ __html: tvUrl }}
+        //         style={{ width: "100%", height: "100%" }}
+        //       />
+        //     ) : (
+        //       // Response is just a URL
+        //       <iframe
+        //         src={tvUrl}
+        //         title="TV Stream"
+        //         style={{
+        //           width: "100%",
+        //           height: "100%",
+        //           border: "none",
+        //         }}
+        //         allowFullScreen
+        //       />
+        //     )
+        //   ) : (
+        //     <p style={{ color: "#fff", textAlign: "center" }}>
+        //       No stream available
+        //     </p>
+        //   )}
+        // </>
       )}
-      {isAntPro ? (
+      {/* {isAntPro ? (
         <Score showFull={showFull} />
-      ) : (
-        <iframe
-          src={
-            isAntPro
-              ? `https://score.trovetown.co/socket-iframe-1/crickexpo/${id}`
-              : `https://score.trovetown.co/socket-iframe-10/crickexpo/${id}`
-          }
-          id="score_fs"
-          className={showFull ? "fs_match_size_full" : "fs_match_size"}
-        />
-      )}
+      ) : ( */}
+      <iframe
+        src={`https://scorediamond.247idhub.com/score/${id}`}
+        id="score_fs"
+        className={"fs_match_size"}
+      />
+      {/* )} */}
     </>
   );
 };
