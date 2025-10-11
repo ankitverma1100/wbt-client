@@ -1,6 +1,4 @@
 import { useParams } from "react-router-dom";
-import { isAntPro } from "../CasinoDetails/Constant";
-import Score from "../../Component/Score/Score";
 import { useGetChIdsQuery } from "../../store/service/tvServices";
 import { useGetTvScoreDataQuery } from "../../store/service/userServices/userServices";
 import { useGetMyIpQuery } from "../../store/service/odds/oddsServices";
@@ -13,7 +11,7 @@ interface Props {
 
 const TvSection = ({ showFull, showTv }: Props) => {
   const [loadingTv, setLoadingTv] = useState(false);
-  const [tvUrl, setTvUrl] = useState<string | null>(null);
+  const [tvUrl, setTvUrl] = useState<string>("");
   const { id } = useParams();
 
   const { data: tvScoreData } = useGetTvScoreDataQuery({
@@ -34,9 +32,7 @@ const TvSection = ({ showFull, showTv }: Props) => {
     try {
       const response = await fetch("https://api2.dbm9.com/api/tv-stream", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           channel: channelId,
           ipv4: userIp?.ip ?? "",
@@ -46,8 +42,10 @@ const TvSection = ({ showFull, showTv }: Props) => {
       const result = await response.json();
       console.log("TV Stream API:", result);
 
-      if (result.status === 1) {
-        setTvUrl(result.data);
+      if (result.status === 1 && typeof result.data === "string") {
+        const match = result.data.match(/src=['"]([^'"]+)['"]/);
+        const srcUrl = match ? match[1] : null;
+        setTvUrl(srcUrl);
       } else {
         console.error("Stream not found");
       }
@@ -74,9 +72,7 @@ const TvSection = ({ showFull, showTv }: Props) => {
           style={{
             marginBottom: "-9px",
           }}
-          src={
-            `https://e765432.xyz/static/6e8d6d724eb0ffe4f4f3887693cbf8bc8842070d/getdata.php?chid=${channelId}`
-          }
+          src={tvUrl}
         />
         // <>
         //   {loadingTv ? (
@@ -114,9 +110,9 @@ const TvSection = ({ showFull, showTv }: Props) => {
         <Score showFull={showFull} />
       ) : ( */}
       <iframe
-        src={`https://scorediamond.247idhub.com/score/${id}`}
+        src={tvScoreData?.data?.scoreUrl}
         id="score_fs"
-        className={"fs_match_size"}
+        className={showFull ? "fs_match_size_full" : "fs_match_size"}
       />
       {/* )} */}
     </>
