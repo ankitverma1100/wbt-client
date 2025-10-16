@@ -307,7 +307,7 @@ const Lucky7 = ({
                 <div
                   className="gx-position-relative"
                   onClick={() =>
-                    t2?.[4]?.gstatus != "0" && handleClick(t2?.[4])
+                    t2?.[5]?.gstatus != "0" && handleClick(t2?.[5])
                   }>
                   <div
                     style={{
