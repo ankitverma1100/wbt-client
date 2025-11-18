@@ -10,13 +10,13 @@ const CasinoHome = () => {
   const activeTableIds = data?.data?.map((item) => item.tableId) || [];
 
   const liveCasinos = [
-    { id: "54", img: "/img/andar-bahar.jpeg", name: "Andar Bahar" },
-    { id: "51", img: "/img/teen-patti2.jpeg", name: "Teen Patti" },
-    { id: "53", img: "/img/lucky7.jpeg", name: "Lucky7" },
-    { id: "52", img: "/img/rg_dragon_tiger.jpg", name: "Dragon Tiger" },
-    { id: "56", img: "/img/amar-akhbar.jpg", name: "Amar Akbar Anthony" },
+    { id: "54", img: "/img/54.jpeg", name: "Andar Bahar" },
+    { id: "51", img: "/img/51.jpeg", name: "Teen Patti" },
+    { id: "53", img: "/img/53.jpeg", name: "Lucky7" },
+    { id: "52", img: "/img/52.jpeg", name: "Dragon Tiger" },
+    { id: "56", img: "/img/56.jpeg", name: "Amar Akbar Anthony" },
     // { id: "100", img: "/img/worli-matka-tvs.jpeg", name: "Worli Matka" },
-    { id: "61", img: "/img/1-Day-Teen-Patti.jpg", name: "1 Day Teen Patti" },
+    { id: "61", img: "/img/61.jpeg", name: "1 Day Teen Patti" },
     { id: "62", img: "/img/Dragon Tiger.jpg", name: "Dragon Tiger Line" },
   ];
 
@@ -26,21 +26,21 @@ const CasinoHome = () => {
       <div className="flexdiv">
         <div className="casino-game">
           <img
-            src="/img/dus-ka-dam.jpeg"
+            src="/img/99.jpeg"
             style={{ borderRadius: 5 }}
             className="w-100"
           />
         </div>
         <div className="casino-game">
           <img
-            src="/img/roultee.jpeg"
+            src="/img/110.jpeg"
             style={{ borderRadius: 5 }}
             className="w-100"
           />
         </div>
         <div className="casino-game">
           <img
-            src="/img/andar-bahar (1).jpeg"
+            src="/img/54-v.jpeg"
             style={{ borderRadius: 5 }}
             className="w-100"
           />
