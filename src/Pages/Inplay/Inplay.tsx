@@ -20,18 +20,23 @@ const Inplay = () => {
   useEffect(() => {
     if (!data || !activeEvent) return;
 
-    const dataActive = data?.data?.flatMap((item) =>
-      activeEvent.data
-        .filter((activeMathes) => activeMathes?.eventId === item?.matchId)
-        .map((activeMathes) => ({
-          ...item,
-          active: activeMathes.active,
-        }))
-        .sort(
-          (a, b) =>
-            new Date(a.openDate).getTime() - new Date(b.openDate).getTime()
-        )
-    );
+    const dataActive = data?.data
+      ?.flatMap((item) =>
+        activeEvent.data
+          .filter((activeMathes) => activeMathes?.eventId === item?.matchId)
+          .map((activeMathes) => ({
+            ...item,
+            active: activeMathes.active,
+          }))
+      )
+      ?.sort((a, b) => {
+        // Put "Twenty20 Big Bash" on top
+        if (a.matchName === "Twenty20 Big Bash") return -1;
+        if (b.matchName === "Twenty20 Big Bash") return 1;
+
+        // Otherwise sort by openDate
+        return new Date(a.openDate).getTime() - new Date(b.openDate).getTime();
+      });
 
     setActiveMatches(dataActive);
   }, [activeEvent, data]);

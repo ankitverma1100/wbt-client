@@ -28,7 +28,6 @@ const Bookmaker = ({
   const processedBookData = [...filteredBookData];
 
   if (processedBookData.length >= 2) {
-    // Check if all b1 are the same
     const allB1Same = processedBookData.every(
       (item) => item.b1 === processedBookData[0].b1
     );
@@ -56,9 +55,7 @@ const Bookmaker = ({
           }
         });
       }
-      // else → if both b1 and l1 are same, keep both as is
     } else {
-      // Old logic if b1 are different
       const minB1Index = processedBookData.reduce((minIdx, curr, idx, arr) => {
         const currStatus = curr?.gstatus?.toLowerCase();
         const minStatus = arr[minIdx]?.gstatus?.toLowerCase();
@@ -130,7 +127,10 @@ const Bookmaker = ({
               POS.
             </td>
           </tr>
-          {processedBookData?.map((bookmaker, index: number) => {
+          {(filteredBookData?.length > 3
+            ? filteredBookData
+            : processedBookData
+          )?.map((bookmaker, index: number) => {
             const oddsData = oddsPnl?.filter(
               (item) => item?.marketId === bookmaker?.mid
             );
