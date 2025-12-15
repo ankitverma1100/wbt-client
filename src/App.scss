@@ -36,9 +36,9 @@ a:hover {
   background: #525252 !important;
   color: #fff;
 }
-.modal-content {
-  border: 5px solid #32c2cd !important;
-}
+// .modal-content {
+//   border: 5px solid #32c2cd !important;
+// }
 #content .btn-secondary {
   background: #8e8e8d !important;
 }
@@ -706,7 +706,7 @@ ul.card-col li a {
   align-items: end;
 }
 .FontTextBlack10px {
-  font-family: "Roboto" !important;
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
 }
 .button_yrate {
   background-repeat: no-repeat;
@@ -951,4 +951,8 @@ em {
     border: 6px solid currentColor;
     border-right-color: transparent;
   }
+}
+
+.spacing-top{
+  padding-top: 100px;
 }

@@ -1,0 +1,27 @@
+
+:root{
+       --primary-color: #b7862f !important;
+   --secondary-color: #b7862f !important;
+   --model-header: #1f5058 !important;
+}
+
+.header_wrapper{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+}
+.header_wrapper .main-nav{
+    
+    padding: 0px 20px;
+    background: linear-gradient(var(--primary-color) 0, #000 100%);
+    color: white;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 10px;
+    /* position: fixed; */
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 1000;
+    width: auto;
+}

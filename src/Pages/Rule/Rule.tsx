@@ -1,22 +1,21 @@
 /* eslint-disable no-irregular-whitespace */
 import { Link } from "react-router-dom";
-import Welcome from "../../Common/Welcome";
 import { useState } from "react";
+import Welcome from "../../Common/Welcome";
 
 const Rule = () => {
-  const [open, setOpen] = useState(localStorage.getItem("isLogin"));
-
-  console.log(open, "openopenopen");
+  // Always true on page load / refresh
+  const [open, setOpen] = useState(true);
 
   const handleClose = () => {
-    setOpen("0");
-    localStorage.removeItem("isLogin");
+    setOpen(false); // close only for this render
   };
+
   return (
     <>
-      {open === "1" && <Welcome handleClose={handleClose} />}
+      {open && <Welcome handleClose={handleClose} />}
       <div
-        className="lang-switch-btn"
+        className="lang-switch-btn spacing-top"
         style={{ paddingLeft: 0, paddingRight: 0 }}>
         <div
           className="main_menu_btn mt-2"

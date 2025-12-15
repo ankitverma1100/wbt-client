@@ -8,18 +8,23 @@ const Balance = ({ userBalance }: BalanceProps) => {
   return (
     <>
       <div className="chips_section">
-        <span>
-          Chips:{" "}
+        <span className="chips-value" style={{ color: "green" }}>
+          Chips:{""}
           <span className="user_wallet">
-            {userBalance?.balance?.toFixed(2)}
+            {/* {userBalance?.balance?.toFixed(2)} */}
+            1000
           </span>
         </span>{" "}
-        <span onClick={() => nav("/main/pending")}>
-          Expo :{" "}
+       <div className="expo-combo">
+         <span className="chips-value " style={{ color: "red" }} onClick={() => nav("/main/pending")}>
+          Expo :{""}
           <span className="exposer_wallet" style={{ color: "red" }}>
-            {userBalance?.liability?.toFixed(2)}
+            {/* {userBalance?.liability?.toFixed(2)} */}
+            0 
           </span>
         </span>
+        <button type="button" className="bet-btn"><span>Bets</span></button>
+       </div>
       </div>
     </>
   );

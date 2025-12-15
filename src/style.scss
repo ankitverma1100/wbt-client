@@ -1266,3 +1266,9 @@ button.close:focus {
     position: relative;
   }
 }
+
+button{
+  &:focus{
+    outline: 0!important;
+  }
+}
