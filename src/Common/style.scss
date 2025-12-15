@@ -11,7 +11,7 @@
   .overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.6);
+    background: #00000063;
   }
 
   /* Dialog */
@@ -19,8 +19,8 @@
     position: absolute;
     left: 0;
     right: 0;
-    width: 100%;
-    max-width: 800px;
+    width: 800px;
+    max-width:87%;
     margin: auto;
     display: flex;
     align-items: center;

@@ -1,6 +1,7 @@
-import Marquee from "react-fast-marquee";
+// import Marquee from "react-fast-marquee";
 import { Link } from "react-router-dom";
 import { useGetMessageQuery } from "../../store/service/userServices/userServices";
+import "./style.scss"
 
 const Dashboard = () => {
   const { data } = useGetMessageQuery(undefined, {});
@@ -8,8 +9,8 @@ const Dashboard = () => {
   // console.log(data, "datadatadata")
   return (
     <>
-      <div className="page-body">
-        <div className="">
+      <div className="">
+        {/* <div className="">
           <Marquee
             style={{
               background: "black",
@@ -21,49 +22,88 @@ const Dashboard = () => {
             }}>
             {data?.data}
           </Marquee>
-        </div>
-        <div className="container">
-          <div className="row padding_space">
-            <div className="col-md-6 col-6 text-center menu-list-item">
-              <Link to="/main/matches">
-                <img src="/img/1.png" /> In Play{" "}
-              </Link>
-            </div>
-            <div className="col-md-6 col-6 text-center menu-list-item">
-              <Link to="/main/profile">
-                <img src="/img/2.png" /> Profile{" "}
-              </Link>
-            </div>
-            <div className="col-md-6 col-6 text-center menu-list-item">
-              <Link to="/main/statement">
-                <img src="/img/3.png" /> Statement{" "}
-              </Link>
-            </div>
-            <div className="col-md-6 col-6 text-center menu-list-item">
-              <Link to="/main/changepassword">
-                <img src="/img/4.png" /> Change Password
-              </Link>
-            </div>
-            <div className="col-md-6 col-6 text-center menu-list-item">
+        </div> */}
+        <div className="main-menu-wrapper">
+          <div className="container">
+            <div className="row">
+              <div className="col-6">
+                <Link to="/main/matches">
+                  <div className="menu-img-wrap">
+                    <img src="/img/menu-img/inplay.png" />
+                  </div>
+                  <span>In Play{" "}</span>
+                </Link>
+              </div>
+              <div className="col-6">
+                <Link to="/main/casino">
+                  <div className="menu-img-wrap">
+                    <img src="/img/menu-img/casino.png" />
+                  </div>
+                  <span> Casino{" "}</span>
+                </Link>
+              </div>
+              <div className="col-6">
+                <Link to="/main/matka">
+                  <div className="menu-img-wrap">
+                    <img src="/img/menu-img/matka.png" />
+                  </div>
+                  <span>Matka{" "}</span>
+                </Link>
+              </div>
+              <div className="col-6">
+                <Link to="/main/statement">
+                  <div className="menu-img-wrap">
+                    <img src="/img/menu-img/statement.png" />
+                  </div>
+                  <span>Statement{" "}</span>
+                </Link>
+              </div>
+              <div className="col-6">
+                <Link to="/main/ledger">
+                  <div className="menu-img-wrap">
+                    <img src="/img/menu-img/ledger.png" />
+                  </div>
+                  <span>Ledger{" "}</span>
+                </Link>
+              </div>
+              <div className="col-6">
+                <Link to="/main/profile">
+                  <div className="menu-img-wrap">
+                    <img src="/img/menu-img/profile.png" />
+                  </div>
+                  <span>Profile{" "}</span>
+                </Link>
+              </div>
+              <div className="col-6">
+                <Link to="/main/rules">
+                  <div className="menu-img-wrap">
+                    <img src="/img/menu-img/rules.png" />
+                  </div>
+                  <span> Rules{" "}</span>
+                </Link>
+              </div>
+              <div className="col-6">
+                <Link to="/main/changepassword">
+                  <div className="menu-img-wrap">
+                    <img src="/img/menu-img/password.png" />
+                  </div>
+                  <span>Password{" "}</span>
+                </Link>
+              </div>
+              {/* <div className="col-6">
               <Link to="/main/freegames">
-                <img src="/img/5.png" /> Free Games
+<div className="menu-img-wrap">
+                <img src="/img/menu-img/inplay.png" /> Free Games</div>
               </Link>
             </div>
-            <div className="col-md-6 col-6 text-center menu-list-item">
-              <Link to="/main/rules">
-                <img src="/img/6.png" /> Rules
-              </Link>
-            </div>
-            <div className="col-md-6 col-6 text-center menu-list-item">
-              <Link to="/main/ledger">
-                <img src="/img/7.png" />
-                My Ledger
-              </Link>
-            </div>
-            <div className="col-md-6 col-6 text-center menu-list-item">
+           
+           
+            <div className="col-6">
               <Link to="/main/casino">
-                <img src="/img/8.png" /> Games{" "}
+<div className="menu-img-wrap">
+                <img src="/img/menu-img/inplay.png" /> Games{" "}</div>
               </Link>
+            </div> */}
             </div>
           </div>
         </div>
