@@ -37,6 +37,10 @@ nav,
 section {
   display: block;
 }
+#root{
+   background: #fafafa;
+
+}
 
 body {
   margin: 0;
@@ -49,6 +53,12 @@ body {
   color: #212529;
   text-align: left;
   background-color: #fff;
+ 
+    height: 100vh;
+    background: #fff;
+    background: url(../public/img/body-bg.jpeg) center center;
+    margin: 0;
+    zoom: 90%;
 }
 
 [tabindex="-1"]:focus {

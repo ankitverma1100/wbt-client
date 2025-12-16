@@ -11,123 +11,6 @@
         width: 100%;
     }
 
-    .infinite-slider {
-        width: 100%;
-        height: 180px;
-        margin: 0 0 5px;
-        border-radius: 8px;
-        overflow: hidden;
-        background: #000;
-        position: relative;
-
-        @media (max-width:991px) {
-            height: 155px;
-        }
-
-        .slider-track {
-            display: flex;
-            width: 300%; // Triple width for 3 sets of banners
-            height: 100%;
-            animation: slideInfinite 20s linear infinite;
-
-            // Pause on hover
-            &:hover {
-                animation-play-state: paused;
-            }
-        }
-
-        .slide-item {
-            flex: 0 0 33.333%; // Each image takes 1/3 of the track (for 3 sets)
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #000;
-
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: contain;
-                display: block;
-            }
-        }
-    }
-
-    @keyframes slideInfinite {
-        0% {
-            transform: translateX(0);
-        }
-
-        100% {
-            transform: translateX(-66.666%); // Move by 2 sets (2/3 of the track)
-        }
-    }
-
-    // Alternative: Right to left continuous animation
-    @keyframes slideRightLeft {
-        0% {
-            transform: translateX(0);
-        }
-
-        100% {
-            transform: translateX(-50%); // Move by half for infinite loop
-        }
-    }
-
-    // Alternative: Marquee effect
-    .infinite-slider.marquee {
-        .slider-track {
-            animation: marquee 15s linear infinite;
-        }
-    }
-
-    @keyframes marquee {
-        0% {
-            transform: translateX(100%);
-        }
-
-        100% {
-            transform: translateX(-100%);
-        }
-    }
-
-    // Ensure responsive design
-    @media (max-width: 768px) {
-        .infinite-slider {
-            height: 140px;
-        }
-    }
-
-    // Adjust animation speed
-    .infinite-slider.slow {
-        .slider-track {
-            animation-duration: 30s;
-        }
-    }
-
-    .infinite-slider.fast {
-        .slider-track {
-            animation-duration: 10s;
-        }
-    }
-
-    // Add subtle shadow for depth
-    .infinite-slider {
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-
-        &::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #c9972b, #000);
-            z-index: 2;
-        }
-    }
-
-
     .inplay-heading {
         display: flex;
         align-items: baseline;
@@ -155,7 +38,7 @@
         background: linear-gradient(#b7862f 0, #000 100%);
         padding: 12px;
         border-radius: 0 0 8px 8px;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
 
         &>a {
             display: flex;
@@ -199,7 +82,7 @@
             font-weight: 700;
 
             span {
-                font-size: 11px;
+                font-size: 12px;
             }
         }
     }
@@ -208,7 +91,7 @@
         display: flex;
         align-items: center;
         height: 100%;
-        font-size: 12px;
+        font-size: 14px;
         color: rgb(255, 71, 87);
         text-transform: uppercase;
         font-weight: 700;
@@ -263,7 +146,7 @@
             animation: blink 1s linear infinite;
             text-align: left;
             font-weight: bold;
-            font-size: 12px;
+            font-size: 14px;
 
             @keyframes blink {
                 0% {
@@ -294,200 +177,42 @@
     }
 }
 
+
 .slider-container {
   width: 100%;
   height: 180px;
-  margin: 0 0 5px;
   overflow: hidden;
   background: #000;
   position: relative;
+  margin-bottom: 6px;
 
-  @media (max-width:991px) {
-    height: 155px;
-  }
-
-  .slider-wrapper {
-    width: 100%;
-    height: 180px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .slides {
-    display: flex;
-   height: 180px;
-    width: 100%;
-    transition: transform 0.5s ease-in-out;
-    
-    &.sliding-right {
-      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-  }
-
-  .slide {
-    min-width: 100%;
-    height: 100%;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #000;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: fill;
-      display: block;
-    }
-  }
+  @media (max-width: 991px) { height: 155px; }
+  @media (max-width: 768px) { height: 140px; }
+  @media (max-width: 480px) { height: 120px; }
 }
 
-// Alternative: CSS-only infinite left-right animation
-.slider-container.css-only {
-  .slides {
-    display: flex;
-    animation: slideLeftRight 12s infinite ease-in-out;
-    
-    &:hover {
-      animation-play-state: paused;
-    }
-  }
-
-  .slide {
-    min-width: 100%;
-    height: 100%;
-  }
+/* SLIDER TRACK */
+.slider-wrapper {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s ease-in-out;
 }
 
-@keyframes slideLeftRight {
-  0%, 20% {
-    transform: translateX(0);
-  }
-  25%, 45% {
-    transform: translateX(-100%);
-  }
-  50%, 70% {
-    transform: translateX(-200%);
-  }
-  75%, 95% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(0);
-  }
+/* SLIDE */
+.slide {
+  min-width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
 }
 
-// Simplified version for 2 images
-@keyframes slideTwoImages {
-  0%, 40% {
-    transform: translateX(0);
-  }
-  50%, 90% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-
-// For continuous left-right motion
-.slider-container.continuous {
-  .slides {
-    display: flex;
-    width: 200%; // Double width for seamless loop
-    animation: continuousSlide 10s infinite linear;
-  }
-
-  .slide {
-    min-width: 50%; // Each slide takes half (since we have 2 slides duplicated)
-  }
-}
-
-@keyframes continuousSlide {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%); // Move by half width
-  }
-}
-
-// Simple left-right with 2 images
-.slider-container.simple {
-  .slides {
-    display: flex;
-    animation: simpleSlide 6s infinite ease-in-out;
-  }
-}
-
-@keyframes simpleSlide {
-  0%, 45% {
-    transform: translateX(0);
-  }
-  50%, 95% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-
-// Use this for the simplest left-right animation
-.slider-container {
-  .slides {
-    display: flex;
-    // Start with image 1 visible for 3 seconds
-    animation: slideAnimation 6s infinite;
-  }
-  
-  .slide {
-    min-width: 100%;
-  }
-}
-
-@keyframes slideAnimation {
-  0%, 45% {
-    transform: translateX(0);
-  }
-  50%, 95% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-
-// For smooth transition
-.slider-container.smooth {
-  .slides {
-    animation: smoothSlide 8s infinite ease-in-out;
-  }
-}
-
-@keyframes smoothSlide {
-  0% {
-    transform: translateX(0);
-  }
-  33% {
-    transform: translateX(0);
-  }
-  66% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-
-// Mobile responsiveness
-@media (max-width: 768px) {
-  .slider-container {
-    height: 140px;
-  }
-}
-
-// Add shadow and border
-.slider-container {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+/* IMAGE — NOT CUT */
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;   // ✅ THIS FIXES CUTTING
+  display: block;
 }

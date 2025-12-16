@@ -17,9 +17,8 @@ const ClockIcon = () => (
 /* ---------------- COMPONENT ---------------- */
 const Inplay = () => {
   const [activeMatches, setActiveMatches] = useState<any[]>([]);
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [direction, setDirection] = useState<'right' | 'left'>('right');
 
   const { data } = useActiveMatchQuery();
   const [getActiveEvent, { data: activeEvent }] = useActiveEventMutation();
@@ -32,32 +31,27 @@ const Inplay = () => {
     "/img/inplay/international-leage-banner.jpg",
   ];
 
-  /* ---------- SLIDER ANIMATION ---------- */
   useEffect(() => {
     const interval = setInterval(() => {
-      setIsAnimating(true);
-      
-      // Animate slide
-      setTimeout(() => {
-        if (direction === 'right') {
-          if (currentSlide === banners.length - 1) {
-            // If at last slide, go to first without animation
-            setCurrentSlide(0);
-            setDirection('right');
-          } else {
-            setCurrentSlide(prev => prev + 1);
-          }
-        }
-      }, 500); // Animation duration
-      
-      // Reset animation state
-      setTimeout(() => {
-        setIsAnimating(false);
-      }, 800);
-    }, 3000); // Change every 3 seconds
+      if (!isAnimating) {
+        nextSlide();
+      }
+    }, 3000);
 
     return () => clearInterval(interval);
-  }, [currentSlide, direction, banners.length]);
+  }, [isAnimating]);
+
+  const nextSlide = () => {
+    setIsAnimating(true);
+
+    // Immediately update the slide index
+    setCurrentSlideIndex((prev) => (prev + 1) % banners.length);
+
+    // Reset animation state after transition completes
+    setTimeout(() => {
+      setIsAnimating(false);
+    }, 600); // Match this with your CSS transition duration
+  };
 
   /* ---------- API ---------- */
   useEffect(() => {
@@ -82,26 +76,49 @@ const Inplay = () => {
     setActiveMatches(dataActive);
   }, [activeEvent, data]);
 
+  // Function to determine slide position class
+  const getSlidePosition = (index: number) => {
+    const totalSlides = banners.length;
+
+    if (index === currentSlideIndex) {
+      return "slide-center";
+    }
+
+    // Check if this is the next slide
+    const nextIndex = (currentSlideIndex + 1) % totalSlides;
+    if (index === nextIndex) {
+      return "slide-right";
+    }
+
+    // Check if this is the previous slide
+    const prevIndex = (currentSlideIndex - 1 + totalSlides) % totalSlides;
+    if (index === prevIndex) {
+      return "slide-left";
+    }
+
+    // For all other slides (shouldn't happen with 2 slides)
+    return "slide-left";
+  };
+
   return (
     <section className="inplay-page">
       <div className="inplay-container">
         {/* ---------- LEFT-RIGHT SLIDER ---------- */}
         <div className="slider-container">
-          <div className="slider-wrapper">
-            <div 
-              className={`slides ${isAnimating ? 'sliding-right' : ''}`}
-              style={{
-                transform: `translateX(-${currentSlide * 100}%)`,
-              }}
-            >
-              {banners.map((img, index) => (
-                <div className="slide" key={index}>
-                  <img src={img} alt={`Banner ${index + 1}`} />
-                </div>
-              ))}
-            </div>
+          <div
+            className="slider-wrapper"
+            style={{
+              transform: `translateX(-${currentSlideIndex * 100}%)`,
+            }}
+          >
+            {banners.map((img, index) => (
+              <div className="slide" key={index}>
+                <img src={img} alt={`Banner ${index + 1}`} />
+              </div>
+            ))}
           </div>
         </div>
+
 
         <div className="inplay-heading">
           <img src="/img/inplay/bat-ball-icon.png" alt="cricket" />
@@ -137,12 +154,12 @@ const Inplay = () => {
                           </div>
                         </div>
                       </div>
-                        <div className="col-sm-3 col-2">
-                          <div className="live-text"><span className="live-blink"></span> {match.inPlay && <span className="live-dot" />}LIVE</div>
-                        </div>
-                        <div className="col-sm-3 col-2">
-                          <div className="match-format-small"><span>BM</span><span>F</span></div>
-                        </div>
+                      <div className="col-sm-3 col-2">
+                        <div className="live-text"><span className="live-blink"></span> {match.inPlay && <span className="live-dot" />}LIVE</div>
+                      </div>
+                      <div className="col-sm-3 col-2">
+                        <div className="match-format-small"><span>BM</span><span>F</span></div>
+                      </div>
                     </div>
                   </div>
                 </Link>

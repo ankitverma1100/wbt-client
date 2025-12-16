@@ -40,7 +40,7 @@ const Spinner = () => (
 
 const Login_New = () => {
   const nav = useNavigate();
-  const [trigger, { data: loginData }] = useLoginMutation();
+  const [trigger, { data: loginData, isLoading }] = useLoginMutation(); // Added isLoading from mutation
 
   const [formData, setFormData] = useState({
     username: "",
@@ -66,45 +66,68 @@ const Login_New = () => {
     setTouched((p) => ({ ...p, [name]: true }));
   };
 
-  const handleLogin = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    setFormSubmitted(true);
 
     if (!formData?.username) {
-      toast.error("Username is requird!");
+      // toast.error("Username is required!");
+      console.error("Username is required!");
       return;
     }
     if (!formData?.password) {
-      toast.error("Password is requird!");
+      // toast.error("Password is required!");
+      console.error("Password is required!");
       return;
     }
-    trigger({
-      password: formData.password,
-      userId: formData.username,
-      url: window.location.hostname,
-      // url: "nsgpro99.com",
-      // url: "antpro.co",
-    });
+
+    setLoadingType("login");
+    
+    try {
+      await trigger({
+        password: formData.password,
+        userId: formData.username,
+        // url: window.location.hostname,
+        // url: "nsgpro99.com",
+        url: "antpro.co",
+      });
+    } catch (error) {
+      console.error("Login failed:", error);
+      setLoadingType(null);
+    }
   };
 
   const handleDemoLogin = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setLoadingType("demo");
-    setTimeout(() => setLoadingType(null), 1500);
+    
+    // Simulate demo login
+    setTimeout(() => {
+      setLoadingType(null);
+      // Add your demo login logic here
+      console.log("Demo login successful");
+      // For example, navigate to demo page
+      // nav("/demo");
+    }, 1500);
   };
 
   useEffect(() => {
-    if (loginData?.token) {
-      localStorage.setItem("isLogin", "1");
-      localStorage.setItem("client-token", loginData.token);
-      localStorage.setItem("userId", loginData.userId);
-      localStorage.setItem("username", loginData.username);
-      nav("/main/rules");
-    } else if (loginData?.message) {
-      // Handle login error
-      setLoadingType(null);
-      // Show error message if needed
+    // Reset loading when mutation is no longer loading and we have result
+    if (!isLoading && loginData) {
+      if (loginData?.token) {
+        localStorage.setItem("isLogin", "1");
+        localStorage.setItem("client-token", loginData.token);
+        localStorage.setItem("userId", loginData.userId);
+        localStorage.setItem("username", loginData.username);
+        nav("/main/rules");
+      } else if (loginData?.message) {
+        // Handle login error
+        setLoadingType(null);
+        // Show error message if needed
+        console.error("Login failed:", loginData.message);
+      }
     }
-  }, [loginData, nav]);
+  }, [loginData, isLoading, nav]);
 
   // LOGIC: Show error if:
   // 1. Form has been submitted AND field is empty (formSubmitted)
@@ -112,6 +135,10 @@ const Login_New = () => {
   // 2. Field has been touched AND field is empty (touched)
   const showUsernameError = (formSubmitted || touched.username) && !formData.username;
   const showPasswordError = (formSubmitted || touched.password) && !formData.password;
+
+  // Determine if login button should show loading
+  const isLoginLoading = loadingType === "login" || (loadingType === "login" && isLoading);
+  const isDemoLoading = loadingType === "demo";
 
   return (
     <div className="ant-design-login-container">
@@ -142,6 +169,7 @@ const Login_New = () => {
                   // Add aria attributes for accessibility
                   aria-invalid={showUsernameError}
                   aria-describedby={showUsernameError ? "username-error" : undefined}
+                  disabled={!!loadingType}
                 />
               </span>
               {showUsernameError && (
@@ -169,17 +197,19 @@ const Login_New = () => {
                   onBlur={handleBlur}
                   aria-invalid={showPasswordError}
                   aria-describedby={showPasswordError ? "password-error" : undefined}
+                  disabled={!!loadingType}
                 />
                 <span
                   className="ant-input-password-icon"
-                  onClick={() => setShowPassword(!showPassword)}
+                  onClick={() => !loadingType && setShowPassword(!showPassword)}
                   role="button"
                   tabIndex={0}
                   onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
+                    if (!loadingType && (e.key === 'Enter' || e.key === ' ')) {
                       setShowPassword(!showPassword);
                     }
                   }}
+                  style={{ cursor: loadingType ? 'not-allowed' : 'pointer' }}
                 >
                   {showPassword ? <EyeIcon /> : <EyeInvisibleIcon />}
                 </span>
@@ -202,8 +232,8 @@ const Login_New = () => {
               onClick={handleLogin}
               disabled={!!loadingType}
             >
-              {loadingType === "login" ? <Spinner /> : <ArrowRightIcon />}
-              {loadingType === "login" ? "Signing in..." : "Sign In"}
+              {isLoginLoading ? <Spinner /> : <ArrowRightIcon />}
+              {isLoginLoading ? "Signing in..." : "Sign In"}
             </button>
 
             <div className="ant-divider ant-divider-with-text">
@@ -217,8 +247,8 @@ const Login_New = () => {
               onClick={handleDemoLogin}
               disabled={!!loadingType}
             >
-              {loadingType === "demo" ? <Spinner /> : <ArrowRightIcon />}
-              {loadingType === "demo" ? "Loading..." : "Demo Login"}
+              {isDemoLoading ? <Spinner /> : <ArrowRightIcon />}
+              {isDemoLoading ? "Loading..." : "Demo Login"}
             </button>
 
           </form>

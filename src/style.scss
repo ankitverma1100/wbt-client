@@ -1,7 +1,12 @@
-@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
 body {
-  font-family: poppins, sans-serif;
+ 
   background: #fafafa;
+    height: 100vh;
+    background: #fff;
+    background: url(../public/img/body-bg.jpeg) center center;
+    margin: 0;
+    zoom: 90%;
 }
 * {
   -webkit-user-select: none;
@@ -11,7 +16,7 @@ body {
   user-select: none;
 }
 p {
-  font-family: poppins, sans-serif;
+ 
   font-size: 1.1em;
   font-weight: 300;
   line-height: 1.7em;

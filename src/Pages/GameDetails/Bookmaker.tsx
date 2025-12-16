@@ -84,184 +84,102 @@ const Bookmaker = ({
 
   return (
     <div className="overflow-responsive">
-      <table
-        width="100%"
-        cellSpacing={2}
-        cellPadding={2}
-        border={0}
-        className="table bg-white lagai_khai_tbl"
-        style={{ marginBottom: "0rem " }}>
-        <tbody>
+      <table className="bookmaker-table bet-table" width="100%">
+        <thead>
           <tr>
-            <td
-              className="FontTextWhite10px"
-              style={{ color: "#fff ", background: "var(--bg-color)" }}
-              width="45%"
-              valign="middle"
-              height={25}
-              align="center">
-              Min : {Number(minMaxData?.minbet)} Max : {minMaxData?.maxbet}
-            </td>
-            <td
-              className="FontTextWhite10px"
-              style={{ color: "#fff ", background: "var(--bg-color)" }}
-              width="15%"
-              valign="middle"
-              align="center">
-              LAGAI
-            </td>
-            <td
-              className="FontTextWhite10px"
-              style={{ color: "#fff ", background: "var(--bg-color)" }}
-              width="15%"
-              valign="middle"
-              align="center">
-              KHAI
-            </td>
-            <td
-              className="FontTextWhite10px"
-              style={{ color: "#fff ", background: "var(--bg-color)" }}
-              width="15%"
-              valign="middle"
-              align="center">
-              POS.
-            </td>
+            <th className="bm-head ">
+             <span className="text-blink"> BOOKMAKER</span>
+              <span className="bm-max text-blink">MAX: {minMaxData?.maxbet}</span>
+            </th>
+            <th className="bm-head bm-lagai">LAGAI</th>
+            <th className="bm-head bm-khai">KHAI</th>
           </tr>
-          {(filteredBookData?.length > 3
+        </thead>
+
+        <tbody>
+          {(filteredBookData.length > 3
             ? filteredBookData
             : processedBookData
-          )?.map((bookmaker, index: number) => {
+          )?.map((bookmaker, index) => {
             const oddsData = oddsPnl?.filter(
               (item) => item?.marketId === bookmaker?.mid
             );
+
             const oddsPnlData = oddsData?.[0]
               ? {
-                  [oddsData?.[0].selection1]: oddsData?.[0].pnl1,
-                  [oddsData?.[0].selection2]: oddsData?.[0].pnl2,
-                  [oddsData?.[0].selection3]: oddsData?.[0].pnl3,
-                }
+                [oddsData[0].selection1]: oddsData[0].pnl1,
+                [oddsData[0].selection2]: oddsData[0].pnl2,
+                [oddsData[0].selection3]: oddsData[0].pnl3,
+              }
               : {};
+
             return (
-              <tr key={index}>
-                <td
-                  className="FontTextBlue dsk-visible"
-                  style={{ verticalAlign: "middle", background: "#fff" }}
-                  valign="middle"
-                  align="center">
-                  <span
-                    className="FontTextBlue"
-                    style={{
-                      verticalAlign: "middle",
-                      display: "flex",
-                      fontWeight: 400,
-                      paddingLeft: 10,
-                    }}>
-                    {bookmaker.nation} <br /> <span style={{ color: "#f00" }} />
+              <tr key={index} className="bm-row">
+                {/* TEAM */}
+                <td className="bm-team">
+                  {bookmaker.nation}
+                  <span className="bm-pl">
+                    {oddsPnlData[parseInt(bookmaker.sid)] || 0}
                   </span>
                 </td>
+
+                {/* LAGAI */}
                 <td
-                  className="FontTextBlue mobi-visible"
-                  style={{ verticalAlign: "middle", background: "#fff" }}
-                  valign="middle"
-                  align="left">
-                  <span
-                    className="FontTextBlue"
-                    style={{
-                      verticalAlign: "middle",
-                      display: "flex",
-                      fontWeight: 400,
-                      paddingLeft: 10,
-                    }}>
-                    {bookmaker.nation}
-                  </span>
-                </td>
-                <td
-                  style={{
-                    verticalAlign: "middle",
-                    backgroundColor: "#FFF",
-                    fontWeight: 600,
-                    color: "#3920ce ",
-                    fontSize: "16px",
-                    cursor: "pointer",
-                  }}
-                  valign="middle"
-                  color="green"
-                  align="center"
+                  className="bm-back"
                   onClick={() => {
-                    if (bookmaker?.gstatus.toLowerCase() !== "suspended") {
+                    if (bookmaker?.gstatus?.toLowerCase() !== "suspended") {
                       handleBetData(
                         false,
                         true,
-                        bookmaker?.b1,
+                        bookmaker.b1,
                         "Bookmaker",
-                        bookmaker?.sid,
-                        bookmaker?.bs1,
-                        bookmaker?.mid,
-                        bookmaker?.nation,
+                        bookmaker.sid,
+                        bookmaker.bs1,
+                        bookmaker.mid,
+                        bookmaker.nation,
                         "LAGAI",
                         new Date()
                       );
                       focusAmountInput();
                     }
-                  }}>
-                  {bookmaker?.gstatus.toLowerCase() !== "suspended"
-                    ? bookmaker.b1
-                    : "0.0"}
-                </td>
-                <td
-                  className="textTeamHead"
-                  style={{
-                    verticalAlign: "middle",
-                    background: "#FFF",
-                    color: "#e02131 ",
-                    fontWeight: 600,
-                    fontSize: "16px",
-                    cursor: "pointer",
                   }}
+                >
+                  {bookmaker?.gstatus?.toLowerCase() !== "suspended"
+                    ? bookmaker.b1
+                    : 0}
+                </td>
+
+                {/* KHAI */}
+                <td
+                  className="bm-lay"
                   onClick={() => {
-                    if (bookmaker?.gstatus.toLowerCase() !== "suspended") {
+                    if (bookmaker?.gstatus?.toLowerCase() !== "suspended") {
                       handleBetData(
                         false,
                         false,
-                        bookmaker?.l1,
+                        bookmaker.l1,
                         "Bookmaker",
-                        bookmaker?.sid,
-                        bookmaker?.ls1,
-                        bookmaker?.mid,
-                        bookmaker?.nation,
+                        bookmaker.sid,
+                        bookmaker.ls1,
+                        bookmaker.mid,
+                        bookmaker.nation,
                         "KHAI",
                         new Date()
                       );
                       focusAmountInput();
                     }
                   }}
-                  valign="middle"
-                  align="center">
-                  {bookmaker?.gstatus.toLowerCase() !== "suspended"
+                >
+                  {bookmaker?.gstatus?.toLowerCase() !== "suspended"
                     ? bookmaker.l1
-                    : "0.0"}
-                </td>
-                <td
-                  className="FontTextWhite"
-                  id="Positiont562"
-                  style={{
-                    color:
-                      oddsPnlData[parseInt(bookmaker?.sid)] > 0
-                        ? "green"
-                        : "#f00",
-                    fontWeight: 400,
-                    verticalAlign: "middle",
-                    background: "#FFF",
-                  }}
-                  valign="middle"
-                  align="center">
-                  {oddsPnlData[parseInt(bookmaker?.sid)] || 0}
+                    : 0}
                 </td>
               </tr>
             );
           })}
         </tbody>
       </table>
+
     </div>
   );
 };
