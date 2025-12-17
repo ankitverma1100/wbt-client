@@ -17,7 +17,7 @@
       margin: 0px;
       font-weight: 600;
       text-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px;
-      font-size: 22px;
+      font-size: 21px;
       line-height: 1.3333333333333333;
     }
   }
@@ -114,7 +114,6 @@
 
     table.statement-table {
       width: 100%;
-      font-size: 14px;
       border: none;
       table-layout: fixed;
 
@@ -135,6 +134,7 @@
           position: relative;
           border-right: none;
           border-top: 0;
+          font-size: 12px;
 
 
           &:not(:last-child)::before {
