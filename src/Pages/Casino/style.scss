@@ -24,7 +24,7 @@
   grid-template-columns: repeat(6, 1fr);
   gap: 12px;
   margin-bottom: 15px;
- padding: 10px 15px;
+ padding:0 15px 10px ;
 }
 
 /* Tablet */
@@ -89,15 +89,3 @@
 }
 
 
-@media (max-width: 576px) {
- 
-  .casino-section-title {
-    font-size: 13px;
-    padding: 8px 0;
-  }
-
-  .casino-card-title {
-    font-size: 11px;
-    padding: 6px 4px;
-  }
-}

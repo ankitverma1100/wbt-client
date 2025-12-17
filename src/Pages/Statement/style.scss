@@ -326,6 +326,10 @@
             }
           }
         }
+
+        @media (max-width: 576px) {
+          display: none;
+        }
       }
     }
   }
@@ -351,4 +355,22 @@
       }
     }
   }
+}
+
+@media (min-width:767px) {
+  .big-th {
+    width: 200px;
+  }
+
+  .small-th {
+    width: 100px;
+  }
+}
+
+@media (max-width:767px) {
+  .big-th ,.small-th {
+    width: 100px;
+  }
+
+  
 }

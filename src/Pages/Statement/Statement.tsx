@@ -123,14 +123,14 @@ const Statement = () => {
 
                             {/* EQUAL COLUMN WIDTH SETUP */}
                             <colgroup>
-                                <col style={{ width: "200px" }} /> {/* DATE */}
-                                <col style={{ width: "200px" }} /> {/* DESCRIPTION */}
+                                <col className="big-th" /> {/* DATE */}
+                                <col className="big-th" /> {/* DESCRIPTION */}
 
-                                <col style={{ width: "100px" }} /> {/* PREV. BAL. */}
-                                <col style={{ width: "100px" }} /> {/* CREDIT */}
-                                <col style={{ width: "100px" }} /> {/* DEBIT */}
-                                <col style={{ width: "100px" }} /> {/* COMM+ */}
-                                <col style={{ width: "100px" }} /> {/* BALANCE */}
+                                <col className="small-th" /> {/* PREV. BAL. */}
+                                <col className="small-th" /> {/* CREDIT */}
+                                <col className="small-th" /> {/* DEBIT */}
+                                <col className="small-th" /> {/* COMM+ */}
+                                <col className="small-th" /> {/* BALANCE */}
                             </colgroup>
 
                             <thead>
