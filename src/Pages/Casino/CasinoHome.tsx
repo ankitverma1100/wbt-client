@@ -6,64 +6,65 @@ const CasinoHome = () => {
   const nav = useNavigate();
   const { data } = useCasinoListQuery();
 
-  // API से सिर्फ tableIds collect कर लो
   const activeTableIds = data?.data?.map((item) => item.tableId) || [];
 
-  const liveCasinos = [
-    { id: "54", img: "/img/54.jpeg", name: "Andar Bahar" },
-    { id: "51", img: "/img/51.jpeg", name: "Teen Patti" },
-    { id: "53", img: "/img/53.jpeg", name: "Lucky7" },
-    { id: "52", img: "/img/62.jpeg", name: "Dragon Tiger" },
-    { id: "56", img: "/img/56.jpeg", name: "Amar Akbar Anthony" },
-    // { id: "100", img: "/img/worli-matka-tvs.jpeg", name: "Worli Matka" },
-    { id: "61", img: "/img/61.jpeg", name: "1 Day Teen Patti" },
-    { id: "62", img: "/img/52.jpeg", name: "Dragon Tiger Line" },
+  const virtualCasino = [
+    { img: "/img/casino/aviator.webp", name: "AVIATOR" },
+    { img: "/img/casino/dus-ka-dum.webp", name: "DUS KA DUM" },
+    { img: "/img/casino/teen-patti.webp", name: "TEEN PATTI" },
+    { img: "/img/casino/andar-bahar.webp", name: "ANDAR BAHAR" },
+  ];
+
+  const liveCasino = [
+    { id: "52", img: "/img/casino/dragon-tiger.webp", name: "DRAGON TIGER" },
+    { id: "53", img: "/img/casino/lucky-b.webp", name: "LUCKY7B" },
+    { id: "56", img: "/img/casino/a-a-a.webp", name: "AMAR AKBAR ANTHONY" },
+    { id: "51", img: "/img/casino/teen-patti-2020.webp", name: "TEEN PATTI 2020" },
+    { id: "54", img: "/img/casino/andar-bahar-2.webp", name: "ANDAR BAHAR 2" },
+    { id: "61", img: "/img/casino/teen-patti-odi.webp", name: "TEEN PATTI ODI" },
+    { id: "100", img: "/img/casino/worli-matka.webp", name: "WORLI MATKA" },
+    { id: "55", img: "/img/casino/lucky-a.webp", name: "LUCKY7A" },
+    { id: "3", img: "/img/casino/3-card-jugdment.webp", name: "3 CARD JUDGEMENT" },
   ];
 
   return (
-    <div className="container-fluid p-2">
-      <div className="new-heading mt-2">Virtual Casino</div>
-      <div className="flexdiv">
-        <div className="casino-game">
-          <img
-            src="/img/99.jpeg"
-            style={{ borderRadius: 5 }}
-            className="w-100"
-          />
-        </div>
-        <div className="casino-game">
-          <img
-            src="/img/110.jpeg"
-            style={{ borderRadius: 5 }}
-            className="w-100"
-          />
-        </div>
-        <div className="casino-game">
-          <img
-            src="/img/54-v.jpeg"
-            style={{ borderRadius: 5 }}
-            className="w-100"
-          />
-        </div>
+    <div className="casino-page">
+
+      {/* ===== VIRTUAL CASINO ===== */}
+      <div className="casino-section-title">VIRTUAL CASINO</div>
+
+      <div className="casino-grid">
+        {virtualCasino.map((item, index) => (
+          <div key={index} className="casino-grid-item">
+            <div className="casino-card">
+              <img src={item.img} alt={item.name} />
+              <div className="casino-card-title">{item.name}</div>
+            </div>
+          </div>
+        ))}
       </div>
 
-      <div className="new-heading mt-2">Live Casino</div>
-      <div className="flexdiv" style={{ justifyContent: "center" }}>
-        {liveCasinos.map((casino) => {
-          const isActive = activeTableIds.includes(casino.id);
+      {/* ===== LIVE CASINO ===== */}
+      <div className="casino-section-title ">LIVE CASINO</div>
+
+      <div className="casino-grid">
+        {liveCasino.map((item) => {
+          const isActive = activeTableIds.includes(item.id);
+
           return (
-            <div
-              key={casino.id}
-              className={`casino-game ${isActive ? "active" : "inactive"}`}
-              onClick={() => isActive && nav(`/main/casino/${casino.id}`)}
-              style={{
-                cursor: isActive ? "pointer" : "not-allowed",
-              }}>
-              <img src={casino.img} alt={casino.name} className="w-100" />
+            <div key={item.id} className="casino-grid-item">
+              <div
+                className={`casino-card ${isActive ? "active" : "inactive"}`}
+                onClick={() => isActive && nav(`/main/casino/${item.id}`)}
+              >
+                <img src={item.img} alt={item.name} />
+                <div className="casino-card-title">{item.name}</div>
+              </div>
             </div>
           );
         })}
       </div>
+
     </div>
   );
 };

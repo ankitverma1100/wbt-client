@@ -1,198 +1,285 @@
 import { useNavigate } from "react-router-dom";
 import "./style.scss";
-import { useGetUserchpdtlMutation } from "../../store/service/userServices/userServices";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { DatePicker } from "antd";
 import dayjs from "dayjs";
 import moment from "moment";
 
 const { RangePicker } = DatePicker;
 
-const Statement = () => {
-  const nav = useNavigate();
-  const [dateRange, setDateRange] = useState<[string, string]>([
-    dayjs().subtract(7, "day").format("YYYY-MM-DD"),
-    dayjs().format("YYYY-MM-DD"),
-  ]);
-  const [filterType, setFilterType] = useState("ALL");
-  const [trigger, { data }] = useGetUserchpdtlMutation();
+/* ===============================
+   ICONS
+================================ */
+const LeftIcon = () => (
+    <svg viewBox="64 64 896 896" width="1em" height="1em" fill="currentColor">
+        <path d="M724 218.3V141c0-6.7-7.7-10.4-12.9-6.3L260.3 486.8a31.86 31.86 0 000 50.3l450.8 352.1c5.3 4.1 12.9.4 12.9-6.3v-77.3c0-4.9-2.3-9.6-6.1-12.6l-360-281 360-281.1c3.8-3 6.1-7.7 6.1-12.6z" />
+    </svg>
+);
 
-  // Pagination states
-  const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+const RightIcon = () => (
+    <svg viewBox="64 64 896 896" width="1em" height="1em" fill="currentColor">
+        <path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 00302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 000-50.4z" />
+    </svg>
+);
 
-  useEffect(() => {
-    trigger({
-      detailType: filterType,
-      fromDate: dateRange[0],
-      toDate: dateRange[1],
-      userId: "",
-    });
-    setCurrentPage(1); // Reset to first page when filter or date changes
-  }, [filterType, dateRange]);
+const DownArrowIcon = () => (
+    <svg viewBox="64 64 896 896" width="1em" height="1em" fill="currentColor">
+        <path d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z" />
+    </svg>
+);
 
-  const handleDateChange = (dates: any) => {
-    if (dates && dates.length === 2) {
-      setDateRange([
-        dates[0].format("YYYY-MM-DD"),
-        dates[1].format("YYYY-MM-DD"),
-      ]);
-    }
-  };
+const SearchIcon = () => (
+    <svg viewBox="64 64 896 896" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="40">
+        <path d="M909.6 854.5L649.9 594.8C690.2 542.7 714 478.8 714 408 714 244.6 579.4 110 416 110S118 244.6 118 408s134.6 298 298 298c70.8 0 134.7-23.8 186.8-64.1l259.7 259.7c7.2 7.2 18.9 7.2 26.1 0l24.1-24c7.2-7.2 7.2-18.9 0-26.1z"></path>
+    </svg>
+);
 
-  // Pagination logic
-  const totalEntries = data?.data?.length || 0;
-  const totalPages = Math.ceil(totalEntries / rowsPerPage);
-  const paginatedData =
-    data?.data?.slice(
-      (currentPage - 1) * rowsPerPage,
-      currentPage * rowsPerPage
-    ) || [];
-
-  return (
-    <div className="container mobile-padding-0 statement-page">
-      <div className="menu mt-0 mt-md-2 w-100" id="menu">
-        <ul className="nav" style={{ display: "block" }}>
-          <li className="back-main-menu">
-            <a onClick={() => nav(-1)}>BACK TO MAIN MENU</a>
-          </li>
-        </ul>
-      </div>
-
-      <div className="page_head">
-        <h6>MY ACCOUNT STATEMENT ({totalEntries})</h6>
-      </div>
-
-      <div className="row calenderdiv">
-        <div className="col-md-6">
-          <div className="calender">
-            <RangePicker
-              value={[dayjs(dateRange[0]), dayjs(dateRange[1])]}
-              onChange={handleDateChange}
-            />
-          </div>
-        </div>
-        <div className="col-md-6">
-          <div className="btn-group" role="group" aria-label="buttonFilter">
-            <button
-              type="button"
-              className="btn btn-sm btn-primary btn_filter"
-              onClick={() => setFilterType("ALL")}>
-              All
-            </button>
-            <button
-              type="button"
-              className="btn btn-sm btn-primary btn_filter"
-              onClick={() => setFilterType("PNL")}>
-              P&amp;L
-            </button>
-            <button
-              type="button"
-              className="btn btn-sm btn-primary btn_filter"
-              onClick={() => setFilterType("ACCOUNT")}>
-              Account
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div className="statement-table">
-        <div className="dataTables_wrapper no-footer">
-          <div className="dataTables_length">
-            <label>
-              Show{" "}
-              <select
-                value={rowsPerPage}
-                onChange={(e) => {
-                  setRowsPerPage(Number(e.target.value));
-                  setCurrentPage(1);
-                }}>
-                {[10, 25, 50, 100].map((size) => (
-                  <option key={size} value={size}>
-                    {size}
-                  </option>
-                ))}
-              </select>{" "}
-              entries
-            </label>
-          </div>
-
-          <table className="table statement-datatable dataTable no-footer">
-            <thead>
-              <tr>
-                <th style={{ width: 123 }}>DATE</th>
-                <th style={{ width: 196 }}>DESCRIPTION</th>
-                <th style={{ width: 97 }}>CREDIT</th>
-                <th style={{ width: 82 }}>DEBIT</th>
-                <th style={{ width: 99 }}>Comm+</th>
-                <th style={{ width: 119 }}>BALANCE</th>
-              </tr>
-            </thead>
-            <tbody>
-              {paginatedData.map((item, index) => (
-                <tr key={index}>
-                  <td style={{ whiteSpace: "nowrap" }}>
-                    {moment(item?.date).format("DD MMM YY")}
-                  </td>
-                  <td>{item?.description}</td>
-                  <td className="text-primary text-center">
-                    {item?.credit?.toFixed(2)}
-                  </td>
-                  <td className="text-danger text-center">
-                    {item?.debit?.toFixed(2)}
-                  </td>
-                  <td className="text-primary text-center">0.00</td>
-                  <td className="text-center">{item?.closing?.toFixed(2)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-
-          {/* Pagination Controls */}
-          <div className="pagination_main">
-            <div className="dataTables_info">
-              Showing{" "}
-              {Math.min((currentPage - 1) * rowsPerPage + 1, totalEntries)} to{" "}
-              {Math.min(currentPage * rowsPerPage, totalEntries)} of{" "}
-              {totalEntries} entries
-            </div>
-            <div className="pagination-controls">
-              <button
-                onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
-                disabled={currentPage === 1}>
-                Prev
-              </button>
-
-              {Array.from({ length: totalPages }, (_, i) => (
-                <button
-                  key={i}
-                  className={currentPage === i + 1 ? "active" : ""}
-                  onClick={() => setCurrentPage(i + 1)}>
-                  {i + 1}
-                </button>
-              ))}
-
-              <button
-                onClick={() =>
-                  setCurrentPage((p) => Math.min(p + 1, totalPages))
-                }
-                disabled={currentPage === totalPages}>
-                Next
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="menu mt-2 w-100" id="menu">
-        <ul className="nav" style={{ display: "block" }}>
-          <li className="back-main-menu">
-            <a onClick={() => nav(-1)}>BACK TO MAIN MENU</a>
-          </li>
-        </ul>
-      </div>
+const EmptyIcon = () => (
+    <div className="ant-empty-image">
+        <svg width="64" height="41" viewBox="0 0 64 41">
+            <g transform="translate(0 1)" fill="none" fillRule="evenodd">
+                <ellipse fill="#f5f5f5" cx="32" cy="33" rx="32" ry="7" />
+                <g fillRule="nonzero" stroke="#d9d9d9">
+                    <path d="M55 12.76L44.854 1.258C44.367.474 43.656 0 42.907 0H21.093c-.749 0-1.46.474-1.947 1.257L9 12.761V22h46v-9.24z" />
+                    <path
+                        d="M41.613 15.931c0-1.605.994-2.93 2.227-2.931H55v18.137C55 33.26 53.68 35 52.05 35h-40.1C10.32 35 9 33.259 9 31.137V13h11.16c1.233 0 2.227 1.323 2.227 2.928v.022c0 1.605 1.005 2.901 2.237 2.901h14.752c1.232 0 2.237-1.308 2.237-2.913v-.007z"
+                        fill="#fafafa"
+                    />
+                </g>
+            </g>
+        </svg>
     </div>
-  );
+);
+
+/* ===============================
+   DUMMY DATA
+================================ */
+const accountData = [
+    {
+        date: "2025-12-13T21:54:00",
+        description:
+            "ACCOUNT OPENING BALANCE BY BHAIA (A27875) TO CLIENTSHAK (C34386)",
+        prev: 0,
+        credit: 1000,
+        debit: 0,
+        comm: 0,
+        balance: 1000,
+    },
+];
+
+const pnlData: any[] = [];
+
+const Statement = () => {
+    const nav = useNavigate();
+
+    const [filterType, setFilterType] =
+        useState<"All" | "PNL" | "Account">("All");
+
+    const [rowsPerPage, setRowsPerPage] = useState(50);
+    const [pageSizeOpen, setPageSizeOpen] = useState(false);
+    const [pageInput, setPageInput] = useState("");
+    const [isTyping, setIsTyping] = useState(false);
+
+    const activeData = filterType === "PNL" ? pnlData : accountData;
+    const pageSizes = [10, 20, 50, 100];
+
+    return (
+        <main className="statement-page">
+
+            {/* HEADER */}
+            <div className="statement-header">
+                <h1>MY ACCOUNT STATEMENT ({activeData.length})</h1>
+            </div>
+
+            {/* FILTER */}
+            <div className="statement-filter-card">
+                <div className="filter-buttons">
+                    {["All", "PNL", "Account"].map((t) => (
+                        <button
+                            key={t}
+                            className={`filter-btn ${filterType === t ? "active" : ""}`}
+                            onClick={() => setFilterType(t as any)}
+                        >
+                            {t === "PNL" ? "P&L" : t}
+                        </button>
+                    ))}
+                </div>
+                {/* <RangePicker value={[dayjs().subtract(7, "day"), dayjs()]} /> */}
+            </div>
+
+            {filterType === "Account" && (
+                <div className="account-summary">
+                    <span className="credit-cell">CREDIT: 1000.00</span>
+                    <span className="debit-cell">DEBIT: 0.00</span>
+                    <span className="total-cell">TOTAL: 1000.00</span>
+                </div>
+            )}
+
+            <div className="outer-table">
+                {/* TABLE */}
+                <div className="statement-table-card">
+                    <div className="table-responsive">
+                        <table className="statement-table table">
+
+                            {/* EQUAL COLUMN WIDTH SETUP */}
+                            <colgroup>
+                                <col style={{ width: "200px" }} /> {/* DATE */}
+                                <col style={{ width: "200px" }} /> {/* DESCRIPTION */}
+
+                                <col style={{ width: "100px" }} /> {/* PREV. BAL. */}
+                                <col style={{ width: "100px" }} /> {/* CREDIT */}
+                                <col style={{ width: "100px" }} /> {/* DEBIT */}
+                                <col style={{ width: "100px" }} /> {/* COMM+ */}
+                                <col style={{ width: "100px" }} /> {/* BALANCE */}
+                            </colgroup>
+
+                            <thead>
+                                <tr>
+                                    <th className="text-start">DATE</th>
+                                    <th className="text-start">DESCRIPTION</th>
+                                    <th className="text-center">PREV. BAL.</th>
+                                    <th className="text-center">CREDIT</th>
+                                    <th className="text-center">DEBIT</th>
+                                    <th className="text-center">COMM+</th>
+                                    <th className="text-center">BALANCE</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {activeData.length === 0 ? (
+                                    <tr>
+                                        <td colSpan={7} className="statement-empty">
+                                            NO DATA AVAILABLE
+                                        </td>
+                                    </tr>
+                                ) : (
+                                    activeData.map((item, i) => (
+                                        <tr key={i}>
+                                            <td className="date bold">
+                                                {moment(item.date).format("DD MMM YYYY hh:mm A")}
+                                            </td>
+                                            <td className="desc bold">
+                                                <span className="ellipsis">
+                                                    {item.description}
+                                                </span>
+                                            </td>
+                                            <td className="green text-center">{item.prev}</td>
+                                            <td className="green bold text-center">{item.credit}</td>
+                                            <td className="red text-center">{item.debit}</td>
+                                            <td className="green text-center">{item.comm}</td>
+                                            <td className="bold text-center">
+                                                {item.balance.toFixed(2)}
+                                            </td>
+                                        </tr>
+                                    ))
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                {/* PAGINATION (OUTSIDE TABLE) */}
+                <div className="ant-pagination-wrapper">
+                    <ul className="ant-pagination">
+                        <li className="ant-pagination-total-text">
+                            1-1 OF {activeData.length} ITEMS
+                        </li>
+
+                        <li className="ant-pagination-prev disabled">
+                            <button disabled><LeftIcon /></button>
+                        </li>
+
+                        <li className="ant-pagination-item active">
+                            <a>1</a>
+                        </li>
+
+                        <li className="ant-pagination-next disabled">
+                            <button disabled><RightIcon /></button>
+                        </li>
+
+                        <li className="ant-pagination-options">
+                            <div className={`page-size-select ${pageSizeOpen ? "open" : ""}`}>
+                                <input
+                                    value={pageInput}
+                                    onFocus={() => setPageSizeOpen(true)}
+                                    onChange={(e) => {
+                                        const val = e.target.value;
+                                        setPageInput(val);
+                                        setIsTyping(val.length > 0);
+                                    }}
+                                    onBlur={() => {
+                                        setPageSizeOpen(false);
+                                        setIsTyping(false);
+                                        setPageInput("");
+                                    }}
+                                />
+
+                                {!isTyping && (
+                                    <span className="page-size-placeholder">
+                                        {rowsPerPage} / PAGE
+                                    </span>
+                                )}
+
+                                <span className="page-size-icon">
+                                    {pageSizeOpen ? <SearchIcon /> : <DownArrowIcon />}
+                                </span>
+
+                                {pageSizeOpen && (
+                                    <ul className="page-size-dropdown">
+                                        {!isTyping ? (
+                                            pageSizes.map((n) => (
+                                                <li
+                                                    key={n}
+                                                    className={rowsPerPage === n ? "active" : ""}
+                                                    onMouseDown={() => {
+                                                        setRowsPerPage(n);
+                                                        setPageInput("");
+                                                        setPageSizeOpen(false);
+                                                    }}
+                                                >
+                                                    {n} / PAGE
+                                                </li>
+                                            ))
+                                        ) : pageSizes.filter((n) =>
+                                            pageInput.includes(n.toString())
+                                        ).length ? (
+                                            pageSizes
+                                                .filter((n) => pageInput.includes(n.toString()))
+                                                .map((n) => (
+                                                    <li
+                                                        key={n}
+                                                        onMouseDown={() => {
+                                                            setRowsPerPage(n);
+                                                            setPageInput("");
+                                                            setPageSizeOpen(false);
+                                                        }}
+                                                    >
+                                                        {n} / PAGE
+                                                    </li>
+                                                ))
+                                        ) : (
+                                            <li className="page-size-empty">
+                                                <EmptyIcon />
+                                                <span>NO DATA</span>
+                                            </li>
+                                        )}
+                                    </ul>
+                                )}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+            {/* FOOTERS */}
+            {[1, 2].map((i) => (
+                <div className="statement-footer" key={i}>
+                    <button onClick={() => nav(-1)}>Back To Main Menu</button>
+                </div>
+            ))}
+        </main>
+    );
 };
 
 export default Statement;
