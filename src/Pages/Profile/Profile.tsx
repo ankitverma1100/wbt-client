@@ -6,37 +6,28 @@ import {
   useUserProfileMutation,
 } from "../../store/service/userServices/userServices";
 import { Link } from "react-router-dom";
-import moment from "moment";
+import { Select, Button } from "antd";
 
 const Profile = () => {
-  const [rateValue, setRateValue] = useState(0);
-  const [trigger, { data: userData }] = useUserProfileMutation();
-  const [updateRate, { data: updateRateInfo }] = useUpdateRateMutation();
+  const [rateValue, setRateValue] = useState<number>(0);
 
-  useEffect(() => {
-    if (userData && userData?.data?.rateDifference) {
-      setRateValue(userData?.data?.rateDifference);
-    }
-  }, [userData]);
+  const [trigger, { data: userData }] = useUserProfileMutation();
+  const [updateRate, { data: updateRateInfo, isLoading }] =
+    useUpdateRateMutation();
 
   useEffect(() => {
     trigger();
   }, []);
 
-  const handleRateChange = (e: string) => {
-    setRateValue(parseInt(e));
-  };
-
-  const handleUpadetRate = () => {
-    updateRate({ rateDifference: rateValue });
-  };
+  useEffect(() => {
+    if (userData?.data?.rateDifference !== undefined) {
+      setRateValue(userData.data.rateDifference);
+    }
+  }, [userData]);
 
   useEffect(() => {
-    if (updateRateInfo) {
-      if (updateRateInfo?.status) {
-        trigger();
-      } else {
-      }
+    if (updateRateInfo?.status) {
+      trigger();
     }
   }, [updateRateInfo]);
 
@@ -44,435 +35,81 @@ const Profile = () => {
     pollingInterval: 5000,
     refetchOnMountOrArgChange: true,
   });
+
   return (
-    <div className="profile-data-table profile_dddd container">
-      <table
-        className=""
-        width="100%"
-        border={0}
-        cellSpacing={0}
-        cellPadding={0}>
-        <tbody>
-          <tr>
-            <td valign="top" className="tbl-inr">
-              <table width="100%" border={0} cellPadding={0} cellSpacing={0}>
-                <tbody>
-                  <tr>
-                    <td align="left" valign="top">
-                      <table
-                        width="100%"
-                        border={0}
-                        cellSpacing={0}
-                        cellPadding={0}>
-                        <tbody>
-                          <tr>
-                            <td
-                              height={25}
-                              align="center"
-                              className="TeamCombo"
-                              style={{
-                                paddingLeft: 5,
-                                border: "none ",
-                                backgroundColor: "var(--bg-color)",
-                              }}>
-                              <p
-                                style={{
-                                  color: "#fff",
-                                  fontFamily: "Roboto",
-                                  fontSize: 13,
-                                  fontWeight: "bold",
-                                }}>
-                                RATE INFORMATION{" "}
-                              </p>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td align="left" valign="top">
-                      <table
-                        width="100%"
-                        border={0}
-                        cellPadding={2}
-                        cellSpacing={2}>
-                        <tbody>
-                          <tr>
-                            <td
-                              height={25}
-                              width="50%"
-                              align="left"
-                              className="FontTextBlue"
-                              style={{
-                                verticalAlign: "middle",
-                                textAlign: "left",
-                                padding: 6,
-                                backgroundColor: "#FFFFFF",
-                              }}>
-                              Rate Difference :
-                            </td>
-                            <td
-                              align="center"
-                              width="20%"
-                              className="FontTextBlue"
-                              style={{
-                                verticalAlign: "middle",
-                                textAlign: "center",
-                                padding: 6,
-                                backgroundColor: "#FFFFFF",
-                              }}>
-                              <select
-                                value={rateValue.toString()}
-                                onChange={(e) =>
-                                  handleRateChange(e.target.value)
-                                }>
-                                <option value="0">0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                              </select>
-                            </td>
-                            <td
-                              width="30%"
-                              style={{
-                                padding: "5px 10px",
-                                borderLeft: "1px solid #3d8282 ",
-                                backgroundColor: "#FFFFFF",
-                              }}>
-                              <button
-                                onClick={handleUpadetRate}
-                                className="btnprofile"
-                                type="button">
-                                Update
-                              </button>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td
-                      align="center"
-                      valign="bottom"
-                      style={{ backgroundColor: "#FFFFFF" }}
-                    />
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-          </tr>
-          <tr>
-            <td valign="top" className="tbl-inr">
-              <table width="100%" border={0} cellPadding={0} cellSpacing={0}>
-                <tbody>
-                  <tr>
-                    <td align="left" valign="top">
-                      <table
-                        width="100%"
-                        border={0}
-                        cellSpacing={0}
-                        cellPadding={0}>
-                        <tbody>
-                          <tr>
-                            <td
-                              height={25}
-                              align="center"
-                              className="TeamCombo"
-                              style={{ border: "none " }}>
-                              <p
-                                style={{
-                                  color: "#fff",
-                                  fontFamily: "Roboto",
-                                  fontSize: 13,
-                                  fontWeight: "bold",
-                                  backgroundColor: "var(--bg-color)",
-                                }}>
-                                PERSONAL INFORMATION{" "}
-                              </p>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td align="left" valign="top">
-                      <table
-                        width="100%"
-                        border={0}
-                        cellPadding={2}
-                        cellSpacing={2}>
-                        <tbody>
-                          <tr>
-                            <td
-                              height={25}
-                              width="60%"
-                              align="left"
-                              className="FontTextBlue"
-                              style={{
-                                verticalAlign: "middle",
-                                textAlign: "left",
-                                padding: 6,
-                                backgroundColor: "#FFFFFF",
-                              }}>
-                              Client Code :
-                            </td>
-                            <td
-                              align="center"
-                              width="40%"
-                              className="FontTextBlue"
-                              style={{
-                                verticalAlign: "middle",
-                                textAlign: "left",
-                                padding: 6,
-                                backgroundColor: "#FFFFFF",
-                              }}>
-                              {userData?.data?.userId}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td
-                              height={25}
-                              align="left"
-                              className="FontTextBlue"
-                              style={{
-                                verticalAlign: "middle",
-                                textAlign: "left",
-                                padding: 6,
-                                backgroundColor: "#FFFFFF",
-                              }}>
-                              Client Name :
-                            </td>
-                            <td
-                              align="center"
-                              className="FontTextBlue"
-                              style={{
-                                verticalAlign: "middle",
-                                textAlign: "left",
-                                padding: 6,
-                                backgroundColor: "#FFFFFF",
-                              }}>
-                              {userData?.data?.username}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td
-                              height={25}
-                              align="left"
-                              className="FontTextBlue"
-                              style={{
-                                verticalAlign: "middle",
-                                textAlign: "left",
-                                padding: 6,
-                                backgroundColor: "#FFFFFF",
-                              }}>
-                              Chips :
-                            </td>
-                            <td
-                              align="center"
-                              className="FontTextBlue"
-                              style={{
-                                verticalAlign: "middle",
-                                textAlign: "left",
-                                padding: 6,
-                                backgroundColor: "#FFFFFF",
-                              }}>
-                              {userBalance?.data?.balance?.toFixed(2)}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td
-                              height={25}
-                              align="left"
-                              className="FontTextBlue"
-                              style={{
-                                verticalAlign: "middle",
-                                textAlign: "left",
-                                padding: 6,
-                                backgroundColor: "#FFFFFF",
-                              }}>
-                              Contact No :
-                            </td>
-                            <td
-                              align="center"
-                              className="FontTextBlue"
-                              style={{
-                                verticalAlign: "middle",
-                                textAlign: "left",
-                                padding: 6,
-                                backgroundColor: "#FFFFFF",
-                              }}>
-                              {userData?.data?.contact || 0}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td
-                              height={25}
-                              align="left"
-                              className="FontTextBlue"
-                              style={{
-                                verticalAlign: "middle",
-                                textAlign: "left",
-                                padding: 6,
-                                backgroundColor: "#FFFFFF",
-                              }}>
-                              Date Of Joining :
-                            </td>
-                            <td
-                              align="center"
-                              className="FontTextBlue"
-                              style={{
-                                verticalAlign: "middle",
-                                textAlign: "left",
-                                padding: 6,
-                                backgroundColor: "#FFFFFF",
-                              }}>
-                              {moment(userData?.data?.dateOfJoining).format(
-                                "DD-MM-YYYY"
-                              )}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td
-                              height={25}
-                              align="left"
-                              className="FontTextBlue"
-                              style={{
-                                verticalAlign: "middle",
-                                textAlign: "left",
-                                padding: 6,
-                                backgroundColor: "#FFFFFF",
-                              }}>
-                              Address :
-                            </td>
-                            <td
-                              align="center"
-                              className="FontTextBlue"
-                              style={{
-                                verticalAlign: "middle",
-                                textAlign: "left",
-                                padding: 6,
-                                backgroundColor: "#FFFFFF",
-                              }}>
-                              {userData?.data?.address}
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td
-                      align="center"
-                      valign="bottom"
-                      style={{ backgroundColor: "#FFFFFF" }}
-                    />
-                  </tr>
-                  <tr>
-                    <td valign="top"></td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-          </tr>
-          <tr>
-            <td valign="top" className="tbl-inr">
-              <table width="100%" border={0} cellPadding={0} cellSpacing={0}>
-                <tbody>
-                  <tr>
-                    <td align="left" valign="top">
-                      <table
-                        width="100%"
-                        border={0}
-                        cellSpacing={0}
-                        cellPadding={0}>
-                        <tbody>
-                          <tr>
-                            <td
-                              height={25}
-                              align="center"
-                              className="TeamCombo"
-                              style={{ border: "none " }}>
-                              <p
-                                style={{
-                                  color: "#fff",
-                                  fontFamily: "Roboto",
-                                  fontSize: 13,
-                                  fontWeight: "bold",
-                                  backgroundColor: "var(--bg-color)",
-                                }}>
-                                COMPANY INFORMATION{" "}
-                              </p>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td align="left" valign="top">
-                      <table
-                        width="100%"
-                        border={0}
-                        cellPadding={2}
-                        cellSpacing={2}>
-                        <tbody>
-                          <tr>
-                            <td
-                              height={25}
-                              width="50%"
-                              align="left"
-                              className="FontTextBlue"
-                              style={{
-                                verticalAlign: "middle",
-                                textAlign: "left",
-                                padding: 6,
-                                backgroundColor: "#FFFFFF",
-                              }}>
-                              HELP LINE NO :
-                            </td>
-                            <td
-                              align="center"
-                              width="50%"
-                              className="FontTextBlue"
-                              style={{
-                                verticalAlign: "middle",
-                                textAlign: "left",
-                                padding: 6,
-                                backgroundColor: "#FFFFFF",
-                              }}>
-                              {userData?.data?.helpline || 0}
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td
-                      align="center"
-                      valign="bottom"
-                      style={{ backgroundColor: "#FFFFFF" }}
-                    />
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div className="menu mt-4 w-100" id="menu">
-        <ul className="nav" style={{ display: "block" }}>
-          <li className="back-main-menu">
-            <Link to="/main/dashboard">BACK TO MAIN MENU</Link>
-          </li>
-        </ul>
+    <main className="profile-page">
+      {/* BACK BUTTON */}
+      <div className="profile-back">
+        <Link to="/main/dashboard">Back To Main Menu</Link>
       </div>
-    </div>
+
+      {/* GRID */}
+      <div className="profile-grid">
+        {/* RATE INFORMATION */}
+        <div className="profile-card">
+          <div className="card-header">RATE INFORMATION</div>
+
+          <div className="card-body">
+            <div className="rate-section">
+              <div className="rate-label">RATE DIFFERENCE:</div>
+
+              <div className="rate-actions">
+                <Select
+                  value={rateValue}
+                  onChange={(value) => setRateValue(value)}
+                  options={[0, 1, 2, 3, 4, 5].map((n) => ({
+                    value: n,
+                    label: n,
+                  }))}
+                  style={{ width: 80 }}
+                />
+
+                <Button
+                  type="primary"
+                  loading={isLoading}
+                  onClick={() =>
+                    updateRate({ rateDifference: rateValue })
+                  }
+                >
+                  Update
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* PERSONAL INFORMATION */}
+        <div className="profile-card">
+          <div className="card-header">PERSONAL INFORMATION</div>
+
+          <div className="card-body">
+            <div className="info-grid">
+              <div className="info-row">
+                <span>CLIENT NAME:</span>
+                <strong>{userData?.data?.username}</strong>
+              </div>
+
+              <div className="info-row">
+                <span>CLIENT CODE:</span>
+                <strong>{userData?.data?.userId}</strong>
+              </div>
+
+              <div className="info-row">
+                <span>COINS:</span>
+                <strong>
+                  {userBalance?.data?.balance?.toFixed(2)}
+                </strong>
+              </div>
+
+              <div className="info-row">
+                <span>EXPOSURE:</span>
+                <strong>0</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
   );
 };
 
