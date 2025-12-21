@@ -5,7 +5,9 @@ import PageLayout from "./Common/PageLayout/PageLayout";
 import Loder from "./Common/Loder";
 import LedgerDetails from "./Pages/LedgerDetails/LedgerDetails";
 
-// Lazy imports
+/* ===============================
+   LAZY IMPORTS
+================================ */
 const Login_New = lazy(() => import("./Pages/Login/Login_New"));
 const PendingBet = lazy(() => import("./Pages/PendingBet/PendingBet"));
 const Dashboard = lazy(() => import("./Pages/Dashboard/Dashboard"));
@@ -24,9 +26,17 @@ const CasinoMainPage = lazy(
   () => import("./Pages/CasinoDetails/CasinoMainPage")
 );
 
-/**
- * Wraps a lazy-loaded component in Suspense with a Loder fallback
- */
+/* ===============================
+   MATKA PAGES (ADDED)
+================================ */
+const Matka = lazy(() => import("./Pages/Matka/matka"));
+const MatkaDetails = lazy(
+  () => import("./Pages/MatkaDetails/MatkaDetails")
+);
+
+/* ===============================
+   SUSPENSE WRAPPER
+================================ */
 const withLoader = (
   Component: React.LazyExoticComponent<() => JSX.Element>
 ): ReactElement => (
@@ -35,6 +45,9 @@ const withLoader = (
   </Suspense>
 );
 
+/* ===============================
+   ROUTER CONFIG
+================================ */
 export const router = createBrowserRouter([
   {
     path: "/login",
@@ -49,12 +62,12 @@ export const router = createBrowserRouter([
     element: <PageLayout />,
     children: [
       {
-        path: "matches",
-        element: withLoader(Inplay),
-      },
-      {
         path: "dashboard",
         element: withLoader(Dashboard),
+      },
+      {
+        path: "matches",
+        element: withLoader(Inplay),
       },
       {
         path: "pending",
@@ -64,6 +77,19 @@ export const router = createBrowserRouter([
         path: "casino",
         element: withLoader(CasinoHome),
       },
+
+      /* ===============================
+         ✅ MATKA ROUTES (FIXED)
+      ================================ */
+      {
+        path: "matka",
+        element: withLoader(Matka),
+      },
+      {
+        path: "matka-details/:slug",
+        element: withLoader(MatkaDetails),
+      },
+
       {
         path: "profile",
         element: withLoader(Profile),
@@ -104,6 +130,6 @@ export const router = createBrowserRouter([
   },
   {
     path: "*",
-    element: withLoader(Login_New), // Optionally replace with a 404 component
+    element: withLoader(Login_New),
   },
 ]);

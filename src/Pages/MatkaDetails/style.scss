@@ -1,0 +1,389 @@
+.matka-details {
+  margin: 0 auto;
+  background: #f5f5f5;
+  padding-top: 100px;
+  height: 100vh;
+
+  .matka-datails-wrapper {
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+  }
+
+  /* =====================
+     EVENT HEADER
+  ====================== */
+  .event-header {
+    background: #b88a2e;
+    border-radius: 6px;
+    padding: 10px 15px;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+
+    .title {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        background: #ffd400;
+        border-radius: 50%;
+      }
+    }
+
+    .time {
+      font-size: 12px;
+      color: #aaa;
+      font-size: .8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+  }
+
+  /* =====================
+     TABS
+  ====================== */
+  .tabs {
+    display: flex;
+    background: #b88a2e;
+    margin-bottom: 16px;
+    overflow: hidden;
+    border-bottom: 1px solid #2a3a5a;
+
+    button {
+      flex: 1;
+      padding: 10px;
+      background: none;
+      border: none;
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      border-bottom: 3px solid transparent;
+      transition: all .3s;
+      font-size: 14px;
+      border-radius: 4px;
+
+      &.active {
+        color: #ffd400;
+        border-bottom: 3px solid #ffd400;
+
+      }
+
+      &:hover {
+        background: #ffffff1a;
+      }
+    }
+  }
+
+  /* =====================
+     NUMBER GRID
+  ====================== */
+  .number-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+  }
+
+  .number-item {
+    background: transparent;
+    text-align: center;
+
+    button {
+      background: #b88a2e;
+      width: 100%;
+      padding: 10px;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .3s;
+      font-size: 14px;
+
+      &:active {
+        background: #a57924;
+      }
+
+      &:hover {
+        background: #3a4a6a;
+        transform: translateY(-2px);
+      }
+    }
+
+    span {
+      display: block;
+      margin-top: 2px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #00c853; // green 0 value
+    }
+  }
+
+  /* =====================
+     RESPONSIVE
+  ====================== */
+  @media (max-width: 1024px) {
+    .number-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+
+    .event-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .number-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+  }
+}
+
+
+/* =====================
+   BET MODAL
+===================== */
+.bet-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.bet-modal {
+  width: 420px;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.bet-modal-header {
+  background: #b88a2e;
+  color: #fff;
+  padding: 14px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.bet-modal-body {
+  padding: 16px;
+}
+
+.bet-info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+
+  label {
+    font-size: 12px;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .box,
+  input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-weight: 400;
+  }
+
+  .box {
+    background: #b88a2e;
+    color: #fff;
+    text-align: center;
+    font-size: 12px;
+  }
+
+  input {
+    border: 1px solid #2f80ff;
+    color: red;
+  }
+}
+
+.quick-stakes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+
+  button {
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    background: #1f73ff;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 12px;
+    &:hover{
+     opacity: .8;
+    }
+  }
+}
+
+.bet-actions {
+  display: flex;
+  gap: 12px;
+
+  button {
+    flex: 1;
+    height: 40px;
+    padding: 0 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .cancel {
+    border: 1px solid red;
+    background: #fff;
+    color: red;
+  }
+
+  .done {
+    border: none;
+    background: #1f73ff;
+    color: #fff;
+    &:hover{
+      opacity: .7;
+    }
+  }
+}
+
+/* =====================
+   HARUP SECTION
+===================== */
+.harup-section {
+  margin-bottom: 20px;
+}
+
+.harup-title {
+  color: gold;
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-bottom: 1px solid #2a3a5a;
+}
+
+.harup-grid {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+/* reuse existing number styles */
+
+/* =====================
+   OPEN BETS TABLE
+===================== */
+
+.open-bets-container {
+  overflow: hidden;
+  background: #fff;
+}
+
+/* TOP OPEN BETS BAR */
+.open-bets-title {
+  background: linear-gradient(180deg, #c1902f 0%, #000 100%);
+  color: #fff;
+  text-align: center;
+  font-weight: 700;
+  padding: 8px 12px;
+  letter-spacing: 0.5px;
+  font-size: 14px;
+}
+
+/* TABLE */
+.open-bets-table {
+  overflow-x: auto;
+}
+
+.open-bets-table table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+}
+
+.open-bets-table thead tr {
+  background: linear-gradient(180deg, #c1902f 0%, #000 100%);
+}
+
+.open-bets-table th {
+  color: #fff;
+  padding: 12px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  white-space: nowrap;
+}
+
+.open-bets-table th:last-child {
+  border-right: none;
+}
+
+.open-bets-table td {
+  padding: 10px;
+  font-size: 12px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+  white-space: nowrap;
+}
+
+/* Empty row look */
+.open-bets-table tbody tr {
+  background: #fff;
+}
+
+.bet-actions .done {
+  transition: all 0.3s ease;
+}
+
+.bet-actions .done:disabled {
+  cursor: not-allowed;
+}
+.bet-actions .done.placing {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =====================
+   LOADER
+===================== */
+.bet-actions  .loader {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #fff;
+  border-top-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+  animation: spin 0.8s linear infinite;
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+
