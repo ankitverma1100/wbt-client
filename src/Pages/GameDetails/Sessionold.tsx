@@ -19,7 +19,7 @@ interface Fancy2 {
   mid: string;
 }
 
-interface Props {
+interface OddsData {
   oddsData: Fancy2[] | undefined;
   handleBetData: (
     isFancy: boolean,
@@ -42,9 +42,9 @@ const Session = ({
   handleBetData,
   focusAmountInput,
   minMax,
-}: Props) => {
-  const { id } = useParams() as { id: string };
+}: OddsData) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { id } = useParams() as { id: string };
   const [trigger, { data }] = useGetFancyBookMutation();
 
   const handleShowFancyBook = (fancyId: string) => {
@@ -54,10 +54,10 @@ const Session = ({
 
   return (
     <div className="overflow-responsive">
-      <table className="bookmaker-table bet-table session-table" width="100%">
+      <table className="bookmaker-table bet-table" width="100%">
         <thead>
           <tr>
-            <th className="bm-head "><span className="text-blink">SESSION</span></th>
+            <th className="bm-head">SESSION</th>
             <th className="bm-head bm-khai">NOT</th>
             <th className="bm-head bm-lagai">YES</th>
           </tr>
@@ -77,23 +77,24 @@ const Session = ({
               return (
                 <tr
                   key={index}
-                  className={`bm-row ${suspended ? "suspen" : ""}`}
+                  className={`bm-row ${
+                    suspended ? "suspen" : ""
+                  }`}
                 >
                   {/* SESSION NAME */}
                   <td className="bm-team">
-                    <div className="session-group">
-                      <div className="session-details">
-                        <span className="session-text">{session.nation}</span>
-                        <span className="session-max">MAX : {minMaxData?.maxbet}</span>
-                      </div>
+                    {session.nation}
+                    <span className="bm-pl">
+                      MAX : {minMaxData?.maxbet}
+                    </span>
 
-                      <img
-                        src="/img/inplay/ladder.svg"
-                        alt="Book"
-                        className="bm-book-icon"
-                        onClick={() => handleShowFancyBook(session.sid)}
-                      />
-                    </div>
+                    {/* LADDER ICON */}
+                    <img
+                      src="/img/inplay/ladder.svg"
+                      alt="Book"
+                      className="bm-book-icon"
+                      onClick={() => handleShowFancyBook(session.sid)}
+                    />
                   </td>
 
                   {/* NOT */}
@@ -155,7 +156,7 @@ const Session = ({
       <Modal
         title="Fancy Book"
         open={isModalOpen}
-        footer={false}
+        footer={null}
         onCancel={() => setIsModalOpen(false)}
       >
         <table className="bookmaker-table bet-table" width="100%">
@@ -172,9 +173,7 @@ const Session = ({
                   <td align="center">{item.odds}</td>
                   <td
                     align="center"
-                    className={
-                      item.pnl > 0 ? "text-success" : "text-danger"
-                    }
+                    className={item.pnl > 0 ? "text-success" : "text-danger"}
                   >
                     {item.pnl}
                   </td>

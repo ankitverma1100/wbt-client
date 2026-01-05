@@ -1120,6 +1120,7 @@ em {
 
 .text-blink {
   animation: blink_alt  1s linear infinite;
+  font-weight: 400!important;
 
   @keyframes blink_alt {
     0% {
