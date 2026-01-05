@@ -1,11 +1,11 @@
 import { useState } from "react";
 import "./style.scss";
-import EventHeader from "./components/EventHeader";
-import GameTabs from "./components/GameTabs";
-import NumberGrid from "./components/NumberGrid";
-import HarupSection from "./components/HarupSection";
-import BetModal from "./components/BetModal";
-import OpenBets from "./components/OpenBets";
+import EventHeader from "./Components/EventHeader";
+import GameTabs from "./Components/GameTabs";
+import NumberGrid from "./Components/NumberGrid";
+import HarupSection from "./Components/HarupSection";
+import BetModal from "./Components/BetModal";
+import OpenBets from "./Components/OpenBets";
 
 export default function MatkaDetails() {
   const [activeTab, setActiveTab] = useState("Single Jodi");
