@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Button, Col, Input, Modal, Row } from "antd";
+import { Col, Modal, Row } from "antd";
 import { useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 
@@ -23,6 +23,10 @@ interface Props {
   betplaceData: BetPlacedRes | undefined;
 }
 
+const WatchIcon = () => (
+  <svg viewBox="64 64 896 896" focusable="false" data-icon="clock-circle" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"></path><path d="M686.7 638.6L544.1 535.5V288c0-4.4-3.6-8-8-8H488c-4.4 0-8 3.6-8 8v275.4c0 2.6 1.2 5 3.3 6.5l165.4 120.6c3.6 2.6 8.6 1.8 11.2-1.7l28.6-39c2.6-3.7 1.8-8.7-1.8-11.2z"></path></svg>
+);
+
 const BetplaceMobNew = ({
   placeBetData,
   setPlaceBetData,
@@ -32,7 +36,6 @@ const BetplaceMobNew = ({
   isLoading,
   setisModalOpen,
   isModalOpen,
-  betplaceData,
 }: Props) => {
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -92,7 +95,7 @@ const BetplaceMobNew = ({
   };
 
   const stakeOptions = [
-    100, 200, 500, 1000, 3000, 5000, 10000, 20000, 25000, 50000, 100000, 200000,
+    100, 200, 500, 1000, 2000, 5000, 10000, 20000, 25000, 50000, 100000, 200000,
   ];
 
   return (
@@ -103,91 +106,91 @@ const BetplaceMobNew = ({
       open={isModalOpen}
       className="betModals"
       footer={false}>
-      <div>
+      <div className="bet-modal-wrapper">
         {isLoading && (
           <div className="place_spinner">
-            <div className="spinner-border " role="status"></div>
+            <div className="spinner-border" role="status"></div>
           </div>
         )}
-        {/* Header Section */}
-        <div
-          className={`${
-            placeBetData?.isBack ? "back" : "lay"
-          }-color-lignt p-10`}>
-          <Row>
-            <Col xs={8}>
-              <div className="main_header_bet">
-                <p className="heade_team">Team</p>
-                <p className="heade_rate">{placeBetData?.name}</p>
-              </div>
-            </Col>
-            <Col xs={8}>
-              <div className="main_header_bet">
-                <p className="heade_team">Rate</p>
-                <p className="heade_rate">{placeBetData?.odds}</p>
-              </div>
-            </Col>
-            <Col xs={8}>
-              <div className="main_header_bet">
-                <p className="heade_team">Mode</p>
-                <p className="heade_rate">{placeBetData?.mode}</p>
-              </div>
-            </Col>
-          </Row>
+
+        {/* Custom Modal Header */}
+        <div className="modal-header-gold">
+          <span>PLACE YOUR BET</span>
+          <span className="close-icon" onClick={() => setisModalOpen(false)}>×</span>
         </div>
 
-        {/* Stake Buttons */}
-        <div className={`${placeBetData?.isBack ? "back" : "lay"}-color p-10`}>
-          <Row gutter={[24, 8]}>
-            {stakeOptions.map((value) => (
-              <Col xs={8} key={value}>
-                <Button
-                  className="stack_button_pl"
-                  onClick={() => handleChange(value)}>
-                  {value}
-                </Button>
+        <div className="modal-content-body">
+          {/* Team Info Card */}
+          <div className="team-card-gold">
+            <span className="team-name">{placeBetData?.name || "Team Name"}</span>
+            <span className={`mode-badge ${placeBetData?.isBack ? "lagai" : "khai"}`}>
+              {placeBetData?.isBack ? "LAGAI" : "KHAI"}
+            </span>
+          </div>
+
+          {/* Blue Controls Section (Price, Size, Stake) */}
+          <div className="controls-section-blue">
+            <Row gutter={10}>
+              <Col span={8}>
+                <span className="control-label">PRICE</span>
+                <input
+                  type="text"
+                  readOnly
+                  className="control-input"
+                  value={placeBetData?.odds || ""}
+                />
               </Col>
+              <Col span={8}>
+                <span className="control-label">SIZE</span>
+                <input
+                  type="text"
+                  readOnly
+                  className="control-input"
+                  value={placeBetData?.name || ""}
+                />
+              </Col>
+              <Col span={8}>
+                <span className="control-label">STAKE</span>
+                <input
+                  type="number"
+                  className="control-input"
+                  placeholder="0"
+                  value={placeBetData?.stake || ""}
+                  onChange={handleAmountChange}
+                />
+              </Col>
+            </Row>
+          </div>
+
+          {/* Action Row: Timer & Place Bet Button */}
+          <div className="actions-row">
+            <div className="timer-box">
+              <span style={{ fontSize: "16px", display: "flex", alignItems: "center" }}>
+                <WatchIcon />
+              </span>
+              <span>TIMER: {timer}</span>
+            </div>
+            <button
+              className="place-bet-btn"
+              onClick={() => !isLoading && handleBetPlaced()}
+            >
+              Place Bet
+            </button>
+          </div>
+
+          {/* Stake Buttons Grid (4 Columns) */}
+          <div className="stake-grid">
+            {stakeOptions.map((value) => (
+              <button
+                key={value}
+                className="stake-btn"
+                onClick={() => handleChange(value)}
+              >
+                {value}
+              </button>
             ))}
-          </Row>
-
-          {/* Input + Timer */}
-          <Row className="mt-10">
-            <Col xs={21}>
-              <Input
-                placeholder="Enter Amount"
-                onChange={handleAmountChange}
-                value={placeBetData?.stake}
-              />
-            </Col>
-            <Col xs={3}>
-              <div className="timmer_dev">{timer}</div>
-            </Col>
-          </Row>
+          </div>
         </div>
-
-        {/* Footer Buttons */}
-        <Row className="back-color">
-          <Col xs={12}>
-            <Button
-              onClick={() => {
-                setisModalOpen(false);
-                setPlaceBetData((prev) => ({
-                  ...prev,
-                  stake: "",
-                }));
-              }}
-              className="close_button">
-              Cancel
-            </Button>
-          </Col>
-          <Col xs={12}>
-            <Button
-              className="submit_button"
-              onClick={() => !isLoading && handleBetPlaced()}>
-              Submit
-            </Button>
-          </Col>
-        </Row>
       </div>
     </Modal>
   );

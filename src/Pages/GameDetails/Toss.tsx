@@ -1,110 +1,116 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-const Toss = () => {
+interface Props {
+  oddsData: any[] | undefined;
+  handleBetData: (
+    isFancy: boolean,
+    isBack: boolean,
+    odds: number,
+    marketName: string,
+    selectionId: string,
+    priceValue: number,
+    marketId: string,
+    name: string,
+    mode: string,
+    date: any
+  ) => void;
+  focusAmountInput: () => void;
+  oddsPnl: any[] | undefined;
+}
+
+const Toss = ({
+  oddsData,
+  handleBetData,
+  focusAmountInput,
+  oddsPnl,
+}: Props) => {
+  const data = (oddsData || []).filter(Boolean);
+
   return (
-    <div
-      className="ant-table-wrapper gx-w-100 gx-mx-0 gx-my-0"
-      style={{ marginTop: 16, width: "100%" }}>
-      <div className="ant-table ant-table-small ant-table-bordered">
-        <div className="ant-table-container">
-          <div className="ant-table-content">
-            <table style={{ tableLayout: "auto", width: "100%" }}>
-              <colgroup>
-                <col style={{ width: "60%" }} />
-                <col style={{ width: "20%" }} />
-                <col style={{ width: "20%" }} />
-              </colgroup>
-              <thead className="ant-table-thead">
-                <tr>
-                  <th className="ant-table-cell">
-                    <div
-                      className="gx-bg-flex gx-justify-content-between minMax"
-                      style={{ display: "flex" }}>
-                      <span>Toss Data</span>
-                      <span style={{ textWrap: "nowrap" }}>
-                        Min: 100 Max: 200000
-                      </span>
-                    </div>
-                  </th>
-                  <th
-                    className="ant-table-cell"
-                    style={{ textAlign: "center" }}>
-                    Lagai
-                  </th>
-                  <th
-                    className="ant-table-cell"
-                    style={{ textAlign: "center" }}>
-                    Khai
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="ant-table-tbody">
-                <tr
-                  data-row-key={0}
-                  className="ant-table-row ant-table-row-level-0">
-                  <td className="ant-table-cell">
-                    <div className="gx-bg-flex gx-justify-content-between">
-                      <div className=" gx-font-weight-semi-bold ">
-                        ENGLAND W
-                      </div>
-                      <div className="gx-font-weight-semi-bold gx-text-light-grey ">
-                        0
-                      </div>
-                    </div>
-                  </td>
-                  <td
-                    className="ant-table-cell"
-                    style={{ textAlign: "center" }}>
-                    <div className=" gx-bg-flex gx-text-blue gx-flex-column">
-                      <span className="gx-font-weight-semi-bold">95</span>
-                      <span className="gx-fs-xs">100</span>
-                    </div>
-                  </td>
-                  <td
-                    className="ant-table-cell"
-                    style={{ textAlign: "center" }}>
-                    <div
-                      className="  gx-bg-flex gx-flex-column"
-                      style={{ color: "rgb(227, 68, 103)" }}>
-                      <span className="gx-font-weight-semi-bold">0</span>
-                      <span className="gx-fs-xs">100</span>
-                    </div>
-                  </td>
-                </tr>
-                <tr
-                  data-row-key={1}
-                  className="ant-table-row ant-table-row-level-0">
-                  <td className="ant-table-cell">
-                    <div className="gx-bg-flex gx-justify-content-between">
-                      <div className=" gx-font-weight-semi-bold ">INDIA W</div>
-                      <div className="gx-font-weight-semi-bold gx-text-light-grey ">
-                        0
-                      </div>
-                    </div>
-                  </td>
-                  <td
-                    className="ant-table-cell"
-                    style={{ textAlign: "center" }}>
-                    <div className=" gx-bg-flex gx-text-blue gx-flex-column">
-                      <span className="gx-font-weight-semi-bold">95</span>
-                      <span className="gx-fs-xs">100</span>
-                    </div>
-                  </td>
-                  <td
-                    className="ant-table-cell"
-                    style={{ textAlign: "center" }}>
-                    <div
-                      className="  gx-bg-flex gx-flex-column"
-                      style={{ color: "rgb(227, 68, 103)" }}>
-                      <span className="gx-font-weight-semi-bold">0</span>
-                      <span className="gx-fs-xs">100</span>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+    <div className="overflow-responsive">
+      <table className="bookmaker-table bet-table" width="100%">
+        <thead>
+          <tr>
+            <th className="bm-head">
+              <span className="text-blink">TOSS</span>
+            </th>
+            <th className="bm-head bm-lagai">LAGAI</th>
+            <th className="bm-head bm-khai">KHAI</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {data.map((item, index) => {
+            const pnlRow = oddsPnl?.find(
+              (pnl) => pnl?.marketId === item?.mid
+            );
+
+            const pnl =
+              pnlRow?.[item.sid as keyof typeof pnlRow] || 0;
+
+            const isSuspended =
+              item?.gstatus?.toLowerCase() === "suspended";
+
+            return (
+              <tr key={index} className="bm-row">
+                {/* TEAM */}
+                <td className="bm-team">
+                  {item.nation}
+                  <span className="bm-pl">{pnl}</span>
+                </td>
+
+                {/* LAGAI */}
+                <td
+                  className="bm-back"
+                  onClick={() => {
+                    if (!isSuspended && item.b1 > 0) {
+                      handleBetData(
+                        false,
+                        true,
+                        item.b1,
+                        "Toss",
+                        item.sid,
+                        item.bs1,
+                        item.mid,
+                        item.nation,
+                        "LAGAI",
+                        new Date()
+                      );
+                      focusAmountInput();
+                    }
+                  }}
+                >
+                  {!isSuspended ? item.b1 : 0}
+                </td>
+
+                {/* KHAI */}
+                <td
+                  className="bm-lay"
+                  onClick={() => {
+                    if (!isSuspended && item.l1 > 0) {
+                      handleBetData(
+                        false,
+                        false,
+                        item.l1,
+                        "Toss",
+                        item.sid,
+                        item.ls1,
+                        item.mid,
+                        item.nation,
+                        "KHAI",
+                        new Date()
+                      );
+                      focusAmountInput();
+                    }
+                  }}
+                >
+                  {!isSuspended ? item.l1 : 0}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 };
