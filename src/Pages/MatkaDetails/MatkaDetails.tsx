@@ -39,6 +39,7 @@ export default function MatkaDetails() {
             number={selectedNumber || ""}
             onClose={() => setSelectedNumber(null)}
           />
+          
         </div>
       </div>
     </div>
