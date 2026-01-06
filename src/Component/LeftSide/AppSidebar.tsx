@@ -68,8 +68,13 @@ const AppSidebar = ({ visible, onClose }: Props) => {
       className={` sidebar_menu ${visible ? "show" : "hide"}`}
       tabIndex={-1}
       role="dialog"
+      onClick={onClose}
     >
-      <div className="menu-dialog" role="document">
+      <div
+        className="menu-dialog"
+        role="document"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="menu-content">
           <div className="menu-header">
             <button
