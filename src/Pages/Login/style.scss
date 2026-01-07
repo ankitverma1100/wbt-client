@@ -306,7 +306,7 @@
 .ant-design-login-container {
   display: flex;
   justify-content: center;
-  // align-items: center;
+  align-items: center;
   min-height: 100vh;
   background: linear-gradient(180deg,
       #b88a2d 0%,
@@ -326,14 +326,15 @@
 
     &.login-card {
       width: 100%;
-      max-width: 420px;
-      padding: 25px;
+      max-width: 400px;
+      padding: 20px;
     }
 
     .ant-card-body {
-      padding: 25px;
+      padding: 20px;
     }
   }
+
 
   /* ================= HEADER ================= */
   .login-header {
@@ -341,7 +342,7 @@
     margin-bottom: 20px;
 
     .login-logo {
-      width: 225px;
+      width: 200px;
       height: auto;
       object-fit: contain;
       margin-bottom: 20px;
@@ -381,12 +382,12 @@
     position: relative;
     display: flex;
     align-items: center;
-    padding: 7px 14px;
-    border-radius: 8px;
+    padding: 6px 12px;
+    border-radius: 6px;
     background: #ffffff;
-    border: 2px solid transparent;
+    border: 1px solid #dcdcdc;
     transition: all 0.25s ease;
-    height: 40px;
+    height: 38px;
 
     &:hover {
       border-color: #1a73ff;
@@ -427,13 +428,13 @@
     border: none;
     background: transparent;
     outline: none;
-    font-size: 16px;
+    font-size: 14px;
     color: #333;
 
     &::placeholder {
       color: #999;
       opacity: .5;
-      font-size: 16px;
+      font-size: 14px;
     }
   }
 
@@ -442,10 +443,10 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
-    padding: 7px 14px;
-    font-size: 16px;
-    min-height: 40px;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 14px;
+    min-height: 38px;
     cursor: pointer;
     transition: all 0.25s ease;
     gap: 8px;
@@ -531,9 +532,20 @@
 
     .footer-links {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      gap: 14px;
+      gap: 10px;
+
+      .footer-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+
+        &.single {
+          gap: 0;
+        }
+      }
 
       a {
         color: #666;
@@ -541,13 +553,18 @@
         font-size: 8px;
         transition: color .3s;
         text-transform: uppercase;
-        transition: color .3s;
         font-weight: 700;
 
         &:hover {
           color: #6e8efb;
           text-decoration: underline;
         }
+      }
+
+      .ant-divider-vertical {
+        height: 10px;
+        border-left: 1px solid rgba(102, 102, 102, 0.6);
+        margin: 0;
       }
     }
   }

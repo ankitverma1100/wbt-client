@@ -256,11 +256,13 @@ const Login_New = () => {
           <div className="login-footer ">
             <span className="disclaimer">Note: This website is not for Indian Territory</span>
             <div className="footer-links">
-              <a href="#">Privacy Policy</a>
-              <div className="ant-divider ant-divider-vertical" />
-              <a href="#">Terms & Conditions</a>
-              <div className="ant-divider ant-divider-vertical" />
-              <a href="#">Rules & Regulations</a>
+              <div className="footer-row">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms & Conditions</a>
+              </div>
+              <div className="footer-row single">
+                <a href="#">Rules & Regulations</a>
+              </div>
             </div>
           </div>
 
