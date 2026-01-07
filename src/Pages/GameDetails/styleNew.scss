@@ -188,7 +188,7 @@ $model-header: #1f5058;
 .bm-lay,
 .bm-back {
   font-weight: 600;
-  font-size: 16px;
+  font-size: 12px;
   color: rgb(0, 0, 0);
   text-align: center;
   width: 20%;
@@ -208,6 +208,96 @@ $model-header: #1f5058;
 
 .bm-lay {
   background: #ffb6c1;
+}
+
+/* Fancy remark row */
+.fancy-rem {
+  padding: 6px 12px;
+  font-size: 12px;
+  color: #b40202;
+  font-weight: 600;
+  text-align: right;
+  background: #f7f7f7;
+  border-bottom: 6px solid #eee;
+}
+
+.fancy-book-modal {
+  .ant-modal-content {
+    padding: 0;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .ant-modal-header {
+    background: #b7862f;
+    border-bottom: none;
+    padding: 12px 16px;
+  }
+
+  .ant-modal-title {
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  .ant-modal-close {
+    color: #fff;
+  }
+
+  .ant-modal-body {
+    padding: 12px 16px 16px;
+    background: #f5f5f5;
+  }
+}
+
+.all-events-modal {
+  .ant-modal-content {
+    border-radius: 8px;
+  }
+}
+
+.fancy-book-table {
+  border-collapse: collapse;
+  background: #f5f5f5;
+  width: 100%;
+
+  th {
+    background: linear-gradient(to bottom, #d4a32f, #000); /* match bm-head */
+    color: #fff;
+    font-weight: 700;
+    font-size: 12px;
+    padding: 8px 10px;
+    text-transform: uppercase;
+    border: 1px solid #3a3a3a;
+  }
+
+  td {
+    padding: 8px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #111;
+    background: #fff;
+    border: 1px solid #e1e1e1;
+  }
+}
+
+/* Bookmaker cell sizing aligned with other sections */
+.bookmaker-table {
+  .bm-back,
+  .bm-lay {
+    line-height: normal;
+
+    div:first-child {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .bm-size {
+      font-size: 9px;
+      font-weight: 700;
+      margin-top: 0;
+    }
+  }
 }
 
 .bm-book-icon {
@@ -265,6 +355,20 @@ $model-header: #1f5058;
   font-size: 16px;
   outline: none;
   background: #fff;
+  -moz-appearance: textfield;
+}
+
+.amount-input::-webkit-outer-spin-button,
+.amount-input::-webkit-inner-spin-button {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.amount-input:hover::-webkit-outer-spin-button,
+.amount-input:hover::-webkit-inner-spin-button,
+.amount-input:focus::-webkit-outer-spin-button,
+.amount-input:focus::-webkit-inner-spin-button {
+  opacity: 1;
 }
 
 .amount-input::placeholder {
@@ -280,6 +384,13 @@ $model-header: #1f5058;
   font-size: 14px;
   color: #111;
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.amount-input-wrap:hover .amount-arrows,
+.amount-input:focus + .amount-arrows {
+  opacity: 1;
 }
 
 /* BLACK BOX (8) */
@@ -380,11 +491,19 @@ $model-header: #1f5058;
   }
 }
 
-.controls-section-blue {
-  background: #abd2fa;
+.controls-section {
   border-radius: 8px;
   padding: 12px;
   margin-bottom: 16px;
+  background: #abd2fa;
+
+  &.controls-back {
+    background: #abd2fa; /* blue */
+  }
+
+  &.controls-lay {
+    background: #f7d2e5; /* pink */
+  }
 
   .control-label {
     font-weight: 700;

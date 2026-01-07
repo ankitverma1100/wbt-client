@@ -3,6 +3,7 @@ import {
   useGetBetListBymatchIdQuery,
   useActiveEventMutation,
 } from "../../store/service/userServices/userServices";
+import { useActiveMatchQuery } from "../../store/service/odds/oddsServices";
 import { Modal } from "antd";
 import { useState, useEffect } from "react";
 import moment from "moment";
@@ -28,13 +29,34 @@ const MatchBets = () => {
   );
 
   const [trigger, { data: activeEventData }] = useActiveEventMutation();
+  const { data: activeMatchData } = useActiveMatchQuery();
   const [openAllEvents, setOpenAllEvents] = useState(false);
+  const [activeMatches, setActiveMatches] = useState<any[]>([]);
 
   useEffect(() => {
     if (openAllEvents) {
       trigger();
     }
   }, [openAllEvents]);
+
+  useEffect(() => {
+    if (!openAllEvents) return;
+    if (!activeMatchData || !activeEventData) return;
+
+    const combined =
+      activeMatchData?.data
+        ?.flatMap((item: any) =>
+          activeEventData.data
+            .filter((m: any) => m?.eventId === item?.matchId)
+            .map((m: any) => ({ ...item, active: m.active }))
+        )
+        ?.sort(
+          (a: any, b: any) =>
+            new Date(a.openDate).getTime() - new Date(b.openDate).getTime()
+        ) ?? [];
+
+    setActiveMatches(combined);
+  }, [openAllEvents, activeMatchData, activeEventData]);
 
 
   const sessionBets =
@@ -653,7 +675,7 @@ const MatchBets = () => {
         onCancel={() => setOpenAllEvents(false)}
         closeIcon={<span style={{ color: "#fff", fontSize: "20px" }}>×</span>}
         footer={null}
-        width={1000}
+        width={780}
         styles={{
           header: {
             background: "#bca415",
@@ -667,8 +689,8 @@ const MatchBets = () => {
             background: "#fff",
           },
           body: {
-            padding: "24px",
-            maxHeight: "80vh",
+            padding: "12px",
+            maxHeight: "65vh",
             overflowY: "auto",
           },
         }}
@@ -677,72 +699,70 @@ const MatchBets = () => {
             @keyframes pulse-dot { 0% { transform: scale(0.8); opacity: 0.5; } 100% { transform: scale(2.4); opacity: 0; } }
             @keyframes blink-text { 0% {color: #c2e884;} 20% {color: #c2e884;} 40% {color: #ff7f00;} 60% {color: #ff7f00;} 80% {color: #36cb3b;} 100% {color: #36cb3b;} }
           `}</style>
-        <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-          {activeEventData?.data?.map((event: any, index: number) => (
-            <div
-              key={index}
-              style={{
-                background: "linear-gradient(#b7862f 0, #000 100%)",
-                borderRadius: "0 0 8px 8px",
-                padding: "12px",
-                color: "#fff",
-                display: "flex",
-                flexDirection: "column",
-                gap: "4px"
-              }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-                <div style={{ display: "flex", flexDirection: "column" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "15px", padding: "16px 16px 16px" }}>
+          {(activeMatches?.length ? activeMatches : activeEventData?.data || []).map((event: any, index: number) => {
+            const title = event?.matchName || event?.gameName || "UNKNOWN SERIES";
+            const eventType =
+              event?.eventTypeName || event?.seriesName || event?.eventType || "";
+            const isLive = !!event?.inPlay;
+            return (
+              <div
+                key={index}
+                style={{
+                  background: "linear-gradient(#b7862f 0, #000 100%)",
+                  borderRadius: "6px",
+                  padding: "14px 16px",
+                  color: "#fff",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "8px",
+                  boxShadow: "0 2px 6px rgba(0,0,0,0.35)",
+                }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
                   <div
                     style={{
-                      fontSize: "16px",
-                      fontWeight: "600",
-                      textTransform: "uppercase",
-                      marginBottom: "0px",
-                    }}>
-                    {event?.gameName || "Unknown Series"}
-                  </div>
-                  <div
-                    style={{
-                      fontSize: "12px",
+                      fontSize: "14px",
                       fontWeight: "700",
                       textTransform: "uppercase",
                     }}>
-                    T20 SERIES
+                    {title}
                   </div>
+                  {eventType && (
+                    <div
+                      style={{
+                        fontSize: "11px",
+                        fontWeight: "700",
+                        textTransform: "uppercase",
+                        opacity: 0.9,
+                      }}>
+                      {eventType}
+                    </div>
+                  )}
                 </div>
-              </div>
 
-              <div className="row mt-2" style={{ alignItems: "center" }}>
-                <div className="col-sm-6 col-8">
-                  <div style={{ display: "flex", alignItems: "center", gap: "10px", height: "100%" }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "3px", fontSize: "12px", fontWeight: "700", textTransform: "uppercase" }}>
-                      <CalenderIcon />
-                      <span>{moment(event?.openDate).format("ddd, MMM DD YYYY")}</span>
-                    </div>
-                    <div style={{ display: "flex", alignItems: "center", gap: "3px", fontSize: "12px", fontWeight: "700", textTransform: "uppercase" }}>
-                      <ClockIcon />
-                      <span>{moment(event?.openDate).format("hh:mm A")}</span>
+                <div className="row" style={{ alignItems: "center" }}>
+                  <div className="col-sm-8 col-8">
+                    <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "12px", fontWeight: "700", textTransform: "uppercase" }}>
+                        <ClockIcon />
+                        <span>{moment(event?.openDate).format("hh:mm A")}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="col-sm-3 col-2">
-                  <div style={{ display: "flex", alignItems: "center", height: "100%", fontSize: "14px", color: "rgb(255, 71, 87)", textTransform: "uppercase", fontWeight: "700" }}>
-                    <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#fadb14", position: "relative", flexShrink: 0, marginRight: "7px" }}>
-                      <span style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", borderWidth: "1px", borderStyle: "solid", borderColor: "inherit", borderRadius: "50%", animation: "pulse-dot 1.2s ease-in-out infinite", content: '""' }}></span>
-                    </span>
-                    {event?.inPlay && <span style={{ width: "8px", height: "8px", backgroundColor: "#00ff00", borderRadius: "50%", marginRight: "5px" }} />}
-                    LIVE
-                  </div>
-                </div>
-                <div className="col-sm-3 col-2">
-                  <div style={{ display: "flex", alignItems: "center", gap: "5px", height: "100%" }}>
-                    <span style={{ animation: "blink-text 1s linear infinite", fontWeight: "bold", fontSize: "14px", textAlign: "left" }}>BM</span>
-                    <span style={{ animation: "blink-text 1s linear infinite", fontWeight: "bold", fontSize: "14px", textAlign: "left" }}>F</span>
+                  <div className="col-sm-4 col-4" style={{ display: "flex", justifyContent: "flex-end" }}>
+                    {isLive && (
+                      <div style={{ display: "flex", alignItems: "center", fontSize: "13px", color: "rgb(255, 71, 87)", textTransform: "uppercase", fontWeight: "700" }}>
+                        <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#fadb14", position: "relative", flexShrink: 0, marginRight: "7px" }}>
+                          <span style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", borderWidth: "1px", borderStyle: "solid", borderColor: "inherit", borderRadius: "50%", animation: "pulse-dot 1.2s ease-in-out infinite", content: '""' }}></span>
+                        </span>
+                        LIVE
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </Modal>
     </>

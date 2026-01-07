@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Col, Modal, Row } from "antd";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { toast } from "react-toastify";
 
 interface PlaceBetData {
@@ -9,6 +9,7 @@ interface PlaceBetData {
   mode?: string;
   stake?: number | string;
   isBack?: boolean;
+  size?: number | string;
 }
 
 interface Props {
@@ -37,32 +38,6 @@ const BetplaceMobNew = ({
   setisModalOpen,
   isModalOpen,
 }: Props) => {
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
-
-  const stopTimer = () => {
-    if (timerRef.current) {
-      clearTimeout(timerRef.current);
-      timerRef.current = null;
-    }
-  };
-
-  const startTimer = () => {
-    stopTimer(); // avoid stacking
-    if (timer > 0) {
-      timerRef.current = setTimeout(() => {
-        setTimer((prev) => prev - 1);
-      }, 1000);
-    } else {
-      setPlaceBetData({});
-      setisModalOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    startTimer();
-    return () => stopTimer();
-  }, [timer]);
-
   const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setPlaceBetData((prev) => ({
@@ -84,19 +59,18 @@ const BetplaceMobNew = ({
       return;
     }
 
-    stopTimer(); // stop while placing bet
-
     try {
       await trigger(placeBetData); // agar ye fail hota hai to catch chalega
     } catch (error) {
       toast.error("Bet placing failed, try again!");
-      startTimer(); // resume timer from where it stopped
     }
   };
 
   const stakeOptions = [
     100, 200, 500, 1000, 2000, 5000, 10000, 20000, 25000, 50000, 100000, 200000,
   ];
+
+  const displaySize = placeBetData?.isFancy ? placeBetData?.size ?? "" : 0;
 
   return (
     <Modal
@@ -123,13 +97,25 @@ const BetplaceMobNew = ({
           {/* Team Info Card */}
           <div className="team-card-gold">
             <span className="team-name">{placeBetData?.name || "Team Name"}</span>
-            <span className={`mode-badge ${placeBetData?.isBack ? "lagai" : "khai"}`}>
-              {placeBetData?.isBack ? "LAGAI" : "KHAI"}
+            <span
+              className={`mode-badge ${placeBetData?.isBack ? "lagai" : "khai"}`}
+            >
+              {placeBetData?.isFancy
+                ? placeBetData?.isBack
+                  ? "YES"
+                  : "NOT"
+                : placeBetData?.isBack
+                ? "LAGAI"
+                : "KHAI"}
             </span>
           </div>
 
-          {/* Blue Controls Section (Price, Size, Stake) */}
-          <div className="controls-section-blue">
+          {/* Controls Section (Price, Size, Stake) */}
+          <div
+            className={`controls-section ${
+              placeBetData?.isBack ? "controls-back" : "controls-lay"
+            }`}
+          >
             <Row gutter={10}>
               <Col span={8}>
                 <span className="control-label">PRICE</span>
@@ -146,7 +132,7 @@ const BetplaceMobNew = ({
                   type="text"
                   readOnly
                   className="control-input"
-                  value={placeBetData?.name || ""}
+                  value={displaySize}
                 />
               </Col>
               <Col span={8}>

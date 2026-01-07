@@ -6,243 +6,316 @@ import TvSection from "./TvSection";
 import Bookmaker from "./Bookmaker";
 import Session from "./Session";
 import Toss from "./Toss";
-import {
-  useGetIpfyQuery,
-  useOddsDataQuery,
-} from "../../store/service/odds/oddsServices";
-import { useParams } from "react-router-dom";
+import {useGetIpfyQuery, useOddsDataQuery,} from "../../store/service/odds/oddsServices";
+import {useParams} from "react-router-dom";
 import MatchBets from "./MatchBets";
-import { useEffect, useRef, useState } from "react";
+import {useEffect, useRef, useState} from "react";
 import moment from "moment";
-import {
-  useBetPlacedMutation,
-  useGetOddsPnlQuery,
-} from "../../store/service/userServices/userServices";
-import { Modal } from "antd";
+import {useBetPlacedMutation, useGetOddsPnlQuery,} from "../../store/service/userServices/userServices";
+import {Modal} from "antd";
 import BetplaceMobNew from "./BetplaceMobNew";
 import Marquee from "react-fast-marquee";
-import {
-  useFancyMinMaxQuery,
-  useMarketMinMaxQuery,
-} from "../../store/service/helperServices";
+import {useFancyMinMaxQuery, useMarketMinMaxQuery,} from "../../store/service/helperServices";
+import { toast } from "react-toastify";
 
 const GameDetails = () => {
-  const { id } = useParams() as { id: string };
+    const {id} = useParams() as { id: string };
+    const SHOW_AMOUNT_KEY = "gameDetailsShowAmount";
 
-  /* ================= STATE ================= */
-  const [showFull, setShowFull] = useState(false);
-  const [showTv, setShowTv] = useState(false);
-  const [showAmount, setShowAmount] = useState(false); // 🔴 SWITCH LINK
-  const [showMsg, setShowMsg] = useState("");
-  const [show, setShow] = useState(false);
-  const [isModalOpen, setisModalOpen] = useState(false);
-  const [timer, setTimer] = useState<number>(0);
+    /* ================= STATE ================= */
+    const initialShowAmount =
+        typeof window !== "undefined" && localStorage.getItem(SHOW_AMOUNT_KEY) === "true";
+    const [showFull, setShowFull] = useState(initialShowAmount);
+    const [showTv, setShowTv] = useState(false);
+    const [showAmount, setShowAmount] = useState(initialShowAmount); // 🔴 SWITCH LINK
+    const showAmountRef = useRef(showAmount);
+    const [showMsg, setShowMsg] = useState("");
+    const [show, setShow] = useState(false); // reused as a generic "countdown active" flag
+    const [isModalOpen, setisModalOpen] = useState(false);
+    const [timer, setTimer] = useState<number>(8);
 
-  const [placeBetData, setPlaceBetData] = useState<any>({
-    isFancy: false,
-    isBack: false,
-    odds: 0,
-    stake: 0,
-    marketName: "",
-    selectionId: 0,
-    priceValue: 0,
-    placeTime: "",
-    marketId: "",
-    matchId: "",
-    name: "",
-    userIp: "",
-    mode: "",
-    deviceInfo: null,
-  });
+    const [placeBetData, setPlaceBetData] = useState<any>({
+        isFancy: false,
+        isBack: false,
+        odds: 0,
+        stake: 0,
+        size: 0,
+        marketName: "",
+        selectionId: 0,
+        priceValue: 0,
+        placeTime: "",
+        marketId: "",
+        matchId: "",
+        name: "",
+        userIp: "",
+        mode: "",
+        deviceInfo: null,
+    });
 
-  const amountInputRef = useRef<HTMLInputElement>(null);
+    const amountInputRef = useRef<HTMLInputElement>(null);
 
-  /* ================= API ================= */
-  const { data: oddsData } = useOddsDataQuery(id, { pollingInterval: 1000 });
-  const { data: oddsPnl } = useGetOddsPnlQuery(
-    { matchId: id ?? "" },
-    { pollingInterval: 1000 }
-  );
+    /* ================= API ================= */
+    const {data: oddsData} = useOddsDataQuery(id, {pollingInterval: 1000});
+    const {data: oddsPnl} = useGetOddsPnlQuery(
+        {matchId: id ?? ""},
+        {pollingInterval: 1000}
+    );
 
-  const { data: userIp } = useGetIpfyQuery();
-  const { data: marketMinMax } = useMarketMinMaxQuery(id, { pollingInterval: 5000 });
-  const { data: fancyMinMax } = useFancyMinMaxQuery(id, { pollingInterval: 5000 });
+    const {data: userIp} = useGetIpfyQuery();
+    const {data: marketMinMax} = useMarketMinMaxQuery(id, {pollingInterval: 5000});
+    const {data: fancyMinMax} = useFancyMinMaxQuery(id, {pollingInterval: 5000});
 
-  const [trigger, { data: betplaceData, isLoading }] =
-    useBetPlacedMutation();
+    const [trigger, {data: betplaceData, isLoading}] =
+        useBetPlacedMutation();
 
-  /* ================= HELPERS ================= */
-  const focusAmountInput = () => {
-    amountInputRef.current?.focus();
-  };
+    /* ================= HELPERS ================= */
+    const focusAmountInput = () => {
+        amountInputRef.current?.focus();
+    };
 
-  /* ================= AUTO TOSS ================= */
-  const bookmakerData = oddsData?.Bookmaker || [];
+    const handleAmountChange = (value: string) => {
+        setPlaceBetData((prev: any) => ({
+            ...prev,
+            stake: value,
+        }));
+    };
 
-  const marketMap = bookmakerData.reduce((acc: any, item: any) => {
-    if (!item?.mid) return acc;
-    if (!acc[item.mid]) acc[item.mid] = [];
-    acc[item.mid].push(item);
-    return acc;
-  }, {});
+    const toggleFullAndAmount = () => {
+        setShowFull((prev) => {
+            const next = !prev;
+            setShowAmount(next);
+            showAmountRef.current = next;
+            if (next) {
+                setisModalOpen(false); // close modal when switching to FS flow
+            }
+            if (typeof window !== "undefined") {
+                localStorage.setItem(SHOW_AMOUNT_KEY, String(next));
+            }
+            return next;
+        });
+    };
 
-  const tossMarket = Object.values(marketMap).find(
-    (market: any) => market.length === 2
-  );
+    /* ================= AUTO TOSS ================= */
+    const bookmakerData = oddsData?.Bookmaker || [];
 
-  const bookmakerMarket = tossMarket
-    ? bookmakerData.filter((item: any) => item.mid !== tossMarket[0].mid)
-    : bookmakerData;
+    const marketMap = bookmakerData.reduce((acc: any, item: any) => {
+        if (!item?.mid) return acc;
+        if (!acc[item.mid]) acc[item.mid] = [];
+        acc[item.mid].push(item);
+        return acc;
+    }, {});
 
-  /* ================= BET HANDLER ================= */
-  const handleBetData = (
-    isFancy: boolean,
-    isBack: boolean,
-    odds: number,
-    marketName: string,
-    selectionId: string,
-    priceValue: number,
-    marketId: string,
-    name: string,
-    mode: string,
-    date: any
-  ) => {
-    if (!id || !userIp || odds === 0) return;
+    const tossMarket = Object.values(marketMap).find(
+        (market: any) => market.length === 2
+    );
 
-    setisModalOpen(true);
-    setShowAmount(true); // ✅ AUTO SHOW AMOUNT BAR
-    focusAmountInput();
+    const bookmakerMarket = tossMarket
+        ? bookmakerData.filter((item: any) => item.mid !== tossMarket[0].mid)
+        : bookmakerData;
 
-    setPlaceBetData((prev: any) => ({
-      ...prev,
-      isFancy,
-      isBack,
-      odds,
-      marketName,
-      selectionId: !isFancy ? selectionId : 0,
-      priceValue: isFancy ? priceValue : odds,
-      marketId: isFancy ? selectionId : marketId,
-      name,
-      matchId: id,
-      userIp: userIp?.ip,
-      mode,
-      placeTime: moment(date).format("YYYY-MM-DD HH:mm:ss.SSS"),
-      deviceInfo: {
-        browser: "Chrome",
-        device: "Desktop",
-        os: "Windows",
-      },
-    }));
+    /* ================= BET HANDLER ================= */
+    const handleBetData = (
+        isFancy: boolean,
+        isBack: boolean,
+        odds: number,
+        marketName: string,
+        selectionId: string,
+        priceValue: number,
+        marketId: string,
+        name: string,
+        mode: string,
+        date: any
+    ) => {
+        if (!id || !userIp || odds === 0) return;
 
-    setTimer(8);
-  };
+        const useAmountBar = showFull || showAmountRef.current || showAmount;
+        const shouldOpenModal = !useAmountBar;
 
-  /* ================= BET RESPONSE ================= */
-  useEffect(() => {
-    if (!betplaceData) return;
+        if (useAmountBar) {
+            setShowAmount(true); // ✅ ensure bar is visible in FS mode
+            showAmountRef.current = true;
+            if (typeof window !== "undefined") {
+                localStorage.setItem(SHOW_AMOUNT_KEY, "true");
+            }
+            focusAmountInput(); // autofocus amount input in FS flow
+        } else {
+            setShowAmount(false);
+            showAmountRef.current = false;
+        }
 
-    setShowMsg(betplaceData.status ? "Bet Successful" : betplaceData.message);
-    setShow(true);
-    setisModalOpen(false);
-    setTimer(0);
-    setPlaceBetData({} as any);
-    amountInputRef.current && (amountInputRef.current.value = "");
-    setShowAmount(false); // ✅ AUTO HIDE AFTER BET
+        // Only show modal when amount bar is hidden; otherwise use amount bar flow
+        setisModalOpen(shouldOpenModal);
 
-    setTimeout(() => setShow(false), 3000);
-  }, [betplaceData]);
+        setPlaceBetData((prev: any) => ({
+            ...prev,
+            isFancy,
+            isBack,
+            odds,
+            marketName,
+            selectionId: !isFancy ? selectionId : 0,
+            size: isFancy ? priceValue : 0,
+            priceValue: isFancy ? priceValue : odds,
+            marketId: isFancy ? selectionId : marketId,
+            name,
+            matchId: id,
+            userIp: userIp?.ip,
+            mode,
+            placeTime: moment(date).format("YYYY-MM-DD HH:mm:ss.SSS"),
+            deviceInfo: {
+                browser: "Chrome",
+                device: "Desktop",
+                os: "Windows",
+            },
+        }));
+    };
 
-  /* ================= RENDER ================= */
-  return (
-    <div className="page-body game-details-page">
-      <Marquee speed={50} style={{ minHeight: 30, color: "red", fontWeight: 900 }}>
-        {oddsData?.Bookmaker?.[0]?.display_message !== "null" &&
-          oddsData?.Bookmaker?.[0]?.display_message}
-      </Marquee>
+    /* ================= BET RESPONSE ================= */
+    useEffect(() => {
+        if (!betplaceData) return;
 
-      {/* HEADER */}
-      <div className="gradient-wrap tv-header">
-        <div onClick={() => setShowTv(!showTv)}>
-          <a>TV</a>
-        </div>
+        setShowMsg(betplaceData.status ? "Bet Successful" : betplaceData.message);
+        setShow(true);
+        setisModalOpen(false);
+        setTimer(0);
+        setPlaceBetData({} as any);
+        amountInputRef.current && (amountInputRef.current.value = "");
 
-        <div className="toggle-btn">
+        setTimeout(() => setShow(false), 3000);
+    }, [betplaceData]);
+
+    useEffect(() => {
+        if (showAmount) {
+            setisModalOpen(false); // force modal closed when amount bar is active
+        }
+    }, [showAmount]);
+
+    // Centralized timer: always runs 8→0→8; closes modal/unfocus amount at rollover
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setTimer((prev) => {
+                if (prev <= 1) {
+                    if (showAmount || isModalOpen) {
+                        setPlaceBetData({} as any);
+                        amountInputRef.current?.blur();
+                        setisModalOpen(false);
+                    }
+                    return 8;
+                }
+                return prev - 1;
+            });
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, [showAmount, isModalOpen]);
+
+    const submitFromAmountBar = async () => {
+        if (!placeBetData?.stake || Number(placeBetData?.stake) <= 0) {
+            toast.error("Enter a valid amount.");
+            focusAmountInput();
+            return;
+        }
+
+        try {
+            await trigger(placeBetData);
+        } catch (error) {
+            toast.error("Bet placing failed, try again!");
+        }
+    };
+
+    /* ================= RENDER ================= */
+    return (
+        <div className="page-body game-details-page">
+            <Marquee speed={50} style={{minHeight: 30, color: "red", fontWeight: 900}}>
+                {oddsData?.Bookmaker?.[0]?.display_message !== "null" &&
+                    oddsData?.Bookmaker?.[0]?.display_message}
+            </Marquee>
+
+            {/* HEADER */}
+            <div className="gradient-wrap tv-header">
+                <div onClick={() => setShowTv(!showTv)}>
+                    <a>TV</a>
+                </div>
+
+                <div className="toggle-btn">
           <span
-            className={`switch ${showAmount ? "active" : ""}`}
-            onClick={() => setShowAmount((prev) => !prev)}
+              className={`switch ${showAmount ? "active" : ""}`}
+              onClick={toggleFullAndAmount}
           />
-          <p onClick={() => setShowFull(!showFull)}>FS</p>
-        </div>
-      </div>
-
-      <TvSection showTv={showTv} showFull={showFull} />
-
-      <div className="game-content">
-        <Bookmaker
-          oddsData={bookmakerMarket}
-          handleBetData={handleBetData}
-          focusAmountInput={focusAmountInput}
-          oddsPnl={oddsPnl?.data}
-          minMax={marketMinMax?.data}
-        />
-
-        {tossMarket && (
-          <Toss
-            oddsData={tossMarket}
-            handleBetData={handleBetData}
-            focusAmountInput={focusAmountInput}
-            oddsPnl={oddsPnl?.data}
-          />
-        )}
-
-        <Session
-          oddsData={oddsData?.Fancy2}
-          handleBetData={handleBetData}
-          focusAmountInput={focusAmountInput}
-          minMax={fancyMinMax?.data}
-        />
-
-        {/* 🔴 AMOUNT BAR */}
-        {showAmount && (
-          <div className="amount-bar">
-            <span className="amount-label">AMOUNT:</span>
-
-            <div className="amount-input-wrap">
-              <input
-                type="number"
-                placeholder="Enter a number"
-                className="amount-input"
-              />
-              <span className="amount-arrows">▼</span>
+                    <p onClick={toggleFullAndAmount}>FS</p>
+                </div>
             </div>
 
-            <div className="amount-multiplier">8</div>
+            <TvSection showTv={showTv} showFull={showFull}/>
 
-            <button className="amount-done">DONE</button>
-          </div>
+            <div className="game-content">
+                <Bookmaker
+                    oddsData={bookmakerMarket}
+                    handleBetData={handleBetData}
+                    focusAmountInput={focusAmountInput}
+                    oddsPnl={oddsPnl?.data}
+                    minMax={marketMinMax?.data}
+                />
 
-        )}
-        <br />
-        <BetplaceMobNew
-          placeBetData={placeBetData}
-          setPlaceBetData={setPlaceBetData}
-          timer={timer}
-          setTimer={setTimer}
-          trigger={trigger}
-          isLoading={isLoading}
-          setisModalOpen={setisModalOpen}
-          isModalOpen={isModalOpen}
-          betplaceData={betplaceData}
-        />
+                {tossMarket && (
+                    <Toss
+                        oddsData={tossMarket}
+                        handleBetData={handleBetData}
+                        focusAmountInput={focusAmountInput}
+                        oddsPnl={oddsPnl?.data}
+                    />
+                )}
 
-        <MatchBets />
-      </div>
+                <Session
+                    oddsData={oddsData?.Fancy2}
+                    handleBetData={handleBetData}
+                    focusAmountInput={focusAmountInput}
+                    minMax={fancyMinMax?.data}
+                />
 
-      <Modal centered open={show} footer={false} closeIcon={false}>
-        <h3 style={{ color: "green", textAlign: "center" }}>{showMsg}</h3>
-      </Modal>
-    </div>
-  );
+                {/* 🔴 AMOUNT BAR */}
+                {showAmount && (
+                    <div className="amount-bar">
+                        <span className="amount-label">AMOUNT:</span>
+
+                        <div className="amount-input-wrap">
+                            <input
+                                type="number"
+                                placeholder="Enter a number"
+                                className="amount-input"
+                                value={placeBetData?.stake ?? ""}
+                                onChange={(e) => handleAmountChange(e.target.value)}
+                                ref={amountInputRef}
+                            />
+                            <span className="amount-arrows">▼</span>
+                        </div>
+
+                        <div className="amount-multiplier">{timer > 0 ? timer : 0}</div>
+
+                        <button className="amount-done" onClick={submitFromAmountBar}>DONE</button>
+                    </div>
+
+                )}
+                <br/>
+                <BetplaceMobNew
+                    placeBetData={placeBetData}
+                    setPlaceBetData={setPlaceBetData}
+                    timer={timer}
+                    setTimer={setTimer}
+                    trigger={trigger}
+                    isLoading={isLoading}
+                    setisModalOpen={setisModalOpen}
+                    isModalOpen={isModalOpen && !showFull && !showAmount}
+                    betplaceData={betplaceData}
+                />
+
+                <MatchBets/>
+            </div>
+
+            <Modal centered open={show} footer={false} closeIcon={false}>
+                <h3 style={{color: "green", textAlign: "center"}}>{showMsg}</h3>
+            </Modal>
+        </div>
+    );
 };
 
 export default GameDetails;

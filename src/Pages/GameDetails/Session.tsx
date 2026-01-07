@@ -6,6 +6,7 @@ import {
 } from "../../store/service/userServices/userServices";
 import { Modal } from "antd";
 import { useState } from "react";
+import React from "react";
 
 interface Fancy2 {
   sid: string;
@@ -45,10 +46,12 @@ const Session = ({
 }: Props) => {
   const { id } = useParams() as { id: string };
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentFancyName, setCurrentFancyName] = useState<string>("N/A");
   const [trigger, { data }] = useGetFancyBookMutation();
 
-  const handleShowFancyBook = (fancyId: string) => {
+  const handleShowFancyBook = (fancyId: string, fancyName: string) => {
     trigger({ matchId: id ?? "", fancyId });
+    setCurrentFancyName(fancyName || "N/A");
     setIsModalOpen(true);
   };
 
@@ -75,77 +78,85 @@ const Session = ({
                 session?.gstatus?.toLowerCase() === "suspended";
 
               return (
-                <tr
-                  key={index}
-                  className={`bm-row ${suspended ? "suspen" : ""}`}
-                >
-                  {/* SESSION NAME */}
-                  <td className="bm-team">
-                    <div className="session-group">
-                      <div className="session-details">
-                        <span className="session-text">{session.nation}</span>
-                        <span className="session-max">MAX : {minMaxData?.maxbet}</span>
-                      </div>
+                <React.Fragment key={index}>
+                  <tr className={`bm-row ${suspended ? "suspen" : ""}`}>
+                    {/* SESSION NAME */}
+                    <td className="bm-team">
+                      <div className="session-group">
+                        <div className="session-details">
+                          <span className="session-text">{session.nation}</span>
+                          <span className="session-max">MAX : {minMaxData?.maxbet}</span>
+                        </div>
 
-                      <img
-                        src="/img/inplay/ladder.svg"
-                        alt="Book"
-                        className="bm-book-icon"
-                        onClick={() => handleShowFancyBook(session.sid)}
+                        <img
+                          src="/img/inplay/ladder.svg"
+                          alt="Book"
+                          className="bm-book-icon"
+                        onClick={() =>
+                          handleShowFancyBook(session.sid, session.nation)
+                        }
                       />
                     </div>
                   </td>
 
-                  {/* NOT */}
-                  <td
-                    className="bm-lay"
-                    onClick={() => {
-                      if (!suspended) {
-                        handleBetData(
-                          true,
-                          false,
-                          session.l1,
-                          "Fancy2",
-                          session.sid,
-                          session.ls1,
-                          session.mid,
-                          session.nation,
-                          "No",
-                          new Date()
-                        );
-                        focusAmountInput();
-                      }
-                    }}
-                  >
-                    <div>{session.l1}</div>
-                    <div className="bm-size">{session.ls1}</div>
-                  </td>
+                    {/* NOT */}
+                    <td
+                      className="bm-lay"
+                      onClick={() => {
+                        if (!suspended) {
+                          handleBetData(
+                            true,
+                            false,
+                            session.l1,
+                            "Fancy2",
+                            session.sid,
+                            session.ls1,
+                            session.mid,
+                            session.nation,
+                            "No",
+                            new Date()
+                          );
+                          focusAmountInput();
+                        }
+                      }}
+                    >
+                      <div>{session.l1}</div>
+                      <div className="bm-size">{session.ls1}</div>
+                    </td>
 
-                  {/* YES */}
-                  <td
-                    className="bm-back"
-                    onClick={() => {
-                      if (!suspended) {
-                        handleBetData(
-                          true,
-                          true,
-                          session.b1,
-                          "Fancy2",
-                          session.sid,
-                          session.bs1,
-                          session.mid,
-                          session.nation,
-                          "Yes",
-                          new Date()
-                        );
-                        focusAmountInput();
-                      }
-                    }}
-                  >
-                    <div>{session.b1}</div>
-                    <div className="bm-size">{session.bs1}</div>
-                  </td>
-                </tr>
+                    {/* YES */}
+                    <td
+                      className="bm-back"
+                      onClick={() => {
+                        if (!suspended) {
+                          handleBetData(
+                            true,
+                            true,
+                            session.b1,
+                            "Fancy2",
+                            session.sid,
+                            session.bs1,
+                            session.mid,
+                            session.nation,
+                            "Yes",
+                            new Date()
+                          );
+                          focusAmountInput();
+                        }
+                      }}
+                    >
+                      <div>{session.b1}</div>
+                      <div className="bm-size">{session.bs1}</div>
+                    </td>
+                  </tr>
+                  {session.rem && (
+                    <tr>
+                      <td colSpan={3} className="fancy-rem">
+                        {session.rem}
+                      </td>
+                    </tr>
+                  )}
+                </React.Fragment>
               );
             })}
         </tbody>
@@ -153,16 +164,19 @@ const Session = ({
 
       {/* FANCY BOOK MODAL */}
       <Modal
-        title="Fancy Book"
+        title={currentFancyName || "N/A"}
         open={isModalOpen}
         footer={false}
         onCancel={() => setIsModalOpen(false)}
+        className="fancy-book-modal"
+        width={520}
+        centered
       >
-        <table className="bookmaker-table bet-table" width="100%">
+        <table className="bookmaker-table bet-table fancy-book-table" width="100%">
           <thead>
             <tr>
               <th className="bm-head">RUN</th>
-              <th className="bm-head">PNL</th>
+              <th className="bm-head">PROFIT</th>
             </tr>
           </thead>
           <tbody>

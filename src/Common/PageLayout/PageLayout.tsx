@@ -19,10 +19,9 @@ const PageLayout = () => {
     refetchOnMountOrArgChange: true,
   });
 
- 
   return (
     <>
-      <Header onClose={onClose} userBalance={userBalance?.data?.balance} />
+      <Header onClose={onClose} userBalance={userBalance?.data} />
       {/* <Rule /> */}
       <Outlet />
       <AppSidebar visible={visible} onClose={onClose} />

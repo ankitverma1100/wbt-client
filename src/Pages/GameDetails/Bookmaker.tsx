@@ -82,6 +82,14 @@ const Bookmaker = ({
     (item: any) => item?.marketid === oddsData?.[0]?.mid
   );
 
+  const formatMax = (value?: number) => {
+    if (value === undefined || value === null) return "";
+    if (value >= 1000) {
+      return `${Math.round(value / 1000)}K`;
+    }
+    return String(value);
+  };
+
   return (
     <div className="overflow-responsive">
       <table className="bookmaker-table bet-table" width="100%">
@@ -89,7 +97,7 @@ const Bookmaker = ({
           <tr>
             <th className="bm-head ">
              <span className="text-blink"> BOOKMAKER</span>
-              <span className="bm-max text-blink">MAX: {minMaxData?.maxbet}</span>
+              <span className="bm-max text-blink">MAX: {formatMax(minMaxData?.maxbet)}</span>
             </th>
             <th className="bm-head bm-lagai">LAGAI</th>
             <th className="bm-head bm-khai">KHAI</th>

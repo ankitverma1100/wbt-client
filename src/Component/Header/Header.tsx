@@ -7,7 +7,10 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 interface Props {
     onClose: () => void;
-    userBalance: number | undefined;
+    userBalance?: {
+        balance?: number;
+        liability?: number;
+    };
 }
 
 const Header = ({ onClose, userBalance }: Props) => {
@@ -77,7 +80,7 @@ const Header = ({ onClose, userBalance }: Props) => {
                 </div>
             </div>
 
-            <Balance userBalance={userBalance?.data} />
+            <Balance userBalance={userBalance} />
 
 
         </div>
