@@ -5,15 +5,13 @@ import moment from "moment";
 import "./casino.scss";
 import { useOdds } from "./UseOdds";
 import CasinoHead from "./CasinoHead/CasinoHead";
-import { Card, Col, Modal, Row } from "antd";
+import { Col, Modal, Row } from "antd";
 import VideoSection from "./VideoSection/VideoSection";
 import Lucky7 from "./Lucky7/Lucky7";
 import LastResult from "./LastResult/LastResult";
 import AAA from "./AAA/AAA";
 import Teen from "./Teen/Teen";
-import CasinoBet from "./CasinoBet/CasinoBet";
 import DT20 from "./DT20/DT20";
-import MybetCasino from "./MybetCasino/MybetCasino";
 import AndarBhar from "./AndarBhar/AndarBhar";
 import AllBets from "./AllBets";
 import { useGetCasinoMyBetQuery } from "../../store/service/userServices/userServices";
@@ -75,11 +73,6 @@ const CasinoMainPage = () => {
   if (odds === null) {
     return;
   }
-
-  const showModal = () => {
-    setIsModalOpen(true);
-    refetch();
-  };
 
   const handleOk = () => {
     setIsModalOpen(false);
@@ -189,24 +182,9 @@ const CasinoMainPage = () => {
               />
             )}
           </div> */}
-          <Row justify={"center"} className="gx-mt-2 gx-mb-2">
-            <button
-              style={{
-                border: "none",
-                borderRadius: "2px",
-                height: "34px",
-                fontWeight: "600",
-                marginTop: "10px",
-              }}
-              onClick={showModal}
-              type="button"
-              className="ant-btn ant-btn-default gx-bg-grey gx-text-white gx-font-weight-semi-bold">
-              <span>Completed Casino Bets</span>
-            </button>
-          </Row>
+
 
           <LastResult matchId={t1?.mid[1]} casinoName={tableIdtoUrl[id]} />
-          <MybetCasino />
         </Col>
       </Row>
       <Modal

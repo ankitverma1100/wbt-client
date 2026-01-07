@@ -1,0 +1,153 @@
+.casino-bet-modal {
+    font-family: "Outfit", sans-serif;
+
+    .ant-modal-content {
+        background: #fff;
+        border-radius: 12px;
+        overflow: hidden;
+        padding: 0 !important;
+
+        .ant-modal-body {
+            padding: 0 !important;
+        }
+    }
+
+    .modal-header {
+        background: #be8a36;
+        padding: 10px 15px;
+        text-align: center;
+        color: #fff;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 14px;
+        letter-spacing: 0px;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+    }
+
+    .modal-body {
+        padding: 0;
+
+        .label-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2px;
+
+            span {
+                flex: 1;
+                font-weight: 800;
+                font-size: 14px;
+                color: #222;
+                text-transform: uppercase;
+                padding-left: 0px;
+            }
+        }
+
+        .value-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+
+            .info-box {
+                flex: 1;
+                background: #be8a36;
+                color: #fff;
+                padding: 10px 15px;
+                border-radius: 6px;
+                text-align: left;
+                font-weight: 400;
+                font-size: 14px;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                height: 45px;
+            }
+
+            .stake-input-container {
+                flex: 1.5;
+
+                .ant-input {
+                    height: 45px;
+                    border: 1px solid #79bff8;
+                    color: #ff5252;
+                    font-weight: 400;
+                    font-size: 14px;
+                    text-align: left;
+                    padding-left: 15px;
+                    border-radius: 6px;
+
+                    &::placeholder {
+                        color: #ff5252;
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+
+        .stake-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 5px;
+            margin-bottom: 25px;
+
+            .stake-btn {
+                background: #1e82ff;
+                border: none;
+                color: #fff;
+                font-weight: 500;
+                font-size: 14px;
+                height: 35px;
+                border-radius: 8px;
+                padding: 0;
+
+                &:hover {
+                    background: darken(#1e82ff, 5%);
+                }
+            }
+        }
+
+        .footer-actions {
+            display: flex;
+            gap: 15px;
+
+            .cancel-btn {
+                flex: 1;
+                border: 1px solid #ff5252;
+                color: #ff5252;
+                background: #fff;
+                font-weight: 500;
+                height: 45px;
+                border-radius: 10px;
+                font-size: 14px;
+
+                &:hover {
+                    background: #fff5f5;
+                    border-color: #ff5252;
+                    color: #ff5252;
+                }
+            }
+
+            .done-btn {
+                flex: 1.5;
+                background: #1e82ff;
+                color: #fff;
+                border: none;
+                font-weight: 600;
+                height: 45px;
+                border-radius: 10px;
+                font-size: 14px;
+
+                &:hover {
+                    background: darken(#1e82ff, 5%);
+                    color: #fff;
+                }
+
+                &.loading {
+                    opacity: 0.7;
+                    cursor: not-allowed;
+                }
+            }
+        }
+    }
+}

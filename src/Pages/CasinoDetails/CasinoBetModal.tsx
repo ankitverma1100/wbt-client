@@ -1,14 +1,14 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Button, Col, Input, Modal, Row } from "antd";
+import { Button, Input, Modal } from "antd";
 import moment from "moment";
 import { useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 import { useGetCasinoBetPlacedMutation } from "../../store/service/userServices/userServices";
 import { useGetIpfyQuery } from "../../store/service/odds/oddsServices";
 import { useParams } from "react-router-dom";
+import "./casinomodal.scss";
 
 interface Props {
-  betState: BetPlacedProps;
+  betState: any;
   setBetState: any;
   setIsBetModal: React.Dispatch<React.SetStateAction<boolean>>;
   setTimer: React.Dispatch<React.SetStateAction<number>>;
@@ -54,9 +54,11 @@ const CasinoBetModal = ({
   };
 
   useEffect(() => {
-    startTimer();
+    if (isBetModal) {
+      startTimer();
+    }
     return () => stopTimer();
-  }, [timer]);
+  }, [timer, isBetModal]);
 
   const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -113,93 +115,79 @@ const CasinoBetModal = ({
   };
 
   const stakeOptions = [
-    100, 200, 500, 1000, 3000, 5000, 10000, 20000, 25000, 50000, 100000, 200000,
+    100, 200, 500, 1000, 2000, 3000, 5000, 10000
   ];
-
-  console.log("betState", betState);
 
   return (
     <Modal
-      width={450}
-      title=""
+      width={520}
+      title={null}
       closable={false}
       open={isBetModal}
-      className="betModals"
-      footer={false}>
-      <div>
-        {isLoading && (
-          <div className="place_spinner">
-            <div className="spinner-border " role="status"></div>
+      className="casino-bet-modal"
+      footer={null}
+      centered
+    >
+      <div className="modal-header">
+        {betState?.nation || "TEAM"}
+      </div>
+      <div className="modal-body" style={{ padding: '30px' }}>
+        <div className="label-row">
+          <span>PRICE</span>
+          <span>SIZE</span>
+          <span>STAKE</span>
+        </div>
+        <div className="value-row">
+          <div className="info-box">
+            {betState?.odds || "0.00"}
           </div>
-        )}
-        {/* Header Section */}
-        <div
-          className={`${betState?.isBack ? "back" : "lay"}-color-lignt p-10`}>
-          <Row>
-            <Col xs={12}>
-              <div className="main_header_bet">
-                <p className="heade_team">Team</p>
-                <p className="heade_rate">{betState?.nation}</p>
-              </div>
-            </Col>
-            <Col xs={12}>
-              <div className="main_header_bet">
-                <p className="heade_team">Rate</p>
-                <p className="heade_rate">{betState?.odds}</p>
-              </div>
-            </Col>
-          </Row>
+          <div className="info-box">
+            {betState?.selectionName || "A"}
+          </div>
+          <div className="stake-input-container">
+            <Input
+              placeholder="0"
+              onChange={handleAmountChange}
+              value={betState?.stake}
+              autoFocus
+            />
+          </div>
         </div>
 
-        {/* Stake Buttons */}
-        <div className={`${betState?.isBack ? "back" : "lay"}-color p-10`}>
-          <Row gutter={[24, 8]}>
-            {stakeOptions.map((value) => (
-              <Col xs={8} key={value}>
-                <Button
-                  className="stack_button_pl"
-                  onClick={() => handleChange(value)}>
-                  {value}
-                </Button>
-              </Col>
-            ))}
-          </Row>
-
-          {/* Input + Timer */}
-          <Row className="mt-10">
-            <Col xs={21}>
-              <Input
-                placeholder="Enter Amount"
-                onChange={handleAmountChange}
-                value={betState?.stake}
-              />
-            </Col>
-            <Col xs={3}>
-              <div className="timmer_dev">{timer}</div>
-            </Col>
-          </Row>
+        <div className="stake-grid">
+          {stakeOptions.map((value) => (
+            <Button
+              key={value}
+              className="stake-btn"
+              onClick={() => handleChange(value)}
+            >
+              {value.toLocaleString()}
+            </Button>
+          ))}
         </div>
 
-        {/* Footer Buttons */}
-        <Row className="back-color">
-          <Col xs={12}>
-            <Button
-              onClick={() => setIsBetModal(false)}
-              className="close_button">
-              Cancel
-            </Button>
-          </Col>
-          <Col xs={12}>
-            <Button
-              className="submit_button"
-              onClick={() => !isLoading && handleBetPlaced()}>
-              Submit
-            </Button>
-          </Col>
-        </Row>
+        <div className="footer-actions">
+          <Button
+            className="cancel-btn"
+            onClick={() => {
+              setBetState({});
+              setIsBetModal(false);
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            className={`done-btn ${isLoading ? 'loading' : ''}`}
+            onClick={() => !isLoading && handleBetPlaced()}
+            disabled={isLoading}
+          >
+            {isLoading ? "Placing..." : `Done (${timer})`}
+          </Button>
+        </div>
       </div>
     </Modal>
   );
 };
 
 export default CasinoBetModal;
+

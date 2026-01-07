@@ -4,187 +4,90 @@ import { LetterAndColorById, titleById } from "../Constant";
 import { useState } from "react";
 import ResultModalContainer from "./ResultModalContainer";
 import { Modal } from "antd";
+import "../Teen/teenpatti.scss";
 
 interface Props {
-  matchId: any;
-  casinoName: any;
+    matchId: any;
+    casinoName: any;
 }
 
 const LastResult = ({ matchId, casinoName }: Props) => {
-  const [first, setFirst] = useState("");
-  const [openMod, setOpenMod] = useState(false);
-  const { id } = useParams();
-  const { data: resultList } = useCasinoResultQuery(casinoName, {
-    refetchOnMountOrArgChange: true,
-    pollingInterval: 5000,
-  });
+    const [first, setFirst] = useState("");
+    const [openMod, setOpenMod] = useState(false);
+    const { id } = useParams();
+    const { data: resultList } = useCasinoResultQuery(casinoName, {
+        refetchOnMountOrArgChange: true,
+        pollingInterval: 5000,
+    });
 
-  const handleClick = (val: string) => {
-    setFirst(val);
-    if (val) {
-      setOpenMod(true);
-    }
-  };
-  return (
-    <div
-      className="gx-my-1 gx-mx-1 "
-      style={{ backgroundColor: "rgba(0, 0, 0, 0.3)" }}>
-      <Modal
-        title={`${titleById[id]} Result`}
-        onCancel={() => setOpenMod(false)}
-        open={openMod}
-        className="betModals123"
-        footer={false}>
-        {" "}
-        <ResultModalContainer
-          setOpen={setOpenMod}
-          open={openMod}
-          tableId={id}
-          mid={first}
-        />
-      </Modal>
+    const handleClick = (val: string) => {
+        setFirst(val);
+        if (val) {
+            setOpenMod(true);
+        }
+    };
 
-      <div className="gx-text-white gx-fs-md gx-font-weight-medium gx-bg-grey gx-p-2 gx-bg-flex gx-justify-content-between gx-align-items-center">
-        <span className="">Last Result</span>
-        <span className=" gx-pointer ">View All</span>
-      </div>
-      <div className="gx-bg-flex gx-justify-content-end gx-align-items-center gx-py-2 gx-px-2">
-        {id === "51" &&
-          resultList?.map((item) => {
-            return (
-              <div
-                className="gx-rounded-circle gx-p-1 gx-ml-1 cursor-pointer gx-fs-md gx-bg-flex gx-justify-content-center gx-align-content-center gx-text-white gx-font-weight-semi-bold"
-                style={{
-                  backgroundColor: LetterAndColorById[id]?.[item.result]?.color,
-                  width: 24,
-                  height: 24,
-                }}>
-                <p
-                  className="text-[#FFFF2E] font-normal text-sm"
-                  onClick={() => handleClick(item.mid)}>
-                  {" "}
-                  {LetterAndColorById[id]?.[item.result]?.label}
-                </p>
-              </div>
-            );
-          })}
-        {id === "61" &&
-          resultList?.map((item) => {
-            return (
-              <div
-                className="gx-rounded-circle gx-p-1 gx-ml-1 cursor-pointer gx-fs-md gx-bg-flex gx-justify-content-center gx-align-content-center gx-text-white gx-font-weight-semi-bold"
-                style={{
-                  backgroundColor: LetterAndColorById[id]?.[item.result]?.color,
-                  width: 24,
-                  height: 24,
-                }}>
-                <p
-                  className="text-[#FFFF2E] font-normal text-sm"
-                  onClick={() => handleClick(item.mid)}>
-                  {" "}
-                  {LetterAndColorById[id]?.[item.result]?.label}
-                </p>
-              </div>
-            );
-          })}
-        {id === "53" &&
-          resultList?.map((item) => {
-            return (
-              <div
-                className="gx-rounded-circle gx-p-1 gx-ml-1 cursor-pointer gx-fs-md gx-bg-flex gx-justify-content-center gx-align-content-center gx-text-white gx-font-weight-semi-bold"
-                style={{
-                  backgroundColor: LetterAndColorById[id]?.[item.result]?.color,
-                  width: 24,
-                  height: 24,
-                }}>
-                <p
-                  className="text-[#FFFF2E] font-normal text-sm"
-                  onClick={() => handleClick(item.mid)}>
-                  {" "}
-                  {LetterAndColorById[id]?.[item.result]?.label}
-                </p>
-              </div>
-            );
-          })}
-        {id === "56" &&
-          resultList?.map((item) => {
-            return (
-              <div
-                className="gx-rounded-circle gx-p-1 gx-ml-1 cursor-pointer gx-fs-md gx-bg-flex gx-justify-content-center gx-align-content-center gx-text-white gx-font-weight-semi-bold"
-                style={{
-                  backgroundColor: LetterAndColorById[id]?.[item.result]?.color,
-                  width: 24,
-                  height: 24,
-                }}>
-                <p
-                  className="text-[#FFFF2E] font-normal text-sm"
-                  onClick={() => handleClick(item.mid)}>
-                  {" "}
-                  {LetterAndColorById[id]?.[item.result]?.label}
-                </p>
-              </div>
-            );
-          })}
-        {id === "52" &&
-          resultList?.map((item) => {
-            return (
-              <div
-                className="gx-rounded-circle gx-p-1 gx-ml-1 cursor-pointer gx-fs-md gx-bg-flex gx-justify-content-center gx-align-content-center gx-text-white gx-font-weight-semi-bold"
-                style={{
-                  backgroundColor: LetterAndColorById[id]?.[item.result]?.color,
-                  width: 24,
-                  height: 24,
-                }}>
-                <p
-                  className="text-[#FFFF2E] font-normal text-sm"
-                  onClick={() => handleClick(item.mid)}>
-                  {" "}
-                  {LetterAndColorById[id]?.[item.result]?.label}
-                </p>
-              </div>
-            );
-          })}
-        {id === "62" &&
-          resultList?.map((item) => {
-            return (
-              <div
-                className="gx-rounded-circle gx-p-1 gx-ml-1 cursor-pointer gx-fs-md gx-bg-flex gx-justify-content-center gx-align-content-center gx-text-white gx-font-weight-semi-bold"
-                style={{
-                  backgroundColor: LetterAndColorById[id]?.[item.result]?.color,
-                  width: 24,
-                  height: 24,
-                }}>
-                <p
-                  className="text-[#FFFF2E] font-normal text-sm"
-                  onClick={() => handleClick(item.mid)}>
-                  {" "}
-                  {LetterAndColorById[id]?.[item.result]?.label}
-                </p>
-              </div>
-            );
-          })}
-        {id === "54" &&
-          resultList?.map((item) => {
-            return (
-              <div
-                className="gx-rounded-circle gx-p-1 gx-ml-1 cursor-pointer gx-fs-md gx-bg-flex gx-justify-content-center gx-align-content-center gx-text-white gx-font-weight-semi-bold"
-                style={{
-                  backgroundColor: LetterAndColorById[id]?.[item.result]?.color,
-                  width: 24,
-                  height: 24,
-                }}>
-                <p
-                  className="text-[#FFFF2E] font-normal text-sm"
-                  onClick={() => handleClick(item.mid)}>
-                  {" "}
-                  {LetterAndColorById[id]?.[item.result]?.label}
-                </p>
-              </div>
-            );
-          })}
-      </div>
-    </div>
-  );
+    if (!id) return null;
+
+    return (
+        <div className="teen-patti-container">
+            <Modal
+                title={`${(titleById as any)[id]} Result`}
+                onCancel={() => setOpenMod(false)}
+                open={openMod}
+                className="betModals123"
+                footer={false}>
+                <ResultModalContainer
+                    setOpen={setOpenMod}
+                    open={openMod}
+                    tableId={id}
+                    mid={first}
+                />
+            </Modal>
+
+            <div className="tp-header">
+                <h3 className="tp-header-title">LAST RESULT</h3>
+                <span className="tp-view-all" onClick={() => { }}>VIEW ALL</span>
+            </div>
+
+            <div className="tp-result-container mb-0">
+                {resultList?.map((item: any) => {
+                    const resultInfo = (LetterAndColorById as any)[id]?.[item.result];
+                    return (
+                        <div
+                            key={item.mid}
+                            className={`tp-result-circle ${resultInfo?.label?.toLowerCase() === 'a' ? 'player-a' : resultInfo?.label?.toLowerCase() === 'b' ? 'player-b' : ''}`}
+                            style={!['a', 'b'].includes(resultInfo?.label?.toLowerCase()) ? { backgroundColor: resultInfo?.color } : {}}
+                            onClick={() => handleClick(item.mid)}>
+                            {resultInfo?.label}
+                        </div>
+                    );
+                })}
+            </div>
+
+            {/* Open Bets Section */}
+            <div className="tp-header center-title">
+                <h3 className="tp-header-title">OPEN BETS</h3>
+            </div>
+            <table className="tp-open-bets-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>RUNNER NAME</th>
+                        <th>BET PRICE</th>
+                        <th>BET VALUE</th>
+                        <th>BET AMOUNT</th>
+                        <th>BET PROFIT</th>
+                        <th>BET LOSS</th>
+                        <th>BET STATUS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {/* Rows would be dynamically populated here */}
+                </tbody>
+            </table>
+        </div>
+    );
 };
 
 export default LastResult;

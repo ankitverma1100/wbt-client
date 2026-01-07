@@ -32,7 +32,7 @@ const CloseIcon = () => (
 
 /* ---------- MAIN COMPONENT ---------- */
 const Welcome = ({ handleClose }: Props) => {
-  const [open, setOpen] = useState({ hi: true, en: false });
+  const [open, setOpen] = useState({ hi: false, en: false });
   
 
   const toggle = (key: "hi" | "en") => {
@@ -182,6 +182,7 @@ const Welcome = ({ handleClose }: Props) => {
                 </div>
               </div>
             </div>
+            <img src="/img/aviator-banner.jpeg" alt="" style={{borderRadius:"12px",marginTop:"10px"}} />
           </div>
 
           {/* Footer */}
