@@ -1,13 +1,18 @@
 interface Props {
   value: string;
   onClick: (num: string) => void;
+  showValue?: boolean;
 }
 
-export default function NumberItem({ value, onClick }: Props) {
+export default function NumberItem({
+  value,
+  onClick,
+  showValue = false,
+}: Props) {
   return (
     <div className="number-item">
       <button onClick={() => onClick(value)}>{value}</button>
-      <span>0</span>
+      {showValue && <span>0</span>}
     </div>
   );
 }

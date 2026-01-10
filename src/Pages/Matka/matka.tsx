@@ -3,6 +3,12 @@ import "./style.scss";
 
 const MATKA_LIST = [
   {
+    title: "24-12-2025-MAHARANI",
+    result: "05:30 AM",
+    close: "04:30 AM",
+    slug: "24-12-2025-maharani",
+  },
+  {
     title: "21-12-2025-FARIDABAD",
     result: "06:15 PM",
     close: "05:15 PM",
@@ -35,17 +41,17 @@ export default function Matka() {
     <div className="matka-wrapper">
       <div className="container">
         {MATKA_LIST.map((item) => (
-        <div
-          key={item.slug}
-          className="matka-card"
-          onClick={() => navigate(`/main/matka-details/${item.slug}`)}
-        >
-          <h2 className="matka-title">{item.title}</h2>
-          <p>
-            RESULT {item.result} | BET CLOSE TIME {item.close}
-          </p>
-        </div>
-      ))}
+          <div
+            key={item.slug}
+            className="matka-card"
+            onClick={() => navigate(`/main/matka-details/${item.slug}`)}
+          >
+            <h2 className="matka-title">{item.title}</h2>
+            <p>
+              RESULT {item.result} | BET CLOSE TIME {item.close}
+            </p>
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -1,11 +1,16 @@
-export default function EventHeader() {
+interface Props {
+  title: string;
+  time: string;
+}
+
+export default function EventHeader({ title, time }: Props) {
   return (
     <div className="event-header">
       <div className="title">
         <span className="dot" />
-        FARIDABAD
+        {title}
       </div>
-      <div className="time">DECEMBER 21, 06:15 PM</div>
+      <div className="time">{time}</div>
     </div>
   );
 }

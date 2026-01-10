@@ -1,12 +1,13 @@
 interface Props {
+  tabs: string[];
   active: string;
   setActive: (v: string) => void;
 }
 
-export default function GameTabs({ active, setActive }: Props) {
+export default function GameTabs({ tabs, active, setActive }: Props) {
   return (
     <div className="tabs">
-      {["Single Jodi", "Harup", "Open Bets"].map((tab) => (
+      {tabs.map((tab) => (
         <button
           key={tab}
           className={active === tab ? "active" : ""}

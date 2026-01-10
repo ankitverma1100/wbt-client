@@ -1,17 +1,24 @@
 import NumberItem from "./NumberItem";
 
 interface Props {
+  numbers: string[];
   onSelectNumber: (num: string) => void;
+  showValue?: boolean;
 }
 
-export default function NumberGrid({ onSelectNumber }: Props) {
+export default function NumberGrid({
+  numbers,
+  onSelectNumber,
+  showValue = false,
+}: Props) {
   return (
     <div className="number-grid">
-      {Array.from({ length: 100 }, (_, i) => (
+      {numbers.map((num) => (
         <NumberItem
-          key={i}
-          value={String(i).padStart(2, "0")}
+          key={num}
+          value={num}
           onClick={onSelectNumber}
+          showValue={showValue}
         />
       ))}
     </div>
