@@ -16,6 +16,7 @@ function App() {
     // } else {
     //   document.title = "NSGPRO99"; // fallback
     // }
+
     const hostname = window.location.hostname.split(".")[0];
     document.title = hostname.toUpperCase();
   }, []);
