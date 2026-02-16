@@ -9,7 +9,7 @@ import Toss from "./Toss";
 import {useGetIpfyQuery, useOddsDataQuery,} from "../../store/service/odds/oddsServices";
 import {useParams} from "react-router-dom";
 import MatchBets from "./MatchBets";
-import {useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 import moment from "moment";
 import {useBetPlacedMutation, useGetOddsPnlQuery,} from "../../store/service/userServices/userServices";
 import {Modal} from "antd";
@@ -17,6 +17,7 @@ import BetplaceMobNew from "./BetplaceMobNew";
 import Marquee from "react-fast-marquee";
 import {useFancyMinMaxQuery, useMarketMinMaxQuery,} from "../../store/service/helperServices";
 import { toast } from "react-toastify";
+import FancySSE from "./FancySSE";
 
 const GameDetails = () => {
     const {id} = useParams() as { id: string };
@@ -33,6 +34,23 @@ const GameDetails = () => {
     const [show, setShow] = useState(false); // reused as a generic "countdown active" flag
     const [isModalOpen, setisModalOpen] = useState(false);
     const [timer, setTimer] = useState<number>(8);
+    const [sseMarketLimits, setSseMarketLimits] = useState<Record<string, any>>({});
+    const [sseFancyLimits, setSseFancyLimits] = useState<Record<string, any>>({});
+
+    const handleLimitsUpdate = useCallback((items: any[]) => {
+        const marketMap: Record<string, any> = {};
+        const fancyMap: Record<string, any> = {};
+        items.forEach((item) => {
+            if (item?.type === "market" && item.marketId) {
+                marketMap[item.marketId] = item;
+            }
+            if (item?.type === "fancy" && item.fancyId) {
+                fancyMap[item.fancyId] = item;
+            }
+        });
+        setSseMarketLimits(marketMap);
+        setSseFancyLimits(fancyMap);
+    }, []);
 
     const [placeBetData, setPlaceBetData] = useState<any>({
         isFancy: false,
@@ -214,6 +232,12 @@ const GameDetails = () => {
     /* ================= RENDER ================= */
     return (
         <div className="page-body game-details-page">
+            {id ? (
+                <FancySSE
+                    eventId={id}
+                    onLimitsUpdate={handleLimitsUpdate}
+                />
+            ) : null}
             <Marquee speed={50} style={{minHeight: 30, color: "red", fontWeight: 900}}>
                 {oddsData?.Bookmaker?.[0]?.display_message !== "null" &&
                     oddsData?.Bookmaker?.[0]?.display_message}
@@ -243,6 +267,7 @@ const GameDetails = () => {
                     focusAmountInput={focusAmountInput}
                     oddsPnl={oddsPnl?.data}
                     minMax={marketMinMax?.data}
+                    sseMarketLimits={sseMarketLimits}
                 />
 
                 {tossMarket && tossMarket.length > 0 && (
@@ -259,6 +284,7 @@ const GameDetails = () => {
                     handleBetData={handleBetData}
                     focusAmountInput={focusAmountInput}
                     minMax={fancyMinMax?.data}
+                    sseFancyLimits={sseFancyLimits}
                 />
 
                 {/* 🔴 AMOUNT BAR */}

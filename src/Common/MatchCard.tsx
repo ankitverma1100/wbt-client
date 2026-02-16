@@ -45,7 +45,13 @@ const MatchCard = ({ match }: Props) => (
           </div>
           <div className="col-sm-3 col-2">
             <div className="live-text">
-              <span className="live-blink"></span> {match.inPlay && <span className="live-dot" />}LIVE
+              {match.inPlay && (
+                <>
+                  <span className="live-blink"></span>
+                  <span className="live-dot" />
+                  LIVE
+                </>
+              )}
             </div>
           </div>
           <div className="col-sm-3 col-2">

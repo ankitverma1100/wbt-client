@@ -6,7 +6,8 @@ const CasinoHome = () => {
   const nav = useNavigate();
   const { data } = useCasinoListQuery();
 
-  const activeTableIds = data?.data?.map((item) => item.tableId) || [];
+  const activeTableIds = data?.data?.map((item) => String(item.tableId)) || [];
+  const activeTableIdSet = new Set(activeTableIds);
 
   const virtualCasino = [
     { img: "/img/casino/aviator.webp", name: "AVIATOR" },
@@ -17,6 +18,7 @@ const CasinoHome = () => {
 
   const liveCasino = [
     { id: "52", img: "/img/casino/dragon-tiger.webp", name: "DRAGON TIGER" },
+    { id: "62", img: "/img/casino/dragon-tiger.webp", name: "DRAGON TIGER 2" },
     { id: "53", img: "/img/casino/lucky-b.webp", name: "LUCKY7B" },
     { id: "56", img: "/img/casino/a-a-a.webp", name: "AMAR AKBAR ANTHONY" },
     { id: "51", img: "/img/casino/teen-patti-2020.webp", name: "TEEN PATTI 2020" },
@@ -29,6 +31,24 @@ const CasinoHome = () => {
 
   return (
     <div className="casino-page">
+      {/* ===== LIVE CASINO ===== */}
+      <div className="casino-section-title ">LIVE CASINO</div>
+
+      <div className="casino-grid">
+        {liveCasino
+          .filter((item) => activeTableIdSet.has(item.id))
+          .map((item) => (
+            <div key={item.id} className="casino-grid-item">
+              <div
+                className="casino-card active"
+                onClick={() => nav(`/main/casino/${item.id}`)}
+              >
+                <img src={item.img} alt={item.name} />
+                <div className="casino-card-title">{item.name}</div>
+              </div>
+            </div>
+          ))}
+      </div>
 
       {/* ===== VIRTUAL CASINO ===== */}
       <div className="casino-section-title">VIRTUAL CASINO</div>
@@ -43,28 +63,6 @@ const CasinoHome = () => {
           </div>
         ))}
       </div>
-
-      {/* ===== LIVE CASINO ===== */}
-      <div className="casino-section-title ">LIVE CASINO</div>
-
-      <div className="casino-grid">
-        {liveCasino.map((item) => {
-          const isActive = activeTableIds.includes(item.id);
-
-          return (
-            <div key={item.id} className="casino-grid-item">
-              <div
-                className={`casino-card ${isActive ? "active" : "inactive"}`}
-                onClick={() => isActive && nav(`/main/casino/${item.id}`)}
-              >
-                <img src={item.img} alt={item.name} />
-                <div className="casino-card-title">{item.name}</div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
     </div>
   );
 };

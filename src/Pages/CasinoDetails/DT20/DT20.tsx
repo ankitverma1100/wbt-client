@@ -23,50 +23,8 @@ const DT20 = ({
 }: TeenProps) => {
   const t2 = odds?.t2 || [];
 
-  const rankOrder = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
-
-  const getRank = (nation?: string) => {
-    if (!nation) return "";
-    const cleaned = nation
-      .replace(/dragon\s*card/i, "")
-      .replace(/tiger\s*card/i, "")
-      .replace(/[^A-Za-z0-9]/g, " ")
-      .trim();
-    const token = cleaned.split(/\s+/).pop() || "";
-    const match = token.match(/^(A|K|Q|J|10|[2-9])$/i);
-    if (match) return match[0].toUpperCase();
-    const alt = nation.match(/(A|K|Q|J|10|[2-9])/i);
-    return alt ? alt[0].toUpperCase() : "";
-  };
-
   const isLocked = (item: any) =>
     item?.gstatus === "0" || item?.gstatus === false || item?.gstatus === "SUSPENDED";
-
-  const buildGroup = (label: string) => {
-    const items = t2.filter((item: any) =>
-      ((item?.nation || item?.nat || "") as string)
-        .toLowerCase()
-        .includes(label.toLowerCase())
-    );
-    const byRank: Record<string, any> = {};
-    items.forEach((item: any) => {
-      const rank = getRank(item?.nation);
-      if (rank) {
-        byRank[rank] = item;
-      }
-    });
-    const ordered = rankOrder.map((rank) => ({
-      rank,
-      item: byRank[rank],
-    }));
-    const sample = items[0];
-    return {
-      ordered,
-      min: sample?.min,
-      max: sample?.max,
-      locked: items.length > 0 && items.every(isLocked),
-    };
-  };
 
   const handleClick = (t2Data: any) => {
     const nationLabel = (t2Data?.nation || "").toString().toLowerCase();
@@ -74,7 +32,7 @@ const DT20 = ({
       ? "DRAGON"
       : nationLabel.includes("tiger")
         ? "TIGER"
-        : getRank(t2Data?.nation) || t2Data?.nation;
+        : t2Data?.nation;
     setBetState &&
       setBetState((prev: any) => ({
         ...prev,
@@ -93,48 +51,6 @@ const DT20 = ({
     });
     setIsBetModal(true);
     setTimer(10);
-  };
-
-  const renderStrip = (title: string, labelMatch: string) => {
-    const group = buildGroup(labelMatch);
-    if (!group.ordered.some((entry) => entry.item)) return null;
-
-    return (
-      <div className={`dt20-strip ${group.locked ? "is-locked" : "is-unlocked"}`}>
-        <div className="dt20-strip-title">{title.toUpperCase()}</div>
-        <div className="dt20-strip-cards">
-          {group.ordered.map(({ rank, item }) => (
-            <div key={rank} className="dt20-strip-card-wrap">
-              <button
-                type="button"
-                className="dt20-strip-card"
-                onClick={() => item && !isLocked(item) && handleClick(item)}
-                disabled={!item || isLocked(item)}>
-                <img
-                  className="dt20-strip-card-img"
-                  src={`/cards/${rank}.png`}
-                  alt={rank}
-                  loading="lazy"
-                />
-              </button>
-              <div className="dt20-strip-pnl">
-                {item?.pnl ?? 0}
-              </div>
-            </div>
-          ))}
-          {group.locked && (
-            <div className="dt20-strip-overlay">
-              <LockOutlined style={{ fontSize: 18, color: "white" }} />
-            </div>
-          )}
-        </div>
-        {(group.min || group.max) && (
-          <div className="dt20-strip-limits">
-            MIN:{group.min ?? 0} MAX:{group.max ?? 0}
-          </div>
-        )}
-      </div>
-    );
   };
 
   return (
@@ -207,8 +123,6 @@ const DT20 = ({
           </div>
         </Col>
       </Row>
-      {renderStrip("DRAGON 11", "Dragon Card")}
-      {renderStrip("TIGER 11", "Tiger Card")}
     </div>
   );
 };

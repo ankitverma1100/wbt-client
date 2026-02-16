@@ -78,19 +78,6 @@ const AAA = ({
   const red = findBy(["red", "heart", "diamond"], 5);
   const black = findBy(["black", "spade", "club"], 6);
 
-  const cardItems = t2.filter((item: any) =>
-    getName(item).toLowerCase().includes("card")
-  );
-  const rankOrder = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
-  const byRank: Record<string, any> = {};
-  cardItems.forEach((item: any) => {
-    const rank = getRank(getName(item));
-    if (rank) byRank[rank] = item;
-  });
-  const orderedStrip = rankOrder.map((rank) => ({ rank, item: byRank[rank] }));
-  const stripLocked = cardItems.length > 0 && cardItems.every(isLocked);
-  const stripSample = cardItems[0];
-
   return (
     <>
       <div className="aaa-section">
@@ -120,41 +107,6 @@ const AAA = ({
             </div>
           ))}
         </div>
-
-        {cardItems.length > 0 && (
-          <div className="lucky7-strip">
-            <div className="lucky7-strip-title">11</div>
-            <div className="lucky7-strip-cards">
-              {orderedStrip.map(({ rank, item }) => (
-                <div key={rank} className="dt20-strip-card-wrap">
-                  <button
-                    type="button"
-                    className="dt20-strip-card"
-                    onClick={() => item && !isLocked(item) && handleClick(item, true)}
-                    disabled={!item || isLocked(item)}>
-                    <img
-                      className="dt20-strip-card-img"
-                      src={`/cards/${rank}.png`}
-                      alt={rank}
-                      loading="lazy"
-                    />
-                  </button>
-                  <div className="dt20-strip-pnl">{item?.pnl ?? 0}</div>
-                </div>
-              ))}
-              {stripLocked && (
-                <div className="lucky7-strip-overlay">
-                  <LockOutlined style={{ fontSize: 18, color: "white" }} />
-                </div>
-              )}
-            </div>
-            {(stripSample?.min || stripSample?.max) && (
-              <div className="lucky7-strip-limits">
-                MIN:{stripSample?.min ?? 0} MAX:{stripSample?.max ?? 0}
-              </div>
-            )}
-          </div>
-        )}
 
         <div className="lucky7-odds-row lucky7-secondary-row">
           {[even, odd, red, black].map((item, idx) => (

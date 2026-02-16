@@ -1,5 +1,4 @@
 import { useActiveMatchQuery } from "../../store/service/odds/oddsServices";
-import { useActiveEventMutation } from "../../store/service/userServices/userServices";
 import { useEffect, useMemo, useState } from "react";
 import MatchCard from "../../Common/MatchCard";
 import "./style.scss";
@@ -9,7 +8,6 @@ const Inplay = () => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
   const { data } = useActiveMatchQuery();
-  const [getActiveEvent, { data: activeEvent }] = useActiveEventMutation();
 
   /* ---------- BANNERS ---------- */
   const banners = [
@@ -17,29 +15,17 @@ const Inplay = () => {
     "/img/inplay/international-leage-banner.jpg",
   ];
 
-  /* ---------- API ---------- */
-  useEffect(() => {
-    const token = localStorage.getItem("client-token");
-    if (token) {
-      getActiveEvent();
-    }
-  }, [getActiveEvent]);
-
   const activeMatches = useMemo(() => {
-    if (!data || !activeEvent) return [];
+    if (!data?.data) return [];
 
-    return data?.data
-      ?.flatMap((item) =>
-        activeEvent.data
-          .filter((m) => m?.eventId === item?.matchId)
-          .map((m) => ({ ...item, active: m.active }))
-      )
-      ?.sort((a, b) => {
+    return data.data
+      .slice()
+      .sort((a, b) => {
         if (a.matchName === "Twenty20 Big Bash") return -1;
         if (b.matchName === "Twenty20 Big Bash") return 1;
         return new Date(a.openDate).getTime() - new Date(b.openDate).getTime();
-      }) ?? [];
-  }, [activeEvent, data]);
+      });
+  }, [data]);
 
   useEffect(() => {
     if (banners.length <= 1) return undefined;
@@ -78,8 +64,6 @@ const Inplay = () => {
         {/* ---------------- MATCH LIST ---------------- */}
         <div className="match-list">
           {activeMatches?.map((match) => {
-            if (!match?.active) return null;
-
             return <MatchCard key={match.matchId} match={match} />;
           })}
         </div>

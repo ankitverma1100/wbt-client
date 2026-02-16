@@ -1,9 +1,49 @@
 import { Button, Form, Input } from "antd";
 import { useNavigate } from "react-router-dom";
 import { isAntPro } from "../CasinoDetails/Constant";
+import { useLoginMutation } from "../../store/service/authService";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const nav = useNavigate();
+  const [trigger, { data: loginData, isLoading }] = useLoginMutation();
+  const [loginError, setLoginError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!isLoading && loginData) {
+      if (loginData?.status === false) {
+        const message = loginData.message || "Invalid UserId or Password";
+        setLoginError(message);
+        console.error("Login failed:", message);
+        return;
+      }
+
+      const resolvedData = loginData?.data ?? loginData;
+      const token = resolvedData?.token;
+      const userId = resolvedData?.userId;
+      const username = resolvedData?.username;
+
+      if (token) {
+        localStorage.setItem("isLogin", "1");
+        localStorage.setItem("client-token", token);
+        if (userId) localStorage.setItem("userId", userId);
+        if (username) localStorage.setItem("username", username);
+        setLoginError(null);
+        nav("/main/rules");
+      } else if (loginData?.message) {
+        setLoginError(loginData.message);
+        console.error("Login failed:", loginData.message);
+      }
+    }
+  }, [loginData, isLoading, nav]);
+
+  useEffect(() => {
+    if (loginError) {
+      toast.error(loginError);
+    }
+  }, [loginError]);
+
   return (
     <div
       className="gx-bg-flex gx-box-shadow gx-bg-grey  gx-justify-content-center gx-align-items-center"
@@ -25,7 +65,19 @@ const Login = () => {
             </div>
           </div>
           <div className="gx-app-login-content gx-w-100">
-            <Form name="basic" className="gx-signin-form gx-form-row0">
+            <Form
+              name="basic"
+              className="gx-signin-form gx-form-row0"
+              initialValues={{ username: "C67329", password: "C67329" }}
+              onFinish={(values) => {
+                setLoginError(null);
+                trigger({
+                  userId: values.username,
+                  password: values.password,
+                  url: "10wicket.co",
+                });
+              }}
+            >
               <Form.Item
                 label=""
                 name="username"
@@ -34,14 +86,13 @@ const Login = () => {
                 ]}>
                 <Input
                   type="text"
-                  defaultValue="C67329"
                   placeholder="USERNAME"
                   className="gx-border-redius0"
                 />
               </Form.Item>
               <Form.Item
                 label=""
-                name="username"
+                name="password"
                 rules={[
                   {
                     required: true,
@@ -51,14 +102,13 @@ const Login = () => {
                 <Input
                   name="password"
                   type="Password"
-                  defaultValue="C67329"
                   placeholder="Password"
                   className="gx-border-redius0"
                 />
               </Form.Item>
               <Button
-                onClick={() => nav("/main/dashboard")}
-                // type="submit"
+                htmlType="submit"
+                loading={isLoading}
                 className=" gx-mb-0 gx-w-100 gx-border-redius0 gx-font-weight-semi-bold gx-fs-lg gx-text-white"
                 style={{
                   backgroundColor: "rgb(42, 40, 39)",

@@ -15,6 +15,7 @@ interface Props {
   focusAmountInput: () => void;
   oddsPnl: OdssPnl[] | undefined;
   minMax: any;
+  sseMarketLimits?: Record<string, any>;
 }
 
 const Bookmaker = ({
@@ -23,6 +24,7 @@ const Bookmaker = ({
   focusAmountInput,
   oddsPnl,
   minMax,
+  sseMarketLimits,
 }: Props) => {
   const filteredBookData = (oddsData || []).filter(Boolean);
   const processedBookData = [...filteredBookData];
@@ -81,6 +83,9 @@ const Bookmaker = ({
   const minMaxData = minMax?.find(
     (item: any) => item?.marketid === oddsData?.[0]?.mid
   );
+  const sseLimit = oddsData?.[0]?.mid
+    ? sseMarketLimits?.[oddsData?.[0]?.mid]
+    : undefined;
 
   const formatMax = (value?: number) => {
     if (value === undefined || value === null) return "";
@@ -90,6 +95,17 @@ const Bookmaker = ({
     return String(value);
   };
 
+  const formatMin = (value?: number) => {
+    if (value === undefined || value === null) return "";
+    if (value >= 1000) {
+      return `${Math.round(value / 1000)}K`;
+    }
+    return String(value);
+  };
+
+  const displayMax = sseLimit?.maxBet ?? minMaxData?.maxbet;
+  const displayMin = sseLimit?.minBet ?? minMaxData?.minbet;
+
   return (
     <div className="overflow-responsive">
       <table className="bookmaker-table bet-table" width="100%">
@@ -98,7 +114,10 @@ const Bookmaker = ({
             <th className="bm-head">
               <span className="text-blink">BOOKMAKER</span>
               <span className="bm-max text-blink">
-                MAX: {formatMax(minMaxData?.maxbet)}
+                MAX: {formatMax(displayMax)}
+              </span>
+              <span className="bm-max text-blink" style={{ marginLeft: 8 }}>
+                MIN: {formatMin(displayMin)}
               </span>
             </th>
             <th className="bm-head bm-lagai">LAGAI</th>

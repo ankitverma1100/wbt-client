@@ -23,6 +23,9 @@ const DT2 = ({
 }: TeenProps) => {
   const t2 = odds?.t2 || [];
 
+  const isLocked = (item: any) =>
+    item?.gstatus === "0" || item?.gstatus === false || item?.gstatus === "SUSPENDED";
+
   const handleClick = (t2Data: any) => {
     setBetState &&
       setBetState((prev: any) => ({
@@ -44,101 +47,76 @@ const DT2 = ({
     setTimer(10);
   };
   return (
-    <Row
-      justify="center"
-      className="gx-w-100 gx-text-center gx-border-dark gx-border-2 gx-mt-1 gx-mx-1"
-      style={{ marginLeft: "-4px", marginRight: "-4px", rowGap: 8 }}>
-      <Col xs={8} style={{ paddingLeft: 4, paddingRight: 4 }}>
-        <div className="gx-py-2 gx-w-100">
-          <div className="gx-fs-md gx-font-weight-semi-bold gx-py-1">
-            <span>{t2?.[0]?.rate}</span>
-          </div>
-          <div
-            className="gx-fs-md gx-text-white gx-font-weight-semi-bold gx-w-100 gx-bg-flex"
-            style={{ height: 33 }}>
-            <div
-              className="gx-w-100 gx-mx-1 gx-py-2 gx-position-relative gx-bg-grey"
-              onClick={() => t2?.[0]?.gstatus != "0" && handleClick(t2?.[0])}>
-              <div>{t2[0]?.nation}</div>
-              {t2?.[2]?.gstatus == "0" && (
-                <div
-                  className="gx-position-absolute gx-top-0 gx-w-100 gx-cursor-pointer gx-h-100"
-                  style={{ background: "rgba(0, 0, 0, 0.7)" }}>
-                  <div className="gx-bg-flex gx-justify-content-center gx-align-content-center gx-py-2">
+    <div className="dt20-section">
+      <Row justify="center" className="dt20-odds-row">
+        <Col xs={8} className="dt20-odds-col">
+          <div className="dt20-odds-card">
+            <div className="dt20-odds-rate">{t2?.[0]?.rate}</div>
+            <div className="dt20-odds-label-wrap">
+              <div
+                className={`dt20-odds-label ${isLocked(t2?.[0]) ? "is-locked" : "is-unlocked"}`}
+                onClick={() => t2?.[0] && !isLocked(t2?.[0]) && handleClick(t2?.[0])}>
+                <div>{t2?.[0]?.nation}</div>
+                {isLocked(t2?.[0]) && (
+                  <div className="dt20-odds-lock">
                     <LockOutlined style={{ fontSize: 16, color: "white" }} />
                   </div>
-                </div>
-              )}
+                )}
+              </div>
+            </div>
+            <div
+              className="dt20-odds-pnl"
+              style={{ color: t2?.[0]?.pnl > 0 ? "green" : "red" }}>
+              {t2?.[0]?.pnl}
             </div>
           </div>
-          <div
-            className="gx-text-green-0"
-            style={{ color: t2[0]?.pnl > 0 ? "green" : "red" }}>
-            {t2[0]?.pnl}
-          </div>
-        </div>
-      </Col>
-      <Col xs={8} style={{ paddingLeft: 4, paddingRight: 4 }}>
-        <div className="gx-py-2 gx-w-100">
-          <div className="gx-fs-md gx-font-weight-semi-bold gx-py-1">
-            <span>{t2?.[2]?.rate}</span>
-          </div>
-          <div
-            className="gx-fs-md gx-text-white gx-font-weight-semi-bold gx-w-100 gx-bg-flex"
-            style={{ height: 33 }}>
-            <div
-              className="gx-w-100 gx-mx-1 gx-py-2 gx-position-relative gx-bg-grey"
-              onClick={() => t2?.[2]?.gstatus != "0" && handleClick(t2?.[2])}>
-              <div>{t2[2]?.nation}</div>
-              {t2[2]?.gstatus == "0" && (
-                <div
-                  className="gx-position-absolute gx-top-0 gx-w-100 gx-cursor-pointer gx-h-100"
-                  style={{ background: "rgba(0, 0, 0, 0.7)" }}>
-                  <div className="gx-bg-flex gx-justify-content-center gx-align-content-center gx-py-2">
+        </Col>
+        <Col xs={8} className="dt20-odds-col">
+          <div className="dt20-odds-card">
+            <div className="dt20-odds-rate">{t2?.[2]?.rate}</div>
+            <div className="dt20-odds-label-wrap">
+              <div
+                className={`dt20-odds-label ${isLocked(t2?.[2]) ? "is-locked" : "is-unlocked"}`}
+                onClick={() => t2?.[2] && !isLocked(t2?.[2]) && handleClick(t2?.[2])}>
+                <div>{t2?.[2]?.nation}</div>
+                {isLocked(t2?.[2]) && (
+                  <div className="dt20-odds-lock">
                     <LockOutlined style={{ fontSize: 16, color: "white" }} />
                   </div>
-                </div>
-              )}
+                )}
+              </div>
+            </div>
+            <div
+              className="dt20-odds-pnl"
+              style={{ color: t2?.[2]?.pnl > 0 ? "green" : "red" }}>
+              {t2?.[2]?.pnl}
             </div>
           </div>
-          <div
-            className="gx-text-green-0"
-            style={{ color: t2[2]?.pnl > 0 ? "green" : "red" }}>
-            {t2[2]?.pnl}
-          </div>
-        </div>
-      </Col>
-      <Col xs={8} style={{ paddingLeft: 4, paddingRight: 4 }}>
-        <div className="gx-py-2 gx-w-100">
-          <div className="gx-fs-md gx-font-weight-semi-bold gx-py-1">
-            <span>{t2?.[1]?.rate}</span>
-          </div>
-          <div
-            className="gx-fs-md gx-text-white gx-font-weight-semi-bold gx-w-100 gx-bg-flex"
-            style={{ height: 33 }}>
-            <div
-              className="gx-w-100 gx-mx-1 gx-py-2 gx-position-relative gx-bg-grey"
-              onClick={() => t2?.[1]?.gstatus != "0" && handleClick(t2?.[1])}>
-              <div>{t2?.[1]?.nation}</div>
-              {t2?.[1]?.gstatus == "0" && (
-                <div
-                  className="gx-position-absolute gx-top-0 gx-w-100 gx-cursor-pointer gx-h-100"
-                  style={{ background: "rgba(0, 0, 0, 0.7)" }}>
-                  <div className="gx-bg-flex gx-justify-content-center gx-align-content-center gx-py-2">
+        </Col>
+        <Col xs={8} className="dt20-odds-col">
+          <div className="dt20-odds-card">
+            <div className="dt20-odds-rate">{t2?.[1]?.rate}</div>
+            <div className="dt20-odds-label-wrap">
+              <div
+                className={`dt20-odds-label ${isLocked(t2?.[1]) ? "is-locked" : "is-unlocked"}`}
+                onClick={() => t2?.[1] && !isLocked(t2?.[1]) && handleClick(t2?.[1])}>
+                <div>{t2?.[1]?.nation}</div>
+                {isLocked(t2?.[1]) && (
+                  <div className="dt20-odds-lock">
                     <LockOutlined style={{ fontSize: 16, color: "white" }} />
                   </div>
-                </div>
-              )}
+                )}
+              </div>
+            </div>
+            <div
+              className="dt20-odds-pnl"
+              style={{ color: t2?.[1]?.pnl > 0 ? "green" : "red" }}>
+              {t2?.[1]?.pnl}
             </div>
           </div>
-          <div
-            className="gx-text-green-0"
-            style={{ color: t2?.[1]?.pnl > 0 ? "green" : "red" }}>
-            {t2?.[1]?.pnl}
-          </div>
-        </div>
-      </Col>
-    </Row>
+        </Col>
+      </Row>
+    </div>
   );
 };
 

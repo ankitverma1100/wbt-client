@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./style.scss";
 import { useLoginMutation } from "../../store/service/authService";
 import { isAntPro } from "../CasinoDetails/Constant";
+import { toast } from "react-toastify";
 
 /* ================= SVG ICONS ================= */
 
@@ -55,6 +56,7 @@ const Login_New = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [loadingType, setLoadingType] = useState<"login" | "demo" | null>(null);
+  const [loginError, setLoginError] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -82,6 +84,7 @@ const Login_New = () => {
     }
 
     setLoadingType("login");
+    setLoginError(null);
 
     try {
       await trigger({
@@ -90,7 +93,8 @@ const Login_New = () => {
         // url: window.location.hostname,
         // url: "nsgpro99.com",
         // url: "antpro.co",
-        url: "urb99.com",
+        // url: "urb99.com",
+        url: "10wicket.co",
       });
     } catch (error) {
       console.error("Login failed:", error);
@@ -115,20 +119,41 @@ const Login_New = () => {
   useEffect(() => {
     // Reset loading when mutation is no longer loading and we have result
     if (!isLoading && loginData) {
-      if (loginData?.token) {
+      if (loginData?.status === false) {
+        setLoadingType(null);
+        const message = loginData.message || "Invalid UserId or Password";
+        setLoginError(message);
+        console.error("Login failed:", message);
+        return;
+      }
+
+      const resolvedData = loginData?.data ?? loginData;
+      const token = resolvedData?.token;
+      const userId = resolvedData?.userId;
+      const username = resolvedData?.username;
+
+      if (token) {
         localStorage.setItem("isLogin", "1");
-        localStorage.setItem("client-token", loginData.token);
-        localStorage.setItem("userId", loginData.userId);
-        localStorage.setItem("username", loginData.username);
+        localStorage.setItem("client-token", token);
+        if (userId) localStorage.setItem("userId", userId);
+        if (username) localStorage.setItem("username", username);
+        setLoginError(null);
         nav("/main/rules");
       } else if (loginData?.message) {
         // Handle login error
         setLoadingType(null);
         // Show error message if needed
+        setLoginError(loginData.message);
         console.error("Login failed:", loginData.message);
       }
     }
   }, [loginData, isLoading, nav]);
+
+  useEffect(() => {
+    if (loginError) {
+      toast.error(loginError);
+    }
+  }, [loginError]);
 
   // LOGIC: Show error if:
   // 1. Form has been submitted AND field is empty (formSubmitted)

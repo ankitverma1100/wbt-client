@@ -13,12 +13,18 @@ interface LoginRequestBody {
 }
 
 interface LoginResponse {
-  token: string;
-  userId: string;
-  userTypeInfo: number | string;
   status?: boolean;
   message?: string;
-  username: string;
+  data?: {
+    token: string;
+    userId: string;
+    userTypeInfo: number | string;
+    username: string;
+  } | null;
+  token?: string;
+  userId?: string;
+  userTypeInfo?: number | string;
+  username?: string;
 }
 
 interface BetPlacedProps {

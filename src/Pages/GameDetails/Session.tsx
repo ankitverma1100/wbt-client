@@ -37,6 +37,7 @@ interface Props {
   ) => void;
   focusAmountInput: () => void;
   minMax: any;
+  sseFancyLimits?: Record<string, any>;
 }
 
 const Session = ({
@@ -44,6 +45,7 @@ const Session = ({
   handleBetData,
   focusAmountInput,
   minMax,
+  sseFancyLimits,
 }: Props) => {
   const { id } = useParams() as { id: string };
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -86,6 +88,7 @@ const Session = ({
               const minMaxData = minMax?.find(
                 (item: any) => item?.fancyid === session?.sid
               );
+              const sseLimit = session?.sid ? sseFancyLimits?.[session.sid] : undefined;
 
               const suspended =
                 session?.gstatus?.toLowerCase() === "suspended";
@@ -101,7 +104,12 @@ const Session = ({
                       <div className="session-group">
                         <div className="session-details">
                           <span className="session-text">{session.nation}</span>
-                          <span className="session-max">MAX : {minMaxData?.maxbet}</span>
+                          <span className="session-max">
+                            MAX : {sseLimit?.maxBet ?? minMaxData?.maxbet}
+                          </span>
+                          <span className="session-max" style={{ marginLeft: 8 }}>
+                            MIN : {sseLimit?.minBet ?? minMaxData?.minbet}
+                          </span>
                         </div>
 
                         <img
