@@ -85,7 +85,7 @@ const CasinoMainPage = () => {
   return (
     <>
       <Row justify={"center"} className="gx-mt-2 gx-mb-2 main_casino_row">
-        <Col xs={24} sm={24} md={24} lg={10} xl={10} xxl={10}>
+        <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
           <CasinoHead t1={t1} />
           <VideoSection
             t3={odds && (odds as any)?.t3}

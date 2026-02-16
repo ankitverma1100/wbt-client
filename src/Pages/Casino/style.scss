@@ -7,7 +7,7 @@
 }
 
 .casino-section-title {
-  background: #b88a2c;
+  background: var(--primary-color);
   color: #fff;
   text-align: center;
   font-weight: 600;
@@ -42,7 +42,7 @@
 }
 
 .casino-card {
-  background: #b88a2c;
+  background: var(--primary-color);
   border-radius: 12px;
   overflow: hidden;
   display: flex;
@@ -87,5 +87,4 @@
 .casino-card.active {
   cursor: pointer;
 }
-
 

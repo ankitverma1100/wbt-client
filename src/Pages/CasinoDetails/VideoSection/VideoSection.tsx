@@ -28,13 +28,14 @@ const VideoSection = ({ t1, t3, t2, time }: any) => {
   return (
     <Card
       bordered={true}
-      className="gx-bg-black gx-text-white p-0 gx-my-0  ant-space-align-center gx-position-relative">
-      <iframe
-        title=" "
-        className="gx-w-100"
-        src={`https://casino.loki7exch.com/route/?id=${videoData?.[id as string]}`}
-        style={{ height: 350 }}
-      />
+      className="casino-video-card gx-text-white p-0 gx-my-0 ant-space-align-center gx-position-relative">
+      <div className="casino-video-frame">
+        <iframe
+          title=" "
+          className="gx-w-100"
+          src={`https://casino.loki7exch.com/route/?id=${videoData?.[id as string]}`}
+        />
+      </div>
       <div className="gx-w-100 gx-p-3 gx-position-absolute gx-top-0 gx-left-0">
         {(id === "53" || id === "56") && <AAACard t1={safeT1} />}
         {id === "51" && <TeenCard t1={safeT1} />}

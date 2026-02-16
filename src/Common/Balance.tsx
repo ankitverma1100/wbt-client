@@ -1,4 +1,6 @@
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useGetUserLiabilityMutation } from "../store/service/userServices/userServices";
+import ExposureModal from "./ExposureModal";
 
 interface BalanceData {
   balance?: number;
@@ -16,9 +18,17 @@ const formatAmount = (value?: number) => {
 };
 
 const Balance = ({ userBalance }: BalanceProps) => {
-  const nav = useNavigate();
+  const [isExposureOpen, setIsExposureOpen] = useState(false);
+  const [loadExposure, { data: exposureData, isLoading }] =
+    useGetUserLiabilityMutation();
   const chips = formatAmount(userBalance?.balance);
   const expo = formatAmount(userBalance?.liability);
+
+  useEffect(() => {
+    if (isExposureOpen) {
+      loadExposure();
+    }
+  }, [isExposureOpen, loadExposure]);
 
   return (
     <>
@@ -31,7 +41,6 @@ const Balance = ({ userBalance }: BalanceProps) => {
           <span
             className="chips-value "
             style={{ color: "red" }}
-            onClick={() => nav("/main/pending")}
           >
             Expo :{""}
             <span className="exposer_wallet" style={{ color: "red" }}>
@@ -39,10 +48,17 @@ const Balance = ({ userBalance }: BalanceProps) => {
             </span>
           </span>
           <button type="button" className="bet-btn">
-            <span>Bets</span>
+            <span onClick={() => setIsExposureOpen(true)}>Bets</span>
           </button>
         </div>
       </div>
+
+      <ExposureModal
+        open={isExposureOpen}
+        onClose={() => setIsExposureOpen(false)}
+        isLoading={isLoading}
+        bets={exposureData?.data}
+      />
     </>
   );
 };

@@ -22,13 +22,16 @@ const Teen = ({
 }: TeenProps) => {
     const t2 = odds?.t2 || [];
 
+    const isLocked = (item: any) =>
+        item?.gstatus === "0" || item?.gstatus === false || item?.gstatus === "SUSPENDED";
+
     const handleClick = (t2: {
         nation: any;
         rate: any;
         b1: any;
         mid: any;
         sid: any;
-    }) => {
+    }, label: "A" | "B") => {
         setBetState &&
             setBetState((prev: any) => ({
                 ...prev,
@@ -38,7 +41,7 @@ const Teen = ({
                 odds: Number(t2?.rate),
                 selectionId: t2?.sid,
                 colorName: "back",
-                selectionName: t2?.nation?.includes("A") ? "A" : t2?.nation?.includes("B") ? "B" : t2?.nation,
+                selectionName: label,
             }));
         scrollToBet?.current?.scrollIntoView({
             behavior: "smooth",
@@ -48,6 +51,17 @@ const Teen = ({
         setIsBetModal(true);
         setTimer(10);
     };
+
+    const getName = (item: any) => (item?.nation || item?.nat || "").toString();
+    const findBy = (keywords: string[], fallbackIndex: number) => {
+        const found = t2.find((item: any) =>
+            keywords.some((key) => getName(item).toLowerCase().includes(key))
+        );
+        return found ?? t2?.[fallbackIndex];
+    };
+
+    const playerA = findBy(["player a"], 0);
+    const playerB = findBy(["player b"], 2);
 
     return (
         <div className="teen-patti-container">
@@ -61,18 +75,21 @@ const Teen = ({
                 {/* Player A Row */}
                 <div className="tp-row">
                     <div className="tp-runner-info">
-                        <div className="tp-runner-name">{t2[0]?.nation || 'PLAYER A'}</div>
-                        <div className={`tp-pnl ${t2?.[0]?.pnl > 0 ? 'positive' : 'negative'}`}>
-                            {t2?.[0]?.pnl || '0.00'}
+                        <div className="tp-runner-name">PLAYER A</div>
+                        <div className={`tp-pnl ${playerA?.pnl > 0 ? 'positive' : 'negative'}`}>
+                            {playerA?.pnl || '0.00'}
                         </div>
                     </div>
-                    <div className="tp-bet-cell" onClick={() => handleClick(t2?.[0])}>
-                        {!t2[0]?.gstatus ? (
+                    <div
+                        className="tp-bet-cell"
+                        onClick={() => playerA && !isLocked(playerA) && handleClick(playerA, "A")}
+                    >
+                        {isLocked(playerA) ? (
                             <div className="tp-lock">
                                 <LockFilled />
                             </div>
                         ) : (
-                            <div className="tp-rate">{t2[0]?.rate || '0.97'}</div>
+                            <div className="tp-rate">{playerA?.rate || '0.97'}</div>
                         )}
                     </div>
                 </div>
@@ -80,18 +97,21 @@ const Teen = ({
                 {/* Player B Row */}
                 <div className="tp-row">
                     <div className="tp-runner-info">
-                        <div className="tp-runner-name">{t2[1]?.nation || 'PLAYER B'}</div>
-                        <div className={`tp-pnl ${t2?.[1]?.pnl > 0 ? 'positive' : 'negative'}`}>
-                            {t2?.[1]?.pnl || '0.00'}
+                        <div className="tp-runner-name">PLAYER B</div>
+                        <div className={`tp-pnl ${playerB?.pnl > 0 ? 'positive' : 'negative'}`}>
+                            {playerB?.pnl || '0.00'}
                         </div>
                     </div>
-                    <div className="tp-bet-cell" onClick={() => handleClick(t2?.[1])}>
-                        {!t2[1]?.gstatus ? (
+                    <div
+                        className="tp-bet-cell"
+                        onClick={() => playerB && !isLocked(playerB) && handleClick(playerB, "B")}
+                    >
+                        {isLocked(playerB) ? (
                             <div className="tp-lock">
                                 <LockFilled />
                             </div>
                         ) : (
-                            <div className="tp-rate">{t2[1]?.rate || '0.97'}</div>
+                            <div className="tp-rate">{playerB?.rate || '0.97'}</div>
                         )}
                     </div>
                 </div>
@@ -102,4 +122,3 @@ const Teen = ({
 };
 
 export default Teen;
-

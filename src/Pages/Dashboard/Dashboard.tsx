@@ -1,12 +1,62 @@
 // import Marquee from "react-fast-marquee";
 import { Link } from "react-router-dom";
-import { useGetMessageQuery } from "../../store/service/userServices/userServices";
 import "./style.scss"
 
-const Dashboard = () => {
-  const { data } = useGetMessageQuery(undefined, {});
+const MENU_ITEMS = [
+  {
+    to: "/main/matches",
+    img: "/img/menu-img/inplay.png",
+    label: "In Play",
+  },
+  {
+    to: "/main/casino",
+    img: "/img/menu-img/casino.png",
+    label: "Casino",
+  },
+  {
+    to: "/main/matka",
+    img: "/img/menu-img/matka.png",
+    label: "Matka",
+  },
+  {
+    to: "/main/statement",
+    img: "/img/menu-img/statement.png",
+    label: "Statement",
+  },
+  {
+    to: "/main/ledger",
+    img: "/img/menu-img/ledger.png",
+    label: "Ledger",
+  },
+  {
+    to: "/main/profile",
+    img: "/img/menu-img/profile.png",
+    label: "Profile",
+  },
+  {
+    to: "/main/rules",
+    img: "/img/menu-img/rules.png",
+    label: "Rules",
+  },
+  {
+    to: "/main/changepassword",
+    img: "/img/menu-img/password.png",
+    label: "Password",
+  },
+];
 
-  // console.log(data, "datadatadata")
+const MenuCard = ({ to, img, label }: (typeof MENU_ITEMS)[number]) => (
+  <div className="col-6">
+    <Link to={to}>
+      <div className="menu-img-wrap">
+        <img src={img} alt={label} loading="lazy" />
+      </div>
+      <span>{label}</span>
+    </Link>
+  </div>
+);
+
+const Dashboard = () => {
   return (
     <>
       <div className="">
@@ -26,70 +76,9 @@ const Dashboard = () => {
         <div className="main-menu-wrapper">
           <div className="container">
             <div className="row">
-              <div className="col-6">
-                <Link to="/main/matches">
-                  <div className="menu-img-wrap">
-                    <img src="/img/menu-img/inplay.png" />
-                  </div>
-                  <span>In Play{" "}</span>
-                </Link>
-              </div>
-              <div className="col-6">
-                <Link to="/main/casino">
-                  <div className="menu-img-wrap">
-                    <img src="/img/menu-img/casino.png" />
-                  </div>
-                  <span> Casino{" "}</span>
-                </Link>
-              </div>
-              <div className="col-6">
-                <Link to="/main/matka">
-                  <div className="menu-img-wrap">
-                    <img src="/img/menu-img/matka.png" />
-                  </div>
-                  <span>Matka{" "}</span>
-                </Link>
-              </div>
-              <div className="col-6">
-                <Link to="/main/statement">
-                  <div className="menu-img-wrap">
-                    <img src="/img/menu-img/statement.png" />
-                  </div>
-                  <span>Statement{" "}</span>
-                </Link>
-              </div>
-              <div className="col-6">
-                <Link to="/main/ledger">
-                  <div className="menu-img-wrap">
-                    <img src="/img/menu-img/ledger.png" />
-                  </div>
-                  <span>Ledger{" "}</span>
-                </Link>
-              </div>
-              <div className="col-6">
-                <Link to="/main/profile">
-                  <div className="menu-img-wrap">
-                    <img src="/img/menu-img/profile.png" />
-                  </div>
-                  <span>Profile{" "}</span>
-                </Link>
-              </div>
-              <div className="col-6">
-                <Link to="/main/rules">
-                  <div className="menu-img-wrap">
-                    <img src="/img/menu-img/rules.png" />
-                  </div>
-                  <span> Rules{" "}</span>
-                </Link>
-              </div>
-              <div className="col-6">
-                <Link to="/main/changepassword">
-                  <div className="menu-img-wrap">
-                    <img src="/img/menu-img/password.png" />
-                  </div>
-                  <span>Password{" "}</span>
-                </Link>
-              </div>
+              {MENU_ITEMS.map((item) => (
+                <MenuCard key={item.to} {...item} />
+              ))}
               {/* <div className="col-6">
               <Link to="/main/freegames">
 <div className="menu-img-wrap">

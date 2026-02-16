@@ -14,7 +14,7 @@
     .inplay-heading {
         display: flex;
         align-items: baseline;
-        background: rgb(183, 134, 47);
+        background: var(--primary-color);
         padding: 10px;
         border-bottom: 1px solid #fff;
 
@@ -35,7 +35,7 @@
     }
 
     .match-card {
-        background: linear-gradient(#b7862f 0, #000 100%);
+        background: linear-gradient(var(--primary-color) 0, #000 100%);
         padding: 12px;
         border-radius: 0 0 8px 8px;
         margin-bottom: 10px;

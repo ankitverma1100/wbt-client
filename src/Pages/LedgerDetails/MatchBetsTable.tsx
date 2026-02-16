@@ -1,0 +1,231 @@
+import moment from "moment";
+import SectionHeader from "./SectionHeader";
+
+const MatchBetsTable = ({
+  matchBets,
+  wonBy,
+  matchName,
+}: {
+  matchBets: any[];
+  wonBy?: string;
+  matchName?: string;
+}) => (
+  <div className="my-ledger-data-table" style={{ overflowX: "auto" }}>
+    <table width="100%" border={0} cellSpacing={0} cellPadding={0}>
+      <tbody>
+        <tr>
+          <td valign="top" style={{ padding: 0 }}>
+            <table
+              className="ledger-data"
+              width="100%"
+              border={0}
+              cellPadding={0}
+              cellSpacing={0}
+            >
+              <tbody>
+                <tr>
+                  <td align="left" valign="top" style={{ border: 0, padding: 0 }}>
+                    <SectionHeader title="Match Bets" />
+                  </td>
+                </tr>
+                <tr>
+                  <td align="left" valign="top" style={{ border: 0, padding: 0 }}>
+                    <table width="100%" border={0} cellPadding={20} cellSpacing={2}>
+                      <tbody>
+                        <tr>
+                          <td
+                            width="30%"
+                            height={25}
+                            align="center"
+                            valign="middle"
+                            className="font_text_white10px"
+                            style={{
+                              verticalAlign: "middle",
+                              textAlign: "center",
+                              paddingRight: 5,
+                              color: "#fff",
+                              background:
+                                "linear-gradient(var(--primary-color) 0, #000 100%)",
+                            }}
+                          >
+                            Runner
+                          </td>
+                          <td
+                            width="20%"
+                            align="center"
+                            valign="middle"
+                            className="font_text_white10px"
+                            style={{
+                              verticalAlign: "middle",
+                              textAlign: "center",
+                              paddingRight: 5,
+                              color: "#fff",
+                              background:
+                                "linear-gradient(var(--primary-color) 0, #000 100%)",
+                            }}
+                          >
+                            Date &amp; Time
+                          </td>
+                          <td
+                            width="14%"
+                            align="center"
+                            valign="middle"
+                            className="font_text_white10px"
+                            style={{
+                              verticalAlign: "middle",
+                              textAlign: "center",
+                              color: "#fff",
+                              background:
+                                "linear-gradient(var(--primary-color) 0, #000 100%)",
+                            }}
+                          >
+                            Rate
+                          </td>
+                        <td
+                            width="14%"
+                            align="center"
+                            valign="middle"
+                            className="font_text_white10px"
+                            style={{
+                              verticalAlign: "middle",
+                              textAlign: "center",
+                              paddingRight: 5,
+                              color: "#fff",
+                              background:
+                                "linear-gradient(var(--primary-color) 0, #000 100%)",
+                            }}
+                          >
+                            Result
+                          </td>
+                          <td
+                            width="14%"
+                            align="center"
+                            valign="middle"
+                            className="font_text_white10px"
+                            style={{
+                              verticalAlign: "middle",
+                              textAlign: "center",
+                              color: "#fff",
+                              background:
+                                "linear-gradient(var(--primary-color) 0, #000 100%)",
+                            }}
+                          >
+                            Amount
+                          </td>
+                          <td
+                            width="14%"
+                            align="center"
+                            valign="middle"
+                            className="font_text_white10px"
+                            style={{
+                              verticalAlign: "middle",
+                              textAlign: "center",
+                              color: "#fff",
+                              background:
+                                "linear-gradient(var(--primary-color) 0, #000 100%)",
+                            }}
+                          >
+                            Mode
+                          </td>
+                          <td
+                            width="14%"
+                            align="center"
+                            valign="middle"
+                            className="font_text_white10px"
+                            style={{
+                              verticalAlign: "middle",
+                              textAlign: "center",
+                              color: "#fff",
+                              background:
+                                "linear-gradient(var(--primary-color) 0, #000 100%)",
+                            }}
+                          >
+                            P&amp;L
+                          </td>
+                        </tr>
+                        {matchBets.map((items) => {
+                          const mode = String(items?.mode || "").toUpperCase();
+                          const isLagai = mode === "LAGAI" || mode === "YES";
+                          const isKhai = mode === "KHAI" || mode === "NO";
+                          const rowClass = isLagai
+                            ? "ledger-row-lagai"
+                            : isKhai
+                            ? "ledger-row-khai"
+                            : "";
+                          const netPnlValue = Number(items?.netPnl);
+                          const pnlClass = Number.isFinite(netPnlValue)
+                            ? netPnlValue >= 0
+                              ? "ledger-pnl-positive"
+                              : "ledger-pnl-negative"
+                            : "";
+                          return (
+                          <tr
+                            key={items?.selectionId || items?.id || items?.selectionName}
+                            className={rowClass}
+                          >
+                            <td align="center" valign="middle">
+                              {items?.matchName ||
+                                items?.eventName ||
+                                items?.match ||
+                                matchName ||
+                                ""}
+                            </td>
+                            <td align="center" valign="middle">
+                              {(() => {
+                                const raw =
+                                  items?.dateTime || items?.date || items?.createdAt;
+                                if (!raw) {
+                                  return "";
+                                }
+                                const parsed = moment(raw);
+                                if (parsed.isValid()) {
+                                  return parsed.format("YYYY-MM-DD HH:mm:ss");
+                                }
+                                const fallback = moment(
+                                  raw,
+                                  "ddd MMM DD HH:mm:ss [IST] YYYY",
+                                  true
+                                );
+                                return fallback.isValid()
+                                  ? fallback.format("YYYY-MM-DD HH:mm:ss")
+                                  : "";
+                              })()}
+                            </td>
+                            <td align="center" valign="middle">
+                              {Number(items?.rate * 100)?.toFixed(2)}
+                            </td>
+                                                        <td align="center" valign="middle">
+                              {wonBy}
+                            </td>
+                            <td align="center" valign="middle">
+                              {items?.amount}
+                            </td>
+                            <td align="center" valign="middle">
+                              {items?.mode}
+                            </td>
+                            <td
+                              align="center"
+                              valign="middle"
+                              className={pnlClass}
+                            >
+                              {Number.isFinite(netPnlValue)
+                                ? netPnlValue.toFixed(2)
+                                : ""}
+                            </td>
+                          </tr>
+                        );
+                        })}
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+);
+
+export default MatchBetsTable;

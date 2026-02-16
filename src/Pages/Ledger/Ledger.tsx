@@ -53,9 +53,29 @@ const Ledger = () => {
 
             {/* Summary */}
             <div className="ledger-summary">
-                <p className="credit">LENA : 0</p>
-                <p className="debit">DENA : 0</p>
-                <p className="credit">BALANCE LENA : 0</p>
+                {(() => {
+                    const lena = (ledgerData?.data || []).reduce(
+                        (sum, item) => sum + (Number(item?.won) || 0),
+                        0
+                    );
+                    const dena = (ledgerData?.data || []).reduce(
+                        (sum, item) => sum + (Number(item?.lost) || 0),
+                        0
+                    );
+                    const balance = lena - dena;
+                    const isLena = balance >= 0;
+
+                    return (
+                        <>
+                            <p className="credit">LENA : {lena.toFixed(2)}</p>
+                            <p className="debit">DENA : - {dena.toFixed(2)}</p>
+                            <p className={isLena ? "credit" : "debit"}>
+                                BALANCE {isLena ? "LENA" : "DENA"} :{" "}
+                                {balance.toFixed(2)}
+                            </p>
+                        </>
+                    );
+                })()}
             </div>
 
             {/* Table */}
@@ -112,17 +132,17 @@ const Ledger = () => {
                                             </Link>
                                         </td>
 
-                                        <td className="text-start">{items?.wonBy}</td>
+                                        <td className="text-start amount bold text-center">{items?.wonBy}</td>
 
-                                        <td className="text-center">{items?.won}</td>
+                                        <td className="text-center amount credit">{items?.won}</td>
 
-                                        <td className="text-center">{items?.lost}</td>
+                                        <td className="text-center amount debit">{items?.lost}</td>
 
                                         <td
                                             className={`text-center amount ${items?.balance >= 0 ? "credit" : "debit"
                                                 }`}
                                         >
-                                            {items?.balance?.toFixed(2)}
+                                            {Math.abs(Number(items?.balance) || 0).toFixed(2)}
                                         </td>
                                     </tr>
                                 ))

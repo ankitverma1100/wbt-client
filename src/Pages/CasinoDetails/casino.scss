@@ -1,4 +1,5 @@
 .main_casino_row {
+  padding-top: 90px;
   .gx-ml-2,
   .gx-mx-2 {
     margin-left: 0.5rem !important;
@@ -247,7 +248,7 @@
 .ant-modal-content {
   padding: 0px !important;
   .ant-modal-header {
-    background: var(--bg-color) !important;
+    background: var(--primary-color) !important;
     padding: 12px;
     .ant-modal-title {
       color: #fff !important;
@@ -269,8 +270,449 @@
   background: var(--bg-color) !important;
 }
 
+.gx-bg-black {
+  background: #000 !important;
+}
+
+.casino-video-card {
+  background: #000 !important;
+  border-color: #111 !important;
+}
+
+.casino-video-card .ant-card-body {
+  padding: 0 !important;
+  background: #000 !important;
+}
+
+.casino-video-frame {
+  background: #000;
+}
+
+.casino-video-frame iframe {
+  display: block;
+  width: 100%;
+  height: 250px;
+  background: #000;
+  border: 0;
+}
+
 .gx-text-white {
   color: #fff !important;
+}
+
+.casino-head-row {
+  background: linear-gradient(var(--primary-color) 0, #000 100%);
+  border-bottom: 2px solid #5d3a0f;
+  padding: 6px 12px;
+  min-height: 32px;
+}
+
+.casino-head-title,
+.casino-head-round {
+  padding: 0 6px;
+}
+
+.dt20-odds-row {
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+}
+
+.dt20-odds-card {
+  padding: 8px 6px 6px;
+  background: #a7c7c7;
+  border-radius: 6px;
+}
+
+.dt20-odds-rate {
+  font-size: 13px;
+  font-weight: 700;
+  color: #000;
+  padding: 2px 0 4px;
+}
+
+.dt20-odds-label-wrap {
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.dt20-odds-label {
+  background: #3f3326;
+  color: #d0d0d0;
+  font-weight: 600;
+  text-transform: capitalize;
+  letter-spacing: 0.2px;
+  width: 100%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.dt20-odds-label.is-unlocked {
+  background: var(--primary-color);
+  color: #fff;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.dt20-odds-label.is-locked {
+  background: var(--primary-color);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.dt20-odds-label.is-locked::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  pointer-events: none;
+}
+
+.dt20-odds-lock {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.dt20-odds-pnl {
+  font-size: 12px;
+  font-weight: 700;
+  padding-top: 4px;
+}
+
+.dt20-section {
+  background: #a7c7c7;
+  border-top: 1px solid #2c2c2c;
+  border-bottom: 1px solid #2c2c2c;
+  padding-bottom: 6px;
+}
+
+.dt20-strip {
+  position: relative;
+  padding: 8px 12px 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  background: #a7c7c7;
+}
+
+.dt20-strip-title {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 8px;
+  letter-spacing: 0.3px;
+}
+
+.dt20-strip-cards {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.dt20-strip-card-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dt20-strip-card {
+  width: 50px;
+  height: 70px;
+  border-radius: 4px;
+  border: 2px solid #d8b100;
+  background: #fff;
+  color: #111;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  position: relative;
+  cursor: pointer;
+}
+
+.dt20-strip-card:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.dt20-strip-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  border-radius: 2px;
+}
+
+.dt20-strip-lock {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.dt20-strip-pnl {
+  font-size: 12px;
+  font-weight: 700;
+  color: #111;
+  margin-top: 2px;
+}
+
+.dt20-strip-limits {
+  position: absolute;
+  right: 10px;
+  bottom: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #111;
+}
+
+.dt20-strip-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lucky7-section {
+  background: #a7c7c7;
+  border-top: 1px solid #2c2c2c;
+  border-bottom: 1px solid #2c2c2c;
+  margin-top: 6px;
+  padding-bottom: 8px;
+  width: 100%;
+}
+
+.lucky7-odds-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 80px minmax(0, 1fr);
+  gap: 16px;
+  align-items: center;
+  padding: 8px 20px;
+  position: relative;
+  width: 100%;
+}
+
+.lucky7-secondary-row {
+  grid-template-columns: repeat(4, 1fr);
+  padding-top: 2px;
+}
+
+.lucky7-odds-cell {
+  text-align: center;
+  min-width: 0;
+}
+
+.lucky7-odds-rate {
+  font-size: 13px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 4px;
+}
+
+.lucky7-odds-btn {
+  width: 66%;
+  margin: 0 auto;
+  height: 32px;
+  border: 0;
+  border-radius: 6px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  background: var(--primary-color);
+  color: #fff;
+  position: relative;
+}
+
+.lucky7-odds-left .lucky7-odds-btn {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.lucky7-odds-right .lucky7-odds-btn {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.lucky7-odds-btn.is-locked {
+  background: var(--primary-color);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  cursor: not-allowed;
+}
+
+.lucky7-odds-btn.is-locked::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  pointer-events: none;
+}
+
+.lucky7-odds-lock {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.lucky7-odds-pnl {
+  font-size: 12px;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+.lucky7-center-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lucky7-center-card-img {
+  width: 34px;
+  height: 46px;
+  object-fit: contain;
+}
+
+.lucky7-row-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lucky7-strip {
+  position: relative;
+  padding: 6px 10px 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.lucky7-strip-title {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 8px;
+}
+
+.lucky7-strip-cards {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.lucky7-strip-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lucky7-strip-limits {
+  position: absolute;
+  right: 10px;
+  bottom: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #111;
+}
+
+.aaa-section {
+  background: #a7c7c7;
+  border-top: 1px solid #2c2c2c;
+  border-bottom: 1px solid #2c2c2c;
+  margin-top: 6px;
+  padding-bottom: 8px;
+  width: 100%;
+}
+
+.aaa-odds-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  align-items: center;
+  padding: 8px 12px;
+}
+
+.aaa-odds-cell {
+  text-align: center;
+}
+
+.aaa-odds-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #111;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.aaa-odds-btn {
+  width: 100%;
+  height: 30px;
+  border-radius: 4px;
+  border: 0;
+  background: var(--primary-color);
+  color: #fff;
+  font-weight: 700;
+  position: relative;
+}
+
+.aaa-odds-btn.is-locked {
+  background: var(--primary-color);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  cursor: not-allowed;
+}
+
+.aaa-odds-btn.is-locked::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  pointer-events: none;
+}
+
+.aaa-odds-lock {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.aaa-odds-pnl {
+  font-size: 12px;
+  font-weight: 700;
+  margin-top: 4px;
 }
 
 .gx-border-bottom {

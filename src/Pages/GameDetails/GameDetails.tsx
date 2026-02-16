@@ -97,21 +97,10 @@ const GameDetails = () => {
 
     /* ================= AUTO TOSS ================= */
     const bookmakerData = oddsData?.Bookmaker || [];
-
-    const marketMap = bookmakerData.reduce((acc: any, item: any) => {
-        if (!item?.mid) return acc;
-        if (!acc[item.mid]) acc[item.mid] = [];
-        acc[item.mid].push(item);
-        return acc;
-    }, {});
-
-    const tossMarket = Object.values(marketMap).find(
-        (market: any) => market.length === 2
-    );
-
-    const bookmakerMarket = tossMarket
-        ? bookmakerData.filter((item: any) => item.mid !== tossMarket[0].mid)
-        : bookmakerData;
+    const tossMarket =
+        bookmakerData.filter((item: any) => (item?.t || "").toLowerCase() === "toss") || [];
+    const bookmakerMarket =
+        bookmakerData.filter((item: any) => (item?.t || "").toLowerCase() === "bookmaker") || [];
 
     /* ================= BET HANDLER ================= */
     const handleBetData = (
@@ -256,7 +245,7 @@ const GameDetails = () => {
                     minMax={marketMinMax?.data}
                 />
 
-                {tossMarket && (
+                {tossMarket && tossMarket.length > 0 && (
                     <Toss
                         oddsData={tossMarket}
                         handleBetData={handleBetData}
@@ -275,6 +264,31 @@ const GameDetails = () => {
                 {/* 🔴 AMOUNT BAR */}
                 {showAmount && (
                     <div className="amount-bar">
+                        {!!placeBetData?.name && (
+                            <div
+                                className={`amount-selected-row ${
+                                    placeBetData?.mode?.toLowerCase() === "lagai" ||
+                                    placeBetData?.mode?.toLowerCase() === "yes"
+                                        ? "amount-selected-row--yes"
+                                        : placeBetData?.mode?.toLowerCase() === "khai" ||
+                                          placeBetData?.mode?.toLowerCase() === "no"
+                                        ? "amount-selected-row--no"
+                                        : ""
+                                }`}
+                            >
+                                <span className="amount-selected-name text-white">
+                                    {placeBetData?.name}
+                                </span>
+                                <span className="amount-selected-values">
+                                    <span className="amount-selected-odds">
+                                        {placeBetData?.odds ?? 0}
+                                    </span>
+                                    <span className="amount-selected-size">
+                                        {placeBetData?.priceValue ?? 0}
+                                    </span>
+                                </span>
+                            </div>
+                        )}
                         <span className="amount-label">AMOUNT:</span>
 
                         <div className="amount-input-wrap">
@@ -311,8 +325,26 @@ const GameDetails = () => {
                 <MatchBets/>
             </div>
 
-            <Modal centered open={show} footer={false} closeIcon={false}>
-                <h3 style={{color: "green", textAlign: "center"}}>{showMsg}</h3>
+            <Modal
+                centered
+                open={show}
+                footer={false}
+                onCancel={() => setShow(false)}
+                className="bet-placed-modal"
+                closeIcon={<span className="bet-placed-close">×</span>}
+                title={null}
+            >
+                <div className="bet-placed-header">PLACE YOUR BET</div>
+                <div className="bet-placed-body">
+                    <div className={`bet-placed-icon ${betplaceData?.status ? "success" : "error"}`}>
+                        <svg viewBox="0 0 24 24" focusable="false" width="1em" height="1em" fill="none" aria-hidden="true">
+                            <path d="M5 12.5l4 4 10-10" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </div>
+                    <div className="bet-placed-message">
+                        {betplaceData?.status ? "BET PLACED SUCCESSFULLY" : showMsg}
+                    </div>
+                </div>
             </Modal>
         </div>
     );

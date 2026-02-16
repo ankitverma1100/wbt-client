@@ -1,7 +1,7 @@
 export const titleById = {
   "51": "20-20 Teenpatti",
   "52": "20-20 DRAGON TIGER",
-  "53": "LUCKY 7 - A",
+  "53": "LUCKY 7 - B",
   "56": "AAA",
   "55": "BOLLYWOOD TABLE",
   "57": "1 DAY TEENPATTI",

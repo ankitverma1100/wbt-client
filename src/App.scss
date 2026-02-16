@@ -6,6 +6,11 @@
   --loginbtn: rgb(42, 40, 39);
   --loginbtn-color: rgb(255, 255, 255);
   --footer-text-color: #000;
+  --primary-color: #1571cd !important;
+  --secondary-color: #1571cd !important;
+  --model-header: #1f5058 !important;
+  --yes-color: #60adec;
+  --no-color: #fa9fad;
 }
 
 [data-theme="nsgpro"] {
@@ -138,28 +143,28 @@ a:hover {
 .btn_yes,
 .btn-l,
 .btn-L {
-  background: #60adec !important;
+  background: var(--yes-color) !important;
 }
 
 .btn_not,
 .btn_not,
 .btn_k,
 .btn_k {
-  background: #fa9fad !important;
+  background: var(--no-color) !important;
 }
 
 .bg_yes,
 .bg_yes,
 .bg-l,
 .bg-l {
-  background: #60adec !important;
+  background: var(--yes-color) !important;
 }
 
 .bg_not,
 .bg_not,
 .bg_k,
 .bg_k {
-  background: #fa9fad !important;
+  background: var(--no-color) !important;
 }
 
 .vrx-switch {
@@ -620,13 +625,6 @@ ul.card-col li a {
 
 .tbl-inr tr td:nth-child(odd) {
   border-left: none;
-}
-
-.ledger-data tr td {
-  border: 2px solid #e6e6e6;
-  font-size: 13px;
-  line-height: 20px;
-  font-weight: 700;
 }
 
 .font_text_black10px {

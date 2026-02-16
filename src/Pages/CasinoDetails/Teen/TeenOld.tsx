@@ -33,6 +33,7 @@ const Teen = ({
       setBetState((prev: any) => ({
         ...prev,
         nation: t2?.nation,
+        selectionName: t2?.nation,
         casinoName: 2,
         isBack: true,
         odds: Number(t2?.rate),

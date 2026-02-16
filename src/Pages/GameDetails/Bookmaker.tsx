@@ -95,9 +95,11 @@ const Bookmaker = ({
       <table className="bookmaker-table bet-table" width="100%">
         <thead>
           <tr>
-            <th className="bm-head ">
-             <span className="text-blink"> BOOKMAKER</span>
-              <span className="bm-max text-blink">MAX: {formatMax(minMaxData?.maxbet)}</span>
+            <th className="bm-head">
+              <span className="text-blink">BOOKMAKER</span>
+              <span className="bm-max text-blink">
+                MAX: {formatMax(minMaxData?.maxbet)}
+              </span>
             </th>
             <th className="bm-head bm-lagai">LAGAI</th>
             <th className="bm-head bm-khai">KHAI</th>
@@ -109,25 +111,30 @@ const Bookmaker = ({
             ? filteredBookData
             : processedBookData
           )?.map((bookmaker, index) => {
-            const oddsData = oddsPnl?.filter(
-              (item) => item?.marketId === bookmaker?.mid
+            const isSuspended =
+              bookmaker?.gstatus?.toLowerCase() === "suspended";
+            const pnlRow = oddsPnl?.find(
+              (pnl) => pnl?.marketId === bookmaker?.mid
             );
-
-            const oddsPnlData = oddsData?.[0]
-              ? {
-                [oddsData[0].selection1]: oddsData[0].pnl1,
-                [oddsData[0].selection2]: oddsData[0].pnl2,
-                [oddsData[0].selection3]: oddsData[0].pnl3,
-              }
-              : {};
-
+            const pnl =
+              pnlRow
+                ? bookmaker.sid === pnlRow.selection1
+                  ? pnlRow.pnl1
+                  : bookmaker.sid === pnlRow.selection2
+                  ? pnlRow.pnl2
+                  : bookmaker.sid === pnlRow.selection3
+                  ? pnlRow.pnl3
+                  : 0
+                : 0;
             return (
               <tr key={index} className="bm-row">
                 {/* TEAM */}
                 <td className="bm-team">
                   {bookmaker.nation}
-                  <span className="bm-pl">
-                    {oddsPnlData[parseInt(bookmaker.sid)] || 0}
+                  <span
+                    className={`bm-pl bm-pl-float ${pnl >= 0 ? "bm-pl-positive" : "bm-pl-negative"}`}
+                  >
+                    {pnl}
                   </span>
                 </td>
 
@@ -135,7 +142,7 @@ const Bookmaker = ({
                 <td
                   className="bm-back"
                   onClick={() => {
-                    if (bookmaker?.gstatus?.toLowerCase() !== "suspended") {
+                    if (!isSuspended) {
                       handleBetData(
                         false,
                         true,
@@ -152,16 +159,14 @@ const Bookmaker = ({
                     }
                   }}
                 >
-                  {bookmaker?.gstatus?.toLowerCase() !== "suspended"
-                    ? bookmaker.b1
-                    : 0}
+                  {!isSuspended ? bookmaker.b1 : 0}
                 </td>
 
                 {/* KHAI */}
                 <td
                   className="bm-lay"
                   onClick={() => {
-                    if (bookmaker?.gstatus?.toLowerCase() !== "suspended") {
+                    if (!isSuspended) {
                       handleBetData(
                         false,
                         false,
@@ -178,16 +183,13 @@ const Bookmaker = ({
                     }
                   }}
                 >
-                  {bookmaker?.gstatus?.toLowerCase() !== "suspended"
-                    ? bookmaker.l1
-                    : 0}
+                  {!isSuspended ? bookmaker.l1 : 0}
                 </td>
               </tr>
             );
           })}
         </tbody>
       </table>
-
     </div>
   );
 };

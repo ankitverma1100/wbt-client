@@ -14,13 +14,13 @@
 
     // Common Header Style
     .tp-header {
-        background: linear-gradient(#b7862f 0, #000 100%);
+        background: linear-gradient(var(--primary-color) 0, #000 100%);
         border-bottom: 2px solid #5d3a0f;
-        padding: 0 10px;
+        padding: 0 12px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        height: 40px;
+        height: 34px;
         color: #fff;
 
         .tp-header-title {
@@ -43,24 +43,49 @@
 
     // Main Betting Table Header
     .tp-main-header {
-        background: linear-gradient(#b7862f 0, #000 100%);
+        background: linear-gradient(var(--primary-color) 0, #000 100%);
         height: 45px;
         display: flex;
         align-items: center;
         color: #fff;
 
         .header-left {
-            flex: 2;
             height: 100%;
-            border-right: 1px solid rgba(255, 255, 255, 0.3);
+            border-right: 1px solid rgba(0, 0, 0, 0.6);
         }
 
         .header-right {
-            flex: 1;
             text-align: center;
             font-weight: 700;
             font-size: 14px;
             letter-spacing: 1px;
+        }
+    }
+
+    .tp-main-header.tp-main-header--dual {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+
+        .header-left {
+            width: 100%;
+        }
+
+        .header-right {
+            display: contents;
+        }
+
+        .header-col {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .header-col + .header-col {
+            border-left: 1px solid rgba(0, 0, 0, 0.6);
         }
     }
 
@@ -78,7 +103,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 0 15px;
-            border-right: 1px solid #fff;
+            border-right: 1px solid rgba(0, 0, 0, 0.6);
 
             .tp-runner-name {
                 font-weight: 700;
@@ -130,10 +155,29 @@
         }
     }
 
+    .tp-row--dual {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+
+        .tp-runner-info {
+            grid-column: 1;
+        }
+
+        .tp-bet-cell.back {
+            grid-column: 2;
+            background: #72bbef;
+        }
+
+        .tp-bet-cell.lay {
+            grid-column: 3;
+            background: #f5c1d7;
+        }
+    }
+
     // Results
     .tp-result-container {
         background: #fff;
-        padding: 10px;
+        padding: 8px 10px;
         display: flex;
         justify-content: flex-end;
         gap: 5px;
@@ -159,6 +203,30 @@
         &.player-b {
             background-color: #004fb4;
         }
+
+        &.result-d {
+            background-color: #8c0f7a;
+        }
+
+        &.result-t {
+            background-color: #d10b0b;
+        }
+
+        &.result-tie {
+            background-color: #b15c00;
+        }
+
+        &.result-l {
+            background-color: #8c0f7a;
+        }
+
+        &.result-h {
+            background-color: #d10b0b;
+        }
+
+        &.result-c {
+            background-color: #cc0000;
+        }
     }
 
     // Open Bets
@@ -167,7 +235,7 @@
         border-collapse: collapse;
 
         th {
-            background: linear-gradient(#b7862f 0, #000 100%);
+            background: linear-gradient(var(--primary-color) 0, #000 100%);
             color: #fff;
             font-weight: 700;
             text-transform: uppercase;
@@ -184,6 +252,10 @@
             font-size: 11px;
             text-align: center;
             border: 1px solid #ddd;
+        }
+
+        .open-bets-row td {
+            background: var(--yes-color) !important;
         }
     }
 }

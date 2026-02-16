@@ -1,6 +1,6 @@
-$primary-color: #b7862f;
-$secondary-color: #b7862f;
-$model-header: #1f5058;
+$primary-color: var(--primary-color);
+$secondary-color: var(--secondary-color);
+$model-header: var(--model-header);
 
 .game-details-page {
   padding-top: 60px;
@@ -10,7 +10,7 @@ $model-header: #1f5058;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient($primary-color 0, #000 100%);
+    background: linear-gradient(var(--primary-color) 0, #000 100%);
 
   }
 
@@ -18,7 +18,7 @@ $model-header: #1f5058;
 
     a,
     p {
-      color: rgb(255, 206, 4);
+      color: #fff;
       font-weight: 700;
       font-size: 14px;
       margin: 0;
@@ -95,7 +95,7 @@ $model-header: #1f5058;
 /* HEADER */
 .bm-head {
   height: 42px;
-  background: linear-gradient(to bottom, #d4a32f, #000);
+  background: linear-gradient(var(--primary-color) 0, #000 100%);
   color: #fff;
   font-weight: 700;
   font-size: 14px;
@@ -139,6 +139,24 @@ $model-header: #1f5058;
   background: #fff;
   position: relative;
   width: 60%;
+}
+
+.bm-pl {
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.bm-pl-float {
+  float: right;
+  padding-right: 8px;
+}
+
+.bm-pl-positive {
+  color: #14a44d;
+}
+
+.bm-pl-negative {
+  color: #dc3545;
 }
 
 .session-details {
@@ -229,7 +247,7 @@ $model-header: #1f5058;
   }
 
   .ant-modal-header {
-    background: #b7862f;
+    background: var(--primary-color);
     border-bottom: none;
     padding: 12px 16px;
   }
@@ -256,13 +274,55 @@ $model-header: #1f5058;
   }
 }
 
+.completed-bets-modal,
+.all-events-modal {
+  .ant-modal-header {
+    background: var(--primary-color);
+    border-bottom: none;
+  }
+}
+
+.theme-gradient-cell {
+  background: linear-gradient(var(--primary-color) 0, #000 100%);
+}
+
+.theme-gradient-button {
+  background: linear-gradient(var(--primary-color) 0, #000 100%);
+  border: none;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 10px 0;
+  color: #fff;
+  border-radius: 0;
+}
+
+.theme-gradient-button--wide {
+  width: 150px;
+}
+
+.theme-gradient-button--narrow {
+  width: 100px;
+}
+
+.theme-gradient-banner {
+  background: linear-gradient(var(--primary-color) 0, #000 100%);
+  padding: 10px;
+  color: #fff;
+  text-align: center;
+  font-weight: bold;
+}
+
+.theme-gradient-card {
+  background: linear-gradient(var(--primary-color) 0, #000 100%);
+}
+
 .fancy-book-table {
   border-collapse: collapse;
   background: #f5f5f5;
   width: 100%;
 
   th {
-    background: linear-gradient(to bottom, #d4a32f, #000); /* match bm-head */
+    background: linear-gradient(var(--primary-color) 0, #000 100%); /* match bm-head */
     color: #fff;
     font-weight: 700;
     font-size: 12px;
@@ -307,6 +367,11 @@ $model-header: #1f5058;
   bottom: 0;
 }
 
+.bm-book-icon--active {
+  filter: invert(20%) sepia(93%) saturate(6500%) hue-rotate(356deg)
+    brightness(95%) contrast(115%);
+}
+
 .session-group {
   display: flex;
   justify-content: space-between;
@@ -324,11 +389,58 @@ $model-header: #1f5058;
 .amount-bar {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 10px;
   padding: 10px 12px;
   background: #f6f7f9;
   border-top: 1px solid #e2e2e2;
   border-bottom: 1px solid #e2e2e2;
+}
+
+.amount-selected-row {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: #fff;
+  color: #111;
+}
+
+.amount-selected-row--yes {
+  background: var(--yes-color);
+  color: #000;
+}
+
+.amount-selected-row--no {
+  background: var(--no-color);
+  color: #000;
+}
+
+.amount-selected-name {
+  font-size: 13px;
+  text-align: center;
+}
+
+.amount-selected-values {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.amount-selected-odds,
+.amount-selected-size {
+  background: #fff;
+  color: #111;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 800;
+  font-size: 12px;
 }
 
 /* LABEL */
@@ -434,7 +546,7 @@ $model-header: #1f5058;
 }
 
 .modal-header-gold {
-  background: #b7862f;
+  background: var(--primary-color);
   padding: 14px 20px;
   display: flex;
   justify-content: space-between;
@@ -448,8 +560,9 @@ $model-header: #1f5058;
     cursor: pointer;
     font-size: 24px;
     line-height: 1;
-    opacity: 0.9;
+    opacity: 0.95;
     font-weight: 400;
+    color: #fff;
   }
 }
 
@@ -458,13 +571,14 @@ $model-header: #1f5058;
 }
 
 .team-card-gold {
-  background: #b7862f;
+  background: var(--primary-color);
   border-radius: 8px;
   padding: 12px 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
 
   .team-name {
     color: #fff;
@@ -483,10 +597,12 @@ $model-header: #1f5058;
 
     &.lagai {
       color: #28a745;
+      border: 1px solid rgba(40, 167, 69, 0.35);
     }
 
     &.khai {
       color: #dc3545;
+      border: 1px solid rgba(220, 53, 69, 0.35);
     }
   }
 }
@@ -576,9 +692,11 @@ $model-header: #1f5058;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
+  max-width: 420px;
+  margin: 0 auto;
 
   .stake-btn {
-    background: #b7862f;
+    background: var(--primary-color);
     color: #fff;
     border: none;
     height: 36px;
@@ -588,7 +706,74 @@ $model-header: #1f5058;
     cursor: pointer;
 
     &:hover {
-      background: #a37629;
+      background: #0f5fb3;
     }
   }
+}
+
+.bet-placed-modal {
+  .ant-modal-content {
+    padding: 0;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .ant-modal-close {
+    top: 6px;
+    right: 12px;
+  }
+}
+
+.bet-placed-close {
+  color: #fff;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.bet-placed-header {
+  background: var(--primary-color);
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  padding: 12px 20px;
+}
+
+.bet-placed-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 26px 20px 30px;
+  text-align: center;
+}
+
+.bet-placed-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: #fff;
+
+  svg {
+    color: #fff;
+  }
+
+  &.success {
+    background: #52c41a;
+  }
+
+  &.error {
+    background: #dc2626;
+  }
+}
+
+.bet-placed-message {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111;
+  text-transform: uppercase;
 }

@@ -13,7 +13,7 @@
     }
 
     .modal-header {
-        background: #be8a36;
+        background: var(--primary-color);
         padding: 10px 15px;
         text-align: center;
         color: #fff;
@@ -32,6 +32,9 @@
             display: flex;
             justify-content: space-between;
             margin-bottom: 2px;
+            max-width: 360px;
+            margin-left: auto;
+            margin-right: auto;
 
             span {
                 flex: 1;
@@ -47,10 +50,13 @@
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
+            max-width: 360px;
+            margin-left: auto;
+            margin-right: auto;
 
             .info-box {
                 flex: 1;
-                background: #be8a36;
+                background: var(--primary-color);
                 color: #fff;
                 padding: 10px 15px;
                 border-radius: 6px;
@@ -90,9 +96,12 @@
             gap: 12px;
             margin-top: 5px;
             margin-bottom: 25px;
+            max-width: 360px;
+            margin-left: auto;
+            margin-right: auto;
 
             .stake-btn {
-                background: #1e82ff;
+                background: var(--primary-color);
                 border: none;
                 color: #fff;
                 font-weight: 500;
@@ -102,7 +111,7 @@
                 padding: 0;
 
                 &:hover {
-                    background: darken(#1e82ff, 5%);
+                    opacity: 0.9;
                 }
             }
         }
@@ -110,6 +119,9 @@
         .footer-actions {
             display: flex;
             gap: 15px;
+            max-width: 360px;
+            margin-left: auto;
+            margin-right: auto;
 
             .cancel-btn {
                 flex: 1;
@@ -130,7 +142,7 @@
 
             .done-btn {
                 flex: 1.5;
-                background: #1e82ff;
+                background: var(--primary-color);
                 color: #fff;
                 border: none;
                 font-weight: 600;
@@ -139,7 +151,7 @@
                 font-size: 14px;
 
                 &:hover {
-                    background: darken(#1e82ff, 5%);
+                    opacity: 0.9;
                     color: #fff;
                 }
 

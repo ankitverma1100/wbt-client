@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useCasinoResultQuery } from "../../../store/service/casino/casinoServices";
+import { useGetCasinoMyBetQuery } from "../../../store/service/userServices/userServices";
 import { LetterAndColorById, titleById } from "../Constant";
 import { useState } from "react";
 import ResultModalContainer from "./ResultModalContainer";
@@ -19,6 +20,10 @@ const LastResult = ({ matchId, casinoName }: Props) => {
         refetchOnMountOrArgChange: true,
         pollingInterval: 5000,
     });
+    const { data: openBets } = useGetCasinoMyBetQuery(
+        { tableId: id ?? "", isGameCompleted: false, sportId: 5015 },
+        { pollingInterval: 1000, refetchOnMountOrArgChange: true }
+    );
 
     const handleClick = (val: string) => {
         setFirst(val);
@@ -53,11 +58,31 @@ const LastResult = ({ matchId, casinoName }: Props) => {
             <div className="tp-result-container mb-0">
                 {resultList?.map((item: any) => {
                     const resultInfo = (LetterAndColorById as any)[id]?.[item.result];
+                    const label = resultInfo?.label?.toLowerCase();
+                    const resultClass =
+                        label === "a"
+                            ? "player-a"
+                            : label === "b"
+                            ? "player-b"
+                            : label === "c"
+                            ? "result-c"
+                            : label === "d"
+                            ? "result-d"
+                            : label === "t"
+                            ? "result-t"
+                            : label === "tie"
+                            ? "result-tie"
+                            : label === "l"
+                            ? "result-l"
+                            : label === "h"
+                            ? "result-h"
+                            : "";
+                    const shouldInline = !["a", "b", "c", "d", "t", "tie", "l", "h"].includes(label);
                     return (
                         <div
                             key={item.mid}
-                            className={`tp-result-circle ${resultInfo?.label?.toLowerCase() === 'a' ? 'player-a' : resultInfo?.label?.toLowerCase() === 'b' ? 'player-b' : ''}`}
-                            style={!['a', 'b'].includes(resultInfo?.label?.toLowerCase()) ? { backgroundColor: resultInfo?.color } : {}}
+                            className={`tp-result-circle ${resultClass}`}
+                            style={shouldInline ? { backgroundColor: resultInfo?.color } : {}}
                             onClick={() => handleClick(item.mid)}>
                             {resultInfo?.label}
                         </div>
@@ -83,7 +108,29 @@ const LastResult = ({ matchId, casinoName }: Props) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {/* Rows would be dynamically populated here */}
+                    {(openBets?.data || []).map((items: any, index: number) => {
+                        const price = items?.odds ?? items?.rate ?? 0;
+                        const amount = items?.stake ?? items?.amount ?? 0;
+                        const betValue = Number(price) * Number(amount);
+                        const pnl = Number(items?.pnl ?? items?.netPnl ?? 0);
+                        const profit = price * amount - amount;
+                        const loss = pnl < 0 ? Math.abs(pnl) : 0;
+                        return (
+                            <tr
+                                key={items?.id || items?.selectionId || index}
+                                className="open-bets-row"
+                            >
+                                <td>{index + 1}</td>
+                                <td>{items?.selectionName || items?.nation || "-"}</td>
+                                <td>{price}</td>
+                                <td>{items?.selectionName || items?.nation || "-"}</td>
+                                <td>{amount}</td>
+                                <td>{profit}</td>
+                                <td>{amount}</td>
+                                <td>OPEN</td>
+                            </tr>
+                        );
+                    })}
                 </tbody>
             </table>
         </div>

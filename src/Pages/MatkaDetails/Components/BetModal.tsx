@@ -4,11 +4,18 @@ interface Props {
   open: boolean;
   number: string;
   onClose: () => void;
+  refreshCountdown: number;
+  onPlaceBet: (stake: number) => Promise<boolean>;
 }
 
-export default function BetModal({ open, number, onClose }: Props) {
+export default function BetModal({
+  open,
+  number,
+  onClose,
+  refreshCountdown,
+  onPlaceBet,
+}: Props) {
   const [stake, setStake] = useState<number>(0);
-  const [countdown, setCountdown] = useState<number>(8);
   const [isPlacing, setIsPlacing] = useState(false);
 
   /* =========================
@@ -17,36 +24,29 @@ export default function BetModal({ open, number, onClose }: Props) {
   useEffect(() => {
     if (!open) return;
 
-    setCountdown(8);
     setStake(0);
     setIsPlacing(false);
-
-    const timer = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          onClose(); // auto close
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
   }, [open, onClose]);
+
+  useEffect(() => {
+    if (!open) return;
+    if (refreshCountdown <= 1) {
+      onClose();
+    }
+  }, [open, refreshCountdown, onClose]);
 
   /* =========================
      PLACE BET
   ========================== */
-  const handleDone = () => {
+  const handleDone = async () => {
     if (stake <= 0) return;
 
     setIsPlacing(true);
 
-    // simulate API call
-    setTimeout(() => {
-      onClose();
-    }, 2000);
+    const success = await onPlaceBet(stake);
+    if (!success) {
+      setIsPlacing(false);
+    }
   };
 
   if (!open) return null;
@@ -56,7 +56,7 @@ export default function BetModal({ open, number, onClose }: Props) {
       <div className="bet-modal">
         {/* HEADER */}
         <div className="bet-modal-header">
-          NUMBER {number}
+          NUMBER {number} ({refreshCountdown})
         </div>
 
         <div className="bet-modal-body">
@@ -120,7 +120,7 @@ export default function BetModal({ open, number, onClose }: Props) {
                   Placing...
                 </>
               ) : (
-                `Done (${countdown})`
+                `Done (${refreshCountdown})`
               )}
             </button>
           </div>

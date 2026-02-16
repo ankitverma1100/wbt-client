@@ -308,20 +308,14 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(180deg,
-      #b88a2d 0%,
-      #7a5a1b 40%,
-      #000000 100%);
+  background: linear-gradient(var(--primary-color) 0, #000 100%);
   padding: 20px;
 
   .ant-card {
     border: none;
     border-radius: 8px;
     overflow: hidden;
-    background: linear-gradient(180deg,
-        #b88a2d 0%,
-        #7a5a1b 35%,
-        #000000 100%);
+    background: linear-gradient(var(--primary-color) 0, #000 100%);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 
     &.login-card {

@@ -538,6 +538,45 @@ interface matkaPayload {
   matkaId: number;
 }
 
+interface matkaBetsPayload {
+  matchId: number;
+}
+
+interface matkaLiabilityPayload {
+  matchId: number;
+  marketId: string;
+}
+
+interface MatkaLiabilityItem {
+  selectionId: number;
+  liability: number;
+}
+
+interface matkaLiabilityRes {
+  status: boolean;
+  message: null;
+  data: MatkaLiabilityItem[];
+}
+
+interface MatkaBet {
+  matkaName?: string;
+  nation?: string;
+  amount?: number;
+  declared?: string;
+  pnl?: number;
+  betTime?: string;
+  date?: string;
+  selectionId?: number;
+  marketId?: string;
+  odds?: number;
+}
+
+interface matkaBetsRes {
+  status: boolean;
+  message: null;
+  data: MatkaBet[];
+}
+
 interface matkaListRes {
   status: boolean;
   message: null;
@@ -566,6 +605,7 @@ interface matkaListRes {
 interface MatkaMarket {
   data: Datum[];
   marketName: string;
+  marketId?: string;
 }
 
 interface Datum {

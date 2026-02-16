@@ -1,7 +1,7 @@
-import { Card, Col, Row } from "antd";
 import { LockFilled } from "@ant-design/icons";
 import React from "react";
 import { useGetCasinoLabilityQuery } from "../../../store/service/userServices/userServices";
+import "../Teen/teenpatti.scss";
 
 // Type definitions
 interface TeenItem {
@@ -43,10 +43,20 @@ const TeenOneDay: React.FC<TeenProps> = ({
     { pollingInterval: 1000 }
   );
 
+  const isLocked = (item: TeenItem) =>
+    item?.gstatus === "SUSPENDED" || item?.gstatus === "0" || item?.gstatus === false;
+
   const handleClick = (item: TeenItem, odds: any, color: string) => {
+    const nationLabel = (item?.nation || "").toString().toLowerCase();
+    const selectionLabel = nationLabel.includes("player a")
+      ? "A"
+      : nationLabel.includes("player b")
+        ? "B"
+        : item?.nation;
     setBetState?.((prev: any) => ({
       ...prev,
       nation: item?.nation,
+      selectionName: selectionLabel,
       casinoName: 2,
       isBack: color === "back" ? true : false,
       odds: Number(odds),
@@ -64,122 +74,63 @@ const TeenOneDay: React.FC<TeenProps> = ({
   };
 
   const renderRow = (item: TeenItem, idx: number) => {
-    const isSuspended = item?.gstatus === "SUSPENDED";
-    console.log("item", item);
+    const locked = isLocked(item);
     const pnl = data?.data?.find(
       (pnlData) => Number(pnlData?.sid) === Number(item?.sectionId)
     )?.liability;
 
     return (
-      <Row key={idx} className="gx-text-center gx-border-bottom">
-        {/* Nation + PnL */}
-        <Col span={14} className="gx-border-right gx-border-white">
-          <Row
-            className="gx-text-center"
-            style={{ background: "rgba(0,0,0,0.3)", marginBottom: "1px" }}>
-            <Col
-              span={24}
-              className="gx-text-capitalize gx-d-flex gx-text-black gx-font-semibold gx-py-2">
-              <div className="text-18 gx-w-100 gx-font-weight-semi-bold gx-text-left">
-                {item?.nation}
-              </div>
-              <div
-                className="gx-w-100"
-                style={{
-                  color: (pnl ?? 0) > 0 ? "green" : "red",
-                  fontSize: 14,
-                  textAlign: "right",
-                  marginRight: 10,
-                  fontWeight: "600",
-                }}>
-                {pnl?.toFixed(2)}
-              </div>
-            </Col>
-          </Row>
-        </Col>
-
-        {/* Back column */}
-        <Col
-          span={5}
-          className="back gx-position-relative"
-          style={{ marginBottom: "1px" }}>
-          <div className="gx-flex-column gx-justify-center gx-align-items-center gx-cursor-pointer gx-py-2">
-            {isSuspended ? (
-              <div
-                className="gx-position-absolute gx-left-0 gx-w-100 gx-h-100 gx-top-0 gx-bg-flex gx-justify-content-center gx-align-items-center"
-                style={{ zIndex: 100, backgroundColor: "rgba(0,0,0,0.3)" }}>
-                <LockFilled className="gx-fs-lg gx-font-weight-heavy gx-text-white" />
-              </div>
-            ) : (
-              <div
-                className="gx-text-center gx-position-relative gx-w-100"
-                onClick={() => handleClick(item, item?.b1, "back")}>
-                <div className="text-18 font-semibold">
-                  {item?.b1?.toFixed(2)}
-                </div>
-              </div>
-            )}
+      <div key={idx} className="tp-row tp-row--dual">
+        <div className="tp-runner-info">
+          <div className="tp-runner-name">{item?.nation}</div>
+          <div className={`tp-pnl ${(pnl ?? 0) > 0 ? "positive" : "negative"}`}>
+            {pnl?.toFixed(2)}
           </div>
-        </Col>
+        </div>
 
-        {/* Lay column */}
-        <Col
-          span={5}
-          className="lay gx-position-relative"
-          style={{ marginBottom: "1px" }}>
-          <div className="gx-flex-column gx-justify-center gx-align-items-center gx-cursor-pointer gx-py-2">
-            {isSuspended ? (
-              <div
-                className="gx-position-absolute gx-left-0 gx-w-100 gx-h-100 gx-top-0 gx-bg-flex gx-justify-content-center gx-align-items-center"
-                style={{ zIndex: 100, backgroundColor: "rgba(0,0,0,0.3)" }}>
-                <LockFilled className="gx-fs-lg gx-font-weight-heavy gx-text-white" />
-              </div>
-            ) : (
-              <div
-                className="gx-text-center gx-position-relative gx-w-100"
-                onClick={() => handleClick(item, item?.l1, "lay")}>
-                <div className="text-18 font-semibold">
-                  {item?.l1?.toFixed(2)}
-                </div>
-              </div>
-            )}
-          </div>
-        </Col>
-      </Row>
+        <div
+          className="tp-bet-cell back"
+          onClick={() => !locked && handleClick(item, item?.b1, "back")}
+        >
+          {locked ? (
+            <div className="tp-lock">
+              <LockFilled />
+            </div>
+          ) : (
+            <div className="tp-rate">{item?.b1?.toFixed(2)}</div>
+          )}
+        </div>
+
+        <div
+          className="tp-bet-cell lay"
+          onClick={() => !locked && handleClick(item, item?.l1, "lay")}
+        >
+          {locked ? (
+            <div className="tp-lock">
+              <LockFilled />
+            </div>
+          ) : (
+            <div className="tp-rate">{item?.l1?.toFixed(2)}</div>
+          )}
+        </div>
+      </div>
     );
   };
 
   return (
-    <Card bordered className="gx-bg-white gx-text-white gx-my-0 gx-px-3">
-      <div className="ant-card-body">
-        {/* Header row */}
-        <Row
-          className="gx-border-bottom gx-border-white gx-text-center"
-          style={{
-            background: "rgba(0,0,0,0.3)",
-            borderBottom: "1px solid #fff",
-          }}>
-          <Col span={14} className="gx-border-right gx-py-2" />
-          <Col span={5} className="back gx-py-2">
-            <p
-              className="gx-text-white gx-text-uppercase"
-              style={{ marginBottom: 0 }}>
-              <strong>Back</strong>
-            </p>
-          </Col>
-          <Col span={5} className="lay gx-py-2">
-            <p
-              className="gx-text-white gx-text-uppercase"
-              style={{ marginBottom: 0 }}>
-              <strong>Lay</strong>
-            </p>
-          </Col>
-        </Row>
+    <div className="teen-patti-container">
+      <div className="tp-card">
+        <div className="tp-main-header tp-main-header--dual">
+          <div className="header-left" />
+          <div className="header-right">
+            <div className="header-col">BACK</div>
+            <div className="header-col">LAY</div>
+          </div>
+        </div>
 
-        {/* Dynamic rows */}
         {t2.map((item, idx) => renderRow(item, idx))}
       </div>
-    </Card>
+    </div>
   );
 };
 

@@ -46,7 +46,15 @@ const Toss = ({
             );
 
             const pnl =
-              pnlRow?.[item.sid as keyof typeof pnlRow] || 0;
+              pnlRow
+                ? item.sid === pnlRow.selection1
+                  ? pnlRow.pnl1
+                  : item.sid === pnlRow.selection2
+                  ? pnlRow.pnl2
+                  : item.sid === pnlRow.selection3
+                  ? pnlRow.pnl3
+                  : 0
+                : 0;
 
             const isSuspended =
               item?.gstatus?.toLowerCase() === "suspended";
@@ -56,7 +64,11 @@ const Toss = ({
                 {/* TEAM */}
                 <td className="bm-team">
                   {item.nation}
-                  <span className="bm-pl">{pnl}</span>
+                  <span
+                    className={`bm-pl bm-pl-float ${pnl >= 0 ? "bm-pl-positive" : "bm-pl-negative"}`}
+                  >
+                    {pnl}
+                  </span>
                 </td>
 
                 {/* LAGAI */}

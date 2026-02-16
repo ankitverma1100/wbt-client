@@ -245,6 +245,20 @@ export const userList = createApi({
         body,
       }),
     }),
+    matkaBets: build.mutation<matkaBetsRes, matkaBetsPayload>({
+      query: (body) => ({
+        url: `/matka/get-matka-bets`,
+        method: "POST",
+        body,
+      }),
+    }),
+    matkaLiability: build.mutation<matkaLiabilityRes, matkaLiabilityPayload>({
+      query: (body) => ({
+        url: `/matka/get-matka-liability`,
+        method: "POST",
+        body,
+      }),
+    }),
     getMatkaMarket: build.mutation<matkaListResponse, matkaPayload>({
       query: (body) => ({
         url: `/matka/get-matka-market`,
@@ -350,6 +364,8 @@ export const {
   useGetUserCoinMutation,
   useChannelIdQuery,
   useMatkaListQuery,
+  useMatkaBetsMutation,
+  useMatkaLiabilityMutation,
   useGetMatkaMarketMutation,
   useMatkaPlacebetMutation,
   useGetUserLiabilityMutation,

@@ -60,6 +60,16 @@ const Rule = () => {
                 <h1 className="heading">खेल नियम और शर्तें</h1>
                 <div className="content">
                   <p className="rule-alert-message"><AlertIcon />कृपया नियमों को समझने के लिए यहां कुछ मिनट दें, और अपने अनुसार समझ लें।</p>
+                  <div className="rule-note-line">
+                    <span>NOTE: ग्राउंड कमेटी पर लगी शर्त बिना किसी सूचना या स्पष्टीकरण के हटा दी जाएगी</span>
+                  </div>
+                  <div className="rule-empty-box">
+                    <div className="rule-empty-icon">
+                      <span />
+                      <span />
+                    </div>
+                    <div className="rule-empty-text">NO DATA</div>
+                  </div>
                   <h2 className="sub-heading" >सामान्य नियम</h2>
                   <ul className="rule-list">
                     <li><strong>1.</strong> सभी डीलर्स से निवेदन है कि क्लाइंट्स को साइट के रूल्स समझाने के बाद ही सौदे करवायें।</li>
@@ -260,6 +270,16 @@ const Rule = () => {
                 <h2 className="heading">Game Rules & Terms</h2>
                 <div className="content">
                   <p className="rule-alert-message"><AlertIcon />Please take a few minutes here to understand the rules, and understand accordingly.</p>
+                  <div className="rule-note-line">
+                    <span>NOTE: THE GROUND COMMENTARY BET WILL BE REMOVED WITHOUT PROVIDING ANY NOTIFICATION OR EXPLANATION.</span>
+                  </div>
+                  <div className="rule-empty-box">
+                    <div className="rule-empty-icon">
+                      <span />
+                      <span />
+                    </div>
+                    <div className="rule-empty-text">NO DATA</div>
+                  </div>
                   <h2 className="sub-heading" >Fancy Rules</h2>
                   <ul className="rule-list">
                     <li><strong>1.</strong> If the match is tied, all fancy bets will be valid.</li>

@@ -35,6 +35,10 @@ const Profile = () => {
     pollingInterval: 5000,
     refetchOnMountOrArgChange: true,
   });
+  const exposure = Number(
+    (userBalance as { data?: { liability?: number } } | undefined)?.data
+      ?.liability ?? 0,
+  );
 
   return (
     <main className="profile-page">
@@ -103,7 +107,7 @@ const Profile = () => {
 
               <div className="info-row">
                 <span>EXPOSURE:</span>
-                <strong>0</strong>
+                <strong>{exposure.toFixed(2)}</strong>
               </div>
             </div>
           </div>

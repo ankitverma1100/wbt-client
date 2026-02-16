@@ -91,10 +91,9 @@ const MatchBets = () => {
             <tr>
               <td
                 colSpan={6}
-                className="FontTextWhite10px border"
+                className="FontTextWhite10px border theme-gradient-cell"
                 style={{
                   color: "#fff",
-                  background: "linear-gradient(to bottom, #d4a32f, #000)",
                   textAlign: "center",
                   fontWeight: "bold",
                   fontSize: "14px",
@@ -107,59 +106,41 @@ const MatchBets = () => {
             </tr>
             <tr>
               <td
-                className="FontTextWhite10px border"
-                style={{
-                  color: "#fff ",
-                  background: "linear-gradient(to bottom, #d4a32f, #000)",
-                }}
+                className="FontTextWhite10px border theme-gradient-cell"
+                style={{ color: "#fff " }}
                 height={25}
                 align="center">
                 #
               </td>
               <td
-                className="FontTextWhite10px border"
-                style={{
-                  color: "#fff ",
-                  background: "linear-gradient(to bottom, #d4a32f, #000)",
-                }}
+                className="FontTextWhite10px border theme-gradient-cell"
+                style={{ color: "#fff " }}
                 align="center">
                 RUNNER NAME
               </td>
               <td
-                className="FontTextWhite10px border"
-                style={{
-                  color: "#fff ",
-                  background: "linear-gradient(to bottom, #d4a32f, #000)",
-                }}
+                className="FontTextWhite10px border theme-gradient-cell"
+                style={{ color: "#fff " }}
                 align="center">
                 BET MODE
               </td>
               <td
-                className="FontTextWhite10px border"
-                style={{
-                  color: "#fff ",
-                  background: "linear-gradient(to bottom, #d4a32f, #000)",
-                }}
+                className="FontTextWhite10px border theme-gradient-cell"
+                style={{ color: "#fff " }}
                 valign="middle"
                 align="center">
                 BET PRICE
               </td>
               <td
-                className="FontTextWhite10px border"
-                style={{
-                  color: "#fff ",
-                  background: "linear-gradient(to bottom, #d4a32f, #000)",
-                }}
+                className="FontTextWhite10px border theme-gradient-cell"
+                style={{ color: "#fff " }}
                 valign="middle"
                 align="center">
                 BET VALUE
               </td>
               <td
-                className="FontTextWhite10px border"
-                style={{
-                  color: "#fff ",
-                  background: "linear-gradient(to bottom, #d4a32f, #000)",
-                }}
+                className="FontTextWhite10px border theme-gradient-cell"
+                style={{ color: "#fff " }}
                 valign="middle"
                 align="center">
                 BET AMOUNT
@@ -245,10 +226,9 @@ const MatchBets = () => {
             <tr>
               <td
                 colSpan={6}
-                className="FontTextWhite10px border"
+                className="FontTextWhite10px border theme-gradient-cell"
                 style={{
                   color: "#fff",
-                  background: "linear-gradient(to bottom, #d4a32f, #000)",
                   textAlign: "center",
                   fontWeight: "bold",
                   fontSize: "14px",
@@ -261,59 +241,41 @@ const MatchBets = () => {
             </tr>
             <tr>
               <td
-                className="FontTextWhite10px border"
-                style={{
-                  color: "#fff ",
-                  background: "linear-gradient(to bottom, #d4a32f, #000)",
-                }}
+                className="FontTextWhite10px border theme-gradient-cell"
+                style={{ color: "#fff " }}
                 height={25}
                 align="center">
                 #
               </td>
               <td
-                className="FontTextWhite10px border"
-                style={{
-                  color: "#fff ",
-                  background: "linear-gradient(to bottom, #d4a32f, #000)",
-                }}
+                className="FontTextWhite10px border theme-gradient-cell"
+                style={{ color: "#fff " }}
                 align="center">
                 RUNNER NAME
               </td>
               <td
-                className="FontTextWhite10px border"
-                style={{
-                  color: "#fff ",
-                  background: "linear-gradient(to bottom, #d4a32f, #000)",
-                }}
+                className="FontTextWhite10px border theme-gradient-cell"
+                style={{ color: "#fff " }}
                 align="center">
                 BET MODE
               </td>
               <td
-                className="FontTextWhite10px border"
-                style={{
-                  color: "#fff ",
-                  background: "linear-gradient(to bottom, #d4a32f, #000)",
-                }}
+                className="FontTextWhite10px border theme-gradient-cell"
+                style={{ color: "#fff " }}
                 valign="middle"
                 align="center">
                 BET PRICE
               </td>
               <td
-                className="FontTextWhite10px border"
-                style={{
-                  color: "#fff ",
-                  background: "linear-gradient(to bottom, #d4a32f, #000)",
-                }}
+                className="FontTextWhite10px border theme-gradient-cell"
+                style={{ color: "#fff " }}
                 valign="middle"
                 align="center">
                 BET VALUE
               </td>
               <td
-                className="FontTextWhite10px border"
-                style={{
-                  color: "#fff ",
-                  background: "linear-gradient(to bottom, #d4a32f, #000)",
-                }}
+                className="FontTextWhite10px border theme-gradient-cell"
+                style={{ color: "#fff " }}
                 valign="middle"
                 align="center">
                 BET AMOUNT
@@ -352,7 +314,7 @@ const MatchBets = () => {
                       borderRight: "1px solid #3d8282",
                       borderBottom: "1px solid #3d8282",
                     }}>
-                    {items?.back ? "Yes" : "No"}
+                    {items?.back ? "Yes" : "Not"}
                   </td>
                   <td
                     style={{
@@ -388,32 +350,12 @@ const MatchBets = () => {
 
       <div className="text-center" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "15px", paddingBottom: "20px" }}>
         <button
-
-          style={{
-            background: "linear-gradient(180deg, #b7862f 0%, #000 100%)",
-            border: "none",
-            fontWeight: "bold",
-            fontSize: "16px",
-            padding: "10px 0",
-            color: "#fff",
-            width: "150px",
-            borderRadius: "0px"
-          }}
+          className="theme-gradient-button theme-gradient-button--wide"
           onClick={() => setOpenCompletedFancy(true)}>
           Completed Bets
         </button>
         <button
-
-          style={{
-            background: "linear-gradient(180deg, #b7862f 0%, #000 100%)",
-            border: "none",
-            fontWeight: "bold",
-            fontSize: "16px",
-            padding: "10px 0",
-            color: "#fff",
-            width: "100px",
-            borderRadius: "0px"
-          }}
+          className="theme-gradient-button theme-gradient-button--narrow"
           onClick={() => setOpenAllEvents(true)}>
           All Events
         </button>
@@ -438,7 +380,6 @@ const MatchBets = () => {
         width={1000}
         styles={{
           header: {
-            background: "#bca415",
             padding: "15px",
             marginBottom: "20px",
             borderBottom: "none",
@@ -454,13 +395,7 @@ const MatchBets = () => {
         }}
         className="completed-bets-modal">
         <div
-          style={{
-            background: "linear-gradient(to bottom, #d4a32f, #000)",
-            padding: "10px",
-            color: "#fff",
-            textAlign: "center",
-            fontWeight: "bold"
-          }}>
+          className="theme-gradient-banner">
           COMPLETED BETS
         </div>
         <div className="overflow-responsive">
@@ -474,78 +409,54 @@ const MatchBets = () => {
             <thead>
               <tr>
                 <td
-                  className="FontTextWhite10px border"
-                  style={{
-                    color: "#fff ",
-                    background: "linear-gradient(to bottom, #8b5a00, #000)",
-                  }}
+                  className="FontTextWhite10px border theme-gradient-cell"
+                  style={{ color: "#fff " }}
                   height={25}
                   align="center">
                   #
                 </td>
                 <td
-                  className="FontTextWhite10px border"
-                  style={{
-                    color: "#fff ",
-                    background: "linear-gradient(to bottom, #8b5a00, #000)",
-                  }}
+                  className="FontTextWhite10px border theme-gradient-cell"
+                  style={{ color: "#fff " }}
                   align="center">
                   RUNNER NAME
                 </td>
                 <td
-                  className="FontTextWhite10px border"
-                  style={{
-                    color: "#fff ",
-                    background: "linear-gradient(to bottom, #8b5a00, #000)",
-                  }}
+                  className="FontTextWhite10px border theme-gradient-cell"
+                  style={{ color: "#fff " }}
                   align="center">
                   TYPE
                 </td>
                 <td
-                  className="FontTextWhite10px border"
-                  style={{
-                    color: "#fff ",
-                    background: "linear-gradient(to bottom, #8b5a00, #000)",
-                  }}
+                  className="FontTextWhite10px border theme-gradient-cell"
+                  style={{ color: "#fff " }}
                   valign="middle"
                   align="center">
                   PRICE
                 </td>
                 <td
-                  className="FontTextWhite10px border"
-                  style={{
-                    color: "#fff ",
-                    background: "linear-gradient(to bottom, #8b5a00, #000)",
-                  }}
+                  className="FontTextWhite10px border theme-gradient-cell"
+                  style={{ color: "#fff " }}
                   valign="middle"
                   align="center">
                   VALUE
                 </td>
                 <td
-                  className="FontTextWhite10px border"
-                  style={{
-                    color: "#fff ",
-                    background: "linear-gradient(to bottom, #8b5a00, #000)",
-                  }}
+                  className="FontTextWhite10px border theme-gradient-cell"
+                  style={{ color: "#fff " }}
                   valign="middle"
                   align="center">
                   AMOUNT
                 </td>
                 <td
-                  className="FontTextWhite10px border"
-                  style={{
-                    color: "#fff ",
-                    background: "linear-gradient(to bottom, #8b5a00, #000)",
-                  }}
+                  className="FontTextWhite10px border theme-gradient-cell"
+                  style={{ color: "#fff " }}
                   align="center">
                   RESULT
                 </td>
                 <td
-                  className="FontTextWhite10px border"
-                  style={{
-                    color: "#fff ",
-                    background: "linear-gradient(to bottom, #8b5a00, #000)",
-                  }}
+                  className="FontTextWhite10px border theme-gradient-cell"
+                  style={{ color: "#fff " }}
                   align="center">
                   STATUS
                 </td>
@@ -553,12 +464,16 @@ const MatchBets = () => {
             </thead>
             <tbody id="MySessionCompletedBets">
               {completedSessionBets?.map((items, index) => {
+                const isYes = !!items?.back;
+                const rowBackground = isYes
+                  ? "var(--yes-color)"
+                  : "var(--no-color)";
                 return (
                   <tr
                     key={index}
                     style={{
                       borderBottom: "1px solid #ccc",
-                      background: "#fff",
+                      background: rowBackground,
                     }}>
                     <td
                       style={{
@@ -585,7 +500,7 @@ const MatchBets = () => {
                         borderRight: "1px solid #ccc",
                         borderBottom: "1px solid #ccc",
                       }}>
-                      {items?.back ? "Yes" : "No"}
+                      {items?.back ? "YES" : "NOT"}
                     </td>
                     <td
                       style={{
@@ -593,7 +508,7 @@ const MatchBets = () => {
                         borderRight: "1px solid #ccc",
                         borderBottom: "1px solid #ccc",
                       }}>
-                      {items?.rate}
+                      {items?.priveValue ?? items?.rate}
                     </td>
                     <td
                       style={{
@@ -627,7 +542,7 @@ const MatchBets = () => {
                         color: items?.netPnl > 0 ? "green" : "red",
                         fontWeight: "bold",
                       }}>
-                      {items?.netPnl > 0 ? "WON" : "LOST"} ({items?.netPnl})
+                      {items?.netPnl > 0 ? "WON" : "LOSS"}
                     </td>
                   </tr>
                 );
@@ -678,7 +593,6 @@ const MatchBets = () => {
         width={780}
         styles={{
           header: {
-            background: "#bca415",
             padding: "15px",
             marginBottom: "0",
             borderBottom: "none",
@@ -708,8 +622,8 @@ const MatchBets = () => {
             return (
               <div
                 key={index}
+                className="theme-gradient-card"
                 style={{
-                  background: "linear-gradient(#b7862f 0, #000 100%)",
                   borderRadius: "6px",
                   padding: "14px 16px",
                   color: "#fff",

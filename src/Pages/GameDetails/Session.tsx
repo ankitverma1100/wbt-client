@@ -2,6 +2,7 @@
 
 import { useParams } from "react-router-dom";
 import {
+  useGetBetListBymatchIdQuery,
   useGetFancyBookMutation,
 } from "../../store/service/userServices/userServices";
 import { Modal } from "antd";
@@ -48,6 +49,18 @@ const Session = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentFancyName, setCurrentFancyName] = useState<string>("N/A");
   const [trigger, { data }] = useGetFancyBookMutation();
+  const { data: betList } = useGetBetListBymatchIdQuery(
+    { matchId: id ?? "", activeBet: true },
+    { pollingInterval: 1000 }
+  );
+
+  const normalizeName = (value?: string) =>
+    String(value || "").trim().toLowerCase();
+  const fancyBetNames = new Set(
+    (betList?.data?.Fancy2Market || []).map((item: any) =>
+      normalizeName(item?.nation)
+    )
+  );
 
   const handleShowFancyBook = (fancyId: string, fancyName: string) => {
     trigger({ matchId: id ?? "", fancyId });
@@ -76,6 +89,9 @@ const Session = ({
 
               const suspended =
                 session?.gstatus?.toLowerCase() === "suspended";
+              const hasFancyBet = fancyBetNames.has(
+                normalizeName(session?.nation)
+              );
 
               return (
                 <React.Fragment key={index}>
@@ -91,7 +107,7 @@ const Session = ({
                         <img
                           src="/img/inplay/ladder.svg"
                           alt="Book"
-                          className="bm-book-icon"
+                          className={`bm-book-icon ${hasFancyBet ? "bm-book-icon--active" : ""}`}
                         onClick={() =>
                           handleShowFancyBook(session.sid, session.nation)
                         }

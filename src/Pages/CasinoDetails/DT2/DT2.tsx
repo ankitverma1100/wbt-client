@@ -28,6 +28,7 @@ const DT2 = ({
       setBetState((prev: any) => ({
         ...prev,
         nation: t2Data?.nation,
+        selectionName: t2Data?.nation,
         casinoName: 2,
         isBack: true,
         odds: Number(t2Data?.rate),

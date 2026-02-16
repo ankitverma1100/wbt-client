@@ -1,11 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import "./style.scss";
-import { useState } from "react";
-import { DatePicker } from "antd";
+import { useEffect, useMemo, useState } from "react";
 import dayjs from "dayjs";
 import moment from "moment";
-
-const { RangePicker } = DatePicker;
+import { useGetUserchpdtlMutation } from "../../store/service/userServices/userServices";
 
 /* ===============================
    ICONS
@@ -29,7 +27,7 @@ const DownArrowIcon = () => (
 );
 
 const SearchIcon = () => (
-    <svg viewBox="64 64 896 896" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="40">
+    <svg viewBox="64 64 896 896" width="1em" height="1em" fill="none" stroke="currentColor" strokeWidth="40">
         <path d="M909.6 854.5L649.9 594.8C690.2 542.7 714 478.8 714 408 714 244.6 579.4 110 416 110S118 244.6 118 408s134.6 298 298 298c70.8 0 134.7-23.8 186.8-64.1l259.7 259.7c7.2 7.2 18.9 7.2 26.1 0l24.1-24c7.2-7.2 7.2-18.9 0-26.1z"></path>
     </svg>
 );
@@ -51,37 +49,190 @@ const EmptyIcon = () => (
     </div>
 );
 
-/* ===============================
-   DUMMY DATA
-================================ */
-const accountData = [
-    {
-        date: "2025-12-13T21:54:00",
-        description:
-            "ACCOUNT OPENING BALANCE BY BHAIA (A27875) TO CLIENTSHAK (C34386)",
-        prev: 0,
-        credit: 1000,
-        debit: 0,
-        comm: 0,
-        balance: 1000,
-    },
-];
+type FilterType = "All" | "PNL" | "Account";
 
-const pnlData: any[] = [];
+interface AccountStatementItem {
+    date: string;
+    description: string;
+    credit: number;
+    debit: number;
+    closing: number;
+    prev?: number;
+    comm?: number;
+    balance?: number;
+}
 
-const Statement = () => {
-    const nav = useNavigate();
+interface AccountStatementResponse {
+    status: boolean;
+    message: string | null;
+    data: AccountStatementItem[];
+}
 
-    const [filterType, setFilterType] =
-        useState<"All" | "PNL" | "Account">("All");
+const filterOptions: FilterType[] = ["All", "PNL", "Account"];
+const pageSizes = [10, 20, 50, 100];
 
-    const [rowsPerPage, setRowsPerPage] = useState(50);
+const toNumber = (value: number | null | undefined) => {
+    if (typeof value === "number") return value;
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? parsed : 0;
+};
+
+const formatAmount = (value: number | null | undefined) =>
+    toNumber(value).toFixed(2);
+
+const getBalanceValue = (item?: AccountStatementItem) =>
+    item?.balance ?? item?.closing ?? 0;
+
+interface StatementRowProps {
+    item: AccountStatementItem;
+    nextItem?: AccountStatementItem;
+}
+
+const StatementRow = ({ item, nextItem }: StatementRowProps) => (
+    <tr>
+        <td className="date bold">
+            {moment(item.date).format("DD MMM YYYY hh:mm A")}
+        </td>
+        <td className="desc bold">
+            <span className="ellipsis">{item.description}</span>
+        </td>
+        <td className="green bold text-center">
+            {formatAmount(getBalanceValue(nextItem))}
+        </td>
+        <td className="green bold text-center">{formatAmount(item.credit)}</td>
+        <td className="red text-center">{formatAmount(item.debit)}</td>
+        <td className="green text-center">{formatAmount(item.comm)}</td>
+        <td className="bold text-center">
+            {formatAmount(getBalanceValue(item))}
+        </td>
+    </tr>
+);
+
+interface PageSizeSelectProps {
+    rowsPerPage: number;
+    setRowsPerPage: (value: number) => void;
+}
+
+const PageSizeSelect = ({ rowsPerPage, setRowsPerPage }: PageSizeSelectProps) => {
     const [pageSizeOpen, setPageSizeOpen] = useState(false);
     const [pageInput, setPageInput] = useState("");
     const [isTyping, setIsTyping] = useState(false);
 
-    const activeData = filterType === "PNL" ? pnlData : accountData;
-    const pageSizes = [10, 20, 50, 100];
+    const filteredPageSizes = useMemo(
+        () => pageSizes.filter((n) => pageInput.includes(n.toString())),
+        [pageInput]
+    );
+
+    return (
+        <div className={`page-size-select ${pageSizeOpen ? "open" : ""}`}>
+            <input
+                value={pageInput}
+                onFocus={() => setPageSizeOpen(true)}
+                onChange={(e) => {
+                    const val = e.target.value;
+                    setPageInput(val);
+                    setIsTyping(val.length > 0);
+                }}
+                onBlur={() => {
+                    setPageSizeOpen(false);
+                    setIsTyping(false);
+                    setPageInput("");
+                }}
+            />
+
+            {!isTyping && (
+                <span className="page-size-placeholder">
+                    {rowsPerPage} / PAGE
+                </span>
+            )}
+
+            <span className="page-size-icon">
+                {pageSizeOpen ? <SearchIcon /> : <DownArrowIcon />}
+            </span>
+
+            {pageSizeOpen && (
+                <ul className="page-size-dropdown">
+                    {!isTyping ? (
+                        pageSizes.map((n) => (
+                            <li
+                                key={n}
+                                className={rowsPerPage === n ? "active" : ""}
+                                onMouseDown={() => {
+                                    setRowsPerPage(n);
+                                    setPageInput("");
+                                    setPageSizeOpen(false);
+                                }}
+                            >
+                                {n} / PAGE
+                            </li>
+                        ))
+                    ) : filteredPageSizes.length ? (
+                        filteredPageSizes.map((n) => (
+                            <li
+                                key={n}
+                                onMouseDown={() => {
+                                    setRowsPerPage(n);
+                                    setPageInput("");
+                                    setPageSizeOpen(false);
+                                }}
+                            >
+                                {n} / PAGE
+                            </li>
+                        ))
+                    ) : (
+                        <li className="page-size-empty">
+                            <EmptyIcon />
+                            <span>NO DATA</span>
+                        </li>
+                    )}
+                </ul>
+            )}
+        </div>
+    );
+};
+
+const Statement = () => {
+    const nav = useNavigate();
+
+    const [filterType, setFilterType] = useState<FilterType>("All");
+
+    const [dateRange, setDateRange] = useState<[string, string]>([
+        dayjs().subtract(7, "day").format("YYYY-MM-DD"),
+        dayjs().format("YYYY-MM-DD"),
+    ]);
+
+    const [trigger, { data }] = useGetUserchpdtlMutation();
+
+    const [rowsPerPage, setRowsPerPage] = useState(50);
+
+    useEffect(() => {
+        const detailTypeMap = {
+            All: "ALL",
+            PNL: "PNL",
+            Account: "ACCOUNT",
+        } as const;
+
+        trigger({
+            detailType: detailTypeMap[filterType],
+            fromDate: dateRange[0],
+            toDate: dateRange[1],
+            userId: "",
+        });
+    }, [filterType, dateRange, trigger]);
+
+    const response = data as AccountStatementResponse | undefined;
+    const activeData = Array.isArray(response?.data) ? response.data : [];
+    const totals = useMemo(() => {
+        return activeData.reduce(
+            (acc, item) => {
+                acc.credit += toNumber(item.credit);
+                acc.debit += toNumber(item.debit);
+                acc.total += toNumber(getBalanceValue(item));
+                return acc;
+            },
+            { credit: 0, debit: 0, total: 0 }
+        );
+    }, [activeData]);
 
     return (
         <main className="statement-page">
@@ -94,11 +245,11 @@ const Statement = () => {
             {/* FILTER */}
             <div className="statement-filter-card">
                 <div className="filter-buttons">
-                    {["All", "PNL", "Account"].map((t) => (
+                    {filterOptions.map((t) => (
                         <button
                             key={t}
                             className={`filter-btn ${filterType === t ? "active" : ""}`}
-                            onClick={() => setFilterType(t as any)}
+                            onClick={() => setFilterType(t)}
                         >
                             {t === "PNL" ? "P&L" : t}
                         </button>
@@ -109,9 +260,15 @@ const Statement = () => {
 
             {filterType === "Account" && (
                 <div className="account-summary">
-                    <span className="credit-cell">CREDIT: 1000.00</span>
-                    <span className="debit-cell">DEBIT: 0.00</span>
-                    <span className="total-cell">TOTAL: 1000.00</span>
+                    <span className="credit-cell">
+                        CREDIT: {formatAmount(totals.credit)}
+                    </span>
+                    <span className="debit-cell">
+                        DEBIT: {formatAmount(totals.debit)}
+                    </span>
+                    <span className="total-cell">
+                        TOTAL: {formatAmount(totals.total)}
+                    </span>
                 </div>
             )}
 
@@ -154,23 +311,11 @@ const Statement = () => {
                                     </tr>
                                 ) : (
                                     activeData.map((item, i) => (
-                                        <tr key={i}>
-                                            <td className="date bold">
-                                                {moment(item.date).format("DD MMM YYYY hh:mm A")}
-                                            </td>
-                                            <td className="desc bold">
-                                                <span className="ellipsis">
-                                                    {item.description}
-                                                </span>
-                                            </td>
-                                            <td className="green text-center">{item.prev}</td>
-                                            <td className="green bold text-center">{item.credit}</td>
-                                            <td className="red text-center">{item.debit}</td>
-                                            <td className="green text-center">{item.comm}</td>
-                                            <td className="bold text-center">
-                                                {item.balance.toFixed(2)}
-                                            </td>
-                                        </tr>
+                                        <StatementRow
+                                            key={`${item.date}-${i}`}
+                                            item={item}
+                                            nextItem={activeData[i + 1]}
+                                        />
                                     ))
                                 )}
                             </tbody>
@@ -198,74 +343,10 @@ const Statement = () => {
                         </li>
 
                         <li className="ant-pagination-options">
-                            <div className={`page-size-select ${pageSizeOpen ? "open" : ""}`}>
-                                <input
-                                    value={pageInput}
-                                    onFocus={() => setPageSizeOpen(true)}
-                                    onChange={(e) => {
-                                        const val = e.target.value;
-                                        setPageInput(val);
-                                        setIsTyping(val.length > 0);
-                                    }}
-                                    onBlur={() => {
-                                        setPageSizeOpen(false);
-                                        setIsTyping(false);
-                                        setPageInput("");
-                                    }}
-                                />
-
-                                {!isTyping && (
-                                    <span className="page-size-placeholder">
-                                        {rowsPerPage} / PAGE
-                                    </span>
-                                )}
-
-                                <span className="page-size-icon">
-                                    {pageSizeOpen ? <SearchIcon /> : <DownArrowIcon />}
-                                </span>
-
-                                {pageSizeOpen && (
-                                    <ul className="page-size-dropdown">
-                                        {!isTyping ? (
-                                            pageSizes.map((n) => (
-                                                <li
-                                                    key={n}
-                                                    className={rowsPerPage === n ? "active" : ""}
-                                                    onMouseDown={() => {
-                                                        setRowsPerPage(n);
-                                                        setPageInput("");
-                                                        setPageSizeOpen(false);
-                                                    }}
-                                                >
-                                                    {n} / PAGE
-                                                </li>
-                                            ))
-                                        ) : pageSizes.filter((n) =>
-                                            pageInput.includes(n.toString())
-                                        ).length ? (
-                                            pageSizes
-                                                .filter((n) => pageInput.includes(n.toString()))
-                                                .map((n) => (
-                                                    <li
-                                                        key={n}
-                                                        onMouseDown={() => {
-                                                            setRowsPerPage(n);
-                                                            setPageInput("");
-                                                            setPageSizeOpen(false);
-                                                        }}
-                                                    >
-                                                        {n} / PAGE
-                                                    </li>
-                                                ))
-                                        ) : (
-                                            <li className="page-size-empty">
-                                                <EmptyIcon />
-                                                <span>NO DATA</span>
-                                            </li>
-                                        )}
-                                    </ul>
-                                )}
-                            </div>
+                            <PageSizeSelect
+                                rowsPerPage={rowsPerPage}
+                                setRowsPerPage={setRowsPerPage}
+                            />
                         </li>
                     </ul>
                 </div>

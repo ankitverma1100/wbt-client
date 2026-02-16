@@ -39,7 +39,7 @@
 
   /* Header */
   .ant-modal-header {
-    background: #b8892b;
+    background: var(--primary-color);
     padding: 12px 20px;
     display: flex;
     justify-content: space-between;
@@ -212,6 +212,30 @@
 
     .ant-modal-footer {
       padding: 12px 16px;
+    }
+  }
+}
+
+.back-to-main-menu {
+  margin-top: 16px;
+
+  a {
+    display: block;
+    background: var(--primary-color);
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 8px 10px;
+    width: 100%;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+
+    &:hover {
+      opacity: 0.9;
     }
   }
 }

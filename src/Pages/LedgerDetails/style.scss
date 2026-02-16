@@ -1,0 +1,110 @@
+.ledger-details-page {
+  background: #f2f3f5;
+  min-height: 100vh;
+  padding-bottom: 40px;
+}
+
+.ledger-details-header {
+  background: var(--primary-color);
+  color: #fff;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 12px 16px;
+  border-radius: 8px 8px 0 0;
+  margin: 0 0 16px;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.my-ledger-data-table {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.my-ledger-data-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ledger-details-page .p-122,
+.ledger-details-page .menu {
+  width: 100%;
+}
+
+.my-ledger-data-table td {
+  border: 1px solid #e6e6e6;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+  padding: 0px 4px;
+  text-align: center;
+}
+
+.my-ledger-data-table tr.ledger-row-lagai,
+.my-ledger-data-table tr.ledger-row-lagai td {
+  background-color: var(--yes-color) !important;
+  color: #000 !important;
+}
+
+.my-ledger-data-table tr.ledger-row-khai,
+.my-ledger-data-table tr.ledger-row-khai td {
+  background-color: var(--no-color) !important;
+  color: #000 !important;
+}
+
+.my-ledger-data-table .TeamCombo {
+  color: #fff;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.my-ledger-data-table .font_text_white10px {
+  background: linear-gradient(var(--primary-color) 0, #000 100%) !important;
+  color: #fff !important;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.menu .back-main-menu a {
+  display: block;
+  background: linear-gradient(var(--primary-color) 0, #000 100%);
+  color: #fff;
+  text-align: center;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.menu .back-main-menu a:hover {
+  opacity: 0.9;
+}
+
+.my-ledger-data-table tr.ledger-row-lagai td,
+.my-ledger-data-table tr.ledger-row-khai td {
+  background: transparent !important;
+}
+
+.my-ledger-data-table td.ledger-pnl-positive {
+  color: #16a34a !important;
+}
+
+.my-ledger-data-table td.ledger-pnl-negative {
+  color: #dc2626 !important;
+}
+
+.my-ledger-data-table tr.ledger-row-lagai td.ledger-pnl-positive,
+.my-ledger-data-table tr.ledger-row-khai td.ledger-pnl-positive {
+  color: #16a34a !important;
+}
+
+.my-ledger-data-table tr.ledger-row-lagai td.ledger-pnl-negative,
+.my-ledger-data-table tr.ledger-row-khai td.ledger-pnl-negative {
+  color: #dc2626 !important;
+}

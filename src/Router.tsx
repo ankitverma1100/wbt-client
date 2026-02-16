@@ -86,7 +86,7 @@ export const router = createBrowserRouter([
         element: withLoader(Matka),
       },
       {
-        path: "matka-details/:slug",
+        path: "matka-details/:matkaId",
         element: withLoader(MatkaDetails),
       },
 
