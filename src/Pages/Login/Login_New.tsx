@@ -90,12 +90,12 @@ const Login_New = () => {
       await trigger({
         password: formData.password,
         userId: formData.username,
-        // url: window.location.hostname,
+        url: window.location.hostname,
         // url: "nsgpro99.com",
         // url: "antpro.co",
         // url: "urb99.com",
         // url: "10wicket.co",
-        url: "wbt24.com",
+        // url: "wbt24.com",
       });
     } catch (error) {
       console.error("Login failed:", error);

@@ -74,7 +74,9 @@ const Login = () => {
                 trigger({
                   userId: values.username,
                   password: values.password,
-                  url: "wbt24.com",
+                  url: window.location.hostname,
+                  // url: "wbt24.com",
+                  // url: "urb99.com",
                 });
               }}
             >
