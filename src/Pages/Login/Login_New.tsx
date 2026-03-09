@@ -94,7 +94,8 @@ const Login_New = () => {
         // url: "nsgpro99.com",
         // url: "antpro.co",
         // url: "urb99.com",
-        url: "10wicket.co",
+        // url: "10wicket.co",
+        url: "wbt24.com",
       });
     } catch (error) {
       console.error("Login failed:", error);
