@@ -195,7 +195,7 @@ const MatchBets = () => {
                       borderRight: "1px solid #3d8282",
                       borderBottom: "1px solid #3d8282",
                     }}>
-                    {(items?.amount * items?.priveValue).toFixed(2)}
+                    {(items?.pnl)}
                   </td>
                   <td
                     style={{
@@ -330,7 +330,7 @@ const MatchBets = () => {
                       borderRight: "1px solid #3d8282",
                       borderBottom: "1px solid #3d8282",
                     }}>
-                    {items?.rate}
+                    {items?.pnl}
                   </td>
                   <td
                     style={{
