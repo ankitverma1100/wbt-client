@@ -31,19 +31,20 @@ const Bookmaker = ({
 
   if (processedBookData.length >= 2) {
     const allB1Same = processedBookData.every(
-      (item) => item.b1 === processedBookData[0].b1
+      (item) => Number(item?.b1) === Number(processedBookData[0]?.b1)
     );
 
     if (allB1Same) {
       // ✅ New condition: check if all l1 are also the same
       const allL1Same = processedBookData.every(
-        (item) => item.l1 === processedBookData[0].l1
+        (item) => Number(item?.l1) === Number(processedBookData[0]?.l1)
       );
 
       if (!allL1Same) {
         // If same b1 but different l1, keep the one with higher l1
         const maxL1Index = processedBookData.reduce(
-          (maxIdx, curr, idx, arr) => (curr.l1 > arr[maxIdx].l1 ? idx : maxIdx),
+          (maxIdx, curr, idx, arr) =>
+            Number(curr?.l1) > Number(arr[maxIdx]?.l1) ? idx : maxIdx,
           0
         );
 
@@ -65,7 +66,7 @@ const Bookmaker = ({
         if (currStatus === "suspended") return minIdx;
         if (minStatus === "suspended") return idx;
 
-        return curr.b1 < arr[minIdx].b1 ? idx : minIdx;
+        return Number(curr?.b1) < Number(arr[minIdx]?.b1) ? idx : minIdx;
       }, 0);
 
       processedBookData.forEach((item, index) => {
@@ -126,10 +127,7 @@ const Bookmaker = ({
         </thead>
 
         <tbody>
-          {(filteredBookData.length > 3
-            ? filteredBookData
-            : processedBookData
-          )?.map((bookmaker, index) => {
+          {processedBookData?.map((bookmaker, index) => {
             const isSuspended =
               bookmaker?.gstatus?.toLowerCase() === "suspended";
             const pnlRow = oddsPnl?.find(
