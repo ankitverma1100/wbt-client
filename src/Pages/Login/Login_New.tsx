@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./style.scss";
-import { useLoginMutation } from "../../store/service/authService";
+import { useDemoLoginMutation, useLoginMutation } from "../../store/service/authService";
 import { isAntPro } from "../CasinoDetails/Constant";
 import { toast } from "react-toastify";
 
@@ -39,9 +39,24 @@ const Spinner = () => (
   </svg>
 );
 
+const getErrorMessage = (error: unknown, fallback: string) => {
+  if (
+    typeof error === "object" &&
+    error !== null &&
+    "data" in error &&
+    typeof (error as { data?: unknown }).data === "object" &&
+    (error as { data?: { message?: unknown } }).data &&
+    typeof (error as { data?: { message?: unknown } }).data?.message === "string"
+  ) {
+    return (error as { data: { message: string } }).data.message;
+  }
+  return fallback;
+};
+
 const Login_New = () => {
   const nav = useNavigate();
-  const [trigger, { data: loginData, isLoading }] = useLoginMutation(); // Added isLoading from mutation
+  const [trigger, { data: loginData, isLoading, error: loginRequestError }] = useLoginMutation();
+  const [demoLogin, { data: demoData, isLoading: isDemoLoadingApi, error: demoRequestError }] = useDemoLoginMutation();
 
   const [formData, setFormData] = useState({
     username: "",
@@ -57,6 +72,23 @@ const Login_New = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loadingType, setLoadingType] = useState<"login" | "demo" | null>(null);
   const [loginError, setLoginError] = useState<string | null>(null);
+
+  const handleAuthSuccess = useCallback((authData: LoginResponse | DemoLoginResponse) => {
+    const resolvedData = authData?.data ?? authData;
+    const token = resolvedData?.token;
+    const userId = resolvedData?.userId;
+    const username = resolvedData?.username;
+
+    if (!token) return false;
+
+    localStorage.setItem("isLogin", "1");
+    localStorage.setItem("client-token", token);
+    if (userId) localStorage.setItem("userId", userId);
+    if (username) localStorage.setItem("username", username);
+    setLoginError(null);
+    nav("/main/rules");
+    return true;
+  }, [nav]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -85,17 +117,22 @@ const Login_New = () => {
 
     setLoadingType("login");
     setLoginError(null);
+    const hostname = window.location.hostname;
+    const isLocalRuntime =
+      import.meta.env.DEV ||
+      hostname === "localhost" ||
+      hostname === "127.0.0.1" ||
+      hostname === "[::1]" ||
+      /^10\./.test(hostname) ||
+      /^192\.168\./.test(hostname) ||
+      /^172\.(1[6-9]|2\d|3[0-1])\./.test(hostname);
+    const loginUrl = isLocalRuntime ? "wbt24.com" : hostname;
 
     try {
       await trigger({
         password: formData.password,
         userId: formData.username,
-        url: window.location.hostname,
-        // url: "nsgpro99.com",
-        // url: "antpro.co",
-        // url: "urb99.com",
-        // url: "10wicket.co",
-        // url: "wbt24.com",
+        url: loginUrl,
       });
     } catch (error) {
       console.error("Login failed:", error);
@@ -106,15 +143,8 @@ const Login_New = () => {
   const handleDemoLogin = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setLoadingType("demo");
-
-    // Simulate demo login
-    setTimeout(() => {
-      setLoadingType(null);
-      // Add your demo login logic here
-      console.log("Demo login successful");
-      // For example, navigate to demo page
-      // nav("/demo");
-    }, 1500);
+    setLoginError(null);
+    demoLogin();
   };
 
   useEffect(() => {
@@ -128,19 +158,7 @@ const Login_New = () => {
         return;
       }
 
-      const resolvedData = loginData?.data ?? loginData;
-      const token = resolvedData?.token;
-      const userId = resolvedData?.userId;
-      const username = resolvedData?.username;
-
-      if (token) {
-        localStorage.setItem("isLogin", "1");
-        localStorage.setItem("client-token", token);
-        if (userId) localStorage.setItem("userId", userId);
-        if (username) localStorage.setItem("username", username);
-        setLoginError(null);
-        nav("/main/rules");
-      } else if (loginData?.message) {
+      if (!handleAuthSuccess(loginData) && loginData?.message) {
         // Handle login error
         setLoadingType(null);
         // Show error message if needed
@@ -148,13 +166,45 @@ const Login_New = () => {
         console.error("Login failed:", loginData.message);
       }
     }
-  }, [loginData, isLoading, nav]);
+  }, [handleAuthSuccess, loginData, isLoading]);
+
+  useEffect(() => {
+    if (!isDemoLoadingApi && demoData) {
+      if (demoData?.status === false) {
+        setLoadingType(null);
+        const message = demoData.message || "Demo login failed";
+        setLoginError(message);
+        console.error("Demo login failed:", message);
+        return;
+      }
+
+      if (!handleAuthSuccess(demoData) && demoData?.message) {
+        setLoadingType(null);
+        setLoginError(demoData.message);
+        console.error("Demo login failed:", demoData.message);
+      }
+    }
+  }, [demoData, handleAuthSuccess, isDemoLoadingApi]);
 
   useEffect(() => {
     if (loginError) {
       toast.error(loginError);
     }
   }, [loginError]);
+
+  useEffect(() => {
+    if (loginRequestError) {
+      setLoadingType(null);
+      setLoginError(getErrorMessage(loginRequestError, "Login request failed"));
+    }
+  }, [loginRequestError]);
+
+  useEffect(() => {
+    if (demoRequestError) {
+      setLoadingType(null);
+      setLoginError(getErrorMessage(demoRequestError, "Demo login request failed"));
+    }
+  }, [demoRequestError]);
 
   // LOGIC: Show error if:
   // 1. Form has been submitted AND field is empty (formSubmitted)
@@ -165,7 +215,7 @@ const Login_New = () => {
 
   // Determine if login button should show loading
   const isLoginLoading = loadingType === "login" || (loadingType === "login" && isLoading);
-  const isDemoLoading = loadingType === "demo";
+  const isDemoLoading = loadingType === "demo" || isDemoLoadingApi;
 
   return (
     <div className="ant-design-login-container">

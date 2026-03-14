@@ -27,6 +27,21 @@ interface LoginResponse {
   username?: string;
 }
 
+interface DemoLoginResponse {
+  status?: boolean;
+  message?: string;
+  data?: {
+    token: string;
+    userId: string;
+    userTypeInfo: number | string;
+    username: string;
+  } | null;
+  token?: string;
+  userId?: string;
+  userTypeInfo?: number | string;
+  username?: string;
+}
+
 interface BetPlacedProps {
   nation: string;
   casinoName: number;

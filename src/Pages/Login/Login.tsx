@@ -71,12 +71,19 @@ const Login = () => {
               initialValues={{ username: "C67329", password: "C67329" }}
               onFinish={(values) => {
                 setLoginError(null);
+                const hostname = window.location.hostname;
+                const isLocalRuntime =
+                  import.meta.env.DEV ||
+                  hostname === "localhost" ||
+                  hostname === "127.0.0.1" ||
+                  hostname === "[::1]" ||
+                  /^10\./.test(hostname) ||
+                  /^192\.168\./.test(hostname) ||
+                  /^172\.(1[6-9]|2\d|3[0-1])\./.test(hostname);
                 trigger({
                   userId: values.username,
                   password: values.password,
-                  url: window.location.hostname,
-                  // url: "wbt24.com",
-                  // url: "urb99.com",
+                  url: isLocalRuntime ? "wbt24.com" : hostname,
                 });
               }}
             >
