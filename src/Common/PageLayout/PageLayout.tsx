@@ -15,7 +15,7 @@ const PageLayout = () => {
   };
 
   const { data: userBalance } = useGetUserBalanceQuery(undefined, {
-    pollingInterval: 1000,
+    pollingInterval: 3000,
     refetchOnMountOrArgChange: true,
   });
 

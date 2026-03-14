@@ -32,7 +32,7 @@ const Profile = () => {
   }, [updateRateInfo]);
 
   const { data: userBalance } = useGetUserBalanceQuery(undefined, {
-    pollingInterval: 5000,
+    pollingInterval: 3000,
     refetchOnMountOrArgChange: true,
   });
   const exposure = Number(

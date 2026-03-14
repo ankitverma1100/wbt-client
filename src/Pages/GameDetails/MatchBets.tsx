@@ -25,7 +25,7 @@ const MatchBets = () => {
       matchId: id ?? "",
       activeBet: true,
     },
-    { pollingInterval: 1000 }
+    { pollingInterval: 3000 }
   );
 
   const [trigger, { data: activeEventData }] = useActiveEventMutation();
