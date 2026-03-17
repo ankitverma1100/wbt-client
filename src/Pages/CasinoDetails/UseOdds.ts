@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { baseUrl, baseUrlkho, isAntPro } from "./Constant";
 
+const casinoOddsApi =
+  import.meta.env.VITE_CASINO_ODDS_API || import.meta.env.VITE_ODDS_API;
+
 export const useOdds = (value: string) => {
   const [odds, setOdds] = useState<any>(null);
   const [pnl, setPnl] = useState<{ [x: string]: number }>({});
@@ -10,7 +13,7 @@ export const useOdds = (value: string) => {
     const timer = setInterval(() => {
       value &&
         fetch(
-          `${import.meta.env.VITE_ODDS_API}/betfair_api/casino/data/meta-` +
+          `${casinoOddsApi}/betfair_api/casino/data/meta-` +
             value
         )
           .then((res) => res.json())

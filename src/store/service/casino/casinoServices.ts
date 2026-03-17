@@ -1,16 +1,19 @@
 import type {
     BaseQueryFn,
     FetchBaseQueryError} from "@reduxjs/toolkit/query/react";
-  import {
+import {
     createApi,
     fetchBaseQuery
   } from "@reduxjs/toolkit/query/react";
+
+  const casinoOddsApi =
+    import.meta.env.VITE_CASINO_ODDS_API || import.meta.env.VITE_ODDS_API;
 
   
   export const casinoData = createApi({
     reducerPath: "casinoData",
     baseQuery: fetchBaseQuery({
-        baseUrl: import.meta.env.VITE_ODDS_API,
+        baseUrl: casinoOddsApi,
         prepareHeaders: (headers) => {
           const token = localStorage.getItem("client-token");
           if (token) {
