@@ -83,7 +83,7 @@ const Login = () => {
                 trigger({
                   userId: values.username,
                   password: values.password,
-                  url: isLocalRuntime ? "wbt24.com" : hostname,
+                  url: "antpro.co",
                 });
               }}
             >
