@@ -126,7 +126,7 @@ const Login_New = () => {
       /^10\./.test(hostname) ||
       /^192\.168\./.test(hostname) ||
       /^172\.(1[6-9]|2\d|3[0-1])\./.test(hostname);
-    const loginUrl = isLocalRuntime ? "wbt24.com" : hostname;
+    const loginUrl = "antpro.co";
 
     try {
       await trigger({
