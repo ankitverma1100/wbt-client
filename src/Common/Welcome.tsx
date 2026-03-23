@@ -76,7 +76,7 @@ const Welcome = ({ handleClose }: Props) => {
 
           {/* Header */}
           <div className="ant-modal-header">
-            <div className="ant-modal-title">WBT99.CO Games Rules</div>
+            <div className="ant-modal-title">GLOBAL99 Games Rules</div>
           <button
             type="button"
             aria-label="Close"
