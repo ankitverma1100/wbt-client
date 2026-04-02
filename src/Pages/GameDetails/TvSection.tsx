@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
 import { useGetChIdsQuery } from "../../store/service/tvServices";
-import { useGetTvScoreDataQuery } from "../../store/service/userServices/userServices";
 import { useGetMyIpQuery } from "../../store/service/odds/oddsServices";
 import { useEffect, useState } from "react";
 
@@ -13,10 +12,6 @@ const TvSection = ({ showFull, showTv }: Props) => {
   const [loadingTv, setLoadingTv] = useState(false);
   const [tvUrl, setTvUrl] = useState<string>("");
   const { id } = useParams();
-
-  const { data: tvScoreData } = useGetTvScoreDataQuery({
-    matchId: id ?? "",
-  });
   const { data: chids } = useGetChIdsQuery({
     matchId: id ?? "",
   });
@@ -24,6 +19,7 @@ const TvSection = ({ showFull, showTv }: Props) => {
   const { data: userIp } = useGetMyIpQuery({});
 
   const channelId = chids?.data?.channelId;
+  const scoreUrl = id ? `https://score.247idhub.com/score/${id}` : "";
 
   const fetchTvStream = async () => {
     if (!channelId) return;
@@ -106,15 +102,14 @@ const TvSection = ({ showFull, showTv }: Props) => {
         //   )}
         // </>
       )}
-      {/* {isAntPro ? (
-        <Score showFull={showFull} />
-      ) : ( */}
-      <iframe
-        src={tvScoreData?.data?.scoreUrl}
-        id="score_fs"
-        className={showFull ? "fs_match_size_full" : "fs_match_size"}
-      />
-      {/* )} */}
+      {scoreUrl ? (
+        <iframe
+          src={scoreUrl}
+          id="score_fs"
+          title="match-scorecard"
+          className={showFull ? "fs_match_size_full" : "fs_match_size"}
+        />
+      ) : null}
     </>
   );
 };
