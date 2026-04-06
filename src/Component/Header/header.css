@@ -1,8 +1,8 @@
 
 :root{
-   --primary-color: #1571cd !important;
-   --secondary-color: #1571cd !important;
-   --model-header: #1f5058 !important;
+   --primary-color: #78152B !important;
+   --secondary-color: #78152B !important;
+   --model-header: #78152B !important;
 }
 
 .header_wrapper{
@@ -15,7 +15,7 @@
 .header_wrapper .main-nav{
     
     padding: 0px 20px;
-    background: linear-gradient(var(--primary-color) 0, #000 100%);
+    background: linear-gradient(to right, #8C002B, #C2003B);
     color: white;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 10px;
     /* position: fixed; */
@@ -24,4 +24,15 @@
     right: 0px;
     z-index: 1000;
     width: auto;
+}
+
+.humburger-icon {
+    opacity: 0.85;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+
+.humburger-icon:hover {
+    opacity: 1;
+    transform: scale(1.1);
 }

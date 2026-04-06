@@ -58,6 +58,7 @@
 
   &:hover {
     transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(140, 0, 43, 0.35);
 
     img {
       transform: scale(1.1);

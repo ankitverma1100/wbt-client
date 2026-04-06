@@ -407,8 +407,8 @@ body.modal-open {
 .btn-primary {
   background: linear-gradient(
     -180deg,
-    rgb(10, 146, 165) 0%,
-    rgb(8, 121, 137) 82%
+    rgb(140, 0, 43) 0%,
+    rgb(194, 0, 59) 82%
   ) !important;
   border: none !important;
   padding: 2px 8px !important;
@@ -416,7 +416,7 @@ body.modal-open {
   margin: 5px;
 }
 .border {
-  border: 1px solid #3d8282 !important;
+  border: 1px solid #78152B !important;
 }
 @keyframes blinking {
   0% {
@@ -460,7 +460,7 @@ body.modal-open {
 }
 
 .other-matchrow h6 {
-  color: #2789ce;
+  color: #78152B;
   font-size: 13px;
   margin-bottom: 2px;
 }
@@ -501,7 +501,7 @@ body.modal-open {
   border-radius: 50px;
   border: none;
   outline: none;
-  background-color: #61acde;
+  background-color: #78152B;
   color: #fff !important;
 }
 

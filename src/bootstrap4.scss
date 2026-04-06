@@ -509,8 +509,8 @@ h1 .btn-secondary {
 }
 
 .chips_section {
-  padding: 0 4px;
-  background: rgb(255, 255, 255);
+  padding: 0 12px;
+  background: #1a1a1a;
   text-align: center;
   font-size: 13px;
   display: flex;
@@ -518,12 +518,9 @@ h1 .btn-secondary {
   gap: 20px;
   align-items: center;
   z-index: 999;
-  background: rgb(255, 206, 2);
-  color: rgb(0, 0, 0);
+  color: #fff;
   width: 100%;
-  
-
- 
+  height: 32px;
 
   .chips-value {
     font-size: 11px;
@@ -532,6 +529,7 @@ h1 .btn-secondary {
     gap: 4px;
     font-weight: 700;
     position: relative;
+    letter-spacing: 0.3px;
     &:nth-child(1){
        &:after {
     content: '';
@@ -540,10 +538,9 @@ h1 .btn-secondary {
     margin: auto;
     top: 0;
     bottom: 0;
-    height: 20px;
-    background: #fadf71;
+    height: 16px;
+    background: rgba(255,255,255,0.25);
     width: 1px;
-
   }
     }
   }
@@ -555,28 +552,33 @@ h1 .btn-secondary {
   }
 
   .bet-btn {
-    font-size: 11px;
-    height: 29px;
-    padding: 0px 15px;
-    border-radius: 6px;
+    font-size: 10px;
+    height: 22px;
+    padding: 0px 10px;
+    border-radius: 20px;
     outline: none;
     position: relative;
     display: inline-flex;
     gap: 8px;
     align-items: center;
     justify-content: center;
-    font-weight: 400;
+    font-weight: 700;
     white-space: nowrap;
     text-align: center;
     background-image: none;
-    background: transparent;
-    border: 1px solid transparent;
+    background: #B8860B;
+    border: none;
     cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: background 0.2s ease;
     user-select: none;
     touch-action: manipulation;
-    border-color: #d9d9d9;
-    background: #ffffff;
+    color: #fff;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+
+    &:hover {
+      background: #a07608;
+    }
 
     span {
       animation: blink 1s linear infinite;
@@ -624,21 +626,47 @@ h1 .btn-secondary {
 .profile-header-details {
   font-weight: 600;
   margin-left: 10px;
+  cursor: pointer;
 
   div {
     font-weight: 600;
   }
+
+  .user-name {
+    font-size: 13px;
+    letter-spacing: 0.3px;
+    color: #fff;
+    opacity: 0.92;
+    transition: opacity 0.2s ease;
+    &:hover { opacity: 1; }
+  }
 }
 
 .logo-img {
-  height: 40px;
+  height: 50px;
+  width: 120px;
+  object-fit: contain;
   margin-right: 10px;
+  margin-left: -20px;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.3));
+  transform: scale(2.1);
+  transform-origin: left center;
+}
+
+@media only screen and (min-width: 992px) {
+  .logo-img {
+    height: 38px;
+    width: 90px;
+    transform: scale(1.2);
+  }
 }
 
 @media only screen and (max-width: 600px) {
   .logo-img {
     height: 30px;
     margin-right: 14px;
+    transform: scale(1.35);
+    transform-origin: left center;
   }
 
   .profile-header-details .user-name {
@@ -951,7 +979,7 @@ img {
   display: block;
   font-size: 0.8em;
   padding: 8px 10px;
-  border-top: 1px solid #52b5e1;
+  border-top: 1px solid #78152B;
   text-transform: uppercase;
   color: #24476c;
 }
@@ -967,7 +995,7 @@ img {
   font-size: 13px;
   color: #fff;
   font-weight: bold;
-  background: #52b5e1;
+  background: #78152B;
 }
 
 .nav li a:hover,
@@ -1656,7 +1684,7 @@ img {
 
 .list_products li a {
   display: block;
-  border-left: 1px solid #52b5e1;
+  border-left: 1px solid #78152B;
   padding: 3px 0;
 }
 
@@ -4010,7 +4038,7 @@ img {
   font-size: 24px;
   text-align: center;
   /*color:#CCFFFF;*/
-  color: #2486b2;
+  color: #78152B;
   width: 35px;
   font-weight: bolder;
   background-color: transparent;
@@ -4063,7 +4091,7 @@ img {
 }
 
 .AmountTime {
-  background: #2486b2;
+  background: #78152B;
   color: #fff;
   font-weight: bold;
   font-size: 18px;

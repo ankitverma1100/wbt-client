@@ -1,14 +1,15 @@
 :root {
-  --login-bg: linear-gradient(#1f1f22 0, #fbb81e 100%);
-  --bg-color: #7d5c0e;
-  --btn-bg-color: #7d5c0e;
-  --header-bg: #7d5c0e;
-  --loginbtn: rgb(42, 40, 39);
-  --loginbtn-color: rgb(255, 255, 255);
+  --login-bg: linear-gradient(135deg, #1a0008 0%, #5c001a 30%, #8C002B 60%, #C2003B 85%, #3d0010 100%);
+  --bg-color: #78152B;
+  --btn-bg-color: #B8860B;
+  --header-bg: linear-gradient(to right, #8C002B, #C2003B);
+  --sidebar-bg: linear-gradient(to bottom, #8C002B, #C2003B);
+  --loginbtn: #B8860B;
+  --loginbtn-color: #ffffff;
   --footer-text-color: #000;
-  --primary-color: #1571cd !important;
-  --secondary-color: #1571cd !important;
-  --model-header: #1f5058 !important;
+  --primary-color: #78152B !important;
+  --secondary-color: #78152B !important;
+  --model-header: #78152B !important;
   --yes-color: #60adec;
   --no-color: #fa9fad;
 }
@@ -111,11 +112,11 @@ a:hover {
   min-width: 160px;
   height: 42px;
   border-radius: 21px;
-  background: #4b778d;
-  background: -webkit-linear-gradient(left, #4b778d, #28b5b5, #8fd9a8);
-  background: -o-linear-gradient(left, #4b778d, #28b5b5, #8fd9a8);
-  background: -moz-linear-gradient(left, #4b778d, #28b5b5, #8fd9a8);
-  background: linear-gradient(left, #4b778d, #28b5b5, #8fd9a8);
+  background: #B8860B;
+  background: -webkit-linear-gradient(to right, #8C002B, #C2003B);
+  background: -o-linear-gradient(to right, #8C002B, #C2003B);
+  background: -moz-linear-gradient(to right, #8C002B, #C2003B);
+  background: linear-gradient(to right, #8C002B, #C2003B);
   position: relative;
   z-index: 1;
   -webkit-transition: all 0.4s;
@@ -205,11 +206,11 @@ a:hover {
 }
 
 .vrx-switch input:checked+.slider {
-  background-color: #2196f3;
+  background-color: #78152B;
 }
 
 .vrx-switch input:focus+.slider {
-  box-shadow: 0 0 1px #2196f3;
+  box-shadow: 0 0 1px #78152B;
 }
 
 .vrx-switch input:checked+.slider:before {
@@ -233,7 +234,7 @@ a:hover {
 
 .call-child {
   cursor: pointer;
-  color: #0093ff;
+  color: #78152B;
 }
 
 .marquee {
@@ -270,7 +271,7 @@ a:hover {
 }
 
 .main-bg {
-  background: #52b5e1;
+  background: #78152B;
 }
 
 .wrap {
@@ -280,7 +281,7 @@ a:hover {
 
 .skills {
   padding: 1px;
-  background: #52b5e1;
+  background: #78152B;
 }
 
 .drag_drop {
@@ -485,7 +486,7 @@ ul.card-col li a {
 
 .body-top-bar {
   border: none;
-  background-color: #4b778d;
+  background-color: #78152B;
   padding: 5px 0;
 }
 
@@ -544,17 +545,21 @@ ul.card-col li a {
 
 .back-main-menu a {
   text-decoration: none;
-  border: 1px solid var(--bg-color);
+  border: none;
   font-size: 13px;
   color: #fff !important;
   font-weight: 700;
   background: var(--bg-color);
-  padding: 6px 10px;
+  padding: 8px 10px;
   display: block;
   text-align: center;
+  border-radius: 6px;
+  transition: opacity 0.2s ease;
+  letter-spacing: 0.3px;
 }
 
 .back-main-menu a:hover {
+  opacity: 0.88;
   background: var(--bg-color);
   color: #fff;
 }
@@ -563,8 +568,15 @@ ul.card-col li a {
   display: inline-block;
   width: 100%;
   background: #fff;
-  border-radius: 7px 7px 0 0;
-  box-shadow: 0 0 2px rgb(0 0 0/20%);
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  overflow: hidden;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+    transform: translateY(-1px);
+  }
 }
 
 .single-match a {
@@ -602,7 +614,7 @@ ul.card-col li a {
 .nav li a:hover,
 .nav li.active_rate a {
   color: #fff !important;
-  background: #007580;
+  background: #78152B;
 }
 
 .active_rate {
@@ -867,7 +879,7 @@ ul.card-col li a {
 }
 
 .amount_time {
-  background: #2486b2;
+  background: #78152B;
   color: #fff;
   font-weight: 700;
   font-size: 18px;
@@ -981,15 +993,15 @@ em {
   }
 
   .stack_button_pl {
-    background-color: rgb(125 92 14);
+    background-color: #B8860B;
     width: 100%;
     border-radius: 20px;
     color: #fff;
     outline: unset !important;
 
     &:hover {
-      background-color: rgb(125 92 14) !important;
-      border-color: rgb(125 92 14) !important;
+      background-color: #a07608 !important;
+      border-color: #a07608 !important;
       color: #fff !important;
     }
   }

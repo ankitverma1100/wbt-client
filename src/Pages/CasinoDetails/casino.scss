@@ -301,7 +301,7 @@
 }
 
 .casino-head-row {
-  background: linear-gradient(var(--primary-color) 0, #000 100%);
+  background: linear-gradient(to right, #8C002B, #C2003B);
   border-bottom: 2px solid #5d3a0f;
   padding: 6px 12px;
   min-height: 32px;
@@ -762,8 +762,11 @@
     vertical-align: middle;
     unicode-bidi: isolate;
     border-color: inherit;
+    tr {
+      background: linear-gradient(to right, #8C002B, #C2003B);
+    }
     tr > th {
-      background: var(--bg-color);
+      background: transparent;
       color: #fff;
       border-radius: 0 !important;
     }

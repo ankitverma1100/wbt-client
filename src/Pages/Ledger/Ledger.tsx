@@ -83,13 +83,13 @@ const Ledger = () => {
                 <div className="ledger-table-scroll">
                     <table className="ledger-table">
                         {/* ===== EQUAL COLUMN WIDTH SETUP (SAME AS STATEMENT) ===== */}
+                        {/* DESCRIPTION | WON BY | WIN | LOSS | HISAAB */}
                         <colgroup>
-                            <col className="ledger-big-th" />   {/* DESCRIPTION */}
-                            <col className="ledger-big-th" />   {/* WON BY */}
-
-                            <col className="ledger-small-th" /> {/* WIN */}
-                            <col className="ledger-small-th" /> {/* LOSS */}
-                            <col className="ledger-small-th" /> {/* HISAAB */}
+                            <col className="ledger-big-th" />
+                            <col className="ledger-big-th" />
+                            <col className="ledger-small-th" />
+                            <col className="ledger-small-th" />
+                            <col className="ledger-small-th" />
                         </colgroup>
 
                         <thead>

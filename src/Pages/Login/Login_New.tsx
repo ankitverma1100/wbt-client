@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./style.scss";
+import logoRolex from "../../assets/logo-rolex.png";
+import logoRolexGolden from "../../assets/rolex-logo-golden.png";
 import { useDemoLoginMutation, useLoginMutation } from "../../store/service/authService";
-import { isAntPro } from "../CasinoDetails/Constant";
 import { toast } from "react-toastify";
 
 /* ================= SVG ICONS ================= */
@@ -224,7 +225,7 @@ const Login_New = () => {
 
           <div className="login-header">
             <img
-              src={isAntPro ? "/img/wbt-logo.png" : "/img/logo12.png"}
+              src={logoRolexGolden}
               alt="Logo"
               className="login-logo"
             />

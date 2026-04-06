@@ -7,7 +7,7 @@ const SectionHeader = ({ title }: { title: string }) => (
           align="center"
           className="TeamCombo"
           style={{
-            background: "linear-gradient(var(--primary-color) 0, #000 100%)",
+            background: "linear-gradient(to right, #8C002B, #C2003B)",
           }}
         >
           <p

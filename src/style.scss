@@ -1,11 +1,9 @@
 
 body {
- 
-  background: #fafafa;
-    height: 100vh;
-    background: #fff;
-    background: url(/img/body-bg.jpeg) center center;
-    margin: 0;
+  background: #f0f2f5;
+  height: 100vh;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
 }
 * {
   -webkit-user-select: none;
@@ -417,8 +415,8 @@ a.article:hover {
   border-radius: 50%;
   padding: 2px 5px !important;
   margin: 1px !important;
-  background-color: #1a94dd !important;
-  border-color: #1a94dd !important;
+  background-color: #78152B !important;
+  border-color: #78152B !important;
   font-size: x-small;
 }
 

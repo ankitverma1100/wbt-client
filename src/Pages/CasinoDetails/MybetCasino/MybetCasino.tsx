@@ -70,7 +70,7 @@ const MybetCasino = () => {
                         cellPadding={20}
                         cellSpacing={2}>
                         <tbody>
-                          <tr>
+                          <tr style={{ background: "linear-gradient(to right, #8C002B, #C2003B)" }}>
                             <td
                               width="40%"
                               height={35}
@@ -82,7 +82,6 @@ const MybetCasino = () => {
                                 textAlign: "center",
                                 paddingRight: 5,
                                 color: "#fff",
-                                backgroundColor: "#2A363B",
                               }}>
                               Name
                             </td>
@@ -97,7 +96,6 @@ const MybetCasino = () => {
                                 textAlign: "center",
                                 paddingRight: 5,
                                 color: "#fff",
-                                backgroundColor: "#2A363B",
                               }}>
                               Odds
                             </td>
@@ -111,7 +109,6 @@ const MybetCasino = () => {
                                 textAlign: "center",
                                 paddingRight: 5,
                                 color: "#fff",
-                                backgroundColor: "#2A363B",
                               }}>
                               Stake
                             </td>
@@ -124,7 +121,6 @@ const MybetCasino = () => {
                                 verticalAlign: "middle",
                                 textAlign: "center",
                                 color: "#fff",
-                                backgroundColor: "#2A363B",
                               }}>
                               P/L
                             </td>

@@ -14,7 +14,7 @@
 
     // Common Header Style
     .tp-header {
-        background: linear-gradient(var(--primary-color) 0, #000 100%);
+        background: linear-gradient(to right, #8C002B, #C2003B);
         border-bottom: 2px solid #5d3a0f;
         padding: 0 12px;
         display: flex;
@@ -43,7 +43,7 @@
 
     // Main Betting Table Header
     .tp-main-header {
-        background: linear-gradient(var(--primary-color) 0, #000 100%);
+        background: linear-gradient(to right, #8C002B, #C2003B);
         height: 45px;
         display: flex;
         align-items: center;
@@ -235,7 +235,7 @@
         border-collapse: collapse;
 
         th {
-            background: linear-gradient(var(--primary-color) 0, #000 100%);
+            background: linear-gradient(to right, #8C002B, #C2003B);
             color: #fff;
             font-weight: 700;
             text-transform: uppercase;

@@ -12,14 +12,15 @@ type ExposureModalProps = {
 };
 
 const ExposureModal = ({ open, onClose, isLoading, bets = [] }: ExposureModalProps) => {
+  const safeBets = bets ?? [];
   const groupedBets = useMemo(() => {
-    return bets.reduce((acc: Record<string, any[]>, item: any) => {
+    return safeBets.reduce((acc: Record<string, any[]>, item: any) => {
       const key = item?.marketType || "Other";
       if (!acc[key]) acc[key] = [];
       acc[key].push(item);
       return acc;
     }, {});
-  }, [bets]);
+  }, [safeBets]);
 
   const marketTypes = useMemo(() => Object.keys(groupedBets), [groupedBets]);
   const casinoBets = groupedBets.Casino ?? [];

@@ -1,5 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import "./leftside.scss";
+import logoRolex from "../../assets/logo-rolex.png";
 import { useLogOutMutation } from "../../store/service/userServices/userServices";
 
 interface Props {
@@ -88,7 +89,7 @@ const AppSidebar = ({ visible, onClose }: Props) => {
 
            <div className="menu-logo">
              <img
-              src="/img/wbt-logo.png"
+              src={logoRolex}
               alt="Logo"
             />
            </div>

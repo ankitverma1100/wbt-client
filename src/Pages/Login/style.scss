@@ -308,20 +308,30 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(var(--primary-color) 0, #000 100%);
+  background: linear-gradient(135deg, #1a0008 0%, #5c001a 30%, #8C002B 60%, #C2003B 85%, #3d0010 100%);
   padding: 20px;
 
   .ant-card {
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
-    background: linear-gradient(var(--primary-color) 0, #000 100%);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: #ffffff;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,255,255,0.08);
 
     &.login-card {
       width: 100%;
       max-width: 400px;
       padding: 20px;
+
+      /* Maroon accent bar at the top of card */
+      &::before {
+        content: "";
+        display: block;
+        height: 5px;
+        background: linear-gradient(to right, #8C002B, #C2003B, #B8860B);
+        margin: -20px -20px 20px -20px;
+        border-radius: 12px 12px 0 0;
+      }
     }
 
     .ant-card-body {
@@ -340,6 +350,8 @@
       height: auto;
       object-fit: contain;
       margin-bottom: 20px;
+      transform: scale(2.0);
+      transform-origin: center center;
     }
   }
 
@@ -384,12 +396,12 @@
     height: 38px;
 
     &:hover {
-      border-color: #1a73ff;
+      border-color: #78152B;
     }
 
     &:focus-within {
-      border-color: #1a73ff;
-      box-shadow: 0 0 0 2px rgba(26, 115, 255, 0.25);
+      border-color: #78152B;
+      box-shadow: 0 0 0 2px rgba(120, 21, 43, 0.2);
     }
 
     &.ant-input-status-error {
@@ -454,23 +466,22 @@
     }
 
     &.ant-btn-primary {
-      background: #1a73ff;
+      background: #B8860B;
       color: #fff;
       border: none;
 
       &:hover {
-        background: #0b5ed7;
-
+        background: #a07608;
       }
     }
 
     &.ant-btn-default {
-      background: #ffffff;
-      color: #333;
+      background: #78152B;
+      color: #fff;
       border: none;
 
       &:hover {
-        background: #f1f1f1;
+        background: #8C002B;
       }
     }
 
@@ -568,7 +579,7 @@
     color: #999;
 
     &:hover {
-      color: #1a73ff;
+      color: #78152B;
     }
   }
 

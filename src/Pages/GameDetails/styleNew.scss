@@ -10,7 +10,7 @@ $model-header: var(--model-header);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(var(--primary-color) 0, #000 100%);
+    background: linear-gradient(to right, #8C002B, #C2003B);
 
   }
 
@@ -64,7 +64,7 @@ $model-header: var(--model-header);
 
   /* ON state */
   .switch.active {
-    background: #1677ff;
+    background: #78152B;
   }
 
   /* move knob right */
@@ -93,16 +93,20 @@ $model-header: var(--model-header);
 }
 
 /* HEADER */
+/* Gradient on the tr so it flows as one band across all header cells */
+tr:has(.bm-head) {
+  background: linear-gradient(to right, #8C002B, #C2003B);
+}
+
 .bm-head {
   height: 42px;
-  background: linear-gradient(var(--primary-color) 0, #000 100%);
+  background: transparent;
   color: #fff;
   font-weight: 700;
   font-size: 14px;
 
   span {
     font-weight: 400;
-
   }
 }
 
@@ -125,8 +129,13 @@ $model-header: var(--model-header);
 
 /* ROW */
 .bm-row {
-  height: 60px;
-  border-bottom: 6px solid #eee;
+  height: 58px;
+  border-bottom: 5px solid #f0f0f0;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: rgba(0,0,0,0.025);
+  }
 }
 
 
@@ -282,12 +291,17 @@ $model-header: var(--model-header);
   }
 }
 
+/* Gradient on the tr so it flows as one continuous band across all header cells */
+tr:has(.theme-gradient-cell) {
+  background: linear-gradient(to right, #8C002B, #C2003B);
+}
+
 .theme-gradient-cell {
-  background: linear-gradient(var(--primary-color) 0, #000 100%);
+  background: transparent;
 }
 
 .theme-gradient-button {
-  background: linear-gradient(var(--primary-color) 0, #000 100%);
+  background: linear-gradient(to right, #8C002B, #C2003B);
   border: none;
   font-weight: bold;
   font-size: 16px;
@@ -305,7 +319,7 @@ $model-header: var(--model-header);
 }
 
 .theme-gradient-banner {
-  background: linear-gradient(var(--primary-color) 0, #000 100%);
+  background: linear-gradient(to right, #8C002B, #C2003B);
   padding: 10px;
   color: #fff;
   text-align: center;
@@ -313,7 +327,7 @@ $model-header: var(--model-header);
 }
 
 .theme-gradient-card {
-  background: linear-gradient(var(--primary-color) 0, #000 100%);
+  background: linear-gradient(to right, #8C002B, #C2003B);
 }
 
 .fancy-book-table {
@@ -321,14 +335,18 @@ $model-header: var(--model-header);
   background: #f5f5f5;
   width: 100%;
 
+  thead tr {
+    background: linear-gradient(to right, #8C002B, #C2003B);
+  }
+
   th {
-    background: linear-gradient(var(--primary-color) 0, #000 100%); /* match bm-head */
+    background: transparent;
     color: #fff;
     font-weight: 700;
     font-size: 12px;
     padding: 8px 10px;
     text-transform: uppercase;
-    border: 1px solid #3a3a3a;
+    border: 1px solid rgba(255,255,255,0.15);
   }
 
   td {
@@ -393,8 +411,9 @@ $model-header: var(--model-header);
   gap: 10px;
   padding: 10px 12px;
   background: #f6f7f9;
-  border-top: 1px solid #e2e2e2;
-  border-bottom: 1px solid #e2e2e2;
+  border-top: 1px solid #e8e8e8;
+  border-bottom: 1px solid #e8e8e8;
+  border-radius: 0 0 6px 6px;
 }
 
 .amount-selected-row {
@@ -463,11 +482,17 @@ $model-header: var(--model-header);
   height: 34px;
   padding: 6px 10px;
   border-radius: 6px;
-  border: 1px solid #b6c8ff;
+  border: 1px solid #d0d0d0;
   font-size: 16px;
   outline: none;
   background: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
   -moz-appearance: textfield;
+
+  &:focus {
+    border-color: #78152B;
+    box-shadow: 0 0 0 2px rgba(120, 21, 43, 0.12);
+  }
 }
 
 .amount-input::-webkit-outer-spin-button,
@@ -660,7 +685,7 @@ $model-header: var(--model-header);
     display: flex;
     align-items: center;
     gap: 8px;
-    color: #1677ff;
+    color: #78152B;
     font-weight: 400 !important;
     font-size: 14px;
     text-transform: uppercase;

@@ -320,7 +320,7 @@
 
 /* TOP OPEN BETS BAR */
 .open-bets-title {
-  background: linear-gradient(var(--primary-color) 0, #000 100%);
+  background: linear-gradient(to right, #8C002B, #C2003B);
   color: #fff;
   text-align: center;
   font-weight: 700;
@@ -341,7 +341,7 @@
 }
 
 .open-bets-table thead tr {
-  background: linear-gradient(var(--primary-color) 0, #000 100%);
+  background: linear-gradient(to right, #8C002B, #C2003B);
 }
 
 .open-bets-table th {

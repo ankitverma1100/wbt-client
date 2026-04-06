@@ -32,9 +32,10 @@
   .ant-modal-content {
     position: relative;
     background: #ffffff;
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
     border: none !important;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.18), 0 4px 16px rgba(0,0,0,0.1);
   }
 
   /* Header */
@@ -44,7 +45,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-radius: 8px 8px 0 0;
+    border-radius: 12px 12px 0 0;
 
     .ant-modal-title {
       color: #ffffff;
@@ -188,7 +189,7 @@
     height: 40px;
     border-radius: 6px;
     border: none;
-    background: #1677ff;
+    background: #B8860B;
     color: #ffffff;
     font-size: 15px;
     font-weight: 500;
@@ -196,7 +197,7 @@
     transition: .3s ease-in-out;
 
     &:hover {
-         background: #4096ff;
+         background: #a07608;
     }
   }
 

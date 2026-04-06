@@ -1,5 +1,5 @@
-import { isAntPro } from "../../Pages/CasinoDetails/Constant";
 import { useLogOutMutation } from "../../store/service/userServices/userServices";
+import logoRolex from "../../assets/logo-rolex.png";
 import Balance from "../../Common/Balance";
 
 import "./header.css";
@@ -42,13 +42,7 @@ const Header = ({ onClose, userBalance }: Props) => {
                         <div className="d-flex">
                             <Link to="/main/dashboard">
                                 <img
-                                    src={
-                                        isAntPro
-                                            ? "/img/wbt-logo.png"
-                                            : hostname.includes("mumbaiexchange9")
-                                                ? "/img/mum-img.png"
-                                                : "/img/logo12.png"
-                                    }
+                                    src={logoRolex}
                                     className="logo-img"
                                 />
                             </Link>

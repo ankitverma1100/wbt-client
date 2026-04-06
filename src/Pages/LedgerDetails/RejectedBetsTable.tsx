@@ -37,7 +37,7 @@ const RejectedBetsTable = ({ rejectedBets }: { rejectedBets: any[] }) => (
                               paddingRight: 5,
                               color: "#fff",
                               background:
-                                "linear-gradient(var(--primary-color) 0, #000 100%)",
+                                "linear-gradient(to right, #8C002B, #C2003B)",
                             }}
                           >
                             Runner
@@ -53,7 +53,7 @@ const RejectedBetsTable = ({ rejectedBets }: { rejectedBets: any[] }) => (
                               paddingRight: 5,
                               color: "#fff",
                               background:
-                                "linear-gradient(var(--primary-color) 0, #000 100%)",
+                                "linear-gradient(to right, #8C002B, #C2003B)",
                             }}
                           >
                             Date &amp; Time
@@ -68,7 +68,7 @@ const RejectedBetsTable = ({ rejectedBets }: { rejectedBets: any[] }) => (
                               textAlign: "center",
                               color: "#fff",
                               background:
-                                "linear-gradient(var(--primary-color) 0, #000 100%)",
+                                "linear-gradient(to right, #8C002B, #C2003B)",
                             }}
                           >
                             Rate
@@ -83,7 +83,7 @@ const RejectedBetsTable = ({ rejectedBets }: { rejectedBets: any[] }) => (
                               textAlign: "center",
                               color: "#fff",
                               background:
-                                "linear-gradient(var(--primary-color) 0, #000 100%)",
+                                "linear-gradient(to right, #8C002B, #C2003B)",
                             }}
                           >
                             Volume
@@ -98,7 +98,7 @@ const RejectedBetsTable = ({ rejectedBets }: { rejectedBets: any[] }) => (
                               textAlign: "center",
                               color: "#fff",
                               background:
-                                "linear-gradient(var(--primary-color) 0, #000 100%)",
+                                "linear-gradient(to right, #8C002B, #C2003B)",
                             }}
                           >
                             Result
@@ -113,7 +113,7 @@ const RejectedBetsTable = ({ rejectedBets }: { rejectedBets: any[] }) => (
                               textAlign: "center",
                               color: "#fff",
                               background:
-                                "linear-gradient(var(--primary-color) 0, #000 100%)",
+                                "linear-gradient(to right, #8C002B, #C2003B)",
                             }}
                           >
                             Amount
@@ -128,7 +128,7 @@ const RejectedBetsTable = ({ rejectedBets }: { rejectedBets: any[] }) => (
                               textAlign: "center",
                               color: "#fff",
                               background:
-                                "linear-gradient(var(--primary-color) 0, #000 100%)",
+                                "linear-gradient(to right, #8C002B, #C2003B)",
                             }}
                           >
                             Mode
@@ -143,7 +143,7 @@ const RejectedBetsTable = ({ rejectedBets }: { rejectedBets: any[] }) => (
                               textAlign: "center",
                               color: "#fff",
                               background:
-                                "linear-gradient(var(--primary-color) 0, #000 100%)",
+                                "linear-gradient(to right, #8C002B, #C2003B)",
                             }}
                           >
                             P&L

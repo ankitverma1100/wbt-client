@@ -45,7 +45,7 @@ const MatchBetsTable = ({
                               paddingRight: 5,
                               color: "#fff",
                               background:
-                                "linear-gradient(var(--primary-color) 0, #000 100%)",
+                                "linear-gradient(to right, #8C002B, #C2003B)",
                             }}
                           >
                             Runner
@@ -61,7 +61,7 @@ const MatchBetsTable = ({
                               paddingRight: 5,
                               color: "#fff",
                               background:
-                                "linear-gradient(var(--primary-color) 0, #000 100%)",
+                                "linear-gradient(to right, #8C002B, #C2003B)",
                             }}
                           >
                             Date &amp; Time
@@ -76,7 +76,7 @@ const MatchBetsTable = ({
                               textAlign: "center",
                               color: "#fff",
                               background:
-                                "linear-gradient(var(--primary-color) 0, #000 100%)",
+                                "linear-gradient(to right, #8C002B, #C2003B)",
                             }}
                           >
                             Rate
@@ -92,7 +92,7 @@ const MatchBetsTable = ({
                               paddingRight: 5,
                               color: "#fff",
                               background:
-                                "linear-gradient(var(--primary-color) 0, #000 100%)",
+                                "linear-gradient(to right, #8C002B, #C2003B)",
                             }}
                           >
                             Result
@@ -107,7 +107,7 @@ const MatchBetsTable = ({
                               textAlign: "center",
                               color: "#fff",
                               background:
-                                "linear-gradient(var(--primary-color) 0, #000 100%)",
+                                "linear-gradient(to right, #8C002B, #C2003B)",
                             }}
                           >
                             Amount
@@ -122,7 +122,7 @@ const MatchBetsTable = ({
                               textAlign: "center",
                               color: "#fff",
                               background:
-                                "linear-gradient(var(--primary-color) 0, #000 100%)",
+                                "linear-gradient(to right, #8C002B, #C2003B)",
                             }}
                           >
                             Mode
@@ -137,7 +137,7 @@ const MatchBetsTable = ({
                               textAlign: "center",
                               color: "#fff",
                               background:
-                                "linear-gradient(var(--primary-color) 0, #000 100%)",
+                                "linear-gradient(to right, #8C002B, #C2003B)",
                             }}
                           >
                             P&amp;L
