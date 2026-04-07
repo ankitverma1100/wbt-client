@@ -238,10 +238,12 @@ const GameDetails = () => {
                     onLimitsUpdate={handleLimitsUpdate}
                 />
             ) : null}
-            <Marquee speed={50} style={{minHeight: 30, color: "red", fontWeight: 900}}>
-                {oddsData?.Bookmaker?.[0]?.display_message !== "null" &&
-                    oddsData?.Bookmaker?.[0]?.display_message}
-            </Marquee>
+            {oddsData?.Bookmaker?.[0]?.display_message &&
+                oddsData?.Bookmaker?.[0]?.display_message !== "null" && (
+                <Marquee speed={50} style={{minHeight: 30, color: "red", fontWeight: 900}}>
+                    {oddsData.Bookmaker[0].display_message}
+                </Marquee>
+            )}
 
             {/* HEADER */}
             <div className="gradient-wrap tv-header">
