@@ -78,7 +78,8 @@ const CasinoBetModal = ({
   const handleBetPlaced = async () => {
     if (!betState?.stake || Number(betState?.stake) < 100) {
       toast.error(
-        "Amount can not be less than casino Min Amount 100 in casino"
+        "Amount can not be less than casino Min Amount 100 in casino",
+        { toastId: "casino-min-amount" }
       );
       return;
     }
@@ -105,11 +106,11 @@ const CasinoBetModal = ({
     }).unwrap();
 
     if (res?.status) {
-      toast.success("Bet placed successfully");
+      toast.success("Bet placed successfully", { toastId: "bet-success" });
       setBetState({});
       setIsBetModal(false);
     } else {
-      toast.error(res?.message || "Bet placing failed, try again!");
+      toast.error(res?.message || "Bet placing failed, try again!", { toastId: res?.message || "bet-placing-failed" });
       startTimer();
     }
   };

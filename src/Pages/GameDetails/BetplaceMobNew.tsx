@@ -55,14 +55,14 @@ const BetplaceMobNew = ({
 
   const handleBetPlaced = async () => {
     if (!placeBetData?.stake) {
-      toast.error("Amount is required.");
+      toast.error("Amount is required.", { toastId: "amount-required" });
       return;
     }
 
     try {
       await trigger(placeBetData); // agar ye fail hota hai to catch chalega
     } catch (error) {
-      toast.error("Bet placing failed, try again!");
+      toast.error("Bet placing failed, try again!", { toastId: "bet-placing-failed" });
     }
   };
 
@@ -159,8 +159,9 @@ const BetplaceMobNew = ({
             <button
               className="place-bet-btn"
               onClick={() => !isLoading && handleBetPlaced()}
+              disabled={isLoading}
             >
-              Place Bet
+              {isLoading ? "Placing..." : "Place Bet"}
             </button>
           </div>
 

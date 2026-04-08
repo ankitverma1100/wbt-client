@@ -190,9 +190,8 @@ export default function MatkaDetails() {
   };
 
   const showToastOnce = (type: "success" | "error", message: string) => {
-    const toastId = `matka-bet-${type}`;
-    if (toast.isActive(toastId)) return;
-    toast[type](message, { toastId });
+    if (toast.isActive(message)) return;
+    toast[type](message, { toastId: message });
   };
 
   const handlePlaceBet = async (stake: number) => {

@@ -42,7 +42,8 @@ const CasinoBet = ({
   const handleCasinoBetPlaced = () => {
     if (!betState?.stake || betState?.stake < 100) {
       toast.error(
-        "Amount can not be less than casino Min Amount 100 in casino"
+        "Amount can not be less than casino Min Amount 100 in casino",
+        { toastId: "casino-min-amount" }
       );
       return;
     }
@@ -67,7 +68,7 @@ const CasinoBet = ({
   useEffect(() => {
     if (data) {
       if (!data?.status) {
-        toast.error(data?.message);
+        toast.error(data?.message, { toastId: data?.message || "casino-bet-error" });
         setBetState((prev: any) => ({
           ...prev,
           stake: "",
@@ -78,7 +79,7 @@ const CasinoBet = ({
           stake: "",
         }));
 
-        toast.success(data?.message);
+        toast.success(data?.message, { toastId: data?.message || "casino-bet-success" });
         setOpen(false);
       }
     }

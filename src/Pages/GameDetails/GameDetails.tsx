@@ -217,7 +217,7 @@ const GameDetails = () => {
 
     const submitFromAmountBar = async () => {
         if (!placeBetData?.stake || Number(placeBetData?.stake) <= 0) {
-            toast.error("Enter a valid amount.");
+            toast.error("Enter a valid amount.", { toastId: "enter-valid-amount" });
             focusAmountInput();
             return;
         }
@@ -225,7 +225,7 @@ const GameDetails = () => {
         try {
             await trigger(placeBetData);
         } catch (error) {
-            toast.error("Bet placing failed, try again!");
+            toast.error("Bet placing failed, try again!", { toastId: "bet-placing-failed" });
         }
     };
 
@@ -333,7 +333,7 @@ const GameDetails = () => {
 
                         <div className="amount-multiplier">{timer > 0 ? timer : 0}</div>
 
-                        <button className="amount-done" onClick={submitFromAmountBar}>DONE</button>
+                        <button className="amount-done" onClick={submitFromAmountBar} disabled={isLoading}>DONE</button>
                     </div>
 
                 )}

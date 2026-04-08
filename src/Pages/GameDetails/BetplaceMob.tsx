@@ -381,6 +381,7 @@ const BetplaceMob = ({
               {" "}
               <Button
                 className="submit_button"
+                disabled={isLoading}
                 onClick={() => {
                   if (!isLoading) {
                     handleBetPlaced();
