@@ -1,7 +1,4 @@
 import { useParams } from "react-router-dom";
-import { useGetChIdsQuery } from "../../store/service/tvServices";
-import { useGetMyIpQuery } from "../../store/service/odds/oddsServices";
-import { useEffect, useState } from "react";
 
 interface Props {
   showFull: boolean;
@@ -9,52 +6,8 @@ interface Props {
 }
 
 const TvSection = ({ showFull, showTv }: Props) => {
-  const [loadingTv, setLoadingTv] = useState(false);
-  const [tvUrl, setTvUrl] = useState<string>("");
   const { id } = useParams();
-  const { data: chids } = useGetChIdsQuery({
-    matchId: id ?? "",
-  });
-
-  const { data: userIp } = useGetMyIpQuery({});
-
-  const channelId = chids?.data?.channelId;
   const scoreUrl = id ? `https://score.247idhub.com/score/${id}` : "";
-
-  const fetchTvStream = async () => {
-    if (!channelId) return;
-    setLoadingTv(true);
-
-    try {
-      const response = await fetch("https://api2.dbm9.com/api/tv-stream", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          channel: channelId,
-          ipv4: userIp?.ip ?? "",
-        }),
-      });
-
-      const result = await response.json();
-      console.log("TV Stream API:", result);
-
-      if (result.status === 1 && typeof result.data === "string") {
-        const match = result.data.match(/src=['"]([^'"]+)['"]/);
-        const srcUrl = match ? match[1] : null;
-        setTvUrl(srcUrl);
-      } else {
-        console.error("Stream not found");
-      }
-    } catch (error) {
-      console.error("TV Stream Error:", error);
-    } finally {
-      setLoadingTv(false);
-    }
-  };
-
-  useEffect(() => {
-    if (showTv) fetchTvStream();
-  }, [showTv, channelId, userIp]);
 
   return (
     <>
@@ -68,7 +21,7 @@ const TvSection = ({ showFull, showTv }: Props) => {
           style={{
             marginBottom: "-9px",
           }}
-          src={tvUrl}
+          src={`${import.meta.env.VITE_TV_URL}/${id}`}
         />
         // <>
         //   {loadingTv ? (
