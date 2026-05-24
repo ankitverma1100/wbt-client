@@ -7,7 +7,7 @@ interface Props {
 
 const TvSection = ({ showFull, showTv }: Props) => {
   const { id } = useParams();
-  const scoreUrl = id ? `https://score.247idhub.com/score/${id}` : "";
+  const scoreUrl = id ? `https://admin.khelo7.com/socket-iframe-5/crickexpo/${id}` : "";
 
   return (
     <>
