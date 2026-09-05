@@ -90,10 +90,12 @@ export const userList = createApi({
       }),
     }),
     userMessage: build.mutation<LogOutRes, void>({
-      query: (body) => ({
+      query: () => ({
         url: "/message/get-message",
         method: "POST",
-        body,
+        body: {
+          panelName: window.location.hostname.split(".").slice(-2).join("."),
+        },
       }),
     }),
     betPlaced: build.mutation<BetPlacedRes, BetplacedReq>({
@@ -316,7 +318,10 @@ export const userList = createApi({
         return {
           url: `/message/get-message`,
           method: "POST",
-          body,
+          body: {
+            ...body,
+            panelName: window.location.hostname.split(".").slice(-2).join("."),
+          },
         };
       },
     }),
