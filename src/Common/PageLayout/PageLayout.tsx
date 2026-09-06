@@ -1,8 +1,8 @@
 import { Outlet } from "react-router-dom";
 import Header from "../../Component/Header/Header";
-// import News from "../News";
+import News from "../News";
 import AppSidebar from "../../Component/LeftSide/AppSidebar";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useGetUserBalanceQuery } from "../../store/service/userServices/userServices";
 // import Loder from "../Loder";
 // import Rule from "../../Pages/Rule/Rule";
@@ -22,6 +22,7 @@ const PageLayout = () => {
   return (
     <>
       <Header onClose={onClose} userBalance={userBalance?.data} />
+      <News />
       {/* <Rule /> */}
       <Outlet />
       <AppSidebar visible={visible} onClose={onClose} />

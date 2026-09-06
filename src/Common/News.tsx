@@ -1,14 +1,32 @@
 import Marquee from "react-fast-marquee";
+import { useGetMessageQuery } from "../store/service/userServices/userServices";
 
 const News = () => {
-  const host = window.location.hostname;
-  
+  const { data, isError } = useGetMessageQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+    pollingInterval: 60000,
+  });
+  const message = data?.data;
+
+  if (isError || data?.status === false || typeof message !== "string" || !message.trim()) {
+    return null;
+  }
+
   return (
-    <Marquee
-      style={{ minHeight: 28, fontSize: "14px" }}
-      className="gx-fx-xl gx-bg-grey gx-text-white gx-text-uppercase gx-font-weight-semi-bold gx-border gx-bg-flex gx-align-items-center">
-      Welcome to 🙏 ${host}.
-    </Marquee>
+    <div aria-label="Panel announcement" role="region">
+      <Marquee
+        speed={40}
+        pauseOnHover
+        style={{
+          minHeight: 28,
+          padding: "4px 0",
+          background: "#111",
+          color: "#fff",
+          fontSize: "14px",
+        }}>
+        {message}
+      </Marquee>
+    </div>
   );
 };
 
