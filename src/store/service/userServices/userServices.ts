@@ -5,6 +5,19 @@ import type {
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { dynamicBaseQuery } from "../dynamicBaseQuery";
 
+const getMessagePanelName = () => {
+  const hostname = window.location.hostname;
+  const isLocalRuntime =
+    hostname === "localhost" ||
+    hostname === "127.0.0.1" ||
+    hostname === "[::1]" ||
+    /^10\./.test(hostname) ||
+    /^192\.168\./.test(hostname) ||
+    /^172\.(1[6-9]|2\d|3[0-1])\./.test(hostname);
+
+  return isLocalRuntime ? "wbt24.com" : hostname.split(".").slice(-2).join(".");
+};
+
 export const userList = createApi({
   reducerPath: "userList",
   baseQuery: dynamicBaseQuery as BaseQueryFn<
@@ -94,7 +107,7 @@ export const userList = createApi({
         url: "/message/get-message",
         method: "POST",
         body: {
-          panelName: window.location.hostname.split(".").slice(-2).join("."),
+          panelName: getMessagePanelName(),
         },
       }),
     }),
@@ -320,7 +333,7 @@ export const userList = createApi({
           method: "POST",
           body: {
             ...body,
-            panelName: window.location.hostname.split(".").slice(-2).join("."),
+            panelName: getMessagePanelName(),
           },
         };
       },

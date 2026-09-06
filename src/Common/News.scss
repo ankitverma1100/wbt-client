@@ -1,0 +1,30 @@
+.panel-news-space {
+  height: 30px;
+}
+
+.panel-news {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  z-index: 998;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(var(--primary-color, #1571cd) 0%, #000 100%);
+  color: #fff;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.panel-news-scroll {
+  height: 100%;
+}
+
+.panel-news-text {
+  padding: 0 20px;
+}
